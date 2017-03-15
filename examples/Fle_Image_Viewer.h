@@ -33,31 +33,17 @@ If not, please contact Dr. Furqan Ullah immediately:
 
 using namespace R3D;
 
-class Fle_Image_Viewer;
-
-/************************************************************************/
-/* A class that creates a background box for image display with drag
-/* and drop support.
-/************************************************************************/
-class Fle_DND_ScrollBox : public Fle_ScrollBox
-{
-public:
-	Fle_DND_ScrollBox(Fle_Image_Viewer* _v, int _x, int _y, int _w, int _h, const char* _title = 0);
-
-protected:
-	virtual int handle(int _event) override;
-	Fle_Image_Viewer* p_viewer;
-};
-
 class Fle_Image_Viewer : public Fle_MainWindow
 {
 public:
 	// Description:
-	// Constructor to create a window with position, size, title, and icon.
+	// Constructor to create a window by specifying it's position, size, title.
+	// _icon_index is the id of the icon that you want to display on the title bar.
 	Fle_Image_Viewer(int _x, int _y, int _w, int _h, const char* _title = 0, int _icon_index = 101);
 	// Description:
-	// Constructor to create a window size, title, and icon.
+	// Constructor to create a window by specifying it's size and title.
 	// This constructor sets the position at the center of the screen/monitor.
+	// _icon_index is the id of the icon that you want to display on the title bar.
 	Fle_Image_Viewer(int _w, int _h, const char* _title = 0, int _icon_index = 101);
 	// Description:
 	// Destructor that destroys timer (if any) and other data.
@@ -128,7 +114,7 @@ protected:
 
 	// Description:
 	// data members.
-	Fle_DND_ScrollBox* p_scroll;
+	Fle_ScrollBox* p_scroll;
 	Fl_Input_Choice* p_drawtypemenu;
 	double m_sstime;
 

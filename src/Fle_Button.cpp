@@ -160,11 +160,10 @@ bool Fle_Button::loadIcons(Fl_RGB_Image* _icon_file_on, Fl_RGB_Image* _icon_file
 			p_off = nullptr;
 		}
 
+		Fl_Shared_Image::RGB_scaling(Fl_RGB_Scaling::FL_RGB_SCALING_BILINEAR);
+		Fl_Shared_Image::scaling_algorithm(Fl_RGB_Scaling::FL_RGB_SCALING_BILINEAR);
 		if (_icon_file_on)
 		{
-			Fl_Shared_Image::RGB_scaling(Fl_RGB_Scaling::FL_RGB_SCALING_BILINEAR);
-			Fl_Shared_Image::scaling_algorithm(Fl_RGB_Scaling::FL_RGB_SCALING_BILINEAR);
-
 			p_on = Fl_Shared_Image::get(_icon_file_on);
 			if (_icon_file_on->w() != _size.width || _icon_file_on->h() != _size.height)
 				p_on->scale(_size.width, _size.height, 1);
@@ -172,8 +171,6 @@ bool Fle_Button::loadIcons(Fl_RGB_Image* _icon_file_on, Fl_RGB_Image* _icon_file
 		}
 		if (_icon_file_off)
 		{
-			Fl_Shared_Image::RGB_scaling(Fl_RGB_Scaling::FL_RGB_SCALING_BILINEAR);
-			Fl_Shared_Image::scaling_algorithm(Fl_RGB_Scaling::FL_RGB_SCALING_BILINEAR);
 			p_off = Fl_Shared_Image::get(_icon_file_off);
 			if (_icon_file_off->w() != _size.width || _icon_file_off->h() != _size.height)
 				p_off->scale(_size.width, _size.height, 1);
@@ -271,8 +268,6 @@ void Fle_Button::draw(int _x, int _y, int _w, int _h)
 	{
 		int X = _x + (_w - p_on->w()) / 2;
 		int Y = _y + (_h - p_on->h()) / 2;
-		if (X < 0) X = 0;
-		if (Y < 0) Y = 0;
 
 		if (p_on && p_off)
 		{

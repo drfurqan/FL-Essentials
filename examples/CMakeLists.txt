@@ -9,28 +9,28 @@ ${OpenCV_INCLUDE_DIRS}
 include_directories(${INCLUDE_DIR})
 
 
-add_executable (hello_world hello_world.cpp)
+add_executable (hello_world 1-hello_world.cpp)
 target_link_libraries(hello_world LINK_PUBLIC 
 ${PROJECT_NAME} 
 ${FLTK_LIBRARY}
 ${OpenCV_LIBS}
 )
 
-add_executable (mainwindow_menubar mainwindow_menubar.cpp)
+add_executable (mainwindow_menubar 2-mainwindow_menubar.cpp)
 target_link_libraries(mainwindow_menubar LINK_PUBLIC 
 ${PROJECT_NAME} 
 ${FLTK_LIBRARY}
 ${OpenCV_LIBS}
 )
 
-add_executable (mainwindow_menubar_statusbar mainwindow_menubar_statusbar.cpp)
+add_executable (mainwindow_menubar_statusbar 3-mainwindow_menubar_statusbar.cpp)
 target_link_libraries(mainwindow_menubar_statusbar LINK_PUBLIC 
 ${PROJECT_NAME} 
 ${FLTK_LIBRARY}
 ${OpenCV_LIBS}
 )
 
-add_executable (demo demo.cpp)
+add_executable (demo 4-demo.cpp)
 target_link_libraries(demo LINK_PUBLIC 
 ${PROJECT_NAME} 
 ${FLTK_LIBRARY}

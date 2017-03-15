@@ -146,7 +146,7 @@ std::vector<std::string> Fle_ImageUtil::getDirectoryImageFiles(const std::string
 	std::vector<std::string> imgs = { "jpg", "jpeg", "jpe", "jp2", "png", "bmp", "tif", "tiff", "pgm", "pbm", "ppm", "ras", "sr" };
 
 	// cv::glob gives sorting file paths, so useless the following method that try not to sort
-	// the file paths, it removed all other file paths that are not OpenGL supported images.
+	// the file paths, it removed all other file paths that are not OpenCV supported images.
 	//std::vector<std::string> paths;
 	//paths.reserve(100);
 	//std::vector<std::string> files = getDirectoryFiles(_path, "*");

@@ -36,33 +36,44 @@ If not, please contact Dr. Furqan Ullah immediately:
 #include <algorithm>
 
 
-Fle_DND_ScrollBox::Fle_DND_ScrollBox(Fle_Image_Viewer* _v, int _x, int _y, int _w, int _h, const char* _title) :
-Fle_ScrollBox(_x, _y, _w, _h, _title),
-p_viewer(_v)
+/************************************************************************/
+/* A class that creates a background box for image display with drag
+/* and drop support.
+/************************************************************************/
+class Fle_DND_ScrollBox : public Fle_ScrollBox
 {
-}
-
-int Fle_DND_ScrollBox::handle(int _event)
-{
-	switch (_event)
+public:
+	Fle_DND_ScrollBox(Fle_Image_Viewer* _v, int _x, int _y, int _w, int _h, const char* _title = 0) :
+		Fle_ScrollBox(_x, _y, _w, _h, _title),
+		p_viewer(_v)
 	{
-		// events to 'accept' drag and drop.
-	case FL_DND_ENTER:
-	case FL_DND_DRAG:
-	case FL_DND_RELEASE:
-		return 1;
-		break;
-
-		// event when a user releases a file on this box.
-	case FL_PASTE:
-		std::string file = Fl::event_text();
-		p_viewer->loadImage(file);
-		return 1;
-		break;
 	}
 
-	return Fle_ScrollBox::handle(_event);
-}
+protected:
+	int Fle_DND_ScrollBox::handle(int _event)
+	{
+		switch (_event)
+		{
+			// events to 'accept' drag and drop.
+		case FL_DND_ENTER:
+		case FL_DND_DRAG:
+		case FL_DND_RELEASE:
+			return 1;
+			break;
+
+			// event when a user releases a file on this box.
+		case FL_PASTE:
+			std::string file = Fl::event_text();
+			p_viewer->loadImage(file);
+			return 1;
+			break;
+		}
+
+		return Fle_ScrollBox::handle(_event);
+	}
+
+	Fle_Image_Viewer* p_viewer;
+};
 
 /************************************************************************/
 /* A constructor that create a Image Viewer.
