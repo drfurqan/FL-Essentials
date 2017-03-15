@@ -143,7 +143,20 @@ std::vector<std::string> Fle_ImageUtil::getDirectoryFiles(const std::string& _pa
 }
 std::vector<std::string> Fle_ImageUtil::getDirectoryImageFiles(const std::string& _path)
 {
-	std::vector<std::string> imgs = { "jpg", "jpeg", "jpe", "jp2", "png", "bmp", "tif", "tiff", "pgm", "pbm", "ppm", "ras", "sr" };
+	std::vector<std::string> imgs = { 
+		"jpg", "JPG", 
+		"jpeg", "JPEG", 
+		"jpe", "JPE", 
+		"jp2", "JP2", 
+		"png", "PNG", 
+		"bmp", "BMP", 
+		"tif", "TIF", 
+		"tiff", "TIFF", 
+		"pgm", "PGM", 
+		"pbm", "PBM", 
+		"ppm", "PPM", 
+		"ras", "RAS", 
+		"sr", "SR" };
 
 	// cv::glob gives sorting file paths, so useless the following method that try not to sort
 	// the file paths, it removed all other file paths that are not OpenCV supported images.
