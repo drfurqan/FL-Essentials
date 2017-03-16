@@ -1,8 +1,7 @@
 # FL-Essentials
-===============
 FL-Essentials is a FLTK and OpenCV based software system which provides extreme easiness in image processing with FLTK GUI. It consists of C++ class library and gives parallel processing support. It makes FLTK functionality easier, faster, and lighter. It works fine as a static or shared library.
 
-# AUTHORS
+# AUTHOR
 Written by  Dr. Furqan Ullah.
 
 # REPORTING BUGS
