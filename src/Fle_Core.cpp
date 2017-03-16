@@ -28,6 +28,33 @@ If not, please contact Dr. Furqan Ullah immediately:
 
 using namespace R3D;
 
+int __update_system_colors(int _event) // WIN32 only, so far
+{
+#ifdef WIN32
+	DWORD color;
+	BYTE *pColor = (BYTE*)&color;
+
+	color = GetSysColor(COLOR_WINDOW);
+	Fl::background2(pColor[0], pColor[1], pColor[2]);
+
+	color = GetSysColor(COLOR_WINDOWTEXT);
+	Fl::foreground(pColor[0], pColor[1], pColor[2]);
+
+	color = GetSysColor(COLOR_BTNFACE);
+	Fl::background(pColor[0], pColor[1], pColor[2]);
+
+	color = GetSysColor(COLOR_HIGHLIGHT);
+	Fl::set_color(FL_SELECTION_COLOR, pColor[0], pColor[1], pColor[2]);
+#endif
+	return 1;
+}
+
+int __disable_escape_key(int _event)
+{
+	if (_event == FL_SHORTCUT && Fl::event_key(FL_Escape)) { return 1; }
+	return 0;
+}
+
 void Fle_Core::init()
 {
 	/************************************************************************/
@@ -38,11 +65,12 @@ void Fle_Core::init()
 	Fl::use_high_res_GL(1);
 	fl_register_images();						// Initialize FLTK image lib (essential)
 	Fl::set_color(FL_BLACK, 50, 50, 50);		// change the black color of FLTK widgets to dark gray.
+	__update_system_colors(1);
 	Fl::box_color(FL_GRAY);
 	Fl::set_box_color(FL_GRAY);
 	Fl::visible_focus(0);						// disable dotted rectangle to focused widget.
 	Fl::set_font(0, "Segoe UI");				// default windows font
-	std::cout << Fl::get_font(0) << std::endl;
+	Fl::add_handler(__disable_escape_key);
 	/************************************************************************/
 }
 
