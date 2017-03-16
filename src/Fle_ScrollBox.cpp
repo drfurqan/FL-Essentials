@@ -185,7 +185,7 @@ int Fle_ScrollBox::handle(int _event)
 				zoomOut();
 				return 1;
 			}
-			return 1;
+			break;
 
 		default:
 			break;

@@ -81,6 +81,39 @@ private:
 	int execute(FILE_CHOOSER_TYPE type, const char *filter, const char *title, const char *fname);
 };
 
+// Example to use a FLTK file chooser.
+// I prefer native look so chooses Fl_Native_File_Chooser.
+//void Fl_File_Chooser_cb()
+//{
+//	std::string formats = ("All Files (*)"
+//		"\tJPEG Files (*.{jpg,jpeg})"
+//		"\tBitmap Files (*.{png,gif,bmp})"
+//		"\tX-Window Files (*.{xpm,xbm})");
+//
+//	Fl_File_Chooser::add_favorites_label = ("Add to Favorites");
+//	Fl_File_Chooser::all_files_label = ("All Files (*)");
+//	Fl_File_Chooser::custom_filter_label = ("Custom Filter");
+//	Fl_File_Chooser::existing_file_label = ("Please choose an existing file!");
+//	Fl_File_Chooser::favorites_label = ("Favorites");
+//	Fl_File_Chooser::filename_label = ("Filename:");
+//	Fl_File_Chooser::filesystems_label = ("File Systems");
+//	Fl_File_Chooser::hidden_label = ("Show hidden files:");
+//	Fl_File_Chooser::manage_favorites_label = ("Manage Favorites");
+//	Fl_File_Chooser::preview_label = ("Preview");
+//	Fl_File_Chooser::show_label = ("Show:");
+//
+//	Fl_File_Chooser fc(".", formats.c_str(), Fl_File_Chooser::SINGLE, ("Open file"));
+//
+//	fc.show();
+//	while (fc.shown())
+//		Fl::wait();
+//
+//	if (NULL != fc.value())
+//	{
+//		std::cout << fc.value() << std::endl;
+//	}
+//}
+
 }
 
 #endif // FileDialog_h__
