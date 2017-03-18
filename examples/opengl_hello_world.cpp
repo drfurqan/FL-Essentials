@@ -61,16 +61,18 @@ void GLWindow::paintGL()
 	// push matrix for creating the local coordinate system.
 	glPushMatrix();
 	// rotate 45 degrees around x-axes because x is 1.0f.
-	glRotatef(45.0f, 1.0f, 0.0f, 0.0f);
+	glRotatef(25.0f, 1.0f, 0.0f, 0.0f);
 	// rotate 30 degrees around y-axes because y is 1.0f.
 	glRotatef(10, 0.0f, 1.0f, 0.0f);
 	// assign red color to tea pot.
 	glColor3f(1.0f, 0.0f, 0.0f);
 
-	// render teapot.
+	// render/draw teapot.
 	glutWireTeapot(20.0);
+
 	// you can draw various models using GLUT, like
-	// glutWireTorus(5, 20, 36, 36);
+	glColor3f(0.0f, 1.0f, 0.0f);
+	glutWireTorus(5, 30, 36, 36);
 
 	// pop matrix that was pushed above.
 	glPopMatrix();

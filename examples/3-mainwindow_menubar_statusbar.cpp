@@ -50,7 +50,7 @@ int main(int argc, char* argv[])
 	Fle_Core::init();
 
 	// create a main window.
-	Fle_MainWindow* w = new Fle_MainWindow(1024, 768, "Hello World");
+	Fle_MainWindow* w = new Fle_MainWindow(1024, 500, "Hello World");
 	w->setMinimumSize(cv::Size(300, 300));
 	w->setMaximumSize(cv::Size(10000, 10000));
 

@@ -26,9 +26,13 @@ If not, please contact Dr. Furqan Ullah immediately:
 
 using namespace R3D;
 
+// Description:
+// Inherited class from OpenGL window
 class GLWindow : public Fle_OpenGLWindow
 {
 public:
+	// Description:
+	// Default Constructor that will create a GL window.
 	GLWindow(int _w, int _h, const char* _title);
 
 	// Description:
@@ -36,6 +40,7 @@ public:
 	// It uses to initialize the OpenGL states or any other data such as textures etc.
 	void initializeGL();
 
+	// Description:
 	// Function for all kinds of OpenGL rendering.
 	void paintGL();
 };

@@ -28,11 +28,11 @@ int main(int argc, char* argv[])
 	Fle_Core::init();
 
 	// create main window that can have menubar, toolbars, statusbar etc.
-	Fle_MainWindow win(1024, 768, "OpenGL Program with Animation, Events, Lights, and Material");
+	Fle_MainWindow win(1024, 500, "OpenGL Program with Animation, Events, Lights, and Material");
 	win.begin();
 
 	// add OpenGL window to the main window by specifying it's width and height.
-	GLWindow* glwin = new GLWindow(0, 0, 1024, 768);
+	GLWindow* glwin = new GLWindow(0, 0, 1024, 500);
 
 	win.end();
 	win.show(argc, argv);

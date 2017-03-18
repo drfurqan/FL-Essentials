@@ -27,7 +27,7 @@ int main(int argc, char* argv[])
 	Fle_Core::init();
 
 	// create OpenGL window by specifying width, height and title.
-	GLWindow win(1024, 768, "OpenGL Program with Animation, Events, Lights, and Material");
+	GLWindow win(1024, 500, "OpenGL Program with Animation, Events, Lights, and Material");
 	win.show();
 
 	// execute the main loop.
