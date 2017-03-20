@@ -6,11 +6,11 @@ FL-Essentials is a FLTK and OpenCV based software system which provides extreme 
 FLE Library is implemented in C++ (but provides both a C and a 
 C++ish interface). The directory structure is: <br/>
 
-/applications	&emsp; application developed in FLE <br/>			
-/code			&emsp; Source code <br/>						
-/include		&emsp; Public header C and C++ header files <br/>		
-/lib			&emsp; Static libraries for VS2013, VS2015 <br/>		
-/samples		&emsp; Examples to illustrate possible 
+/applications &emsp; &emsp; application developed in FLE <br/>			
+/code	 &emsp; &emsp; Source code <br/>						
+/include &emsp; &emsp; Public header C and C++ header files <br/>		
+/lib &emsp; &emsp; Static libraries for VS2013, VS2015 <br/>		
+/samples &emsp; &emsp; Examples to illustrate possible 
                         use cases for FLE <br/>
 
 # Building
