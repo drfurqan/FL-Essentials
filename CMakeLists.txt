@@ -13,7 +13,7 @@ project (fle)
 # file(READ VERSION FLE_VERSION)
 
 set(VERSION_MAJOR 1)
-set(VERSION_MINOR 10)
+set(VERSION_MINOR 30)
 set(VERSION_PLAIN ${VERSION_MAJOR}.${VERSION_MINOR})
 
 # ------------------------------------------------------------------------------
