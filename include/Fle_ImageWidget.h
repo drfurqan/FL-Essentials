@@ -77,6 +77,13 @@ public:
 	std::string getFilePath() const { return m_filepath; }
 
 	// Description:
+	// Function to get the loaded image width.
+	int getImageWidth() const { return m_image.cols; }
+	// Description:
+	// Function to get the loaded image height.
+	int getImageHeight() const { return m_image.rows; }
+
+	// Description:
 	// Function to reset zooming.
 	void resetZoom();
 	// Description:

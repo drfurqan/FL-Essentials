@@ -56,11 +56,8 @@ Fle_CheckGroup* Fle_Widgets::createCheckGroup(int _w, int _h, const char* _title
 	return o;
 }
 
-Fle_Spinner* Fle_Widgets::createSpinner(int _w, int _h, const char* _label, double _value, double _step, double _minumum, double _maximum, Fl_Callback* _cb, void* _data)
+Fle_Spinner* Fle_Widgets::createSpinner(int _w, int _h, double _value, double _step, double _minumum, double _maximum, Fl_Callback* _cb, void* _data)
 {
-	if (_label)
-		createBox(_h, _label);
-
 	Fle_Spinner* o = new Fle_Spinner(0, 0, _w, _h);
 	o->box(FL_FLAT_BOX);
 	o->value(_value);
@@ -70,10 +67,6 @@ Fle_Spinner* Fle_Widgets::createSpinner(int _w, int _h, const char* _label, doub
 	o->textsize(12);
 	if (_cb) o->callback(_cb, _data);
 	return o;
-}
-Fle_Spinner* Fle_Widgets::createSpinner(int _w, int _h, double _value, double _step, double _minumum, double _maximum, Fl_Callback* _cb, void* _data)
-{
-	return createSpinner(_w, _h, nullptr, _value, _step, _minumum, _maximum, _cb, _data);
 }
 Fle_Box* Fle_Widgets::createBox(int _w, int _h, const char* _text, bool _fit_to_text)
 {
@@ -105,11 +98,8 @@ Fle_Box* Fle_Widgets::createLabel(int _h, const char* _text, uchar _r, uchar _g,
 	return o;
 }
 
-Fl_Value_Output* Fle_Widgets::createValueOutput(int _w, int _h, const char* _label, double _value, double _step, double _minumum, double _maximum, Fl_Callback* _cb, void* _data)
+Fl_Value_Output* Fle_Widgets::createValueOutput(int _w, int _h, double _value, double _step, double _minumum, double _maximum, Fl_Callback* _cb, void* _data)
 {
-	if (_label)
-		createBox(_h, _label);
-
 	Fl_Value_Output* o = new Fl_Value_Output(0, 0, _w, _h);
 	o->box(FL_FLAT_BOX);
 	o->color(FL_WHITE);
@@ -120,10 +110,6 @@ Fl_Value_Output* Fle_Widgets::createValueOutput(int _w, int _h, const char* _lab
 	o->textsize(12);
 	if (_cb) o->callback(_cb, _data);
 	return o;
-}
-Fl_Value_Output* Fle_Widgets::createValueOutput(int _w, int _h, double _value, double _step, double _minumum, double _maximum, Fl_Callback* _cb, void* _data)
-{
-	return createValueOutput(_w, _h, nullptr, _value, _step, _minumum, _maximum, _cb, _data);
 }
 
 Fle_Button* Fle_Widgets::createButton(int _w, int _h, const char* _on_image_file, const char* _off_image_file, const cv::Size& _images_size, Fl_Callback* _cb, void* _data)
@@ -157,6 +143,16 @@ Fle_Button* Fle_Widgets::createButton(int _w, int _h, const char* _name, int _va
 	o->color2(fl_rgb_color(253, 244, 191));
 	o->labelsize(11);
 	o->value(_value);
+	if (_cb) o->callback(_cb, _data);
+	return o;
+}
+Fle_Button* Fle_Widgets::createButton(int _w, int _h, Fl_RGB_Image* _icon_file_on, Fl_RGB_Image* _icon_file_off, Fl_Callback* _cb, void* _data)
+{
+	Fle_Button* o = new Fle_Button(0, 0, _w, _h, _icon_file_on, _icon_file_off);
+	o->box(FL_NO_BOX);
+	o->clear_visible_focus();
+	o->color(fl_rgb_color(214, 219, 233));
+	o->color2(fl_rgb_color(253, 244, 191));
 	if (_cb) o->callback(_cb, _data);
 	return o;
 }
@@ -245,11 +241,8 @@ Fl_Slider* Fle_Widgets::createSlider(int _w, int _h, int _value, int _step, int 
 	return o;
 }
 
-Fle_InputSlider* Fle_Widgets::createIntInputSlider(int _w, int _h, const char* _label, int _value, int _step, int _minimum, int _maximum, Fl_Callback* _cb, void* _data)
+Fle_InputSlider* Fle_Widgets::createIntInputSlider(int _w, int _h, int _value, int _step, int _minimum, int _maximum, Fl_Callback* _cb, void* _data)
 {
-	if (_label)
-		createBox(_h, _label);
-
 	Fle_InputSlider* o = new Fle_InputSlider(0, 0, _w, _h);
 	o->type(FL_HOR_SLIDER);
 	o->box(FL_UP_BOX);
@@ -258,20 +251,12 @@ Fle_InputSlider* Fle_Widgets::createIntInputSlider(int _w, int _h, const char* _
 	o->value(_value);
 	o->step(_step);
 	o->bounds(_minimum, _maximum);
-	o->tooltip(_label);
 	if (_cb) o->callback(_cb, _data);
 	return o;
 }
-Fle_InputSlider* Fle_Widgets::createIntInputSlider(int _w, int _h, int _value, int _step, int _minimum, int _maximum, Fl_Callback* _cb, void* _data)
-{
-	return createIntInputSlider(_w, _h, nullptr, _value, _step, _minimum, _maximum, _cb, _data);
-}
 
-Fle_FloatInputSlider* Fle_Widgets::createFloatInputSlider(int _w, int _h, const char* _label, double _value, double _step, double _minimum, double _maximum, Fl_Callback* _cb, void* _data)
+Fle_FloatInputSlider* Fle_Widgets::createFloatInputSlider(int _w, int _h, double _value, double _step, double _minimum, double _maximum, Fl_Callback* _cb, void* _data)
 {
-	if (_label)
-		createBox(_h, _label);
-
 	Fle_FloatInputSlider* o = new Fle_FloatInputSlider(0, 0, _w, _h);
 	o->type(FL_HOR_SLIDER);
 	o->box(FL_UP_BOX);
@@ -280,13 +265,8 @@ Fle_FloatInputSlider* Fle_Widgets::createFloatInputSlider(int _w, int _h, const 
 	o->value(_value);
 	o->step(_step);
 	o->bounds(_minimum, _maximum);
-	o->tooltip(_label);
 	if (_cb) o->callback(_cb, _data);
 	return o;
-}
-Fle_FloatInputSlider* Fle_Widgets::createFloatInputSlider(int _w, int _h, double _value, double _step, double _minimum, double _maximum, Fl_Callback* _cb, void* _data)
-{
-	return createFloatInputSlider(_w, _h, nullptr, _value, _step, _minimum, _maximum, _cb, _data);
 }
 
 Fle_Input* Fle_Widgets::createInput(int _w, int _h, const char* _label, const char* _value, Fl_Align _name_align, Fl_Callback* _cb, void* _data)
@@ -319,11 +299,8 @@ Fl_Float_Input* Fle_Widgets::createFloatInput(int _w, int _h, const char* _value
 	return o;
 }
 
-Fl_Dial* Fle_Widgets::createDial(int _w, int _h, const char* _label, double _value, DialType _type, Fl_Callback* _cb, void* _data)
+Fl_Dial* Fle_Widgets::createDial(int _w, int _h, double _value, DialType _type, Fl_Callback* _cb, void* _data)
 {
-	if (_label)
-		createBox(_h, _label);
-
 	Fl_Dial* o = new Fl_Dial(0, 0, _w, _h);
 	o->type(static_cast<int>(_type));
 	o->color((Fl_Color)238);

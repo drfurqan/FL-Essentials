@@ -122,15 +122,8 @@ public:
 	// This is overridden function of createBox().
 	static Fle_Box* createLabel(int _h, const char* _text, uchar _r = 0, uchar _g = 0, uchar _b = 0);
 	// Description:
-	// Function to create a input spinner by specifying it's width, height, and label.
-	static Fle_Spinner* createSpinner(int _w, int _h, const char* _label, double _value, double _step = 1, double _minumum = 0, double _maximum = 99, Fl_Callback* _cb = 0, void* _data = 0);
-	// Description:
 	// Function to create a input spinner by specifying it's width and height.
 	static Fle_Spinner* createSpinner(int _w, int _h, double _value, double _step = 1, double _minumum = 0, double _maximum = 99, Fl_Callback* _cb = 0, void* _data = 0);
-	// Description:
-	// Function to add a value output widget by specifying it's width, height, and label.
-	// Output value is changeable by dragging mouse over the widget.
-	static Fl_Value_Output* createValueOutput(int _w, int _h, const char* _label, double _value, double _step = 1, double _minumum = 0, double _maximum = 99, Fl_Callback* _cb = 0, void* _data = 0);
 	// Description:
 	// Function to add a value output widget by specifying it's width and height.
 	// Output value is changeable by dragging mouse over the widget.
@@ -168,6 +161,9 @@ public:
 	// Function to create a button by specifying it's width, height, label/name, default/initial value, and type.
 	// _name is the button text that will be displayed on the button.
 	static Fle_Button* createButton(int _w, int _h, const char* _name, int _value, ButtonType _type = ButtonType::NORMAL, Fl_Callback* _cb = 0, void* _data = 0);
+	// Description:
+	// Function to create a button by specifying it's width, height, ON/OFF and icon images.
+	static Fle_Button* createButton(int _w, int _h, Fl_RGB_Image* _icon_file_on, Fl_RGB_Image* _icon_file_off, Fl_Callback* _cb = 0, void* _data = 0);
 	// Description:
 	// Function to create a light button by specifying it's width, height, label/name, default/initial value, and type.
 	// _name is the button text that will be displayed on the button.
@@ -220,7 +216,6 @@ public:
 	// _step is the increment/decrement step.
 	// _minimum and _maximum are the bounds of the slider.
 	// _cb is the callback with _data.
-	static Fle_InputSlider* createIntInputSlider(int _w, int _h, const char* _label, int _value = 1, int _step = 1, int _minimum = 0, int _maximum = 99, Fl_Callback* _cb = 0, void* _data = 0);
 	static Fle_InputSlider* createIntInputSlider(int _w, int _h, int _value = 1, int _step = 1, int _minimum = 0, int _maximum = 99, Fl_Callback* _cb = 0, void* _data = 0);
 	// Description:
 	// Function to create an input slider (with double numbers) by specifying it's width, height, label/name, 
@@ -232,7 +227,6 @@ public:
 	// _step is the increment/decrement step.
 	// _minimum and _maximum are the bounds of the slider.
 	// _cb is the callback with _data.
-	static Fle_FloatInputSlider* createFloatInputSlider(int _w, int _h, const char* _label, double _value = 1, double _step = 0.1, double _minimum = 0, double _maximum = 100, Fl_Callback* _cb = 0, void* _data = 0);
 	static Fle_FloatInputSlider* createFloatInputSlider(int _w, int _h, double _value = 1, double _step = 0.1, double _minimum = 0, double _maximum = 100, Fl_Callback* _cb = 0, void* _data = 0);
 
 	// Description:
@@ -270,7 +264,7 @@ public:
 	// _value is the initial value.
 	// _name_align is the input text alignment which could be LEFT or RIGHT.
 	// _cb is the callback with _data.
-	static Fl_Dial* createDial(int _w, int _h, const char* _label, double _value, DialType _type = DialType::STANDARD, Fl_Callback* _cb = 0, void* _data = 0);
+	static Fl_Dial* createDial(int _w, int _h, double _value, DialType _type = DialType::STANDARD, Fl_Callback* _cb = 0, void* _data = 0);
 	// Description:
 	// Function to add a clock that show the current clock time.
 	static Fl_Clock* createClock(int _w, int _h, Fl_Callback* _cb = 0, void* _data = 0);

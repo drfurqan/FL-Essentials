@@ -15,6 +15,10 @@ C++ish interface). The directory structure is: <br/>
 ## Building
 Take a look into the `INSTALL` file. The build system is CMake, if you already used CMake before there is a good chance you know what to do.
 
+# Required Libraries
+-  FLTK 1.3.x OR FLTK 1.4.x
+-  OpenCV 2.x.x OR OpenCV 3.x.x
+
 ## Author
 Written by  Dr. Furqan Ullah.
 
