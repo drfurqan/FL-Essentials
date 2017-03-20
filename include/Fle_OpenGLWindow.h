@@ -188,7 +188,6 @@ protected:
 
 	// Description:
 	// protected data members.
-	bool m_first_time_init;
 
 	Fle_Timer m_timer;
 	Fle_Idle m_idle;

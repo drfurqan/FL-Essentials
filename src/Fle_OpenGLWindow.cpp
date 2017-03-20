@@ -31,7 +31,6 @@ using namespace R3D;
 
 Fle_OpenGLWindow::Fle_OpenGLWindow(int _x, int _y, int _w, int _h, const char* _title, int _icon_index) :
 Fl_Gl_Window(_x, _y, _w, _h, _title),
-m_first_time_init(true),
 m_minsize(cv::Size(10, 10)),
 m_maxsize(cv::Size(Fl::w() + 1000, Fl::h() + 1000))
 {
@@ -64,7 +63,6 @@ m_maxsize(cv::Size(Fl::w() + 1000, Fl::h() + 1000))
 
 Fle_OpenGLWindow::Fle_OpenGLWindow(int _w, int _h, const char* _title, int _icon_index) :
 Fl_Gl_Window(0, 0, _w, _h, _title),
-m_first_time_init(true),
 m_minsize(cv::Size(10, 10)),
 m_maxsize(cv::Size(Fl::w() + 1000, Fl::h() + 1000))
 {
@@ -131,22 +129,20 @@ void Fle_OpenGLWindow::draw()
 {
 	if (!visible()) return;
 
-	Fl_Gl_Window::draw();
+	makeCurrent();
 
 	// it will be called only one time. 
 	// but it will also be called whenever we resize the window.
 	if (!valid())
 	{
 		// we need OpenGL initialization only first time.
-		if (m_first_time_init)
+		static bool first_time_init = true;
+		if (first_time_init)
 		{
+			first_time_init = false;
 			initializeGL();
-			m_first_time_init = false;
-			valid(1);
 		}
 	}
-
-	makeCurrent();
 
 	paintGL();
 }
@@ -170,6 +166,7 @@ void Fle_OpenGLWindow::resize(int _x, int _y, int _w, int _h)
 {
 	Fl_Gl_Window::resize(_x, _y, _w, _h);
 	reshape(_w, _h);
+	redraw();
 }
 void Fle_OpenGLWindow::size(int _w, int _h)
 {
@@ -422,8 +419,6 @@ void Fle_OpenGLWindow::drawImage(int _x, int _y, int _w, int _h, unsigned char* 
 
 	makeCurrent();
 
-	glPushAttrib(GL_ALL_ATTRIB_BITS);
-
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
 	glLoadIdentity();
@@ -431,8 +426,9 @@ void Fle_OpenGLWindow::drawImage(int _x, int _y, int _w, int _h, unsigned char* 
 	glPushMatrix();
 	glLoadIdentity();
 
-	glRasterPos3f(-1.f + 2.f*static_cast<GLfloat>(_x - x()) / static_cast<GLfloat>(w()),
-		-1.f + 2.f*static_cast<GLfloat>(_y - y()) / static_cast<GLfloat>(h()),
+	glRasterPos3f(
+		-1.f + 2.f*static_cast<GLfloat>(_x - Fl_Gl_Window::x()) / static_cast<GLfloat>(Fl_Gl_Window::w()),
+		-1.f + 2.f*static_cast<GLfloat>(_y - Fl_Gl_Window::y()) / static_cast<GLfloat>(Fl_Gl_Window::h()),
 		_z_depth); // front or back
 
 	if (_channels == 3)
@@ -446,6 +442,4 @@ void Fle_OpenGLWindow::drawImage(int _x, int _y, int _w, int _h, unsigned char* 
 	glPopMatrix();
 	glMatrixMode(GL_MODELVIEW);
 	glPopMatrix();
-
-	glPopAttrib();
 }

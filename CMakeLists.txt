@@ -136,6 +136,7 @@ if (WIN32)
     list(APPEND OPTIONAL_LIBS ws2_32)
     list(APPEND OPTIONAL_LIBS vfw32)
     list(APPEND OPTIONAL_LIBS glu32)
+    list(APPEND OPTIONAL_LIBS opengl32)
 endif (WIN32)
 
 target_link_libraries(
@@ -178,3 +179,18 @@ if (WIN32)
 set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME ${PROJECT_NAME}_${VERSION_MAJOR}${VERSION_MINOR})
 set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_OUTPUT_NAME ${PROJECT_NAME}_${VERSION_MAJOR}${VERSION_MINOR}d)
 endif()
+
+# ------------------------------------------------------------------------------
+# installation
+# ------------------------------------------------------------------------------
+install(TARGETS ${PROJECT_NAME} EXPORT ${PROJECT_NAME} 
+RUNTIME DESTINATION bin           
+LIBRARY DESTINATION lib
+ARCHIVE DESTINATION lib)
+
+install(DIRECTORY 
+${PROJECT_SOURCE_DIR}/include
+DESTINATION D:/fle 
+USE_SOURCE_PERMISSIONS
+PATTERN ".svn" EXCLUDE
+)
