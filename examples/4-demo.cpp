@@ -76,10 +76,7 @@ void menu_cb(Fl_Widget* _w, void*)
 	const Fl_Menu_Item* m = mw->mvalue();
 	if (!m) return;
 
-	if (m->shortcut())
-		std::cout << fl_shortcut_label(m->shortcut()) << std::endl;
-	else
-		std::cout << m->label() << std::endl;
+	std::cout << m->label() << std::endl;
 }
 
 int main()
