@@ -61,16 +61,18 @@ public:
 	// Function to make this window as current.
 	virtual void makeCurrent();
 	// Description:
-	// Function to resize the window.
+	// Function to resize the window by specifying the position, width and height.
 	// Overridden function that will be called while resizing the window.
 	virtual void resize(int _x, int _y, int _w, int _h) override;
 	// Description:
-	// Function to resize the window.
+	// Function to resize the window by specifying the width and height.
+	// This function will not be called while resizing, only above function resize() does call.
 	virtual void size(int _w, int _h);
 	// Description:
-	// Function to resize the window.
-	// Overloaded function of size().
-	virtual void reshape(int _w, int _h);
+	// Function that is expected to be overridden in order to implement
+	// operations while resizing the window. 
+	// This function will be called whenever this window is resized.
+	virtual void resizeGL(int _w, int _h);
 
 	// Description:
 	// Function to redraw/update the window.
@@ -158,11 +160,6 @@ protected:
 	virtual void idleEvent();
 
 	// Description:
-	// A virtual function that is expected to be overridden in the derived class for
-	// handling events such as FL_SHOW, FL_FOCUS, etc.
-	virtual int processEvents(int _event);
-
-	// Description:
 	// Virtual functions that are expected to be overridden in the derived class for
 	// handling the mouse and keyboard events.
 	virtual void mouseLeftButtonPressEvent(int _x, int _y);		// when left mouse button is pressed.
@@ -178,6 +175,10 @@ protected:
 	virtual void mouseMiddleButtonDragEvent(int _x, int _y);	// when middle mouse button is dragged.
 	virtual void mouseMoveEvent(int _x, int _y);				// when mouse moves.
 	virtual int keyPressEvent(int _key);						// keyboard key press events.
+	// Description:
+	// A virtual function that is expected to be overridden in the derived class for
+	// handling events such as FL_SHOW, FL_FOCUS, etc.
+	virtual int processEvents(int _event);
 
 	// Description:
 	// A virtual function that is expected to be overridden in the derived class for

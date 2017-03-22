@@ -165,14 +165,14 @@ void Fle_OpenGLWindow::update()
 void Fle_OpenGLWindow::resize(int _x, int _y, int _w, int _h)
 {
 	Fl_Gl_Window::resize(_x, _y, _w, _h);
-	reshape(_w, _h);
+	resizeGL(_w, _h);
 	redraw();
 }
 void Fle_OpenGLWindow::size(int _w, int _h)
 {
 	resize(x(), y(), _w, _h);
 }
-void Fle_OpenGLWindow::reshape(int _w, int _h)
+void Fle_OpenGLWindow::resizeGL(int _w, int _h)
 {
 }
 
