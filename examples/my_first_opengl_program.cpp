@@ -52,25 +52,32 @@ public:
 	void paintGL()
 	{
 		// clear the screen with black color (setting up background color).
-		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+		glClearColor(0.2f, 0.3f, 0.4f, 0.0f);
 		// clear the color and depth buffers for displaying the next frame.
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		// set width and height of the view port.
+		// setting up viewport and camera. 
+		/************************************************************************/
+		// set width and height of the viewport.
 		// w() and h() are the width and height of this window.
+		// it tells OpenGL how to convert from coordinates to pixel values.
 		glViewport(0, 0, w(), h());
-		// setup perspective projection with angle, aspect ratio and near and far planes.
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
+		glMatrixMode(GL_PROJECTION);			// switch to setting the camera perspective
+		glLoadIdentity();						// reset the camera
+		// set the camera perspective
+		// arguments: the camera angle, the width-to-height ratio, the near z clipping coordinate, the far z clipping coordinate
 		gluPerspective(45.0, static_cast<double>(w()) / static_cast<double>(h()), 0.1, 1000.0);
 
 		// setup the camera eye. 
-		// first 3 arguments (0.0, 0.0, 100.0) are for eye position
-		// next 3 (0.0, 0.0, 0.0) are the eye center
-		// and last 3 are the up vector, meaning flipping of the camera.
-		gluLookAt(0.0, 0.0, 100.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
+		gluLookAt(
+			0.0, 0.0, 100.0,					// camera eye position
+			0.0, 0.0, 0.0,						// camera eye center
+			0.0, 1.0, 0.0);						// camera up vector
+		glMatrixMode(GL_MODELVIEW);				// switch to the drawing perspective
+		glLoadIdentity();						// reset the drawing perspective
+		/************************************************************************/
+
+		// drawing/rendering of shapes start from here.
 
 		// push matrix for creating the local coordinate system.
 		glPushMatrix();
