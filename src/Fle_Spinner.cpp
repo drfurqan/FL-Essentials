@@ -7,7 +7,7 @@ author:		Furqan Ullah (Post-doc, Ph.D.)
 website:    http://real3d.pk
 CopyRight:	All Rights Reserved
 
-purpose:	Spinner class that only accepts numbers.
+purpose:	Spinner class that allows to change the settings of Up and Down buttons.
 /**********************************************************************************
 FL-ESSENTIALS (FLE) - FLTK Utility Widgets
 Copyright (C) 2017 REAL3D

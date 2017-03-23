@@ -43,15 +43,15 @@ void menu_callback(Fl_Widget* _w, void* _p)
 	);
 }
 
-int main(int argc, char *argv[])
+int main()
 {
 	// library initialization with default modes.
 	Fle_Core::init();
 
 	// create a main window.
 	Fle_MainWindow* w = new Fle_MainWindow(1024, 500, "Hello World");
-	w->setMinimumSize(cv::Size(300, 300));
-	w->setMaximumSize(cv::Size(10000, 10000));
+	w->setMinimumSize(Fle_Size(300, 300));
+	w->setMaximumSize(Fle_Size(10000, 10000));
 
 	// load image from disk and display in the central widget.
 	w->getCentralWidget()->getBox()->loadImage("D:\\aw.jpg");
@@ -75,7 +75,7 @@ int main(int argc, char *argv[])
 	}
 
 	// show the main window.
-	w->show(argc, argv);
+	w->show();
 
 	// execute the main loop.
 	return Fle_Core::exec();

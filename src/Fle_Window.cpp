@@ -29,8 +29,8 @@ using namespace R3D;
 
 Fle_Window::Fle_Window(int _x, int _y, int _w, int _h, const char* _title, int _icon_index) :
 Fl_Double_Window(_x, _y, _w, _h, _title),
-m_minsize(cv::Size(10, 10)),
-m_maxsize(cv::Size(Fl::w() + 100000, Fl::h() + 100000))
+m_minsize(Fle_Size(10, 10)),
+m_maxsize(Fle_Size(Fl::w() + 100000, Fl::h() + 100000))
 {
 	//Fl_Pixmap ico(flviewer);
 	//Fl_RGB_Image app(&ico);
@@ -63,8 +63,8 @@ m_maxsize(cv::Size(Fl::w() + 100000, Fl::h() + 100000))
 
 Fle_Window::Fle_Window(int _w, int _h, const char* _title, int _icon_index) :
 Fl_Double_Window(0, 0, _w, _h, _title),
-m_minsize(cv::Size(10, 10)),
-m_maxsize(cv::Size(Fl::w() + 100000, Fl::h() + 100000))
+m_minsize(Fle_Size(10, 10)),
+m_maxsize(Fle_Size(Fl::w() + 100000, Fl::h() + 100000))
 {
 #ifdef WIN32
 	icon(LoadIcon(fl_display, MAKEINTRESOURCE(_icon_index)));
@@ -165,12 +165,12 @@ void Fle_Window::size(int _w, int _h)
 {
 	resize(Fl_Double_Window::x(), Fl_Double_Window::y(), _w, _h);
 }
-void Fle_Window::setMinimumSize(const cv::Size& _size)
+void Fle_Window::setMinimumSize(const Fle_Size& _size)
 {
 	m_minsize = _size;
 	size_range(m_minsize.width, m_minsize.height, m_maxsize.width, m_maxsize.height);
 }
-void Fle_Window::setMaximumSize(const cv::Size& _size)
+void Fle_Window::setMaximumSize(const Fle_Size& _size)
 {
 	m_maxsize = _size;
 	size_range(m_minsize.width, m_minsize.height, m_maxsize.width, m_maxsize.height);

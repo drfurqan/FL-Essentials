@@ -23,16 +23,14 @@ If not, please contact Dr. Furqan Ullah immediately:
 
 #include <FL/Fl.H>
 #include <FL/gl.H>
-//#include <FL/glu.H>
-//#include <FL/glut.H>
 #include <FL/x.H>               // needed for fl_display
 
 using namespace R3D;
 
 Fle_OpenGLWindow::Fle_OpenGLWindow(int _x, int _y, int _w, int _h, const char* _title, int _icon_index) :
 Fl_Gl_Window(_x, _y, _w, _h, _title),
-m_minsize(cv::Size(10, 10)),
-m_maxsize(cv::Size(Fl::w() + 1000, Fl::h() + 1000))
+m_minsize(Fle_Size(10, 10)),
+m_maxsize(Fle_Size(Fl::w() + 1000, Fl::h() + 1000))
 {
 	mode(FL_DOUBLE | FL_RGB8 | FL_DEPTH | FL_ACCUM | FL_ALPHA | FL_STENCIL | FL_MULTISAMPLE);
 #ifdef WIN32
@@ -63,8 +61,8 @@ m_maxsize(cv::Size(Fl::w() + 1000, Fl::h() + 1000))
 
 Fle_OpenGLWindow::Fle_OpenGLWindow(int _w, int _h, const char* _title, int _icon_index) :
 Fl_Gl_Window(0, 0, _w, _h, _title),
-m_minsize(cv::Size(10, 10)),
-m_maxsize(cv::Size(Fl::w() + 1000, Fl::h() + 1000))
+m_minsize(Fle_Size(10, 10)),
+m_maxsize(Fle_Size(Fl::w() + 1000, Fl::h() + 1000))
 {
 	mode(FL_DOUBLE | FL_RGB8 | FL_DEPTH | FL_ACCUM | FL_ALPHA | FL_STENCIL | FL_MULTISAMPLE);
 #ifdef WIN32
@@ -196,12 +194,12 @@ void Fle_OpenGLWindow::showNormal()
 	show();
 	fullscreen_off();
 }
-void Fle_OpenGLWindow::setMinimumSize(const cv::Size& _size)
+void Fle_OpenGLWindow::setMinimumSize(const Fle_Size& _size)
 {
 	m_minsize = _size;
 	size_range(m_minsize.width, m_minsize.height, m_maxsize.width, m_maxsize.height);
 }
-void Fle_OpenGLWindow::setMaximumSize(const cv::Size& _size)
+void Fle_OpenGLWindow::setMaximumSize(const Fle_Size& _size)
 {
 	m_maxsize = _size;
 	size_range(m_minsize.width, m_minsize.height, m_maxsize.width, m_maxsize.height);

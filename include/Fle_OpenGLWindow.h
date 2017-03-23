@@ -24,11 +24,9 @@ If not, please contact Dr. Furqan Ullah immediately:
 
 #include "Fle_Export.h"
 #include "Fle_Timer.h"
+#include "Fle_Size.h"
 
 #include <FL/Fl_Gl_Window.H>
-
-#include <opencv2/opencv.hpp>
-#include <string>
 
 namespace R3D
 {
@@ -100,20 +98,20 @@ public:
 
 	// Description:
 	// Function to set minimum size of the widget.
-	// Default value is cv::Size(10, 10).
-	void setMinimumSize(const cv::Size& _size);
+	// Default value is Fle_Size(10, 10).
+	void setMinimumSize(const Fle_Size& _size);
 	// Description:
 	// Function to get minimum size of the widget.
-	// Default value is cv::Size(10, 10).
-	cv::Size getMinimumSize() const { return m_minsize; }
+	// Default value is Fle_Size(10, 10).
+	Fle_Size getMinimumSize() const { return m_minsize; }
 	// Description:
 	// Function to set maximum size of the widget.
 	// Widget will be expanded/resized to maximum size while resizing the parent window.
-	// Default value is cv::Size(Screen-Size + 10000000).
-	void setMaximumSize(const cv::Size& _size);
+	// Default value is Fle_Size(Screen-Size + 10000000).
+	void setMaximumSize(const Fle_Size& _size);
 	// Description:
 	// Function to get maximum size of the widget.
-	cv::Size getMaximumSize() const { return m_maxsize; }
+	Fle_Size getMaximumSize() const { return m_maxsize; }
 	// Description:
 	// Function to set widget as resizeable.
 	// The widget will be resized while resizing the 
@@ -175,6 +173,7 @@ protected:
 	virtual void mouseMiddleButtonDragEvent(int _x, int _y);	// when middle mouse button is dragged.
 	virtual void mouseMoveEvent(int _x, int _y);				// when mouse moves.
 	virtual int keyPressEvent(int _key);						// keyboard key press events.
+
 	// Description:
 	// A virtual function that is expected to be overridden in the derived class for
 	// handling events such as FL_SHOW, FL_FOCUS, etc.
@@ -193,8 +192,8 @@ protected:
 	Fle_Timer m_timer;
 	Fle_Idle m_idle;
 
-	cv::Size m_minsize;
-	cv::Size m_maxsize;
+	Fle_Size m_minsize;
+	Fle_Size m_maxsize;
 
 private:
 	// Description:

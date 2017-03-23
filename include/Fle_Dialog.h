@@ -103,12 +103,14 @@ public:
 		m_bottommargin = _bottom;
 	}
 
+	// Description:
 	// Return code for exec() function.
 	enum
 	{
 		Cancel = 0,
 		Ok = 1
 	};
+	// Description:
 	// Function to execute this dialog with modal state.
 	// Modal means it remains on top and users can't access to any other widget without closing this dialog.
 	// It returns 1 if Ok button is pressed, otherwise returns 0 for cancel or close button.

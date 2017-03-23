@@ -26,6 +26,7 @@ If not, please contact Dr. Furqan Ullah immediately:
 #include "FLE_MenuBar.h"
 #include "FLE_ToolBar.h"
 #include "FLE_StatusBar.h"
+#include "Fle_Color.h"
 
 namespace R3D
 {
@@ -34,7 +35,7 @@ class FL_ESSENTIALS_EXPORT Fle_MainWindow : public Fle_Window
 {
 public:
 	// Description:
-	// Constructor to create a window by specifying it's position, size, title.
+	// Constructor to create a window by specifying it's position, size, and title.
 	// _icon_index is the id of the icon that you want to display on the title bar.
 	Fle_MainWindow(int _x, int _y, int _w, int _h, const char* _title = 0, int _icon_index = 101);
 	// Description:
@@ -51,7 +52,7 @@ public:
 	virtual void begin() override;
 	// Description:
 	// Function that stop packing widgets inside the window.
-	// If you call begin(), then must be end().
+	// If you call begin(), then must call end().
 	virtual void end() override;
 
 	// Description:
@@ -63,12 +64,12 @@ public:
 	virtual void endTopArea();
 
 	// Description:
-	// Function to resize the window.
+	// Function to resize the window by specifying the position, width and height.
 	// Overridden function that will be called while resizing the window.
 	virtual void resize(int _x, int _y, int _w, int _h) override;
 	// Description:
-	// Function to resize the window.
-	// Overridden function that will be called while resizing the window.
+	// Function to resize the window by specifying the width and height.
+	// This function will not be called while resizing, only above function resize() does call.
 	virtual void size(int _w, int _h) override;
 
 	// Description:

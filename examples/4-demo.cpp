@@ -86,8 +86,8 @@ int main()
 
 	// create a main window.
 	Fle_MainWindow* w = new Fle_MainWindow(1400, 800, "Hello World");
-	w->setMinimumSize(cv::Size(300, 300));
-	w->setMaximumSize(cv::Size(10000, 10000));
+	w->setMinimumSize(Fle_Size(300, 300));
+	w->setMaximumSize(Fle_Size(10000, 10000));
 	w->setMargins(2, 2, 2, 2);
 	w->callback(main_callback_close, w);
 

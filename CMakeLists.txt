@@ -71,6 +71,7 @@ set(HEADERFILES
 ${CMAKE_SOURCE_DIR}/include/Fle_Box.h
 ${CMAKE_SOURCE_DIR}/include/Fle_Button.h
 ${CMAKE_SOURCE_DIR}/include/Fle_CheckGroup.h
+${CMAKE_SOURCE_DIR}/include/Fle_Color.h
 ${CMAKE_SOURCE_DIR}/include/Fle_Core.h
 ${CMAKE_SOURCE_DIR}/include/Fle_Dialog.h
 ${CMAKE_SOURCE_DIR}/include/Fle_Export.h
@@ -88,6 +89,7 @@ ${CMAKE_SOURCE_DIR}/include/Fle_MessageBox.h
 ${CMAKE_SOURCE_DIR}/include/Fle_OpenGLWindow.h
 ${CMAKE_SOURCE_DIR}/include/Fle_ProgressBar.h
 ${CMAKE_SOURCE_DIR}/include/Fle_ScrollBox.h
+${CMAKE_SOURCE_DIR}/include/Fle_Size.h
 ${CMAKE_SOURCE_DIR}/include/Fle_Spinner.h
 ${CMAKE_SOURCE_DIR}/include/Fle_StatusBar.h
 ${CMAKE_SOURCE_DIR}/include/Fle_StringUtil.h
@@ -179,10 +181,6 @@ if (WIN32)
 set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME ${PROJECT_NAME}_${VERSION_MAJOR}${VERSION_MINOR})
 set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_OUTPUT_NAME ${PROJECT_NAME}_${VERSION_MAJOR}${VERSION_MINOR}d)
 endif()
-
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 # ------------------------------------------------------------------------------
 # installation
