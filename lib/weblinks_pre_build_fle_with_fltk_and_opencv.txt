@@ -1,0 +1,11 @@
+Links to Pre-Build FLE projects for MS Visual Studio.
+
+Compiled libs of FLTK, OpenCV, and GLEW are already configured in the project.
+
+Simply extract, open the .sln file, build and run.
+
+/****************************************************************************************/
+
+https://drive.google.com/drive/folders/0B9IXWamKrzt1Nmt1NmpUNlByZGs?usp=sharing
+
+/****************************************************************************************/
