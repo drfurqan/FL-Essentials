@@ -66,11 +66,6 @@ public:
 	// Function to resize the window by specifying the width and height.
 	// This function will not be called while resizing, only above function resize() does call.
 	virtual void size(int _w, int _h);
-	// Description:
-	// Function that is expected to be overridden in order to implement
-	// operations while resizing the window. 
-	// This function will be called whenever this window is resized.
-	virtual void resizeGL(int _w, int _h);
 
 	// Description:
 	// Function to redraw/update the window.
@@ -140,11 +135,15 @@ protected:
 	// Function that will be called only once at the start of the window.
 	// It uses to initialize the OpenGL states or any other data such as textures etc.
 	virtual void initializeGL();
-
 	// Description:
 	// A virtual function that is expected to be overridden in the derived class for
 	// all kinds of OpenGL rendering.
 	virtual void paintGL();
+	// Description:
+	// Function that is expected to be overridden in order to implement
+	// operations while resizing the window. 
+	// This function will be called whenever this window is resized.
+	virtual void resizeGL(int _w, int _h);
 
 	// Description:
 	// A virtual function that is expected to be overridden in the derived class for
