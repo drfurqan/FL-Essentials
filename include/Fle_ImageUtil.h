@@ -137,6 +137,7 @@ public:
 	// Function to resize all image files of the specified directory.
 	// _w and _h is the new size of the images.
 	// set _with_aspect_ratio to true if images need to be resized with aspect ratio.
+	// Note: _directory_path should end with "\\".
 	static bool batchResize(const std::string& _directory_path, int _w, int _h, bool _with_aspect_ratio = true, int _interpolation = CV_INTER_CUBIC);
 };
 

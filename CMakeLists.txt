@@ -20,7 +20,7 @@ set(VERSION_PLAIN ${VERSION_MAJOR}.${VERSION_MINOR})
 # Library's source files (*.cpp files)
 # ------------------------------------------------------------------------------
 
-include(FindFLTK.cmake)
+# include(FindFLTK.cmake)
 
 option(OPTION_BUILD_EXAMPLES "Build examples written in FLE" ON)
 
@@ -122,10 +122,9 @@ add_library (${PROJECT_NAME} STATIC ${STATIC_FILES} ${HEADERFILES})
 # Required libraries for this library which is FLE
 # ------------------------------------------------------------------------------
 
-# find_package(fltk REQUIRED)
-# find_package(OpenCV REQUIRED)
-find_package(fltk REQUIRED fltk fltk_forms fltk_gl fltk_images)
-find_package(OpenCV REQUIRED opencv_world)
+# find_package(FLTK REQUIRED)
+find_package(FLTK REQUIRED fltk fltk_forms fltk_gl fltk_images)
+find_package(OpenCV REQUIRED)
 
 # ------------------------------------------------------------------------------
 # Link all the required and optional libraries to this library

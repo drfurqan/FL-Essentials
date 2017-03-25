@@ -146,7 +146,7 @@ bool Fle_Image_Viewer::loadImage(const std::string& _filename)
 
 void Fle_Image_Viewer::updateTitle(const std::string& _s)
 {
-	m_ptitle = Fle_StringUtil::extractFileNameWithExt(_s) + " [" + std::to_string(getScrollBox()->getBox()->getImage().cols) + " x " + std::to_string(getScrollBox()->getBox()->getImage().rows) + "px" + "]" + " - " + m_title;
+	m_ptitle = Fle_StringUtil::extractFileNameWithExt(_s) + " [" + std::to_string(getScrollBox()->getBox()->getImageWidth()) + " x " + std::to_string(getScrollBox()->getBox()->getImageHeight()) + "px" + "]" + " - " + m_title;
 	label(m_ptitle.c_str());
 }
 void Fle_Image_Viewer::updateDirectoryPaths(const std::string& _file)
@@ -221,7 +221,6 @@ void Fle_Image_Viewer::addToolBar()
 	}
 }
 
-#include "Fle_Spinner.h"
 void Fle_Image_Viewer::addStatusBar()
 {
 	// set fixed width and margins to statusbar.
@@ -388,7 +387,7 @@ void Fle_Image_Viewer::properties_cb(Fl_Widget* _w, void* _p)
 	if (!v) return;
 
 	if (!v->m_dir_files.empty())
-		Fle_WindowsUtil::shellExecute(v->m_dir_files[v->m_dir_nfile]);
+		Fle_WindowsUtil::shellExecute(v->m_dir_files[v->m_dir_nfile], "properties");
 }
 
 void Fle_Image_Viewer::exit_cb(Fl_Widget* _w, void* _p)
@@ -520,7 +519,7 @@ void Fle_Image_Viewer::resize_cb(Fl_Widget* _w, void* _p)
 			if (check) s = Fle_ImageUtil::getNewSizeKeepAspectRatio(src.cols, src.rows, static_cast<int>(_values[0]), static_cast<int>(_values[1]));
 			cv::resize(src, src, s, 0, 0, CV_INTER_CUBIC);
 			v->getScrollBox()->getBox()->setImage(src);
-			v->m_ptitle = Fle_StringUtil::extractFileNameWithExt(v->m_dir_files[v->m_dir_nfile]) + " [" + std::to_string(v->getScrollBox()->getBox()->getImage().cols) + " x " + std::to_string(v->getScrollBox()->getBox()->getImage().rows) + "px" + "]" + " - " + v->m_title;
+			v->m_ptitle = Fle_StringUtil::extractFileNameWithExt(v->m_dir_files[v->m_dir_nfile]) + " [" + std::to_string(v->getScrollBox()->getBox()->getImageWidth()) + " x " + std::to_string(v->getScrollBox()->getBox()->getImageHeight()) + "px" + "]" + " - " + v->m_title;
 			v->label(v->m_ptitle.c_str());	// update title of this window.
 			v->redraw();
 			v->getStatusBar()->showMessage("Image has been resized...", 5);
@@ -545,7 +544,7 @@ void Fle_Image_Viewer::batchresize_cb(Fl_Widget* _w, void* _p)
 		if (Fle_Dialog::getNumbers(300, 200, "Specify the New Image Size! (Batch Resize)", _labels, _values, _minimums, _maximums, _steps, "Keep Aspect Ratio", check))
 		{
 			std::string path = d.getPath(0);
-			if(Fle_ImageUtil::batchResize(path, static_cast<int>(_values[0]), static_cast<int>(_values[1]), check))
+			if(Fle_ImageUtil::batchResize(path + "\\", static_cast<int>(_values[0]), static_cast<int>(_values[1]), check))
 				v->getStatusBar()->showMessage("All images have been resized...", 10);
 		}
 	}
@@ -671,8 +670,8 @@ void Fle_Image_Viewer::about_cb(Fl_Widget* _w, void* _p)
 
 	std::ostringstream sstream;
 	sstream <<
-		"<br><p>Version: 1.1.0</p>"
-		"<br><p>Release Date: 2017/03/07 00:58:30</p>"
+		"<br><p>Version: 1.1.2</p>"
+		"<br><p>Release Date: 2017/03/26 03:26:30</p>"
 		"<br><p>Copyright(C) 2017</p>"
 		"<p><a href=\"http://real3d.pk/\">Website</a> " << "and <a href=\"http://www.real3d.pk/forum/index.php\">Forum</a></p>"
 		"<br><p><b><i>For all questions and bug reports, email to info@real3d.pk.<b><i></p>"

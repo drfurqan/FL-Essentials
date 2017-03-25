@@ -119,15 +119,11 @@ bool Fle_Button::loadIcons(const char* _icon_file_on, const char* _icon_file_off
 
 		if (_icon_file_on)
 		{
-			Fl_Shared_Image::RGB_scaling(Fl_RGB_Scaling::FL_RGB_SCALING_BILINEAR);
-			Fl_Shared_Image::scaling_algorithm(Fl_RGB_Scaling::FL_RGB_SCALING_BILINEAR);
 			p_on = Fl_Shared_Image::get(_icon_file_on, _size.width, _size.height);
 			if (p_on == nullptr) { /*Fle_MessageBox::Error("Could not load ON state icon!");*/ }
 		}
 		if (_icon_file_off)
 		{
-			Fl_Shared_Image::RGB_scaling(Fl_RGB_Scaling::FL_RGB_SCALING_BILINEAR);
-			Fl_Shared_Image::scaling_algorithm(Fl_RGB_Scaling::FL_RGB_SCALING_BILINEAR);
 			p_off = Fl_Shared_Image::get(_icon_file_off, _size.width, _size.height);
 			if (p_off == nullptr) { /*Fle_MessageBox::Error("Could not load OFF state icon!");*/ };
 		}
@@ -160,8 +156,6 @@ bool Fle_Button::loadIcons(Fl_RGB_Image* _icon_file_on, Fl_RGB_Image* _icon_file
 			p_off = nullptr;
 		}
 
-		Fl_Shared_Image::RGB_scaling(Fl_RGB_Scaling::FL_RGB_SCALING_BILINEAR);
-		Fl_Shared_Image::scaling_algorithm(Fl_RGB_Scaling::FL_RGB_SCALING_BILINEAR);
 		if (_icon_file_on)
 		{
 			p_on = Fl_Shared_Image::get(_icon_file_on);

@@ -24,7 +24,7 @@ If not, please contact Dr. Furqan Ullah immediately:
 **********************************************************************************/
 
 #include <FL/Fl_Double_Window.H>
-#include "FLE_Export.h"
+#include "Fle_Export.h"
 
 namespace R3D
 {
