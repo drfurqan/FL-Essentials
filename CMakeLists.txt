@@ -124,7 +124,7 @@ add_library (${PROJECT_NAME} STATIC ${STATIC_FILES} ${HEADERFILES})
 
 # find_package(FLTK REQUIRED)
 find_package(FLTK REQUIRED fltk fltk_forms fltk_gl fltk_images)
-find_package(OpenCV REQUIRED)
+find_package(OpenCV REQUIRED opencv_world)
 
 # ------------------------------------------------------------------------------
 # Link all the required and optional libraries to this library
