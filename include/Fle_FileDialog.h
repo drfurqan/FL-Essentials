@@ -22,8 +22,9 @@ purpose:	Class to execute the file dialog and get the opened file path.
 * If not, please contact Dr. Furqan Ullah immediately:
 **********************************************************************************/
 
+#include "Fle_Export.h"
+
 #include "FL/Fl_Native_File_Chooser.H"
-#include "FLE_Export.h"
 
 #include <string>
 

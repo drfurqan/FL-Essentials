@@ -21,7 +21,9 @@ If not, please contact Dr. Furqan Ullah immediately:
 #include "Fle_ImageUtil.h"
 #include "Fle_StringUtil.h"
 #include "Fle_WindowsUtil.h"
+#if (_MSC_VER >= 1900)
 #include <filesystem>	// for create directory
+#endif
 
 using namespace R3D;
 

@@ -23,8 +23,10 @@ If not, please contact Dr. Furqan Ullah immediately:
 **********************************************************************************/
 
 #include "Fle_Export.h"
-#include <opencv2/opencv.hpp>
+
 #include <FL/Fl_RGB_Image.H>
+
+#include <opencv2/opencv.hpp>
 
 namespace R3D
 {

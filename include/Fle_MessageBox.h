@@ -23,8 +23,9 @@ You should have received a copy of this license with this file.
 If not, please contact Dr. Furqan Ullah immediately:
 **********************************************************************************/
 
-#include <FL/Fl_Double_Window.H>
 #include "Fle_Export.h"
+
+#include <FL/Fl_Double_Window.H>
 
 namespace R3D
 {

@@ -24,8 +24,10 @@ If not, please contact Dr. Furqan Ullah immediately:
 
 #include "Fle_Export.h"
 #include "Fle_Window.h"
+
 #include <FL/Fl_Pack.H>
 #include <FL/Fl_Box.H>
+
 #include <vector>
 
 namespace R3D

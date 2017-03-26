@@ -21,9 +21,9 @@ If not, please contact Dr. Furqan Ullah immediately:
 #include "Fle_WindowsUtil.h"
 
 #ifdef _WIN32
-#include <Windows.h>
-#endif // _WIN32
+#include <windows.h>
 #include <direct.h>
+#endif // _WIN32
 #include <sys/types.h> // required for stat.h
 #include <sys/stat.h> // no clue why required -- man pages say so
 

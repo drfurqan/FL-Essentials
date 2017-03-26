@@ -23,9 +23,9 @@ If not, please contact Dr. Furqan Ullah immediately:
 **********************************************************************************/
 
 #include "Fle_Window.h"
-#include "FLE_MenuBar.h"
-#include "FLE_ToolBar.h"
-#include "FLE_StatusBar.h"
+#include "Fle_MenuBar.h"
+#include "Fle_ToolBar.h"
+#include "Fle_StatusBar.h"
 #include "Fle_Color.h"
 
 namespace R3D

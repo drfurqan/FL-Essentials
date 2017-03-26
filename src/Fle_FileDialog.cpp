@@ -11,7 +11,7 @@ CopyRight:	All Rights Reserved
 purpose:	Class to execute the file dialog and get the opened file path.
 *******************************************************************************/
 
-#include "FLE_FileDialog.h"
+#include "Fle_FileDialog.h"
 #include "FL/Fl.H"
 
 using namespace R3D;
