@@ -20,9 +20,9 @@ You should have received a copy of this license with this file.
 If not, please contact Dr. Furqan Ullah immediately:
 **********************************************************************************/
 
-#include "Fle_Dialog.h"
-#include "Fle_Input.h"
-#include "Fle_Spinner.h"
+#include <FLE/Fle_Dialog.h>
+#include <FLE/Fle_Input.h>
+#include <FLE/Fle_Spinner.h>
 
 #include <FL/Fl_Button.H>
 #include <FL/Fl_Multiline_Input.H>

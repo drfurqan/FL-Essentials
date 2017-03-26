@@ -1,17 +1,17 @@
 #pragma once
-#ifndef Fle_ToolBar_h__
-#define Fle_ToolBar_h__
+#ifndef Fle_Core_h__
+#define Fle_Core_h__
 
 /*********************************************************************************
-created:	2017/01/28   06:54AM
-filename: 	Fle_ToolBar.h
-file base:	Fle_ToolBar
+created:	2017/01/28   03:26AM
+filename: 	Fle_Core.h
+file base:	Fle_Core
 file ext:	h
 author:		Furqan Ullah (Post-doc, Ph.D.)
 website:    http://real3d.pk
 CopyRight:	All Rights Reserved
 
-purpose:	A class to create toolbars in horizontal and vertical directions.
+purpose:	Core functionalities of Fle lib.
 
 /**********************************************************************************
 FL-ESSENTIALS (FLE) - FLTK Utility Widgets
@@ -22,19 +22,22 @@ You should have received a copy of this license with this file.
 If not, please contact Dr. Furqan Ullah immediately:
 **********************************************************************************/
 
-#include "Fle_Layout.h"
+#include <FLE/Fle_Export.h>
 
 namespace R3D
 {
 
-class FL_ESSENTIALS_EXPORT Fle_ToolBar : public Fle_VHLayout
+class FL_ESSENTIALS_EXPORT Fle_Core
 {
 public:
 	// Description:
-	// Constructor to create a status bar with position, size, and title.
-	Fle_ToolBar(int _x, int _y, int _w, int _h, const char* _label = 0);
+	// Function to initialize the FLE and FLTK libraries.
+	static void init();
+	// Description:
+	// Function to event loop for the library.
+	static int exec();
 };
 
 }
 
-#endif // Fle_ToolBar_h__
+#endif // Fle_Core_h__

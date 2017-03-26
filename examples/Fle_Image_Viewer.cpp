@@ -19,16 +19,17 @@ If not, please contact Dr. Furqan Ullah immediately:
 **********************************************************************************/
 
 #include "Fle_Image_Viewer.h"
-#include "Fle_Button.h"
-#include "Fle_Widgets.h"
-#include "Fle_Dialog.h"
-#include "Fle_FileDialog.h"
-#include "Fle_MessageBox.h"
-#include "Fle_StringUtil.h"
-#include "Fle_ImageUtil.h"
-#include "Fle_WindowsUtil.h"
-#include "Fle_ScrollBox.h"
 #include "Photo_Viewer_Icons.h"
+
+#include <FLE/Fle_Button.h>
+#include <FLE/Fle_Widgets.h>
+#include <FLE/Fle_Dialog.h>
+#include <FLE/Fle_FileDialog.h>
+#include <FLE/Fle_MessageBox.h>
+#include <FLE/Fle_StringUtil.h>
+#include <FLE/Fle_ImageUtil.h>
+#include <FLE/Fle_WindowsUtil.h>
+#include <FLE/Fle_ScrollBox.h>
 
 #include <FL/Fl_Printer.H>
 #include <FL/Fl_Copy_Surface.H>
@@ -670,8 +671,8 @@ void Fle_Image_Viewer::about_cb(Fl_Widget* _w, void* _p)
 
 	std::ostringstream sstream;
 	sstream <<
-		"<br><p>Version: 1.1.2</p>"
-		"<br><p>Release Date: 2017/03/26 03:26:30</p>"
+		"<br><p>Version: 1.3.1</p>"
+		"<br><p>Release Date: 2017/03/27 12:34AM</p>"
 		"<br><p>Copyright(C) 2017</p>"
 		"<p><a href=\"http://real3d.pk/\">Website</a> " << "and <a href=\"http://www.real3d.pk/forum/index.php\">Forum</a></p>"
 		"<br><p><b><i>For all questions and bug reports, email to info@real3d.pk.<b><i></p>"

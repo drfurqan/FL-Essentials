@@ -23,9 +23,9 @@ You should have received a copy of this license with this file.
 If not, please contact Dr. Furqan Ullah immediately:
 **********************************************************************************/
 
-#include "Fle_Window.h"
-#include "Fle_Button.h"
-#include "Fle_Layout.h"
+#include <FLE/Fle_Window.h>
+#include <FLE/Fle_Button.h>
+#include <FLE/Fle_Layout.h>
 
 #include <vector>
 

@@ -22,11 +22,11 @@ You should have received a copy of this license with this file.
 If not, please contact Dr. Furqan Ullah immediately:
 **********************************************************************************/
 
-#include "Fle_Window.h"
-#include "Fle_MenuBar.h"
-#include "Fle_ToolBar.h"
-#include "Fle_StatusBar.h"
-#include "Fle_Color.h"
+#include <FLE/Fle_Window.h>
+#include <FLE/Fle_MenuBar.h>
+#include <FLE/Fle_ToolBar.h>
+#include <FLE/Fle_StatusBar.h>
+#include <FLE/Fle_Color.h>
 
 namespace R3D
 {

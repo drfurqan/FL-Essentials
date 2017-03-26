@@ -18,9 +18,9 @@ You should have received a copy of this license with this file.
 If not, please contact Dr. Furqan Ullah immediately:
 **********************************************************************************/
 
-#include "Fle_MainWindow.h"
-#include "Fle_MessageBox.h"
-#include "Fle_WindowsUtil.h"
+#include <FLE/Fle_MainWindow.h>
+#include <FLE/Fle_MessageBox.h>
+#include <FLE/Fle_WindowsUtil.h>
 
 #include <FL/fl_draw.H>
 

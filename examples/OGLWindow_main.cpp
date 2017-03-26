@@ -1,7 +1,7 @@
 /*********************************************************************************
 created:	2017/03/14   02:11AM
-filename: 	opengl_events_lights_animation_main.cpp
-file base:	opengl_events_lights_animation_main
+filename: 	OGLWindow_main.cpp
+file base:	OGLWindow_main
 file ext:	cpp
 author:		Furqan Ullah (Post-doc, Ph.D.)
 website:    http://real3d.pk
@@ -18,8 +18,8 @@ You should have received a copy of this license with this file.
 If not, please contact Dr. Furqan Ullah immediately:
 **********************************************************************************/
 
-#include "Fle_Core.h"
-#include "Fle_MainWindow.h"
+#include <FLE/Fle_Core.h>
+#include <FLE/Fle_MainWindow.h>
 #include "OGLWindow.h"
 
 int main(int argc, char* argv[])

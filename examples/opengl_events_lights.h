@@ -22,7 +22,7 @@ You should have received a copy of this license with this file.
 If not, please contact Dr. Furqan Ullah immediately:
 **********************************************************************************/
 
-#include "Fle_OpenGLWindow.h"
+#include <FLE/Fle_OpenGLWindow.h>
 
 using namespace R3D;
 

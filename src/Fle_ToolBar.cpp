@@ -18,7 +18,7 @@ You should have received a copy of this license with this file.
 If not, please contact Dr. Furqan Ullah immediately:
 **********************************************************************************/
 
-#include "Fle_ToolBar.h"
+#include <FLE/Fle_ToolBar.h>
 
 using namespace R3D;
 

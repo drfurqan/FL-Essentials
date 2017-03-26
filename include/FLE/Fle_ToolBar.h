@@ -1,16 +1,17 @@
 #pragma once
-#ifndef Fle_ProgressBar_h__
-#define Fle_ProgressBar_h__
+#ifndef Fle_ToolBar_h__
+#define Fle_ToolBar_h__
+
 /*********************************************************************************
-created:	2017/03/01   04:50AM
-filename: 	Fle_ProgressBar.h
-file base:	Fle_ProgressBar
+created:	2017/01/28   06:54AM
+filename: 	Fle_ToolBar.h
+file base:	Fle_ToolBar
 file ext:	h
 author:		Furqan Ullah (Post-doc, Ph.D.)
 website:    http://real3d.pk
 CopyRight:	All Rights Reserved
 
-purpose:	A class for a progress bar.
+purpose:	A class to create toolbars in horizontal and vertical directions.
 
 /**********************************************************************************
 FL-ESSENTIALS (FLE) - FLTK Utility Widgets
@@ -21,32 +22,19 @@ You should have received a copy of this license with this file.
 If not, please contact Dr. Furqan Ullah immediately:
 **********************************************************************************/
 
-#include "Fle_Export.h"
-#include <FL/Fl_Valuator.H>
+#include <FLE/Fle_Layout.h>
 
 namespace R3D
 {
 
-class FL_ESSENTIALS_EXPORT Fle_ProgressBar : public Fl_Valuator
+class FL_ESSENTIALS_EXPORT Fle_ToolBar : public Fle_VHLayout
 {
 public:
 	// Description:
-	// Constructor to create a slider type progress bar with position, size.
-	Fle_ProgressBar(int _x, int _y, int _w, int _h, const char* _lable = 0);
-
-	// Description:
-	// Function to set the current value.
-	int value(double _value);
-
-	// Description:
-	// Function to get the current value.
-	double value() const;
-
-protected:
-	void draw();
-
+	// Constructor to create a status bar with position, size, and title.
+	Fle_ToolBar(int _x, int _y, int _w, int _h, const char* _label = 0);
 };
 
 }
 
-#endif // Fle_ProgressBar_h__
+#endif // Fle_ToolBar_h__

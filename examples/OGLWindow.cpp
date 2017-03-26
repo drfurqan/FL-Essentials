@@ -1,7 +1,7 @@
 /*********************************************************************************
 created:	2017/03/14   02:10AM
-filename: 	opengl_events_lights_animation.cpp
-file base:	opengl_events_lights_animation
+filename: 	OGLWindow.cpp
+file base:	OGLWindow
 file ext:	cpp
 author:		Furqan Ullah (Post-doc, Ph.D.)
 website:    http://real3d.pk

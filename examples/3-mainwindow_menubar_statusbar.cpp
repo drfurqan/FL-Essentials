@@ -18,10 +18,10 @@ You should have received a copy of this license with this file.
 If not, please contact Dr. Furqan Ullah immediately:
 **********************************************************************************/
 
-#include "Fle_Core.h"
-#include "Fle_MainWindow.h"
-#include "Fle_Dialog.h"
-#include "Fle_Widgets.h"
+#include <FLE/Fle_Core.h>
+#include <FLE/Fle_MainWindow.h>
+#include <FLE/Fle_Dialog.h>
+#include <FLE/Fle_Widgets.h>
 
 using namespace R3D;
 
@@ -29,8 +29,8 @@ void menu_cb(Fl_Widget* _w, void* _p)
 {
 	std::ostringstream sstream;
 	sstream <<
-		"<br><center><h3>FLE v1.1.0</h3></center>"
-		"<center><h6>(March 06 2017)</h6></center>"
+		"<br><center><h3>FLE v1.3.1</h3></center>"
+		"<center><h6>(March 27 2017)</h6></center>"
 		"<br><center><h4><a href=\"http://real3d.pk/\">http://real3d.pk/</a></h4></center>"
 		"</p><br><center><a href=\"mailto:info@real3d.pk\">info@real3d.pk</a></center></p>";
 	Fle_Dialog::openHelpDialog
@@ -50,7 +50,7 @@ int main(int argc, char* argv[])
 	Fle_Core::init();
 
 	// create a main window.
-	Fle_MainWindow* w = new Fle_MainWindow(1024, 500, "Hello World");
+	Fle_MainWindow* w = new Fle_MainWindow(1024, 500, "MainWindow with MenuBar and StatusBar");
 	w->setMinimumSize(Fle_Size(300, 300));
 	w->setMaximumSize(Fle_Size(10000, 10000));
 

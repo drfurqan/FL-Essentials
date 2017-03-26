@@ -22,7 +22,8 @@ You should have received a copy of this license with this file.
 If not, please contact Dr. Furqan Ullah immediately:
 **********************************************************************************/
 
-#include "Fle_Box.h"
+#include <FLE/Fle_Box.h>
+
 #include <FL/Fl_Scroll.H>
 
 namespace R3D

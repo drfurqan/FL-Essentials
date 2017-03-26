@@ -19,7 +19,7 @@ If not, please contact Dr. Furqan Ullah immediately:
 **********************************************************************************/
 
 
-#include "Fle_ProgressBar.h"
+#include <FLE/Fle_ProgressBar.h>
 
 #include <FL/Fl_Window.H>
 #include <FL/fl_draw.H>

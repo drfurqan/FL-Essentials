@@ -19,7 +19,8 @@ You should have received a copy of this license with this file.
 If not, please contact Dr. Furqan Ullah immediately:
 **********************************************************************************/
 
-#include "Fle_MessageBox.h"
+#include <FLE/Fle_MessageBox.h>
+
 #include <FL/Fl_JPEG_Image.H>
 #include <FL/Fl_Help_View.H>
 #include <FL/Fl_Button.H>

@@ -13,7 +13,7 @@ project (fle)
 # file(READ VERSION FLE_VERSION)
 
 set(VERSION_MAJOR 1)
-set(VERSION_MINOR 30)
+set(VERSION_MINOR 31)
 set(VERSION_PLAIN ${VERSION_MAJOR}.${VERSION_MINOR})
 
 # ------------------------------------------------------------------------------
@@ -68,36 +68,36 @@ ${CMAKE_SOURCE_DIR}/src/Fl_Menu.cxx
 # ------------------------------------------------------------------------------
 
 set(HEADERFILES
-${CMAKE_SOURCE_DIR}/include/Fle_Box.h
-${CMAKE_SOURCE_DIR}/include/Fle_Button.h
-${CMAKE_SOURCE_DIR}/include/Fle_CheckGroup.h
-${CMAKE_SOURCE_DIR}/include/Fle_Color.h
-${CMAKE_SOURCE_DIR}/include/Fle_Core.h
-${CMAKE_SOURCE_DIR}/include/Fle_Dialog.h
-${CMAKE_SOURCE_DIR}/include/Fle_Export.h
-${CMAKE_SOURCE_DIR}/include/Fle_FileDialog.h
-${CMAKE_SOURCE_DIR}/include/Fle_Font.h
-${CMAKE_SOURCE_DIR}/include/Fle_Group.h
-${CMAKE_SOURCE_DIR}/include/Fle_ImageUtil.h
-${CMAKE_SOURCE_DIR}/include/Fle_ImageWidget.h
-${CMAKE_SOURCE_DIR}/include/Fle_Input.h
-${CMAKE_SOURCE_DIR}/include/Fle_InputSlider.h
-${CMAKE_SOURCE_DIR}/include/Fle_Layout.h
-${CMAKE_SOURCE_DIR}/include/Fle_MainWindow.h
-${CMAKE_SOURCE_DIR}/include/Fle_MenuBar.h
-${CMAKE_SOURCE_DIR}/include/Fle_MessageBox.h
-${CMAKE_SOURCE_DIR}/include/Fle_OpenGLWindow.h
-${CMAKE_SOURCE_DIR}/include/Fle_ProgressBar.h
-${CMAKE_SOURCE_DIR}/include/Fle_ScrollBox.h
-${CMAKE_SOURCE_DIR}/include/Fle_Size.h
-${CMAKE_SOURCE_DIR}/include/Fle_Spinner.h
-${CMAKE_SOURCE_DIR}/include/Fle_StatusBar.h
-${CMAKE_SOURCE_DIR}/include/Fle_StringUtil.h
-${CMAKE_SOURCE_DIR}/include/Fle_Timer.h
-${CMAKE_SOURCE_DIR}/include/Fle_ToolBar.h
-${CMAKE_SOURCE_DIR}/include/Fle_Widgets.h
-${CMAKE_SOURCE_DIR}/include/Fle_Window.h
-${CMAKE_SOURCE_DIR}/include/Fle_WindowsUtil.h
+${CMAKE_SOURCE_DIR}/include/FLE/Fle_Box.h
+${CMAKE_SOURCE_DIR}/include/FLE/Fle_Button.h
+${CMAKE_SOURCE_DIR}/include/FLE/Fle_CheckGroup.h
+${CMAKE_SOURCE_DIR}/include/FLE/Fle_Color.h
+${CMAKE_SOURCE_DIR}/include/FLE/Fle_Core.h
+${CMAKE_SOURCE_DIR}/include/FLE/Fle_Dialog.h
+${CMAKE_SOURCE_DIR}/include/FLE/Fle_Export.h
+${CMAKE_SOURCE_DIR}/include/FLE/Fle_FileDialog.h
+${CMAKE_SOURCE_DIR}/include/FLE/Fle_Font.h
+${CMAKE_SOURCE_DIR}/include/FLE/Fle_Group.h
+${CMAKE_SOURCE_DIR}/include/FLE/Fle_ImageUtil.h
+${CMAKE_SOURCE_DIR}/include/FLE/Fle_ImageWidget.h
+${CMAKE_SOURCE_DIR}/include/FLE/Fle_Input.h
+${CMAKE_SOURCE_DIR}/include/FLE/Fle_InputSlider.h
+${CMAKE_SOURCE_DIR}/include/FLE/Fle_Layout.h
+${CMAKE_SOURCE_DIR}/include/FLE/Fle_MainWindow.h
+${CMAKE_SOURCE_DIR}/include/FLE/Fle_MenuBar.h
+${CMAKE_SOURCE_DIR}/include/FLE/Fle_MessageBox.h
+${CMAKE_SOURCE_DIR}/include/FLE/Fle_OpenGLWindow.h
+${CMAKE_SOURCE_DIR}/include/FLE/Fle_ProgressBar.h
+${CMAKE_SOURCE_DIR}/include/FLE/Fle_ScrollBox.h
+${CMAKE_SOURCE_DIR}/include/FLE/Fle_Size.h
+${CMAKE_SOURCE_DIR}/include/FLE/Fle_Spinner.h
+${CMAKE_SOURCE_DIR}/include/FLE/Fle_StatusBar.h
+${CMAKE_SOURCE_DIR}/include/FLE/Fle_StringUtil.h
+${CMAKE_SOURCE_DIR}/include/FLE/Fle_Timer.h
+${CMAKE_SOURCE_DIR}/include/FLE/Fle_ToolBar.h
+${CMAKE_SOURCE_DIR}/include/FLE/Fle_Widgets.h
+${CMAKE_SOURCE_DIR}/include/FLE/Fle_Window.h
+${CMAKE_SOURCE_DIR}/include/FLE/Fle_WindowsUtil.h
 )
 
 # ------------------------------------------------------------------------------
@@ -190,8 +190,8 @@ LIBRARY DESTINATION lib
 ARCHIVE DESTINATION lib)
 
 install(DIRECTORY 
-${PROJECT_SOURCE_DIR}/include
-DESTINATION D:/fle 
+${PROJECT_SOURCE_DIR}/include/FLE
+DESTINATION include 
 USE_SOURCE_PERMISSIONS
 PATTERN ".svn" EXCLUDE
 )

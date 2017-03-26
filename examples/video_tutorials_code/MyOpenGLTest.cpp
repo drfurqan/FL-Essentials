@@ -1,6 +1,6 @@
 
-#include "Fle_Core.h"
-#include "Fle_OpenGLWindow.h"
+#include <FLE/Fle_Core.h>
+#include <FLE/Fle_OpenGLWindow.h>
 
 #include <Fl/gl.h>
 #include <Fl/glu.h>

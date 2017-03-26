@@ -22,13 +22,15 @@ You should have received a copy of this license with this file.
 If not, please contact Dr. Furqan Ullah immediately:
 **********************************************************************************/
 
-#include "Fle_MainWindow.h"
-#include "Fle_Input.h"
-#include "Fle_Button.h"
-#include "Fle_ScrollBox.h"
+#include <FLE/Fle_MainWindow.h>
+#include <FLE/Fle_Input.h>
+#include <FLE/Fle_Button.h>
+#include <FLE/Fle_ScrollBox.h>
+
 #include <FL/Fl_Slider.H>
 #include <FL/Fl_Int_Input.H>
 #include <FL/Fl_Input_Choice.H>
+
 #include <string>
 
 using namespace R3D;

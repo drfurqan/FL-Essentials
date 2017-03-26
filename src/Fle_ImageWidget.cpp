@@ -18,10 +18,9 @@ You should have received a copy of this license with this file.
 If not, please contact Dr. Furqan Ullah immediately:
 **********************************************************************************/
 
-#include "Fle_ImageWidget.h"
-#include "Fle_ImageUtil.h"
-
-#include "Fle_MessageBox.h"
+#include <FLE/Fle_ImageWidget.h>
+#include <FLE/Fle_ImageUtil.h>
+#include <FLE/Fle_MessageBox.h>
 
 #include <FL/Fl.H>
 #include <FL/fl_draw.H>

@@ -52,13 +52,13 @@ You should have received a copy of this license with this file.
 If not, please contact Dr. Furqan Ullah immediately:
 **********************************************************************************/
 
-#include "Fle_Button.h"
-#include "Fle_InputSlider.h"
-#include "Fle_Input.h"
-#include "Fle_Layout.h"
-#include "Fle_Group.h"
-#include "Fle_CheckGroup.h"
-#include "Fle_Spinner.h"
+#include <FLE/Fle_Button.h>
+#include <FLE/Fle_InputSlider.h>
+#include <FLE/Fle_Input.h>
+#include <FLE/Fle_Layout.h>
+#include <FLE/Fle_Group.h>
+#include <FLE/Fle_CheckGroup.h>
+#include <FLE/Fle_Spinner.h>
 
 #include <FL/Fl_Pack.H>
 #include <FL/Fl_Box.H>

@@ -19,11 +19,11 @@ You should have received a copy of this license with this file.
 If not, please contact Dr. Furqan Ullah immediately:
 **********************************************************************************/
 
-#include "Fle_Window.h"
-#include "Fle_WindowsUtil.h"	// needed for maximized
+#include <FLE/Fle_Window.h>
+#include <FLE/Fle_WindowsUtil.h>	// needed for maximized
 
 #include <FL/Fl.H>
-#include <FL/x.H>               // needed for fl_display
+#include <FL/x.H>					// needed for fl_display
 
 using namespace R3D;
 

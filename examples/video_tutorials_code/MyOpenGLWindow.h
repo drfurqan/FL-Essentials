@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Fle_OpenGLWindow.h"
+#include <FLE/Fle_OpenGLWindow.h>
 
 
 using namespace R3D;

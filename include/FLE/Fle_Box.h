@@ -24,8 +24,8 @@ You should have received a copy of this license with this file.
 If not, please contact Dr. Furqan Ullah immediately:
 **********************************************************************************/
 
-#include "Fle_ImageWidget.h"
-#include "Fle_Font.h"
+#include <FLE/Fle_ImageWidget.h>
+#include <FLE/Fle_Font.h>
 
 namespace R3D
 {

@@ -1,11 +1,11 @@
 #pragma once
-#ifndef opengl_events_lights_animation_h__
-#define opengl_events_lights_animation_h__
+#ifndef OGLWindow_h__
+#define OGLWindow_h__
 
 /*********************************************************************************
 created:	2017/03/14   02:10AM
-filename: 	opengl_events_lights_animation.h
-file base:	opengl_events_lights_animation
+filename: 	OGLWindow.h
+file base:	OGLWindow
 file ext:	h
 author:		Furqan Ullah (Post-doc, Ph.D.)
 website:    http://real3d.pk
@@ -22,7 +22,7 @@ You should have received a copy of this license with this file.
 If not, please contact Dr. Furqan Ullah immediately:
 **********************************************************************************/
 
-#include "Fle_OpenGLWindow.h"
+#include <FLE/Fle_OpenGLWindow.h>
 
 using namespace R3D;
 
@@ -73,4 +73,4 @@ private:
 	float m_angle;
 };
 
-#endif // opengl_events_lights_animation_h__
+#endif // OGLWindow_h__

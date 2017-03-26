@@ -46,7 +46,7 @@ s_float->tooltip("This slider gives you float values.");
 
 **********************************************************************************/
 
-#include "Fle_Export.h"
+#include <FLE/Fle_Export.h>
 
 #include <FL/Fl.H>
 #include <FL/Fl_Group.H>
