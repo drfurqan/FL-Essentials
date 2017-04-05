@@ -21,9 +21,9 @@ If not, please contact Dr. Furqan Ullah immediately:
 #include <FLE/Fle_Core.h>
 #include <FLE/Fle_OpenGLWindow.h>
 
-#include <Fl/gl.h>
-#include <Fl/glu.h>
-#include <Fl/glut.h>
+#include <FL/gl.h>
+#include <FL/glu.h>
+#include <FL/glut.h>
 
 using namespace R3D;
 
