@@ -15,7 +15,7 @@ C++ish interface). The directory structure is: <br/>
 ## Building
 Take a look into the `INSTALL` file. The build system is CMake, if you already used CMake before there is a good chance you know what to do. <br/>	
 
-Video Tutorial that explains the build procedure using CMake: <br/>	
+Video tutorial that explains the build procedure using CMake (three libraries OpenCV, FLTK, and FLE are compiled in this video): <br/>	
 
 [![How to Build OpenCV, FLTK, FL-Essentials using CMake](how_to_build.png)](https://youtu.be/bwVpf_uKaGo "How to Build OpenCV, FLTK, FL-Essentials using CMake")
 
