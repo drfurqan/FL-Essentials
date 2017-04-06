@@ -13,7 +13,11 @@ C++ish interface). The directory structure is: <br/>
 -  /samples (Examples to illustrate possible use cases for FLE) <br/>
 
 ## Building
-Take a look into the `INSTALL` file. The build system is CMake, if you already used CMake before there is a good chance you know what to do.
+Take a look into the `INSTALL` file. The build system is CMake, if you already used CMake before there is a good chance you know what to do. <br/>	
+
+Video Tutorial that explains the build procedure using CMake: <br/>	
+
+[![How to Build OpenCV, FLTK, FL-Essentials using CMake](how_to_build.png)](https://youtu.be/bwVpf_uKaGo "How to Build OpenCV, FLTK, FL-Essentials using CMake")
 
 ## Required Libraries
 -  FLTK >= 1.3.x

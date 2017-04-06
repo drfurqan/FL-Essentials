@@ -48,3 +48,6 @@ target_link_libraries(opengl_events_lights_animation LINK_PUBLIC ${LIBRARIES})
 
 add_executable (OGLWindow OGLWindow_main.cpp OGLWindow.cpp OGLWindow.h)
 target_link_libraries(OGLWindow LINK_PUBLIC ${LIBRARIES})
+
+add_executable (opengl_rotation_panning_zooming opengl_rotation_panning_zooming_main.cpp opengl_rotation_panning_zooming.cpp opengl_rotation_panning_zooming.h)
+target_link_libraries(opengl_rotation_panning_zooming LINK_PUBLIC ${LIBRARIES})
