@@ -1,15 +1,22 @@
-/******************************************************************************
+/**********************************************************************************
 created:	2014/01/20
 created:	20:1:2014   13:07
-filename: 	FLE_FileDialog.cpp
-file base:	FLE_FileDialog
+filename: 	Fle_FileDialog.cpp
+file base:	Fle_FileDialog
 file ext:	cpp
 author:		Furqan Ullah (Post-doc, Ph.D.)
 website:    http://real3d.pk
 CopyRight:	All Rights Reserved
 
 purpose:	Class to execute the file dialog and get the opened file path.
-*******************************************************************************/
+/**********************************************************************************
+FL-ESSENTIALS (FLE) - FLTK Utility Widgets
+Copyright (C) 2017 REAL3D
+
+This file and its content is protected by a software license.
+You should have received a copy of this license with this file.
+If not, please contact Dr. Furqan Ullah immediately:
+**********************************************************************************/
 
 #include <FLE/Fle_FileDialog.h>
 
@@ -65,17 +72,17 @@ int Fle_FileDialog::execute(FILE_CHOOSER_TYPE type, const char *filter, const ch
 
 int Fle_FileDialog::browsSingleFile(const std::string& filter, const std::string& title, const std::string& fname)
 {
-	return this->execute(FILE_CHOOSER_SINGLE, filter.c_str(), title.c_str(), fname.c_str());
+	return execute(FILE_CHOOSER_SINGLE, filter.c_str(), title.c_str(), fname.c_str());
 }
 int Fle_FileDialog::browsMultiFile(const std::string& filter, const std::string& title, const std::string& fname)
 {
-	return this->execute(FILE_CHOOSER_MULTI, filter.c_str(), title.c_str(), fname.c_str());
+	return execute(FILE_CHOOSER_MULTI, filter.c_str(), title.c_str(), fname.c_str());
 }
 int Fle_FileDialog::browsSave(const std::string& filter, const std::string& title, const std::string& fname)
 {
-	return this->execute(FILE_CHOOSER_CREATE, filter.c_str(), title.c_str(), fname.c_str());
+	return execute(FILE_CHOOSER_CREATE, filter.c_str(), title.c_str(), fname.c_str());
 }
 int Fle_FileDialog::chooseDirectory(const std::string& title)
 {
-	return this->execute(FILE_CHOOSER_DIRECTORY, "none", title.c_str(), 0);
+	return execute(FILE_CHOOSER_DIRECTORY, "none", title.c_str(), 0);
 }

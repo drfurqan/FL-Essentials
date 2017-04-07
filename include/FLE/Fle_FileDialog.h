@@ -1,25 +1,24 @@
 #ifndef FLE_FileDialog_h__
 #define FLE_FileDialog_h__
 
-/******************************************************************************
+/**********************************************************************************
 created:	2014/01/20
 created:	20:1:2014   13:07
-filename: 	FLE_FileDialog.h
-file base:	FLE_FileDialog
+filename: 	Fle_FileDialog.h
+file base:	Fle_FileDialog
 file ext:	h
 author:		Furqan Ullah (Post-doc, Ph.D.)
 website:    http://real3d.pk
 CopyRight:	All Rights Reserved
 
 purpose:	Class to execute the file dialog and get the opened file path.
-
 /**********************************************************************************
-*                FL-ESSENTIALS (FLE) - FLTK Utility Widgets
-*  Copyright (C) 2017 REAL3D
-*
-* This file and its content is protected by a software license.
-* You should have received a copy of this license with this file.
-* If not, please contact Dr. Furqan Ullah immediately:
+FL-ESSENTIALS (FLE) - FLTK Utility Widgets
+Copyright (C) 2017 REAL3D
+
+This file and its content is protected by a software license.
+You should have received a copy of this license with this file.
+If not, please contact Dr. Furqan Ullah immediately:
 **********************************************************************************/
 
 #include <FLE/Fle_Export.h>

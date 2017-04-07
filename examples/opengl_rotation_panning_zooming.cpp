@@ -25,7 +25,7 @@ If not, please contact Dr. Furqan Ullah immediately:
 
 #include <FL/gl.h>
 #include <FL/glu.h>
-#include <FL/glut.h>
+#include <FL/glut.H>
 
 MyOpenGLWindow::MyOpenGLWindow(int _w, int _h, const char* _title) : Fle_OpenGLWindow(_w, _h, _title)
 {
@@ -83,28 +83,28 @@ void MyOpenGLWindow::paintGL()
 
 	// scene translation and rotation
 	glTranslatef(x_trans, y_trans, zoom);
-	glRotatef(x_rot_angle, 1, 0, 0);
-	glRotatef(y_rot_angle, 0, 1, 0);
+	glRotatef(x_rot_angle, 1.f, 0.f, 0.f);
+	glRotatef(y_rot_angle, 0.f, 1.f, 0.f);
 
 	// scene animation
-	glRotatef(angle, 0, 1, 0);
+	glRotatef(angle, 0.f, 1.f, 0.f);
 
 	// draw 3D axis
-	glLineWidth(2);
+	glLineWidth(2.f);
 	draw3DAxis(60.f);
 
 	// draw a box
 	glPushMatrix();
-	glTranslatef(-10, -10, -10);
-	drawBox(20, 20, 20);
+	glTranslatef(-10.f, -10.f, -10.f);
+	drawBox(20.f, 20.f, 20.f);
 	glPopMatrix();
 }
 
 void MyOpenGLWindow::timerEvent()
 {
-	angle = angle + 0.5;
-	if (angle > 360)
-		angle = angle - 360;
+	angle = angle + 0.5f;
+	if (angle > 360.f)
+		angle = angle - 360.f;
 
 	update();
 }
@@ -168,62 +168,62 @@ void MyOpenGLWindow::draw3DAxis(float _size)
 {
 	glBegin(GL_LINES);
 
-	glColor3f(1, 0, 0);
-	glVertex3f(-_size, 0, 0);
-	glVertex3f(_size, 0, 0);
+	glColor3f(1.f, 0.f, 0.f);
+	glVertex3f(-_size, 0.f, 0.f);
+	glVertex3f(_size, 0.f, 0.f);
 
-	glColor3f(0, 1, 0);
-	glVertex3f(0, -_size, 0);
-	glVertex3f(0, _size, 0);
+	glColor3f(0.f, 1.f, 0.f);
+	glVertex3f(0.f, -_size, 0.f);
+	glVertex3f(0.f, _size, 0.f);
 
-	glColor3f(0, 0, 1);
-	glVertex3f(0, 0, -_size);
-	glVertex3f(0, 0, _size);
+	glColor3f(0.f, 0.f, 1.f);
+	glVertex3f(0.f, 0.f, -_size);
+	glVertex3f(0.f, 0.f, _size);
 
 	glEnd();
 }
 
-void MyOpenGLWindow::drawBox(int _w, int _h, int _d)
+void MyOpenGLWindow::drawBox(float _w, float _h, float _d)
 {
 	glBegin(GL_QUADS);				// start drawing using quads
 
 	// front
-	glColor3f(0, 0, 1);				// red color
+	glColor3f(0.f, 0.f, 1.f);				// red color
 	glVertex3f(0.f, _h, _d);
 	glVertex3f(0.f, 0.f, _d);
 	glVertex3f(_w, 0.f, _d);
 	glVertex3f(_w, _h, _d);
 
 	// back
-	glColor3f(0, 0, 1);				// green color
+	glColor3f(0.f, 0.f, 1.f);				// green color
 	glVertex3f(0.f, _h, 0.f);
 	glVertex3f(_w, _h, 0.f);
 	glVertex3f(_w, 0.f, 0.f);
 	glVertex3f(0.f, 0.f, 0.f);
 
 	// top
-	glColor3f(0, 1, 0);				// blue color
+	glColor3f(0.f, 1.f, 0.f);				// blue color
 	glVertex3f(0.f, _h, 0.f);
 	glVertex3f(0.f, _h, _d);
 	glVertex3f(_w, _h, _d);
 	glVertex3f(_w, _h, 0.f);
 
 	// bottom
-	glColor3f(0, 1, 0);				// yellow color
+	glColor3f(0.f, 1.f, 0.f);				// yellow color
 	glVertex3f(0.f, 0.f, 0.f);
 	glVertex3f(_w, 0.f, 0.f);
 	glVertex3f(_w, 0.f, _d);
 	glVertex3f(0.f, 0.f, _d);
 
 	// left
-	glColor3f(1, 0, 0);				// cyan color
+	glColor3f(1.f, 0.f, 0.f);				// cyan color
 	glVertex3f(0.f, _h, 0.f);
 	glVertex3f(0.f, 0.f, 0.f);
 	glVertex3f(0.f, 0.f, _d);
 	glVertex3f(0.f, _h, _d);
 
 	// right
-	glColor3f(1, 0, 0);				// violet color
+	glColor3f(1.f, 0.f, 0.f);				// violet color
 	glVertex3f(_w, _h, _d);
 	glVertex3f(_w, 0.f, _d);
 	glVertex3f(_w, 0.f, 0.f);

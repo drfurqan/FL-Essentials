@@ -308,7 +308,7 @@ void Fle_MainWindow::updateGeometry()
 	// This is the only solution that I found to update the geometry contents after show().
 	// The problem is, before calling the show() whatever you do nothing changes the geometry, such as
 	// tool bar buttons and left bar layouts etc. So, the solution is, just after
-	// show(), call this function that will increment 1 pixel and call size() after the specified
+	// show(), call this function that call size() function after the specified
 	// time which is 0.01 here.
 	std::function<void()> f = [&]()
 	{

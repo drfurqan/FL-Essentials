@@ -72,8 +72,7 @@ void Fle_Core::init()
 	Fl::set_font(0, "Segoe UI");				// default windows font
 	Fl::add_handler(__disable_escape_key);
 
-	if(FL_MAJOR_VERSION >= 1 && FL_MINOR_VERSION > 3)
-		Fl_Shared_Image::scaling_algorithm(Fl_RGB_Scaling::FL_RGB_SCALING_BILINEAR);
+	Fl_Shared_Image::scaling_algorithm(Fl_RGB_Scaling::FL_RGB_SCALING_BILINEAR);
 	Fl_Shared_Image::RGB_scaling(Fl_RGB_Scaling::FL_RGB_SCALING_BILINEAR);
 	/************************************************************************/
 }

@@ -22,7 +22,7 @@ If not, please contact Dr. Furqan Ullah immediately:
 #include <FLE/Fle_WindowsUtil.h>	// needed for maximized
 
 #include <FL/Fl.H>
-#include <FL/gl.H>
+#include <FL/gl.h>
 #include <FL/x.H>               // needed for fl_display
 
 using namespace R3D;

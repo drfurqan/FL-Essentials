@@ -21,7 +21,7 @@ If not, please contact Dr. Furqan Ullah immediately:
 #include "opengl_hello_world.h"
 #include <FL/gl.h>
 #include <FL/glu.h>
-#include <FL/glut.h>
+#include <FL/glut.H>
 
 GLWindow::GLWindow(int _w, int _h, const char* _title) : 
 Fle_OpenGLWindow(_w, _h, _title)

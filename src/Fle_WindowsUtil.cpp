@@ -111,7 +111,7 @@ bool Fle_WindowsUtil::create_directory(const std::string& _dir_name)
 		return true;
 #else 
 	mode_t nMode = 0733; // UNIX style permissions
-	if(mkdir(sPath.c_str(), nMode) == 0) // can be used on non-Windows
+	if(mkdir(_dir_name.c_str(), nMode) == 0) // can be used on non-Windows
 		return true;
 #endif
 	return false;

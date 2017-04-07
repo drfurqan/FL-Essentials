@@ -1,5 +1,5 @@
 ## FL-Essentials
-FL-Essentials is a FLTK and OpenCV based software system which provides extreme easiness in building GUI applications. It consists of C++ class library and gives thread-safe image processing support. It makes FLTK functionality easier, faster, and lighter. It works fine as a static or shared library.
+FL-Essentials is a FLTK based software system which provides extreme easiness in building (responsive) GUI applications. It consists of C++ class library and gives thread-safe image processing support for OpenCV. It makes FLTK functionality easier, faster, and lighter. It works fine as a static or shared library.
 
 ## Repository structure
 

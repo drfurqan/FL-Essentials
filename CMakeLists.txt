@@ -116,7 +116,11 @@ set (STATIC_FILES ${SHARED_FILES})
 # Add source and header files and define the statis or shared version
 # ------------------------------------------------------------------------------
 
-add_library (${PROJECT_NAME} STATIC ${STATIC_FILES} ${HEADERFILES})
+if (WIN32)
+	add_library (${PROJECT_NAME} STATIC ${STATIC_FILES} ${HEADERFILES})
+else()
+	add_library (${PROJECT_NAME} SHARED ${STATIC_FILES} ${HEADERFILES})
+endif()
 
 # ------------------------------------------------------------------------------
 # Required libraries for this library which is FLE
@@ -124,7 +128,11 @@ add_library (${PROJECT_NAME} STATIC ${STATIC_FILES} ${HEADERFILES})
 
 # find_package(FLTK REQUIRED)
 find_package(FLTK REQUIRED fltk fltk_forms fltk_gl fltk_images)
-find_package(OpenCV REQUIRED opencv_world)
+if (WIN32)
+	find_package(OpenCV REQUIRED opencv_world)
+else()
+	find_package(OpenCV REQUIRED)
+endif()
 
 # ------------------------------------------------------------------------------
 # Link all the required and optional libraries to this library

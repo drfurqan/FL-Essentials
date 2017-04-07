@@ -23,7 +23,7 @@ If not, please contact Dr. Furqan Ullah immediately:
 
 #include <FL/gl.h>
 #include <FL/glu.h>
-#include <FL/glut.h>
+#include <FL/glut.H>
 
 using namespace R3D;
 

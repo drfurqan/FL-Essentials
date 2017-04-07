@@ -52,7 +52,7 @@ public:
 
 	// Description
 	// Function to draw/render a box by specifying width, height, and depth.
-	void drawBox(int _w, int _h, int _d);
+	void drawBox(float _w, float _h, float _d);
 
 	// Description
 	// Overridden functions for left mouse button events.

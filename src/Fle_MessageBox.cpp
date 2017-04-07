@@ -1509,7 +1509,7 @@ void Fle_MessageBox::closeEvent(Fl_Widget* _w, void* _p)
 }
 
 // copied from FLTK
-#include <Fl/fl_ask.H>
+#include <FL/fl_ask.H>
 void fle_beep(int type) 
 {
 #ifdef WIN32
