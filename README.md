@@ -1,5 +1,5 @@
 ## FL-Essentials
-FL-Essentials is a FLTK based software system which provides extreme easiness in building (responsive) GUI applications. It consists of C++ class library and gives thread-safe image processing support for OpenCV. It makes FLTK functionality easier, faster, and lighter. It works fine as a static or shared library.
+FL-Essentials (FLE) is a FLTK based software system which provides extreme easiness in building (responsive) GUI applications. It consists of C++ class library and gives thread-safe image processing support for OpenCV. It makes FLTK functionality easier, faster, and lighter. It works fine as a static or shared library.
 
 ## Repository structure
 
@@ -20,7 +20,7 @@ Video tutorial that explains the build procedure using CMake (three libraries Op
 [![How to Build OpenCV, FLTK, FL-Essentials using CMake](how_to_build.png)](https://youtu.be/bwVpf_uKaGo "How to Build OpenCV, FLTK, FL-Essentials using CMake")
 
 ## Required Libraries
--  FLTK >= 1.3.x
+-  FLTK >= 1.4.x
 -  OpenCV >= 2.x.x
 
 ## Author
