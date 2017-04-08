@@ -131,7 +131,14 @@ bool Fle_ImageUtil::openCVSupportedImage(const std::string& _filename)
 
 std::vector<std::string> Fle_ImageUtil::getDirectoryFiles(const std::string& _path, const std::string& _ext)
 {
-	std::string f = _path + "\\*." + _ext;
+	std::string seprator;
+#if defined(_WIN32)
+	seprator = "\\";
+#else 
+	seprator = "/";
+#endif
+
+	std::string f = _path + seprator + "*." + _ext;
 	cv::String s(f.c_str());
 
 	std::vector<cv::String> fn;
@@ -198,34 +205,15 @@ bool Fle_ImageUtil::batchResize(const std::string& _directory_path, int _w, int 
 	std::vector<std::string> files = Fle_ImageUtil::getDirectoryImageFiles(Fle_StringUtil::extractDirectory(_directory_path));
 	if (files.empty()) return false;
 
-#if (_MSC_VER >= 1900)
-	if (!std::experimental::filesystem::exists(_directory_path + "\\resized")) // Check if src folder exists
-		if (std::experimental::filesystem::create_directory(_directory_path + "\\resized")) // create src folder
-			std::cout << "New directory has been created, named 'resized'." << std::endl;
+	std::string folder_name = "resized";
+	std::string seprator;
+#if defined(_WIN32)
+	seprator = "\\";
+#else 
+	seprator = "/";
+#endif
 
-	bool b = false;
-	for (std::size_t i = 0; i < files.size(); i++)
-	{
-		cv::Mat src = cv::imread(files[i], CV_LOAD_IMAGE_UNCHANGED);
-		if (!src.empty())
-		{
-			cv::Size s(_w, _h);
-			if (_with_aspect_ratio)
-				s = Fle_ImageUtil::getNewSizeKeepAspectRatio(src.cols, src.rows, _w, _h);
-			cv::resize(src, src, s, 0, 0, _interpolation);
-			std::string name = Fle_StringUtil::extractFileNameWithExt(files[i]);
-			b = cv::imwrite(_directory_path + "\\resized\\" + name, src);
-			if (b)
-			{
-#ifdef _DEBUG
-				std::cout << i << " - " << _directory_path + "\\resized\\" + name << std::endl;
-#endif // _DEBUG
-			}
-		}
-	}
-	return b;
-#else
-	if (Fle_WindowsUtil::create_directory(_directory_path + "//resized")) // create src folder
+	if (Fle_WindowsUtil::create_directory(_directory_path + seprator + folder_name)) // create src folder
 		std::cout << "New directory has been created, named 'resized'." << std::endl;
 
 	bool b = false;
@@ -239,15 +227,14 @@ bool Fle_ImageUtil::batchResize(const std::string& _directory_path, int _w, int 
 				s = Fle_ImageUtil::getNewSizeKeepAspectRatio(src.cols, src.rows, _w, _h);
 			cv::resize(src, src, s, 0, 0, _interpolation);
 			std::string name = Fle_StringUtil::extractFileNameWithExt(files[i]);
-			b = cv::imwrite(_directory_path + "//resized//" + name, src);
+			b = cv::imwrite(_directory_path + seprator + folder_name + seprator + name, src);
 			if (b)
 			{
 #ifdef _DEBUG
-				std::cout << i << " - " << _directory_path + "\\resized\\" + name << std::endl;
+				std::cout << i << " - " << _directory_path + seprator + folder_name + seprator + name << std::endl;
 #endif // _DEBUG
 			}
 		}
 	}
 	return b;
-#endif
 }

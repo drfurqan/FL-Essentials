@@ -111,11 +111,19 @@ std::string Fle_StringUtil::extractDirectory(const std::string& path)
 std::string Fle_StringUtil::changeExt(const std::string& path, const std::string& ext)
 {
 	std::string filename = extractFileNameWithExt(path);
+#if defined(_WIN32)
 	return extractDirectory(path) + "\\" + filename.substr(0, filename.find_last_of('.')) + ext;
+#else 
+	return extractDirectory(path) + "/" + filename.substr(0, filename.find_last_of('.')) + ext;
+#endif
 }
 std::string Fle_StringUtil::changeFileName(const std::string& path, const std::string& newFileName)
 {
+#if defined(_WIN32)
 	return extractDirectory(path) + "\\" + newFileName;
+#else 
+	return extractDirectory(path) + "/" + newFileName;
+#endif
 }
 bool Fle_StringUtil::checkFileExt(std::string filename, std::string extension)
 {

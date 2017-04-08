@@ -545,7 +545,7 @@ void Fle_Image_Viewer::batchresize_cb(Fl_Widget* _w, void* _p)
 		if (Fle_Dialog::getNumbers(300, 200, "Specify the New Image Size! (Batch Resize)", _labels, _values, _minimums, _maximums, _steps, "Keep Aspect Ratio", check))
 		{
 			std::string path = d.getPath(0);
-			if(Fle_ImageUtil::batchResize(path + "\\", static_cast<int>(_values[0]), static_cast<int>(_values[1]), check))
+			if(Fle_ImageUtil::batchResize(path, static_cast<int>(_values[0]), static_cast<int>(_values[1]), check))
 				v->getStatusBar()->showMessage("All images have been resized...", 10);
 		}
 	}
@@ -671,13 +671,13 @@ void Fle_Image_Viewer::about_cb(Fl_Widget* _w, void* _p)
 
 	std::ostringstream sstream;
 	sstream <<
-		"<br><p>Version: 1.3.1</p>"
-		"<br><p>Release Date: 2017/03/27 12:34AM</p>"
+		"<br><p>Version: 1.3.2</p>"
+		"<br><p>Release Date: 2017/04/09 3:43AM</p>"
 		"<br><p>Copyright(C) 2017</p>"
 		"<p><a href=\"http://real3d.pk/\">Website</a> " << "and <a href=\"http://www.real3d.pk/forum/index.php\">Forum</a></p>"
 		"<br><p><b><i>For all questions and bug reports, email to info@real3d.pk.<b><i></p>"
 		"<br><p><b><i>Warning: This computer program is only for non-commercial purposes.<i></b></p>";
-		//"<br><center><h3>FLE v1.1.0</h3></center>"
+		//"<br><center><h3>FLE v1.3.2</h3></center>"
 		//"<center><h6>(March 06 2017)</h6></center>"
 		//"<br><center><h4><a href=\"http://real3d.pk/fle.html\">http://real3d.pk/fle.html</a></h4></center>"
 		//"<p></p>"

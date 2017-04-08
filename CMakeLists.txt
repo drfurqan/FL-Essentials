@@ -13,8 +13,9 @@ project (fle)
 # file(READ VERSION FLE_VERSION)
 
 set(VERSION_MAJOR 1)
-set(VERSION_MINOR 31)
-set(VERSION_PLAIN ${VERSION_MAJOR}.${VERSION_MINOR})
+set(VERSION_MINOR_0 3)
+set(VERSION_MINOR_1 2)
+set(VERSION_PLAIN ${VERSION_MAJOR}.${VERSION_MINOR_0}.${VERSION_MINOR_1})
 
 # ------------------------------------------------------------------------------
 # Library's source files (*.cpp files)
@@ -181,12 +182,12 @@ endif()
 # set output name of the library with major and minor version
 # ------------------------------------------------------------------------------
 
-set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${VERSION_MAJOR}.${VERSION_MINOR_0}.${VERSION_MINOR_1})
-set_target_properties(${PROJECT_NAME} PROPERTIES SOVERSION ${VERSION_MAJOR}.${VERSION_MINOR_0}.${VERSION_MINOR_1})
+set_target_properties(${PROJECT_NAME} PROPERTIES VERSION VERSION_PLAIN)
+set_target_properties(${PROJECT_NAME} PROPERTIES SOVERSION VERSION_PLAIN)
 
 if (WIN32)
-set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME ${PROJECT_NAME}_${VERSION_MAJOR}${VERSION_MINOR})
-set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_OUTPUT_NAME ${PROJECT_NAME}_${VERSION_MAJOR}${VERSION_MINOR}d)
+set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME ${PROJECT_NAME}_${VERSION_MAJOR}${VERSION_MINOR_0}${VERSION_MINOR_1})
+set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_OUTPUT_NAME ${PROJECT_NAME}_${VERSION_MAJOR}${VERSION_MINOR_0}${VERSION_MINOR_1}d)
 endif()
 
 # ------------------------------------------------------------------------------
