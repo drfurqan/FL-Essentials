@@ -182,8 +182,8 @@ endif()
 # set output name of the library with major and minor version
 # ------------------------------------------------------------------------------
 
-set_target_properties(${PROJECT_NAME} PROPERTIES VERSION VERSION_PLAIN)
-set_target_properties(${PROJECT_NAME} PROPERTIES SOVERSION VERSION_PLAIN)
+set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${VERSION_PLAIN})
+set_target_properties(${PROJECT_NAME} PROPERTIES SOVERSION ${VERSION_PLAIN})
 
 if (WIN32)
 set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME ${PROJECT_NAME}_${VERSION_MAJOR}${VERSION_MINOR_0}${VERSION_MINOR_1})
