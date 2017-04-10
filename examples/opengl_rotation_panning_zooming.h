@@ -55,6 +55,10 @@ public:
 	void drawBox(float _w, float _h, float _d);
 
 	// Description
+	// Function to draw/render a grid by specifying the number of grids and color.
+	void drawGrid(int _ngrids, float _scale = 1.f, float _red = 1.f, float _green = 1.f, float _blue = 1.f);
+
+	// Description
 	// Overridden functions for left mouse button events.
 	void mouseLeftButtonPressEvent(int _x, int _y) override;
 	void mouseLeftButtonReleaseEvent() override;

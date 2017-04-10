@@ -96,7 +96,15 @@ void MyOpenGLWindow::paintGL()
 	// draw a box
 	glPushMatrix();
 	glTranslatef(-10.f, -10.f, -10.f);
+	glLineWidth(1.f);
 	drawBox(20.f, 20.f, 20.f);
+	glPopMatrix();
+
+	// draw a grid
+	glPushMatrix();
+	glTranslatef(0.f, -20.f, 0.f);
+	glLineWidth(1.f);
+	drawGrid(10, 10.f, 1.f, 1.f, 1.f);
 	glPopMatrix();
 }
 
@@ -162,6 +170,22 @@ void MyOpenGLWindow::mouseMiddleButtonDragEvent(int _x, int _y)
 		start_y = _y;
 		update();
 	}
+}
+
+void MyOpenGLWindow::drawGrid(int _ngrids, float _scale, float _red, float _green, float _blue)
+{
+	int half_size = _ngrids / 2;
+	glBegin(GL_LINES);
+	glColor3f(_red, _green, _blue);
+	for (int i = -half_size; i <= half_size; i++)
+	{
+		glVertex3f(float(i) * _scale, 0.f, float(-half_size)* _scale);
+		glVertex3f(float(i) * _scale, 0.f, float(half_size) * _scale);
+
+		glVertex3f(float(-half_size)* _scale, 0.f, float(i) * _scale);
+		glVertex3f(float(half_size) * _scale, 0.f, float(i) * _scale);
+	}
+	glEnd();
 }
 
 void MyOpenGLWindow::draw3DAxis(float _size)
