@@ -7,10 +7,12 @@ FLE Library is implemented in C++ (but provides both a C and a
 C++ish interface). The directory structure is: <br/>
 
 -  /applications (desktop applications developed in FLE) <br/>
--  /code	 (Source code) <br/>						
+-  /src	 (Source code) <br/>						
 -  /include (Public header C and C++ header files) <br/>		
--  /lib (Static libraries for VS2013, VS2015) <br/>		
--  /samples (Examples to illustrate possible use cases for FLE) <br/>
+-  /include/math (Classes for 3D math and OpenGL programming)
+-  /lib (Weblink of Static libraries for VS2013, VS2015) <br/>	
+-  /samples (Examples to illustrate possible use cases for FLE)
+<br/>
 
 ## Building
 Take a look into the `INSTALL` file. The build system is CMake, if you already used CMake before there is a good chance you know what to do. <br/>	

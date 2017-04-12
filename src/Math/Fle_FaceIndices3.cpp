@@ -17,7 +17,7 @@ You should have received a copy of this license with this file.
 If not, please contact Dr. Furqan Ullah immediately:
 **********************************************************************************/
 
-#include "Fle_FaceIndices3.h"
+#include <FLE/Math/Fle_FaceIndices3.h>
 
 using namespace R3D;
 

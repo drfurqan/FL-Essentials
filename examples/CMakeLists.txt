@@ -37,6 +37,9 @@ target_link_libraries(photo_viewer_application LINK_PUBLIC ${LIBRARIES})
 add_executable (my_first_opengl_program my_first_opengl_program.cpp)
 target_link_libraries(my_first_opengl_program LINK_PUBLIC ${LIBRARIES})
 
+add_executable (opengl_point_on_a_line_simulation opengl_point_on_a_line_simulation.cpp)
+target_link_libraries(opengl_point_on_a_line_simulation LINK_PUBLIC ${LIBRARIES})
+
 add_executable (opengl_hello_world opengl_hello_world_main.cpp opengl_hello_world.cpp opengl_hello_world.h)
 target_link_libraries(opengl_hello_world LINK_PUBLIC ${LIBRARIES})
 

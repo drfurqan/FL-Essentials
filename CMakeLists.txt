@@ -62,6 +62,12 @@ ${CMAKE_SOURCE_DIR}/src/Fle_Widgets.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_Window.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_WindowsUtil.cpp
 ${CMAKE_SOURCE_DIR}/src/Fl_Menu.cxx
+${CMAKE_SOURCE_DIR}/src/Math/Fle_Color4D.cpp
+${CMAKE_SOURCE_DIR}/src/Math/Fle_FaceIndices3.cpp
+${CMAKE_SOURCE_DIR}/src/Math/Fle_Matrix4x4.cpp
+${CMAKE_SOURCE_DIR}/src/Math/Fle_Vector2D.cpp
+${CMAKE_SOURCE_DIR}/src/Math/Fle_Vector3D.cpp
+${CMAKE_SOURCE_DIR}/src/Math/Fle_Vector4D.cpp
 )
 
 # ------------------------------------------------------------------------------
@@ -99,6 +105,12 @@ ${CMAKE_SOURCE_DIR}/include/FLE/Fle_ToolBar.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_Widgets.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_Window.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_WindowsUtil.h
+${CMAKE_SOURCE_DIR}/include/FLE/Math/Fle_Color4D.h
+${CMAKE_SOURCE_DIR}/include/FLE/Math/Fle_FaceIndices3.h
+${CMAKE_SOURCE_DIR}/include/FLE/Math/Fle_Matrix4x4.h
+${CMAKE_SOURCE_DIR}/include/FLE/Math/Fle_Vector2D.h
+${CMAKE_SOURCE_DIR}/include/FLE/Math/Fle_Vector3D.h
+${CMAKE_SOURCE_DIR}/include/FLE/Math/Fle_Vector4D.h
 )
 
 # ------------------------------------------------------------------------------
