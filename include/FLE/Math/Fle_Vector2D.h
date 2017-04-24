@@ -21,13 +21,15 @@ You should have received a copy of this license with this file.
 If not, please contact Dr. Furqan Ullah immediately:
 **********************************************************************************/
 
+#include <FLE/Fle_Export.h>
+
 #include <ostream>
 #include <iostream>
 
 namespace R3D
 {
 
-class Vector2D
+class FL_ESSENTIALS_EXPORT Vector2D
 {
 public:
 	float x, y;

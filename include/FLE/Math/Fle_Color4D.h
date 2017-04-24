@@ -21,13 +21,15 @@ You should have received a copy of this license with this file.
 If not, please contact Dr. Furqan Ullah immediately:
 **********************************************************************************/
 
+#include <FLE/Fle_Export.h>
+
 #include <ostream>
 #include <iostream>
 
 namespace R3D
 {
 
-class Color4D
+class FL_ESSENTIALS_EXPORT Color4D
 {
 public:
 	float r, g, b, a;

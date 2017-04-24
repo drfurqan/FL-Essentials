@@ -31,7 +31,7 @@ If not, please contact Dr. Furqan Ullah immediately:
 namespace R3D
 {
 
-class Matrix4x4
+class FL_ESSENTIALS_EXPORT Matrix4x4
 {
 public:
 	// Description:
