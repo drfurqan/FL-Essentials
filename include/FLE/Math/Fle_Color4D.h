@@ -106,6 +106,9 @@ public:
 	const bool operator > (float s) const;
 	const bool operator < (float s) const;
 	const Color4D operator / (float s) const;
+	const float* ptr() const { return &r; }
+	float* ptr() { return &r; }
+
 	void scale(float v);
 
 	const float dot(const Color4D& v) const;

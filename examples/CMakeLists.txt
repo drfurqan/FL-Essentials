@@ -57,3 +57,6 @@ target_link_libraries(opengl_rotation_panning_zooming LINK_PUBLIC ${LIBRARIES})
 
 add_executable (lighting_model_and_mesh_rendering lighting_model_and_mesh_rendering_main.cpp lighting_model_and_mesh_rendering.cpp lighting_model_and_mesh_rendering.h)
 target_link_libraries(lighting_model_and_mesh_rendering LINK_PUBLIC ${LIBRARIES})
+
+add_executable (OpenGLSolarSystem OpenGLSolarSystem_main.cpp OpenGLSolarSystem.cpp OpenGLSolarSystem.h)
+target_link_libraries(OpenGLSolarSystem LINK_PUBLIC ${LIBRARIES})

@@ -98,13 +98,16 @@ public:
 	const bool operator > (float s) const;
 	const bool operator < (float s) const;
 	const Vector4D operator / (float s) const;
+	const float* ptr() const { return &x; }
+	float* ptr() { return &x; }
+
 	void scale(float v);
 
 	const Vector4D cross(const Vector4D& v) const;
 	const Vector4D reflect(const Vector4D& normal) const;
 	const Vector4D getNormalized() const;
-	const Vector4D Vector4D::abs() const;
-	const Vector4D Vector4D::negate() const;
+	const Vector4D abs() const;
+	const Vector4D negate() const;
 	const float dot(const Vector4D& v) const;
 	const float getAngleBetween(const Vector4D& dest) const;
 	const float length() const;

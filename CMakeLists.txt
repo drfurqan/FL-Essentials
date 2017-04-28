@@ -14,7 +14,7 @@ project (fle)
 
 set(VERSION_MAJOR 1)
 set(VERSION_MINOR_0 3)
-set(VERSION_MINOR_1 2)
+set(VERSION_MINOR_1 3)
 set(VERSION_PLAIN ${VERSION_MAJOR}.${VERSION_MINOR_0}.${VERSION_MINOR_1})
 
 # ------------------------------------------------------------------------------
@@ -34,6 +34,7 @@ endif(OPTION_BUILD_EXAMPLES)
 # ------------------------------------------------------------------------------
 
 set(CPPFILES
+${CMAKE_SOURCE_DIR}/src/Fle_AbstractOpenGLActor.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_Box.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_Button.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_CheckGroup.cpp
@@ -75,6 +76,7 @@ ${CMAKE_SOURCE_DIR}/src/Math/Fle_Vector4D.cpp
 # ------------------------------------------------------------------------------
 
 set(HEADERFILES
+${CMAKE_SOURCE_DIR}/include/FLE/Fle_AbstractOpenGLActor.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_Box.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_Button.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_CheckGroup.h

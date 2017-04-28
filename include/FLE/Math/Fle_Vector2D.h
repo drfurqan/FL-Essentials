@@ -92,6 +92,9 @@ public:
 	const bool operator > (float s) const;
 	const bool operator < (float s) const;
 	const Vector2D operator / (float s) const;
+	const float* ptr() const { return &x; }
+	float* ptr() { return &x; }
+
 	void scale(float v);
 
 	Vector2D& rotate(float degres);

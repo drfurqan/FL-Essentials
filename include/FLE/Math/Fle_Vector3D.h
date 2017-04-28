@@ -98,6 +98,9 @@ public:
 	const bool operator > (const float s) const;
 	const bool operator < (const float s) const;
 	const Vector3D operator / (const float s) const;
+	const float* ptr() const { return &x; }
+	float* ptr() { return &x; }
+
 	void scale(const float v);
 
 	const Vector3D operator ^ (const Vector3D& v) const // cross product operator
@@ -108,8 +111,8 @@ public:
 	const Vector3D cross(const Vector3D& v) const;
 	const Vector3D reflect(const Vector3D& normal) const;
 	const Vector3D getNormalized() const;
-	const Vector3D Vector3D::abs() const;
-	const Vector3D Vector3D::negate() const;
+	const Vector3D abs() const;
+	const Vector3D negate() const;
 	const float dot(const Vector3D& v) const;
 	const float getAngleBetween(const Vector3D& dest) const;
 	const float length() const;

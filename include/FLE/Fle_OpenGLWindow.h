@@ -158,7 +158,7 @@ protected:
 
 	// Description:
 	// Virtual functions that are expected to be overridden in the derived class for
-	// handling the mouse and keyboard events.
+	// handling the mouse events.
 	virtual void mouseLeftButtonPressEvent(int _x, int _y);		// when left mouse button is pressed.
 	virtual void mouseRightButtonPressEvent(int _x, int _y);	// when right mouse button is pressed.
 	virtual void mouseMiddleButtonPressEvent(int _x, int _y);	// when middle mouse button is pressed.
@@ -171,6 +171,27 @@ protected:
 	virtual void mouseRightButtonDragEvent(int _x, int _y);		// when right mouse button is dragged.
 	virtual void mouseMiddleButtonDragEvent(int _x, int _y);	// when middle mouse button is dragged.
 	virtual void mouseMoveEvent(int _x, int _y);				// when mouse moves.
+	// Description:
+	// Virtual function that is expected to be overridden in the derived class for
+	// handling the keyboard events.
+	// You can find all supported keys from FLTK "fltk/FL/Enumerations.H" file.
+	// Some keys are:
+	// FL_Home, FL_Left, FL_Up, FL_Right, FL_Down, FL_Page_Up, FL_Page_Down, FL_End, FL_Print, 
+	// FL_Insert, FL_Shift_L, FL_Shift_R, FL_Control_L, FL_Control_R, FL_Caps_Lock, FL_Alt_L,
+	// FL_Alt_R, FL_Delete, FL_Enter, FL_Pause, FL_Tab, FL_BackSpace
+	// Function Keys: FL_F => use FL_F + n for function key n. example: (FL_F + 1) = F1 key
+	// Usage example 1:
+	// if(_key == 'm') { std::cout << "m is key is pressed.\n"; } 
+	// Usage example 2:
+	// if (_key == 'm')
+	//{
+	//	if (Fl::event_state(FL_CTRL) && Fl::event_state(FL_SHIFT))
+	//	{
+	//		std::cout << "CTRL+SHIFT key is pressed along with m.\n"; 
+	//		return 1;
+	//	}
+	//}
+
 	virtual int keyPressEvent(int _key);						// keyboard key press events.
 
 	// Description:

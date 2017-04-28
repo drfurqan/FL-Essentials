@@ -75,6 +75,8 @@ public:
 	const FaceIndices3& operator =  (const FaceIndices3& v);
 	const FaceIndices3& operator += (const FaceIndices3& v);
 	const FaceIndices3& operator -= (const FaceIndices3& v);
+	const unsigned int* ptr() const { return &v1; }
+	unsigned int* ptr() { return &v1; }
 
 
 	friend std::ostream& operator << (std::ostream& out, const FaceIndices3& _v)
