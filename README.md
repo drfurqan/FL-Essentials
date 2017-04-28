@@ -1,5 +1,5 @@
 ## FL-Essentials
-FL-Essentials (FLE) is a FLTK based software system which provides extreme easiness in building (responsive) GUI applications. It consists of C++ class library and gives thread-safe image processing support for OpenCV. It makes FLTK functionality easier, faster, and lighter. It works fine as a static or shared library.
+FL-Essentials (FLE) is a FLTK based software system which provides extreme easiness in building (responsive) GUI applications. It consists of C++ class library and gives thread-safe image processing support for OpenCV. OpenGL based computer graphics applications can also be very easy to build with FLE. It makes FLTK functionality easier, faster, and lighter. It works fine as a static or shared library.
 
 ## Repository structure
 
