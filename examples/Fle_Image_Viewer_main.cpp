@@ -28,6 +28,10 @@ int main(int argc, char* argv[])
 	// library initialization with default modes.
 	Fle_Core::init();
 
+	Fl::set_color(FL_BACKGROUND_COLOR, 50, 50, 50);
+	Fl::set_color(FL_BACKGROUND2_COLOR, 200, 200, 200);		// it will change the radio button's background color.
+	Fl::set_color(FL_FOREGROUND_COLOR, 0, 0, 0);			// it will change the menu's text color.
+
 	// parsing arguments, argv[1] will be the file name when we 
 	// open any image using the executable of this application.
 	std::string file;

@@ -21,10 +21,10 @@ If not, please contact Dr. Furqan Ullah immediately:
 #include <FLE/Fle_Core.h>
 
 #include <FL/Fl.H>
+#include <FL/gl.h>						// needed for OpenGL
 #include <FL/Fl_Shared_Image.H>
-#include <FL/glut.H>            // needed for OpenGL
-
-#include <iostream>
+#include <FL/Fl_File_Icon.H>
+#include <FL/Fl_Tooltip.H>
 
 using namespace R3D;
 
@@ -60,17 +60,25 @@ void Fle_Core::init()
 	/************************************************************************/
 	// FLTK default initialization.
 	Fl::scheme("gleam");						// theme of FLTK widgets.
-	Fl::visual(FL_DOUBLE | FL_RGB8  | FL_INDEX | FL_ALPHA | FL_MULTISAMPLE);
-	Fl::gl_visual(FL_DOUBLE | FL_RGB8 | FL_DEPTH | FL_ACCUM | FL_ALPHA | FL_STENCIL | FL_MULTISAMPLE);
+	Fl::visual(FL_DOUBLE | FL_INDEX | FL_RGB | FL_ALPHA | FL_MULTISAMPLE);
+	Fl::gl_visual(FL_DOUBLE | FL_INDEX | FL_RGB | FL_DEPTH | FL_ACCUM | FL_ALPHA | FL_STENCIL | FL_MULTISAMPLE);
 	Fl::use_high_res_GL(1);
-	fl_register_images();						// Initialize FLTK image lib (essential)
 	Fl::set_color(FL_BLACK, 50, 50, 50);		// change the black color of FLTK widgets to dark gray.
-	__update_system_colors(1);
 	Fl::box_color(FL_GRAY);
 	Fl::set_box_color(FL_GRAY);
 	Fl::visible_focus(0);						// disable dotted rectangle to focused widget.
 	Fl::set_font(0, "Segoe UI");				// default windows font
 	Fl::add_handler(__disable_escape_key);
+	Fl_File_Icon::load_system_icons();			// load default system icons (for file browser)
+	Fl_Tooltip::delay(0.5f);
+	FL_NORMAL_SIZE = 11;
+	Fl_Tooltip::size(FL_NORMAL_SIZE);
+	Fl_Tooltip::color(fl_rgb_color(240, 240, 240));
+	Fl_Tooltip::textcolor(fl_rgb_color(87, 87, 87));
+	Fl_Tooltip::margin_width(6);
+	Fl_Tooltip::margin_height(6);
+	__update_system_colors(1);
+	fl_register_images();						// Initialize FLTK image lib (essential)
 
 	Fl_Shared_Image::scaling_algorithm(Fl_RGB_Scaling::FL_RGB_SCALING_BILINEAR);
 	Fl_Shared_Image::RGB_scaling(Fl_RGB_Scaling::FL_RGB_SCALING_BILINEAR);

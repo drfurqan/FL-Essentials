@@ -101,6 +101,7 @@ protected:
 	static void slideshow_cb(Fl_Widget* _w, void* _p);
 	static void next_cb(Fl_Widget* _w, void* _p);
 	static void previous_cb(Fl_Widget* _w, void* _p);
+	static void fullscreen_cb(Fl_Widget* _w, void* _p);
 	void nextPrevious(bool _next);
 	// Description:
 	// A virtual function that is expected to be overridden in the derived class for

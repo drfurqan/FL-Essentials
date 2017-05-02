@@ -51,7 +51,7 @@ public:
 	}
 
 protected:
-	int handle(int _event)
+	int Fle_DND_ScrollBox::handle(int _event)
 	{
 		switch (_event)
 		{
@@ -86,7 +86,7 @@ m_dir_nfile(0),
 m_sstime(3)
 {
 	callback(exit_cb, this);
-	setMargins(0, 0, 2, 2);
+	setMargins(0, 0, 1, 2);
 	addMenuBar();
 	getMenuBar()->setRightClickMenuEnabled(false);
 	addToolBar();
@@ -110,7 +110,7 @@ m_dir_nfile(0),
 m_sstime(3)
 {
 	callback(exit_cb, this);
-	setMargins(0, 0, 2, 2);
+	setMargins(0, 0, 1, 2);
 	addMenuBar();
 	getMenuBar()->setRightClickMenuEnabled(false);
 	addToolBar();
@@ -184,6 +184,11 @@ void Fle_Image_Viewer::addMenuBar()
 		menu->add(" Edit /\tResize\t\t\t",					0,			resize_cb,		this);
 		menu->add(" Edit /\tBatch Resize\t\t\t",			0,			batchresize_cb, this, FL_MENU_DIVIDER);
 		menu->add(" Edit /\tDelete\t\t\t",		FL_Delete,				delete_cb,		this);
+		menu->add(" View /   Fullscreen\t\t\t",				0,			fullscreen_cb, this, FL_MENU_TOGGLE);
+		menu->add(" View /\tDraw\t\t\t/   Fit\t\t\t",		0,			choicemenu_cb, this, FL_MENU_RADIO);
+		menu->add(" View /\tDraw\t\t\t/   Stretch\t\t\t",	0,			choicemenu_cb, this, FL_MENU_RADIO);
+		menu->add(" View /\tDraw\t\t\t/   Center\t\t\t",	0,			choicemenu_cb, this, FL_MENU_RADIO);
+		menu->add(" Edit /\tDelete\t\t\t", FL_Delete, delete_cb, this);
 		menu->add(" Help /\tWebsite\t\t\t",		FL_CTRL + FL_F + 1,		website_cb,		this);
 		menu->add(" Help /\tDownload\t\t\t",					0,		download_cb,	this, FL_MENU_DIVIDER);
 		menu->add(" Help /\tAbout\t\t\t",						0,		about_cb,		this);
@@ -192,7 +197,7 @@ void Fle_Image_Viewer::addMenuBar()
 void Fle_Image_Viewer::addToolBar()
 {
 	// set top toolbar margins and fixed height.
-	getTopToolBar()->show();
+	//getTopToolBar()->show();
 	getTopToolBar()->setMargins(5, 6, 0, 0);
 	setTopToolBarFixedHeight(25);
 	{
@@ -438,10 +443,11 @@ void Fle_Image_Viewer::delete_cb(Fl_Widget* _w, void* _p)
 
 void Fle_Image_Viewer::choicemenu_cb(Fl_Widget* _w, void* _p)
 {
-	Fl_Input_Choice* inpu = static_cast<Fl_Input_Choice*>(_w);
-	if (!inpu) return;
+	//Fl_Input_Choice* inpu = static_cast<Fl_Input_Choice*>(_w);
+	//if (!inpu) return;
+	//Fl_Menu_* mw = static_cast<Fl_Menu_*>(inpu->menubutton());
 
-	Fl_Menu_* mw = static_cast<Fl_Menu_*>(inpu->menubutton());
+	Fl_Menu_* mw = static_cast<Fl_Menu_*>(_w);
 	const Fl_Menu_Item* m = mw->mvalue();
 	if (!m) return;
 
@@ -563,6 +569,28 @@ void Fle_Image_Viewer::previous_cb(Fl_Widget* _w, void* _p)
 	if (!v) return;
 	v->nextPrevious(false);
 }
+void Fle_Image_Viewer::fullscreen_cb(Fl_Widget* _w, void* _p)
+{
+	Fle_Image_Viewer* v = static_cast<Fle_Image_Viewer*>(_p);
+	if (!v) return;
+
+	Fl_Menu_* mw = static_cast<Fl_Menu_*>(_w);
+	Fl_Menu_Item* m = const_cast<Fl_Menu_Item*>(mw->mvalue());
+	if (!m) return;
+
+	if (m->value() == 0)
+	{
+		v->showNormal();
+		v->getStatusBar()->show();
+		v->updateContents();
+	}
+	else
+	{
+		v->showFullScreen();
+		v->getStatusBar()->hide();
+		v->updateContents();
+	}
+}
 void Fle_Image_Viewer::slideshow_cb(Fl_Widget* _w, void* _p)
 {
 	Fle_Image_Viewer* v = static_cast<Fle_Image_Viewer*>(_p);
@@ -671,13 +699,13 @@ void Fle_Image_Viewer::about_cb(Fl_Widget* _w, void* _p)
 
 	std::ostringstream sstream;
 	sstream <<
-		"<br><p>Version: 1.3.2</p>"
-		"<br><p>Release Date: 2017/04/09 3:43AM</p>"
+		"<br><p>Version: 1.3.3</p>"
+		"<br><p>Release Date: 2017/05/03 12:42AM</p>"
 		"<br><p>Copyright(C) 2017</p>"
 		"<p><a href=\"http://real3d.pk/\">Website</a> " << "and <a href=\"http://www.real3d.pk/forum/index.php\">Forum</a></p>"
 		"<br><p><b><i>For all questions and bug reports, email to info@real3d.pk.<b><i></p>"
 		"<br><p><b><i>Warning: This computer program is only for non-commercial purposes.<i></b></p>";
-		//"<br><center><h3>FLE v1.3.2</h3></center>"
+		//"<br><center><h3>FLE v1.1.0</h3></center>"
 		//"<center><h6>(March 06 2017)</h6></center>"
 		//"<br><center><h4><a href=\"http://real3d.pk/fle.html\">http://real3d.pk/fle.html</a></h4></center>"
 		//"<p></p>"
