@@ -28,7 +28,7 @@ int main(int argc, char* argv[])
 	// library initialization with default modes.
 	Fle_Core::init();
 
-	Fl::set_color(FL_BACKGROUND_COLOR, 50, 50, 50);
+	// Fl::set_color(FL_BACKGROUND_COLOR, 120, 120, 120);	// it will change the scroll's background color.
 	Fl::set_color(FL_BACKGROUND2_COLOR, 200, 200, 200);		// it will change the radio button's background color.
 	Fl::set_color(FL_FOREGROUND_COLOR, 0, 0, 0);			// it will change the menu's text color.
 
@@ -39,7 +39,7 @@ int main(int argc, char* argv[])
 		file = argv[1];
 
 	// create an image viewer and load the parsed file (if any).
-	Fle_Image_Viewer win(1024, 768, "Real3D Photo Viewer");
+	Fle_Image_Viewer win(Fl::w()-25, Fl::h()-25, "Real3D Photo Viewer");
 	win.loadImage(file);
 	win.show();
 	win.showMaximized();

@@ -71,8 +71,8 @@ void Fle_Core::init()
 	Fl::add_handler(__disable_escape_key);
 	Fl_File_Icon::load_system_icons();			// load default system icons (for file browser)
 	Fl_Tooltip::delay(0.5f);
-	FL_NORMAL_SIZE = 11;
-	Fl_Tooltip::size(FL_NORMAL_SIZE);
+	FL_NORMAL_SIZE = 13;
+	Fl_Tooltip::size(11);
 	Fl_Tooltip::color(fl_rgb_color(240, 240, 240));
 	Fl_Tooltip::textcolor(fl_rgb_color(87, 87, 87));
 	Fl_Tooltip::margin_width(6);

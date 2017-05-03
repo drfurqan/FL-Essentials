@@ -137,8 +137,8 @@ bool Fle_Image_Viewer::loadImage(const std::string& _filename)
 			updateTitle(_filename);					// update title of this window.
 			updateDirectoryPaths(_filename);		// update file paths for next and previous keys.
 			redraw();
-			// show message at the statusbar for 3 seconds.
-			getStatusBar()->showMessage("File has been opened!", 3);
+													// show message at the statusbar for 3 seconds.
+			getStatusBar()->showMessage("Done!", 3);
 			return true;
 		}
 	}
