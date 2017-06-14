@@ -165,6 +165,8 @@ const float& Vector4D::getY() const { return y; }
 const float& Vector4D::getZ() const { return z; }
 const float& Vector4D::getW() const { return w; }
 
+void Vector4D::print() { std::cout << "(" << x << ", " << y << ", " << z << ", " << w << ")" << std::endl; }
+
 /************************************************************************/
 /* Operators                                                            */
 /************************************************************************/

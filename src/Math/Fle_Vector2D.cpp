@@ -122,6 +122,8 @@ const float& Vector2D::Y() const { return y; }
 const float& Vector2D::getX() const { return x; }
 const float& Vector2D::getY() const { return y; }
 
+void Vector2D::print() { std::cout << "(" << x << ", " << y << ")" << std::endl; }
+
 /************************************************************************/
 /* Operators                                                            */
 /************************************************************************/

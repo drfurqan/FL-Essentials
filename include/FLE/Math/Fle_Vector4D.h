@@ -67,6 +67,8 @@ public:
 	const float& getZ() const;
 	const float& getW() const;
 
+	void print();
+
 	float& operator [](long k) { return ((&x)[k]); }
 	const float& operator [](long k) const { return ((&x)[k]); }
 

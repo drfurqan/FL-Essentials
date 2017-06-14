@@ -75,6 +75,8 @@ public:
 	const float& getB() const;
 	const float& getA() const;
 
+	void print();
+
 	float& operator [](long k) { return ((&r)[k]); }
 	const float& operator [](long k) const { return ((&r)[k]); }
 

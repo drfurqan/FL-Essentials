@@ -70,6 +70,12 @@ public:
 	// Description:
 	// Function that returns true if the button state is ON.
 	bool isOn() const { return m_ison; }
+	// Description:
+	// Function that returns true if the button state is ON.
+	void setToggleEnabled(bool _b) { m_toggle = _b; }
+	// Description:
+	// Function that returns true if the button state is ON.
+	bool isToggleEnabled() const { return m_toggle; }
 
 
 	// Description:
@@ -195,6 +201,7 @@ protected:
 	Fl_Shared_Image* p_on;
 	Fl_Shared_Image* p_off;
 	bool m_ison;
+	bool m_toggle;
 
 	int m_leftmargin;
 	int m_rightmargin;

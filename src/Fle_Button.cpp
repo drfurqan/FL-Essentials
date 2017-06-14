@@ -31,6 +31,7 @@ using namespace R3D;
 Fle_Button::Fle_Button(int _x, int _y, int _w, int _h, const char* _text) :
 Fl_Button(_x, _y, _w, _h, _text),
 m_ison(true),
+m_toggle(true),
 p_on(nullptr),
 p_off(nullptr),
 m_leftmargin(0),
@@ -49,6 +50,7 @@ m_fixedpos(cv::Point(_x, _y))
 Fle_Button::Fle_Button(int _x, int _y, int _w, int _h, const char* _icon_file_on, const char* _icon_file_off, cv::Size _size) :
 Fl_Button(_x, _y, _w, _h, 0),
 m_ison(true),
+m_toggle(true),
 p_on(nullptr),
 p_off(nullptr),
 m_leftmargin(0),
@@ -69,6 +71,7 @@ m_fixedpos(cv::Point(_x, _y))
 Fle_Button::Fle_Button(int _x, int _y, int _w, int _h, Fl_RGB_Image* _icon_file_on, Fl_RGB_Image* _icon_file_off, cv::Size _size) :
 	Fl_Button(_x, _y, _w, _h, 0),
 	m_ison(true),
+	m_toggle(true),
 	p_on(nullptr),
 	p_off(nullptr),
 	m_leftmargin(0),
@@ -191,13 +194,18 @@ int Fle_Button::handle(int _event)
 	{
 	case FL_PUSH:
 		clear_visible_focus();
+		if (!m_toggle)
+			m_ison = false;
 		break;
 	case FL_RELEASE:
 		// if mouse is inside the box, then update the image.
 		if (Fl::event_x() >= x() && Fl::event_x() < (x() + w()) &&
 			Fl::event_y() >= y() && Fl::event_y() < (y() + h()))
 		{
-			m_ison = !m_ison;
+			if (m_toggle)
+				m_ison = !m_ison;
+			else
+				m_ison = true;
 		}
 		break;
 	default:

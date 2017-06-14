@@ -216,6 +216,8 @@ const float& Color4D::getG() const { return g; }
 const float& Color4D::getB() const { return b; }
 const float& Color4D::getA() const { return a; }
 
+void Color4D::print() { std::cout << "(" << r << ", " << g << ", " << b << ", " << a << ")" << std::endl; }
+
 /************************************************************************/
 /* Operators                                                            */
 /************************************************************************/
