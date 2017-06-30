@@ -46,7 +46,7 @@ public:
 	// Description:
 	// Function to show the specified text in the TextBox (specified by setTextBox()).
 	// _time_in_sec is the time in seconds, that means, how long the text should be displayed,
-	// after the time is over, default text "Ready" will be displayed.
+	// after the time is over, default text given in setDefaultText("Ready") will be displayed.
 	// This does the same work as setText(), it just provides you to specify the time in seconds. 
 	void showMessage(const std::string& _text, int _time_in_sec);
 
@@ -77,8 +77,18 @@ public:
 	// Function to get a pointer to text box.
 	Fle_Box* getTextBox() const { return p_textbox; }
 
+	// Description:
+	// Function to set the default text that should be displayed after the time is over.
+	// Default value is "Ready".
+	void setDefaultText(const std::string& _text) { m_default_text = _text; }
+	// Description:
+	// Function to get the default text.
+	// Default value is "Ready".
+	std::string getDefaultText() const { return m_default_text; }
+
 protected:
 	Fle_Box* p_textbox;
+	std::string m_default_text;
 };
 
 }

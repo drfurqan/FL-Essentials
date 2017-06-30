@@ -127,8 +127,6 @@ void Fle_OpenGLWindow::draw()
 {
 	if (!visible()) return;
 
-	makeCurrent();
-
 	// it will be called only one time. 
 	// but it will also be called whenever we resize the window.
 	if (!valid())
@@ -138,10 +136,12 @@ void Fle_OpenGLWindow::draw()
 		if (first_time_init)
 		{
 			first_time_init = false;
+			makeCurrent();
 			initializeGL();
 		}
 	}
 
+	makeCurrent();
 	paintGL();
 }
 
@@ -293,8 +293,7 @@ int Fle_OpenGLWindow::processEvents(int _event)
 	{
 	case FL_FOCUS:
 	case FL_UNFOCUS:
-		return 1;
-		break;								// enables receiving keyboard events
+		return 1;							// enables receiving keyboard events
 
 	case FL_PUSH:
 		x = Fl::event_x();
@@ -306,15 +305,15 @@ int Fle_OpenGLWindow::processEvents(int _event)
 		{
 		case FL_LEFT_MOUSE:
 			mouseLeftButtonPressEvent(x, y);
-			break;
+			return 1;
 
 		case FL_RIGHT_MOUSE:
 			mouseRightButtonPressEvent(x, y);
-			break;
+			return 1;
 
 		case FL_MIDDLE_MOUSE:
 			mouseMiddleButtonPressEvent(x, y);
-			break;
+			return 1;
 		}
 		break;
 
@@ -323,15 +322,15 @@ int Fle_OpenGLWindow::processEvents(int _event)
 		{
 		case FL_LEFT_MOUSE:
 			mouseLeftButtonReleaseEvent();
-			break;
+			return 1;
 
 		case FL_RIGHT_MOUSE:
 			mouseRightButtonReleaseEvent();
-			break;
+			return 1;
 
 		case FL_MIDDLE_MOUSE:
 			mouseMiddleButtonReleaseEvent();
-			break;
+			return 1;
 		}
 		break;
 
@@ -346,7 +345,7 @@ int Fle_OpenGLWindow::processEvents(int _event)
 			mouseWheelForwardEvent();
 			return 1;
 		}
-		return 1;
+		break;
 
 	case FL_DRAG:									// mouse moved while down event.
 		x = Fl::event_x();
@@ -356,15 +355,15 @@ int Fle_OpenGLWindow::processEvents(int _event)
 		{
 		case FL_LEFT_MOUSE:
 			mouseLeftButtonDragEvent(x, y);
-			break;
+			return 1;
 
 		case FL_RIGHT_MOUSE:
 			mouseRightButtonDragEvent(x, y);
-			break;
+			return 1;
 
 		case FL_MIDDLE_MOUSE:
 			mouseMiddleButtonDragEvent(x, y);
-			break;
+			return 1;
 		}
 		break;
 
@@ -372,7 +371,7 @@ int Fle_OpenGLWindow::processEvents(int _event)
 		x = Fl::event_x();
 		y = Fl::event_y();
 		mouseMoveEvent(x, y);
-		break;
+		return 1;
 
 	case FL_KEYBOARD:
 		switch (Fl::event_key())
@@ -381,7 +380,7 @@ int Fle_OpenGLWindow::processEvents(int _event)
 		case FL_Escape:
 			return 1;
 		}
-		if (keyPressEvent(Fl::event_key()))
+		if(keyPressEvent(Fl::event_key()))
 			return 1;
 		break;
 

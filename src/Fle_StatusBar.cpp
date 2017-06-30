@@ -27,7 +27,8 @@ using namespace R3D;
 
 Fle_StatusBar::Fle_StatusBar(int _x, int _y, int _w, int _h, const char* _label) :
 Fle_VHLayout(_x, _y, _w, _h, _label),
-p_textbox(nullptr)
+p_textbox(nullptr),
+m_default_text("Ready")
 {
 	setBackgroundColor(0, 122, 204);
 	getLayout()->setBackgroundColor(0, 122, 204);
@@ -48,7 +49,7 @@ void Fle_StatusBar::showMessage(const std::string& _text, int _time_in_sec)
 
 	std::function<void()> f = [&]()
 	{
-		p_textbox->setText("Ready");
+		p_textbox->setText(m_default_text);
 		p_textbox->redraw();
 		Fle_VHLayout::redraw();
 	};

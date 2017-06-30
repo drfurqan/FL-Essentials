@@ -171,7 +171,31 @@ protected:
 	virtual void mouseRightButtonDragEvent(int _x, int _y);		// when right mouse button is dragged.
 	virtual void mouseMiddleButtonDragEvent(int _x, int _y);	// when middle mouse button is dragged.
 	virtual void mouseMoveEvent(int _x, int _y);				// when mouse moves.
-	virtual int keyPressEvent(int _key);						// keyboard key press events.
+
+	// Description:
+	// Virtual function that is expected to be overridden in the derived class for
+	// handling the keyboard events.
+	
+	// You can find all supported keys from FLTK "fltk/FL/Enumerations.H" file.
+	// Some keys are:
+	// FL_Home, FL_Left, FL_Up, FL_Right, FL_Down, FL_Page_Up, FL_Page_Down, FL_End, FL_Print, 
+	// FL_Insert, FL_Shift_L, FL_Shift_R, FL_Control_L, FL_Control_R, FL_Caps_Lock, FL_Alt_L,
+	// FL_Alt_R, FL_Delete, FL_Enter, FL_Pause, FL_Tab, FL_BackSpace
+	// Function Keys: FL_F => use FL_F + n for function key n. example: (FL_F + 1) = F1 key
+
+	// Usage example: keyboard key press events.
+	// overridden keyPressEvent function in the derived MyClass class.
+	// int MyClass::keyPressEvent(int key)		// MyClass is the child class of Fle_Window.
+	// {
+	//	 if (key == 'a' && Fl::event_state(FL_CTRL))	// CTRL key is pressed along with 'a'.
+	//	 {
+	//		 angle = angle + 0.1f;
+	//		 return 1;									// very important: always return 1 when you successfully handle the key. 
+	//	 }
+	//	 return 0;										// very important: always return 0 when the key is not handled. 
+	// }
+	virtual int keyPressEvent(int _key);
+
 	// Description:
 	// A virtual function that is expected to be overridden in the derived class for
 	// handling events such as FL_SHOW, FL_FOCUS, etc.

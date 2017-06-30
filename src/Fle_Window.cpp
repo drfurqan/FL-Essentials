@@ -260,11 +260,6 @@ int Fle_Window::processEvents(int _event)
 
 	switch (_event)
 	{
-	case FL_FOCUS:
-	case FL_UNFOCUS:
-		return 1;
-		break;								// enables receiving keyboard events
-
 	case FL_PUSH:
 		x = Fl::event_x();
 		y = Fl::event_y();
@@ -345,11 +340,10 @@ int Fle_Window::processEvents(int _event)
 	case FL_KEYBOARD:
 		switch (Fl::event_key())
 		{
-			// disabling the Escape key. (by default, Escape key closes the window.)
-		case FL_Escape:
+		case FL_Escape:							// disabling the Escape key. (by default, Escape key closes the window.)
 			return 1;
 		}
-		if (keyPressEvent(Fl::event_key()))
+		if(keyPressEvent(Fl::event_key()))
 			return 1;
 		break;
 
