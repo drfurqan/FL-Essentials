@@ -102,7 +102,7 @@ public:
 	static cv::Size getNewSizeKeepAspectRatio(int _old_w, int _old_h, int _new_w, int _new_h);
 
 	// Description:
-	// Function to get a rotated.
+	// Function to get a rotated image.
 	// Specify angle in degrees.
 	static cv::Mat getRotatedImage(cv::Mat& _img, float _angle, int _interpolation = cv::INTER_CUBIC);
 	// Description:
