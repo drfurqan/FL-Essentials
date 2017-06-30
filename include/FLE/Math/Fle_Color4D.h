@@ -98,7 +98,7 @@ public:
 	const Color4D& operator *= (const float& s);
 	const Color4D& operator /= (const float& s);
 
-	friend inline const Color4D operator * (const float& s, const Color4D& v)	{ return v * s; }
+	friend inline const Color4D operator * (const float& s, const Color4D& v) { return v * s; }
 	const Color4D operator * (const float s) const;
 	const Color4D operator + (const float s) const;
 	const Color4D operator - (const float s) const;
@@ -121,12 +121,16 @@ public:
 	const float getMin() const;
 
 	Color4D lerp(const Color4D& c, float factor)
-	{ return (*this)*(1.0f-factor) + c*factor; }
+	{
+		return (*this)*(1.0f - factor) + c*factor;
+	}
 
 	Color4D& Clamp0To1();
 
 	friend std::ostream& operator << (std::ostream& out, const Color4D& v)
-	{ out << "(" << v.r << ", " << v.g << ", " << v.b << ", " << v.a << ")" <<std::endl; return out; }
+	{
+		out << "(" << v.r << ", " << v.g << ", " << v.b << ", " << v.a << ")" << std::endl; return out;
+	}
 };
 
 }

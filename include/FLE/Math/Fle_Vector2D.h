@@ -64,7 +64,7 @@ public:
 	void print();
 
 	float& operator [](long k) { return ((&x)[k]); }
-    const float& operator [](long k) const { return ((&x)[k]); }
+	const float& operator [](long k) const { return ((&x)[k]); }
 
 	const Vector2D operator * (const Vector2D &c) const;
 	const Vector2D operator + (const Vector2D &c) const;
@@ -84,7 +84,7 @@ public:
 	const Vector2D& operator *= (const float& s);
 	const Vector2D& operator /= (const float& s);
 
-	friend inline const Vector2D operator * (const float& s, const Vector2D& v)	{ return v * s; }
+	friend inline const Vector2D operator * (const float& s, const Vector2D& v) { return v * s; }
 	const Vector2D operator * (const float s) const;
 	const Vector2D operator + (const float s) const;
 	const Vector2D operator - (const float s) const;
@@ -121,7 +121,9 @@ public:
 	const float getMinAxis() const;
 
 	friend std::ostream& operator << (std::ostream& out, const Vector2D& v)
-	{ out << "(" << v.x << ", " << v.y << ")" << std::endl; return out; }
+	{
+		out << "(" << v.x << ", " << v.y << ")" << std::endl; return out;
+	}
 
 };
 

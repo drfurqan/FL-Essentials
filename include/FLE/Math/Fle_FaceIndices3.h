@@ -58,7 +58,7 @@ public:
 	void print();
 
 	unsigned int& operator [](long k) { return ((&v1)[k]); }
-    const unsigned int& operator [](long k) const { return ((&v1)[k]); }
+	const unsigned int& operator [](long k) const { return ((&v1)[k]); }
 
 	const FaceIndices3 operator * (const FaceIndices3& c) const;
 	const FaceIndices3 operator + (const FaceIndices3& c) const;
@@ -80,7 +80,9 @@ public:
 
 
 	friend std::ostream& operator << (std::ostream& out, const FaceIndices3& _v)
-	{ out << "(" << _v.v1 << ", " << _v.v2 << ", " << _v.v3 << ")" <<std::endl; return out; }
+	{
+		out << "(" << _v.v1 << ", " << _v.v2 << ", " << _v.v3 << ")" << std::endl; return out;
+	}
 };
 
 }

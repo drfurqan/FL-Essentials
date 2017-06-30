@@ -90,7 +90,7 @@ public:
 	const Vector4D& operator *= (const float& s);
 	const Vector4D& operator /= (const float& s);
 
-	friend inline const Vector4D operator * (const float& s, const Vector4D& v)	{ return v * s; }
+	friend inline const Vector4D operator * (const float& s, const Vector4D& v) { return v * s; }
 	const Vector4D operator * (const float s) const;
 	const Vector4D operator + (const float s) const;
 	const Vector4D operator - (const float s) const;
@@ -125,9 +125,9 @@ public:
 	const float getMaxAxis() const;
 	const float getMinAxis() const;
 
-	Vector4D& rotateAboutX (float degres);
-	Vector4D& rotateAboutY (float degres);
-	Vector4D& rotateAboutZ (float degres);
+	Vector4D& rotateAboutX(float degres);
+	Vector4D& rotateAboutY(float degres);
+	Vector4D& rotateAboutZ(float degres);
 	Vector4D& rotateAboutAxis(float degres, const Vector4D& axis);
 
 	Vector4D& vectorMatrixMultiply(float M[16], float v[4]);
@@ -136,7 +136,9 @@ public:
 	Vector4D& vectorMatrixMultiply(double M[16], const Vector4D& p);
 
 	friend std::ostream& operator << (std::ostream& out, const Vector4D& v)
-	{ out << "(" << v.x << ", " << v.y << ", " << v.z << ", " << v.w << ")" <<std::endl; return out; }
+	{
+		out << "(" << v.x << ", " << v.y << ", " << v.z << ", " << v.w << ")" << std::endl; return out;
+	}
 };
 
 }

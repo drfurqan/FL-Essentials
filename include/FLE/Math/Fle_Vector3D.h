@@ -66,8 +66,8 @@ public:
 
 	void print();
 
-    float& operator [](long k) { return ((&x)[k]); }
-    const float& operator [](long k) const { return ((&x)[k]); }
+	float& operator [](long k) { return ((&x)[k]); }
+	const float& operator [](long k) const { return ((&x)[k]); }
 
 	const Vector3D operator * (const Vector3D& c) const;
 	const Vector3D operator + (const Vector3D& c) const;
@@ -87,7 +87,7 @@ public:
 	const Vector3D& operator *= (const float& s);
 	const Vector3D& operator /= (const float& s);
 
-	friend inline const Vector3D operator * (const float& s, const Vector3D& v)	{ return v * s; }
+	friend inline const Vector3D operator * (const float& s, const Vector3D& v) { return v * s; }
 	const Vector3D operator * (const float s) const;
 	const Vector3D operator + (const float s) const;
 	const Vector3D operator - (const float s) const;
@@ -104,9 +104,13 @@ public:
 	void scale(const float v);
 
 	const Vector3D operator ^ (const Vector3D& v) const // cross product operator
-	{ return (Vector3D(y * v.z - z * v.y, z * v.x - x * v.z, x * v.y - y * v.x)); }
-	const Vector3D operator ~ () const 
-	{ return (*this) * (1.0f/length()); }
+	{
+		return (Vector3D(y * v.z - z * v.y, z * v.x - x * v.z, x * v.y - y * v.x));
+	}
+	const Vector3D operator ~ () const
+	{
+		return (*this) * (1.0f / length());
+	}
 
 	const Vector3D cross(const Vector3D& v) const;
 	const Vector3D reflect(const Vector3D& normal) const;
@@ -139,7 +143,9 @@ public:
 	Vector3D& vectorMatrixMultiply(const double M[16], const Vector3D& p);
 
 	friend std::ostream& operator << (std::ostream& out, const Vector3D& v)
-	{ out << "(" << v.x << ", " << v.y << ", " << v.z << ")" <<std::endl; return out; }
+	{
+		out << "(" << v.x << ", " << v.y << ", " << v.z << ")" << std::endl; return out;
+	}
 };
 
 }
