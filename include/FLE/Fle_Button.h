@@ -71,7 +71,12 @@ public:
 	// Function that returns true if the button state is ON.
 	bool isOn() const { return m_ison; }
 	// Description:
-	// Function that returns true if the button state is ON.
+	// Function that makes this button as toggled or non-toggled button. Meaning that one click on the button will change
+	// it's state to ON, and then second click will require to change it's state to OFF.
+	// If it's true, button will be toggled button, Meaning that one click on the button will change
+	// it's state to ON, and then second click will require to change it's state to OFF.
+	// If it's false, button state will be changed after releasing the mouse click button.
+	// Default value is true.
 	void setToggleEnabled(bool _b) { m_toggle = _b; }
 	// Description:
 	// Function that returns true if the button state is ON.

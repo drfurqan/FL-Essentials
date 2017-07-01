@@ -92,8 +92,9 @@ m_sstime(3)
 	addToolBar();
 	addStatusBar();
 
-	remove(0);	// setBox will delete the previous box and set a pointer to the new box.
+	remove(0);	// remove the previous box that was embedded in the central widget.
 
+	// add the new Fle_DND_ScrollBox for image in the central widget.
 	begin();
 	p_scroll = new Fle_DND_ScrollBox(this, 0, 0, getCentralWidget()->w(), getCentralWidget()->h());
 	p_scroll->getBox()->setImageDrawType(Fle_ImageDrawType::Center);
@@ -116,8 +117,9 @@ m_sstime(3)
 	addToolBar();
 	addStatusBar();
 
-	remove(0);	// setBox will delete the previous box and set a pointer to the new box.
+	remove(0);	// remove the previous box that was embedded in the central widget.
 
+	// add the new Fle_DND_ScrollBox for image in the central widget.
 	begin();
 	p_scroll = new Fle_DND_ScrollBox(this, 0, 0, getCentralWidget()->w(), getCentralWidget()->h());
 	p_scroll->getBox()->setImageDrawType(Fle_ImageDrawType::Center);
@@ -245,7 +247,7 @@ void Fle_Image_Viewer::addStatusBar()
 		// begin to add/pack widgets at the most left side of the statusbar.
 		layout->beginLeft();
 
-		Fle_Box* p_textbox = Fle_Widgets::createBox(300, 41, "Ready", false);		// a text box at the most left corner.
+		Fle_Box* p_textbox = Fle_Widgets::createBox(300, 41, "", false);		// a text box at the most left corner.
 		//p_textbox->color(Fle_Widgets::fromRGB(60, 176, 205));
 		p_textbox->getFont()->setSize(12);
 		p_textbox->getFont()->setColor(Fle_Widgets::fromRGB(255, 255, 255));
@@ -253,27 +255,31 @@ void Fle_Image_Viewer::addStatusBar()
 		layout->endLeft();
 
 		getStatusBar()->setTextBox(p_textbox);		// set the text box to show messages with time interval.
+		getStatusBar()->setDefaultText("");
 
 		// begin to add/pack widgets at the most right side of the statusbar.
 		layout->beginRight();
 
-		Fle_Button* prev = new Fle_Button(0, 0, 40, 40, (Fl_RGB_Image*)image_previous());
+		Fle_Button* prev = new Fle_Button(0, 0, 40, 40, (Fl_RGB_Image*)image_previous()->copy(), (Fl_RGB_Image*)image_previous()->copy(image_previous()->w() - 4, image_previous()->h() - 2));
+		prev->setToggleEnabled(false);
 		prev->color(Fle_Widgets::fromRGB(0, 122, 204));
 		prev->box(FL_NO_BOX);
 		prev->callback(previous_cb, this);
 		prev->shortcut(FL_Right);
 		prev->tooltip("Previous (Left arrow)");
 
-		Fle_Button* slide = new Fle_Button(0, 0, 40, 40, (Fl_RGB_Image*)image_slideshow());
+		Fle_Button* slide = new Fle_Button(0, 0, 40, 40, (Fl_RGB_Image*)image_slideshow()->copy(), (Fl_RGB_Image*)image_slideshow()->copy(image_slideshow()->w() + 2, image_slideshow()->h() + 2));
+		slide->setToggleEnabled(false);
 		slide->color(Fle_Widgets::fromRGB(0, 122, 204));
 		slide->box(FL_NO_BOX);
-		slide->setOn(false);
+		slide->setOn(true);
 		slide->callback(slideshow_cb, this);
-		slide->tooltip("Play slide show (F11)");
 		slide->shortcut(FL_F + 11);
 		slide->tooltip("Play slide show (F11)");
 
-		Fle_Button* nex = new Fle_Button(0, 0, 40, 40, (Fl_RGB_Image*)image_next());
+		Fle_Button* nex = new Fle_Button(0, 0, 40, 40, (Fl_RGB_Image*)image_next()->copy(), (Fl_RGB_Image*)image_next()->copy(image_next()->w() - 4, image_next()->h() - 2));
+		nex->setToggleEnabled(false);
+		nex->setOn(true);
 		nex->color(Fle_Widgets::fromRGB(0, 122, 204));
 		nex->box(FL_NO_BOX);
 		nex->callback(next_cb, this);
@@ -282,14 +288,17 @@ void Fle_Image_Viewer::addStatusBar()
 
 		Fle_Widgets::createSeparator(1, 40, Fle_Widgets::fromRGB(0, 132, 204));
 
-		Fle_Button* lrot = new Fle_Button(0, 0, 40, 40, (Fl_RGB_Image*)image_cw());
+		Fle_Button* lrot = new Fle_Button(0, 0, 40, 40, (Fl_RGB_Image*)image_cw()->copy(), (Fl_RGB_Image*)image_cw()->copy(image_cw()->w() + 1, image_cw()->h() + 1));
+		lrot->setToggleEnabled(false);
+		lrot->setOn(true);
 		lrot->color(Fle_Widgets::fromRGB(0, 122, 204));
 		lrot->box(FL_NO_BOX);
 		lrot->callback(rotate_90_cb, this);
 		lrot->shortcut(FL_CTRL + '.');
 		lrot->tooltip("Rotate clockwise (Ctrl+.)");
 		
-		Fle_Button* rrot = new Fle_Button(0, 0, 40, 40, (Fl_RGB_Image*)image_ccw());
+		Fle_Button* rrot = new Fle_Button(0, 0, 40, 40, (Fl_RGB_Image*)image_ccw()->copy(), (Fl_RGB_Image*)image_ccw()->copy(image_ccw()->w() + 1, image_ccw()->h() + 1));
+		rrot->setToggleEnabled(false);
 		rrot->color(Fle_Widgets::fromRGB(0, 122, 204));
 		rrot->box(FL_NO_BOX);
 		rrot->callback(rotate90_cb, this);
@@ -699,22 +708,13 @@ void Fle_Image_Viewer::about_cb(Fl_Widget* _w, void* _p)
 
 	std::ostringstream sstream;
 	sstream <<
-		"<br><p>Version: 1.3.3</p>"
-		"<br><p>Release Date: 2017/05/03 12:42AM</p>"
+		"<br><p>Written in FLE Version: 1.3.4</p>"
+		"<br><p>Release Date: 2017/07/01 12:44AM</p>"
 		"<br><p>Copyright(C) 2017</p>"
-		"<p><a href=\"http://real3d.pk/\">Website</a> " << "and <a href=\"http://www.real3d.pk/forum/index.php\">Forum</a></p>"
+		"<p><a href=\"http://real3d.pk/\">Website</a> " << "and <a href=\"http://blog.real3d.pk/\">Blog</a></p>"
 		"<br><p><b><i>For all questions and bug reports, email to info@real3d.pk.<b><i></p>"
 		"<br><p><b><i>Warning: This computer program is only for non-commercial purposes.<i></b></p>";
-		//"<br><center><h3>FLE v1.1.0</h3></center>"
-		//"<center><h6>(March 06 2017)</h6></center>"
-		//"<br><center><h4><a href=\"http://real3d.pk/fle.html\">http://real3d.pk/fle.html</a></h4></center>"
-		//"<p></p>"
-		//"<p></p>"
-		//"<center><h5>REAL3D by Dr. Furqan</h5>"
-		//"<br>Copyright (C) 2017"
-		//"<p><a href=\"http://real3d.pk/\">Website</a> " << "and <a href=\"http://www.real3d.pk/forum/index.php\">Forum</a>"
-		//"<br>Please use my forum for all questions and bug reports or send to"
-		//"<br><a href=\"mailto:info@real3d.pk\">info@real3d.pk</a></p>";
+
 	if (Fle_Dialog::openHelpDialog(
 		500, 320,
 		"About",

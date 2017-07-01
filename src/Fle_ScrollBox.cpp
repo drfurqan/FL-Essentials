@@ -95,7 +95,6 @@ int Fle_ScrollBox::handle(int _event)
 		case FL_FOCUS:
 		case FL_UNFOCUS:
 			return 1;
-			break;
 
 		case FL_PUSH:
 			drag_x = p_box->x() - Fl::event_x();    // save where user clicked for dragging
