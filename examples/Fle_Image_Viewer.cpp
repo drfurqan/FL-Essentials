@@ -268,11 +268,10 @@ void Fle_Image_Viewer::addStatusBar()
 		prev->shortcut(FL_Right);
 		prev->tooltip("Previous (Left arrow)");
 
-		Fle_Button* slide = new Fle_Button(0, 0, 40, 40, (Fl_RGB_Image*)image_slideshow()->copy(), (Fl_RGB_Image*)image_slideshow()->copy(image_slideshow()->w() + 2, image_slideshow()->h() + 2));
-		slide->setToggleEnabled(false);
+		Fle_Button* slide = new Fle_Button(0, 0, 40, 40, (Fl_RGB_Image*)image_slideshow()->copy());
 		slide->color(Fle_Widgets::fromRGB(0, 122, 204));
 		slide->box(FL_NO_BOX);
-		slide->setOn(true);
+		slide->setOn(false);
 		slide->callback(slideshow_cb, this);
 		slide->shortcut(FL_F + 11);
 		slide->tooltip("Play slide show (F11)");
@@ -621,10 +620,14 @@ void Fle_Image_Viewer::slideshow_cb(Fl_Widget* _w, void* _p)
 		{
 			v->m_sstime = numbr;
 
-			v->getTimer().setTime(v->m_sstime);
 			v->getTimer().stop();
+			v->getTimer().setTime(v->m_sstime);
 			v->getTimer().start();
 			v->getStatusBar()->showMessage("Playing slide show...", 3600);
+		}
+		else
+		{
+			b->setOn(false);
 		}
 	}
 	else
