@@ -44,6 +44,10 @@ public:
 	virtual ~Fle_ImageWidget();
 
 	// Description:
+	// Function to release the internal image data that clears the image widget.
+	void clear();
+
+	// Description:
 	// Function to set image draw type, meaning that how the image should be drawn inside the window.
 	// Note: zooming only wors with ImageDrawType::Center.
 	void setImageDrawType(Fle_ImageDrawType _type) { m_dtype = _type; resetZoom(); }

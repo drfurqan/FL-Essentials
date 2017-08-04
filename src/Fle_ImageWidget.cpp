@@ -41,6 +41,15 @@ Fle_ImageWidget::~Fle_ImageWidget()
 {
 	m_fimage.release();
 }
+void Fle_ImageWidget::clear()
+{
+	Fl::lock();				// acquire the lock
+	m_fimage.release();
+	m_image.release();
+	redraw();
+	Fl::unlock();			// release the lock; allow other threads to access FLTK again
+	Fl::awake();			// use Fl::awake() to signal main thread to refresh the GUI
+}
 
 void Fle_ImageWidget::draw()
 {

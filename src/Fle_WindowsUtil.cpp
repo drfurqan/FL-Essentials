@@ -23,6 +23,7 @@ If not, please contact Dr. Furqan Ullah immediately:
 #ifdef _WIN32
 #include <windows.h>
 #include <direct.h>
+#include <shlobj.h>
 #endif // _WIN32
 #include <sys/types.h> // required for stat.h
 #include <sys/stat.h> // no clue why required -- man pages say so
@@ -115,4 +116,37 @@ bool Fle_WindowsUtil::create_directory(const std::string& _dir_name)
 		return true;
 #endif
 	return false;
+}
+
+std::string Fle_WindowsUtil::getSystemFolderPath(int _csidl)
+{
+#if defined(_WIN32)
+	wchar_t folder[1024];
+	HRESULT hr = SHGetFolderPathW(0, _csidl, 0, 0, folder);
+	if (SUCCEEDED(hr))
+	{
+		char str[1024];
+		wcstombs(str, folder, 1023);
+		return str;
+	}
+#endif
+
+	return "";
+}
+std::string Fle_WindowsUtil::getSystemFolderPath(Fle_WindowsUtil::SystemFolder _folder)
+{
+#if defined(_WIN32)
+	if (_folder == Fle_WindowsUtil::SystemFolder::Documents)
+		return getSystemFolderPath(CSIDL_MYDOCUMENTS);
+	else if (_folder == Fle_WindowsUtil::SystemFolder::Pictures)
+		return getSystemFolderPath(CSIDL_MYPICTURES);
+	else if (_folder == Fle_WindowsUtil::SystemFolder::Videos)
+		return getSystemFolderPath(CSIDL_MYVIDEO);
+	else if (_folder == Fle_WindowsUtil::SystemFolder::Music)
+		return getSystemFolderPath(CSIDL_MYMUSIC);
+	else if (_folder == Fle_WindowsUtil::SystemFolder::Desktop)
+		return getSystemFolderPath(CSIDL_DESKTOP);
+#endif
+
+	return "";
 }

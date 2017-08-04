@@ -49,7 +49,6 @@ m_fixedpos(cv::Point(_x, _y))
 
 Fle_Box::~Fle_Box()
 {
-	std::cout << "Box_Widget::Destructor...\n";
 }
 
 void Fle_Box::setResizeable(bool _b)

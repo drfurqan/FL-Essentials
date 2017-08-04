@@ -69,6 +69,25 @@ public:
 	// Description:
 	// Function to create a directory at the specified name.
 	static bool create_directory(const std::string& _dir_name);
+
+	// Description:
+	// Function to get the system folder path such as Documents, Pictures, Videos, Music, etc.
+	// Example:
+	// std::string video = getSystemFolderPath(CSIDL_MYVIDEO);
+	static std::string getSystemFolderPath(int _csidl);
+
+	enum class SystemFolder
+	{
+		Documents = 0,
+		Pictures,
+		Videos,
+		Music,
+		Desktop
+	};
+
+	// Description:
+	// Function to get the system folder path such as Documents, Pictures, Videos, Music, etc.
+	static std::string getSystemFolderPath(Fle_WindowsUtil::SystemFolder _folder);
 };
 
 }

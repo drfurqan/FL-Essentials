@@ -135,8 +135,12 @@ public:
 	Fle_Box* getBox() const { return p_box; }
 
 	// Description:
-	// Function to get the timer of timerEvent().
+	// Function to get a reference of the timer that connects with timerEvent().
 	Fle_Timer& getTimer() {	return m_timer; }
+
+	// Description:
+	// Function to get a reference of the idle that connects with idleEvent().
+	Fle_Idle& getIdle() { return m_idle; }
 
 protected:
 	// Description:
@@ -209,6 +213,7 @@ protected:
 	virtual void closeEvent();
 
 	Fle_Timer m_timer;
+	Fle_Idle m_idle;
 
 	Fle_Size m_minsize;
 	Fle_Size m_maxsize;

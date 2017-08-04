@@ -92,11 +92,17 @@ m_maxsize(Fle_Size(Fl::w() + 100000, Fl::h() + 100000))
 		timerEvent();
 	};
 	m_timer.setFunction(tf);
+
+	// setting up idle event.
+	std::function<void()> idf = [&]()
+	{
+		idleEvent();
+	};
+	m_idle.setFunction(idf);
 }
 
 Fle_Window::~Fle_Window()
 {
-	std::cout << "Image_Window::Destructor...\n";
 }
 
 void Fle_Window::begin()

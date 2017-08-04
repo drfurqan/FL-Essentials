@@ -316,6 +316,15 @@ int Fle_Dialog::getNumbers(int _w, int _h, const char* _title,
 		s[i]->maximum(_maximums[i]);
 		s[i]->step(_steps[i]);
 
+		//s[i]->box(FL_FLAT_BOX);
+		//s[i]->color(fl_rgb_color(74, 84, 89));
+		//s[i]->textcolor(fl_rgb_color(255, 255, 255));
+		//s[i]->textsize(14);
+		//s[i]->getDownButton().color(fl_rgb_color(74, 84, 89));
+		//s[i]->getDownButton().box(_FL_GTK_UP_BOX);
+		//s[i]->getUpButton().color(fl_rgb_color(74, 84, 89));
+		//s[i]->getUpButton().box(_FL_GTK_UP_BOX);
+
 		l->end();
 	}
 

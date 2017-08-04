@@ -92,7 +92,6 @@ Fle_Button::Fle_Button(int _x, int _y, int _w, int _h, Fl_RGB_Image* _icon_file_
 
 Fle_Button::~Fle_Button()
 {
-	std::cout << "Button_Widget::Destructor...\n";
 	if (p_on != nullptr)
 	{
 		p_on->release();
