@@ -51,7 +51,7 @@ public:
 	}
 
 protected:
-	int Fle_DND_ScrollBox::handle(int _event)
+	int handle(int _event)
 	{
 		switch (_event)
 		{

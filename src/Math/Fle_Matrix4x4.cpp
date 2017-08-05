@@ -22,6 +22,7 @@ If not, please contact Dr. Furqan Ullah immediately:
 **********************************************************************************/
 
 #include <FLE/Math/Fle_Matrix4x4.h>
+#include <cmath>
 
 static const float M_PI = 3.1415926535897932384626433832795f;
 

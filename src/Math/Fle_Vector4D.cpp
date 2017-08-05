@@ -18,6 +18,7 @@ If not, please contact Dr. Furqan Ullah immediately:
 **********************************************************************************/
 
 #include <FLE/Math/Fle_Vector4D.h>
+#include <cmath>
 
 using namespace R3D;
 

@@ -27,6 +27,8 @@ If not, please contact Dr. Furqan Ullah immediately:
 #include <FL/glu.h>
 #include <FL/glut.H>
 
+#include <cmath>
+
 MyOpenGLWindow::MyOpenGLWindow(int _w, int _h, const char* _title) : Fle_OpenGLWindow(_w, _h, _title)
 {
 	angle = 0.f;

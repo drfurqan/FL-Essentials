@@ -25,6 +25,8 @@ If not, please contact Dr. Furqan Ullah immediately:
 #include <FL/glu.h>
 #include <FL/glut.H>
 
+#include <cmath>
+
 /************************************************************************/
 /* class for planet                                                     */
 /************************************************************************/
