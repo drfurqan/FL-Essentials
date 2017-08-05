@@ -18,8 +18,7 @@ If not, please contact Dr. Furqan Ullah immediately:
 **********************************************************************************/
 
 #include <FLE/Math/Fle_FaceIndices3.h>
-#include <cstring>
-#include <cmath>
+#include <limits>
 
 using namespace R3D;
 
