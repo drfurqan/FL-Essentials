@@ -1,6 +1,6 @@
 Links to Pre-Build FLE projects for MS Visual Studio 2013 and 2015.
 
-Compiled libs of FLE (v1.3.2), FLTK (v1.4.x-r12189), OpenCV (v3.2.0), and GLEW (v2.0.0) are already configured in the project.
+Compiled libs of FLE (v1.3.4), FLTK (v1.4.x-r12189), OpenCV (v3.2.0), and GLEW (v2.0.0) are already configured in the project.
 
 Simply extract, open the .sln file, build and run.
 
