@@ -139,7 +139,6 @@ m_bottommargin(0)
 
 Fle_MainWindow::~Fle_MainWindow()
 {
-	std::cout << "Image_Window::Destructor...\n";
 }
 
 void Fle_MainWindow::begin()

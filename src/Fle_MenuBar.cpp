@@ -49,7 +49,6 @@ m_isclickmenu(true)
 
 Fle_MenuBar::~Fle_MenuBar()
 {
-	std::cout << "MenuBar::Destructor...\n";
 }
 
 void Fle_MenuBar::draw()
