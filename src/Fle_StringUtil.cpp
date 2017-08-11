@@ -133,3 +133,8 @@ bool Fle_StringUtil::checkFileExt(std::string filename, std::string extension)
 	std::string end = filename.substr(filename.length() - extension.length(), extension.length());
 	return end == extension;
 }
+bool Fle_StringUtil::isFileExist(const std::string& _path)
+{
+	std::ifstream f(_path);
+	return f.good();
+}

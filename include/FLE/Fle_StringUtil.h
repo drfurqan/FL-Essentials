@@ -73,6 +73,11 @@ public:
 	// Description:
 	// It returns true if a given file has a given extension.
 	static bool checkFileExt(std::string _filename, std::string _extension);
+
+	// Description:
+	// Function that returns true if the given file exists.
+	static bool isFileExist(const std::string& _path);
+
 	// Description:
 	// Function to convert any number to string.
 	template <typename _T>

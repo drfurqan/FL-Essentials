@@ -1004,12 +1004,16 @@ int Fle_Dialog::ask(int _w, int _h, 			// width and height of the dialog window.
 	yes->labelsize(12);
 	d->setOkButton(yes);
 
-	Fle_Button* no = new Fle_Button(0, 0, 90, 22, _2nd_btn_text);
-	no->color(fl_rgb_color(80, 80, 80));
-	no->selection_color(fl_rgb_color(80, 80, 80));
-	no->labelcolor(fl_rgb_color(255, 255, 255));
-	no->labelsize(12);
-	d->setCancelButton(no);
+	Fle_Button* no = nullptr;
+	if (_2nd_btn_text)
+	{
+		no = new Fle_Button(0, 0, 90, 22, _2nd_btn_text);
+		no->color(fl_rgb_color(80, 80, 80));
+		no->selection_color(fl_rgb_color(80, 80, 80));
+		no->labelcolor(fl_rgb_color(255, 255, 255));
+		no->labelsize(12);
+		d->setCancelButton(no);
+	}
 
 	Fle_Button* cancel = nullptr;
 	if (_3rd_btn_text)
@@ -1019,6 +1023,7 @@ int Fle_Dialog::ask(int _w, int _h, 			// width and height of the dialog window.
 		cancel->selection_color(fl_rgb_color(80, 80, 80));
 		cancel->labelcolor(fl_rgb_color(255, 255, 255));
 		cancel->labelsize(12);
+		d->setCancelButton(no);
 	}
 
 	hl1->endRight();
@@ -1086,6 +1091,14 @@ int Fle_Dialog::ask(
 	)
 {
 	return ask(_title, _text, _1st_btn_text, _2nd_btn_text, nullptr);
+}
+void Fle_Dialog::MessageBox(
+	const char* _title,  				// title of the dialog window.
+	const std::string& _text,
+	const char* _btn_text				// first button text.
+)
+{
+	ask(458, 132, _title, _text, _btn_text,  nullptr, nullptr);
 }
 
 int Fle_Dialog::exec()

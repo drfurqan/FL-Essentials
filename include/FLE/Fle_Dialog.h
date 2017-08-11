@@ -389,9 +389,9 @@ public:
 	static int ask(
 		const char* _title,  				// title of the dialog window.
 		const std::string& _text,			// initial value and the returned value of the multi-line text box.
-		const char* _1st_btn_text,	// first button text.
-		const char* _2nd_btn_text,	// 2nd button text.
-		const char* _3rd_btn_text	// 3rd button text.
+		const char* _1st_btn_text,			// first button text.
+		const char* _2nd_btn_text,			// 2nd button text.
+		const char* _3rd_btn_text			// 3rd button text.
 		);
 	// Description:
 	// Function to execute a dialog window that has 3 buttons, and a text box.
@@ -409,9 +409,21 @@ public:
 	static int ask(
 		const char* _title,  				// title of the dialog window.
 		const std::string& _text,			// initial value and the returned value of the multi-line text box.
-		const char* _1st_btn_text,	// first button text.
-		const char* _2nd_btn_text	// 2nd button text.
+		const char* _1st_btn_text,			// first button text.
+		const char* _2nd_btn_text			// 2nd button text.
 		);
+
+	// Description:
+	// Function to execute a dialog window that has 3 buttons, and a text box.
+	// Example: 
+	// Fle_Dialog::MessageBox("Information", "Camera device has already been connected!");
+	// The default dialog size is (458, 132).
+	static void MessageBox(
+		const char* _title,  				// title of the dialog window.
+		const std::string& _text,			// initial value and the returned value of the multi-line text box.
+		const char* _btn_text = "Ok"	// button text.
+	);
+
 
 	// Description:
 	// Function to set a pointer to Ok button.
