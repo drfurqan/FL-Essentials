@@ -43,12 +43,8 @@ Fle_ImageWidget::~Fle_ImageWidget()
 }
 void Fle_ImageWidget::clear()
 {
-	Fl::lock();				// acquire the lock
-	m_fimage.release();
-	m_image.release();
-	redraw();
-	Fl::unlock();			// release the lock; allow other threads to access FLTK again
-	Fl::awake();			// use Fl::awake() to signal main thread to refresh the GUI
+	cv::Mat m = cv::Mat::zeros(m_isize, m_image.type());
+	setImage(m);
 }
 
 void Fle_ImageWidget::draw()
@@ -76,7 +72,7 @@ void Fle_ImageWidget::draw(int _x, int _y, int _w, int _h)
 	m_fimage.release();
 	m_fimage = cv::Mat::zeros(m_isize, m_image.type());
 
-	cv::resize(m_image, m_fimage, m_isize, 0, 0, CV_INTER_CUBIC);
+	cv::resize(m_image, m_fimage, m_isize, 0, 0, cv::INTER_CUBIC);
 	if (m_fimage.channels() == 4) cv::cvtColor(m_fimage, m_fimage, CV_BGRA2RGBA);
 	else if (m_fimage.channels() == 3) cv::cvtColor(m_fimage, m_fimage, CV_BGR2RGB);
 		
@@ -87,7 +83,7 @@ void Fle_ImageWidget::draw(int _x, int _y, int _w, int _h)
 
 	// fl_draw_image does not support (4-channels) transparent images like PNG. 
 	// It only support RGB (3-channels).
-	//fl_draw_image(m_fimage.datastart, X, Y, s.width, s.height, m_fimage.channels(), m_fimage.step);
+	// fl_draw_image(m_fimage.datastart, X, Y, s.width, s.height, m_fimage.channels(), m_fimage.step);
 	Fl_RGB_Image o(m_fimage.datastart, m_isize.width, m_isize.height, m_fimage.channels(), static_cast<int>(m_fimage.step));
 	o.draw(X, Y);	// Fl_RGB_Image works fine with the transparent PNG images.
 

@@ -123,17 +123,17 @@ public:
 
 	// Description:
 	// Function that returns true if the input file is supported by OpenCV images i.e, jpg, bmp, png, etc.
-	static bool openCVSupportedImage(const std::string& _filename);
+	static bool isOpenCVSupportedImage(const std::string& _filename);
 	// Description:
 	// Function to get files in a directory.
 	// Example:
 	// getDirectoryFiles(Fle_StringUtil::extractDirectory(file), "*");
-	static std::vector<std::string> getDirectoryFiles(const std::string& _path, const std::string& _ext);
+	static std::vector<std::string> getDirectoryFiles(const std::string& _directory, const std::string& _ext);
 	// Description:
 	// Function to get all OpenCV supported image files in a directory.
 	// Example:
 	// getDirectoryFiles(Fle_StringUtil::extractDirectory(file), "*");
-	static std::vector<std::string> getDirectoryImageFiles(const std::string& _path);
+	static std::vector<std::string> getDirectoryImageFiles(const std::string& _directory);
 
 	// Description:
 	// Function to resize all image files of the specified directory.

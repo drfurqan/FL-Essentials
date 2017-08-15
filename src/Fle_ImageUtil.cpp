@@ -121,7 +121,7 @@ cv::Mat Fle_ImageUtil::getMat(Fl_Image* _img, bool _swap_rgb)
 	return m;
 }
 
-bool Fle_ImageUtil::openCVSupportedImage(const std::string& _filename)
+bool Fle_ImageUtil::isOpenCVSupportedImage(const std::string& _filename)
 {
 	std::string ext = Fle_StringUtil::convertToLower(Fle_StringUtil::extractFileExt(_filename));
 	if (ext == "jpg" || ext == "jpeg" || ext == "jpe" || ext == "jp2" || ext == "png" || ext == "bmp" || ext == "tif" || ext == "tiff" || ext == "pgm" || ext == "pbm" || ext == "ppm" || ext == "ras" || ext == "sr")
@@ -129,7 +129,7 @@ bool Fle_ImageUtil::openCVSupportedImage(const std::string& _filename)
 	return false;
 }
 
-std::vector<std::string> Fle_ImageUtil::getDirectoryFiles(const std::string& _path, const std::string& _ext)
+std::vector<std::string> Fle_ImageUtil::getDirectoryFiles(const std::string& _directory, const std::string& _ext)
 {
 	std::string seprator;
 #if defined(_WIN32)
@@ -138,7 +138,7 @@ std::vector<std::string> Fle_ImageUtil::getDirectoryFiles(const std::string& _pa
 	seprator = "/";
 #endif
 
-	std::string f = _path + seprator + "*." + _ext;
+	std::string f = _directory + seprator + "*." + _ext;
 	cv::String s(f.c_str());
 
 	std::vector<cv::String> fn;
@@ -151,7 +151,7 @@ std::vector<std::string> Fle_ImageUtil::getDirectoryFiles(const std::string& _pa
 
 	return files;
 }
-std::vector<std::string> Fle_ImageUtil::getDirectoryImageFiles(const std::string& _path)
+std::vector<std::string> Fle_ImageUtil::getDirectoryImageFiles(const std::string& _directory)
 {
 	std::vector<std::string> imgs = { 
 		"jpg", "JPG", 
@@ -188,7 +188,7 @@ std::vector<std::string> Fle_ImageUtil::getDirectoryImageFiles(const std::string
 	std::vector<std::string> files;
 	for (std::size_t i = 0; i < imgs.size(); i++)
 	{
-		std::vector<std::string> f = getDirectoryFiles(_path, imgs[i]);
+		std::vector<std::string> f = getDirectoryFiles(_directory, imgs[i]);
 		for (std::size_t j = 0; j < f.size(); j++)
 		{
 			files.push_back(f[j]);
