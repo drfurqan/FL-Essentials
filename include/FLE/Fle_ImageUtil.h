@@ -143,6 +143,22 @@ public:
 	static bool batchResize(const std::string& _directory_path, int _w, int _h, bool _with_aspect_ratio = true, int _interpolation = CV_INTER_CUBIC);
 };
 
+// Example to get a pixel value and set a pixel to OpenCV cv::Mat
+// void imageProcessing(cv::Mat& _image)
+// {
+//	 for (int y = 0; y < _image.rows; y++)
+//	 {
+//		 for (int x = 0; x < _image.cols; x++)
+//		 {
+//			 cv::Vec3b p = Fle_ImageUtil::getPixelBGR(_image, x, y);
+//
+//			 unsigned char g = (p[0] + p[1] + p[2]) / 3;	// average of RGB
+//
+//			 Fle_ImageUtil::setPixel(_image, x, y, cv::Vec3b(g, g, g));
+//		 }
+//	 }
+// }
+
 }
 
 #endif // Fle_ImageUtil_h__

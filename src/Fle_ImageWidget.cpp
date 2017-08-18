@@ -41,9 +41,12 @@ Fle_ImageWidget::~Fle_ImageWidget()
 {
 	m_fimage.release();
 }
-void Fle_ImageWidget::clear()
+void Fle_ImageWidget::clear(const cv::Vec3b& _color)
 {
-	cv::Mat m = cv::Mat::zeros(m_isize, m_image.type());
+	cv::Mat m(m_isize, CV_8UC3);
+	for (int y = 0; y < m.rows; y++)
+		for (int x = 0; x < m.cols; x++)
+			Fle_ImageUtil::setPixel(m, x, y, _color);
 	setImage(m);
 }
 

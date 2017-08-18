@@ -45,7 +45,7 @@ public:
 
 	// Description:
 	// Function to release the internal image data that clears the image widget.
-	void clear();
+	void clear(const cv::Vec3b& _color = cv::Vec3b(0, 0, 0));
 
 	// Description:
 	// Function to set image draw type, meaning that how the image should be drawn inside the window.
