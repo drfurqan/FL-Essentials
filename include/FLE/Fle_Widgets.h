@@ -216,7 +216,7 @@ public:
 	// _step is the increment/decrement step.
 	// _minimum and _maximum are the bounds of the slider.
 	// _cb is the callback with _data.
-	static Fle_InputSlider* createIntInputSlider(int _w, int _h, int _value = 1, int _step = 1, int _minimum = 0, int _maximum = 99, Fl_Callback* _cb = 0, void* _data = 0);
+	static Fle_InputSlider* createIntInputSlider(int _w, int _h, int _value = 1, int _step = 1, int _minimum = 0, int _maximum = 99);
 	// Description:
 	// Function to create an input slider (with double numbers) by specifying it's width, height, label/name, 
 	// and default/initial index.
@@ -227,7 +227,7 @@ public:
 	// _step is the increment/decrement step.
 	// _minimum and _maximum are the bounds of the slider.
 	// _cb is the callback with _data.
-	static Fle_FloatInputSlider* createFloatInputSlider(int _w, int _h, double _value = 1, double _step = 0.1, double _minimum = 0, double _maximum = 100, Fl_Callback* _cb = 0, void* _data = 0);
+	static Fle_FloatInputSlider* createFloatInputSlider(int _w, int _h, double _value = 1, double _step = 0.1, double _minimum = 0, double _maximum = 100);
 
 	// Description:
 	// Function to create an input widget that gives various justifications with copy and paste feature.

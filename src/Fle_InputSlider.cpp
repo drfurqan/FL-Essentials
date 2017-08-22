@@ -44,6 +44,15 @@ Fl_Group(_x, _y, _w, _h, _l)
 	selection_color(fl_rgb_color(144, 200, 246));
 
 	end();
+
+	p_func = nullptr;
+	p_ptr = nullptr;
+}
+
+void Fle_InputSlider::set_callback(void(*_f)(int, void*), void* _p)
+{
+	p_func = _f;
+	p_ptr = _p;
 }
 
 void Fle_InputSlider::slider_cb()
@@ -54,9 +63,11 @@ void Fle_InputSlider::slider_cb()
 	{
 		recurse = 1;
 		char s[80];
-		sprintf(s, "%d", static_cast<int>(p_slider->value() + 0.5));
+		sprintf(s, "%d", static_cast<int>(p_slider->value()));
 		p_input->value(s);          // pass slider's value to input
 		recurse = 0;
+		if(p_func)
+			(p_func)(static_cast<int>(p_slider->value()), p_ptr);
 	}
 }
 
@@ -77,6 +88,8 @@ void Fle_InputSlider::input_cb()
 			val = 0;
 		p_slider->value(val);
 		recurse = 0;
+		if (p_func)
+			(p_func)(val, p_ptr);
 	}
 }
 
@@ -214,6 +227,15 @@ Fle_FloatInputSlider::Fle_FloatInputSlider(int _x, int _y, int _w, int _h, const
 	selection_color(fl_rgb_color(144, 200, 246));
 
 	end();
+
+	p_func = nullptr;
+	p_ptr = nullptr;
+}
+
+void Fle_FloatInputSlider::set_callback(void(*_f)(double, void*), void* _p)
+{
+	p_func = _f;
+	p_ptr = _p;
 }
 
 void Fle_FloatInputSlider::sliderCallback()
@@ -227,6 +249,8 @@ void Fle_FloatInputSlider::sliderCallback()
 		sprintf(s, "%.2f", p_slider->value());
 		p_input->value(s);          // pass slider's value to input
 		recurse = 0;
+		if (p_func)
+			(p_func)(p_slider->value(), p_ptr);
 	}
 }
 
@@ -247,6 +271,8 @@ void Fle_FloatInputSlider::inputCallback()
 			val = 0;
 		p_slider->value(val);
 		recurse = 0;
+		if (p_func)
+			(p_func)(static_cast<double>(val), p_ptr);
 	}
 }
 

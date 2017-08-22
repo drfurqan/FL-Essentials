@@ -33,6 +33,7 @@ s_int->value(1);
 s_int->step(1);
 s_int->bounds(1, 100);
 s_int->tooltip("This slider gives you integer values.");
+s_int->set_callback(slider_cb);
 
 FLE::FloatInputSlider* s_float = new FLE::FloatInputSlider(200, 330, 300, 25);
 s_float->box(FL_DOWN_BOX);
@@ -43,6 +44,7 @@ s_float->value(1);
 s_float->step(0.1);
 s_float->bounds(1, 100);
 s_float->tooltip("This slider gives you float values.");
+s_float->set_callback(slider_cb);
 
 **********************************************************************************/
 
@@ -56,6 +58,7 @@ s_float->tooltip("This slider gives you float values.");
 
 namespace R3D
 {
+
 
 class FL_ESSENTIALS_EXPORT Fle_InputSlider : public Fl_Group
 {
@@ -85,6 +88,10 @@ public:
 	void textsize(int _size);
 	int textsize() const;
 
+	// Description:
+	// Callback function can be set using this function.
+	void set_callback(void(*_f)(int, void*), void*);
+
 	Fl_Slider* getSlider() const;
 	Fl_Int_Input* getInput() const;
 
@@ -96,6 +103,9 @@ private:
 
 	Fl_Slider* p_slider;
 	Fl_Int_Input* p_input;
+	typedef void(*funcptr)(int _v, void* _p);
+	funcptr p_func;
+	void* p_ptr;
 };
 
 class FL_ESSENTIALS_EXPORT Fle_FloatInputSlider : public Fl_Group
@@ -126,6 +136,10 @@ public:
 	void textcolor(Fl_Color _c);
 	Fl_Color textcolor() const;
 
+	// Description:
+	// Callback function can be set using this function.
+	void set_callback(void(*_f)(double, void*), void*);
+
 	Fl_Slider* getSlider() const;
 	Fl_Float_Input* getInput() const;
 
@@ -137,6 +151,9 @@ private:
 
 	Fl_Slider* p_slider;
 	Fl_Float_Input* p_input;
+	typedef void(*funcptr)(double _v, void* _p);
+	funcptr p_func;
+	void* p_ptr;
 };
 
 }

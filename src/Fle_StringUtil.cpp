@@ -138,3 +138,46 @@ bool Fle_StringUtil::isFileExist(const std::string& _path)
 	std::ifstream f(_path);
 	return f.good();
 }
+
+static void LexicographicPermutations(const std::string& _input, const std::string& _output, std::vector<std::string>& _permutations)
+{
+	// base condition (permutation found)
+	if (_output.length() == _input.length())
+	{
+		_permutations.push_back(_output);
+		return;
+	}
+
+	// consider all characters of the string one by one
+	for (std::size_t i = 0; i < _input.length(); i++)
+	{
+		// skip adjacent duplicates
+		while (i + 1 < _input.length() && _input[i] == _input[i + 1])
+			i++;
+
+		LexicographicPermutations(_input, _output + _input[i], _permutations);
+	}
+
+	// OR
+
+	// consider all characters of the string one by one
+	//for (std::size_t i = 0; i < _input.length(); i++)
+	//{
+	//	while (i + 1 < _input.length() && _input[i] == _input[i + 1])
+	//		i++;
+
+	//	_output.push_back(_input[i]);
+	//	getLexicographicPermutations(_input, _output);
+	//	_output.pop_back();		// backtrack
+	//}
+}
+
+std::vector<std::string> Fle_StringUtil::getLexicographicPermutations(const std::string& _input)
+{
+	std::vector<std::string> p;
+	p.reserve(_input.length() * _input.length());
+	std::string s(_input);
+	std::sort(s.begin(), s.end());	// sort the string to print in lexicographical order
+	LexicographicPermutations(s, "", p);
+	return p;
+}

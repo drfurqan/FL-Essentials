@@ -25,6 +25,7 @@ If not, please contact Dr. Furqan Ullah immediately:
 #include <FLE/Fle_Export.h>
 
 #include <string>
+#include <vector>
 #include <iomanip>		// std::setprecision(6)
 
 namespace R3D
@@ -98,6 +99,14 @@ public:
 		// OR
 		//return  std::to_string(_val);  // C++ 11
 	}
+
+	// Function to find all lexicographic permutations of given string where 
+	// repetition of characters is allowed.
+	// Example:
+	// auto p = Fle_StringUtil::getLexicographicPermutations("ABC");
+	// for (const auto& i : p)
+	//	 std::cout << i << " ";
+	static std::vector<std::string> getLexicographicPermutations(const std::string& _input);
 };
 
 template std::string Fle_StringUtil::convertToString(int _val, int _precision);

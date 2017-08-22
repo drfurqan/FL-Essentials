@@ -241,7 +241,7 @@ Fl_Slider* Fle_Widgets::createSlider(int _w, int _h, int _value, int _step, int 
 	return o;
 }
 
-Fle_InputSlider* Fle_Widgets::createIntInputSlider(int _w, int _h, int _value, int _step, int _minimum, int _maximum, Fl_Callback* _cb, void* _data)
+Fle_InputSlider* Fle_Widgets::createIntInputSlider(int _w, int _h, int _value, int _step, int _minimum, int _maximum)
 {
 	Fle_InputSlider* o = new Fle_InputSlider(0, 0, _w, _h);
 	o->type(FL_HOR_SLIDER);
@@ -251,11 +251,10 @@ Fle_InputSlider* Fle_Widgets::createIntInputSlider(int _w, int _h, int _value, i
 	o->value(_value);
 	o->step(_step);
 	o->bounds(_minimum, _maximum);
-	if (_cb) o->callback(_cb, _data);
 	return o;
 }
 
-Fle_FloatInputSlider* Fle_Widgets::createFloatInputSlider(int _w, int _h, double _value, double _step, double _minimum, double _maximum, Fl_Callback* _cb, void* _data)
+Fle_FloatInputSlider* Fle_Widgets::createFloatInputSlider(int _w, int _h, double _value, double _step, double _minimum, double _maximum)
 {
 	Fle_FloatInputSlider* o = new Fle_FloatInputSlider(0, 0, _w, _h);
 	o->type(FL_HOR_SLIDER);
@@ -265,7 +264,6 @@ Fle_FloatInputSlider* Fle_Widgets::createFloatInputSlider(int _w, int _h, double
 	o->value(_value);
 	o->step(_step);
 	o->bounds(_minimum, _maximum);
-	if (_cb) o->callback(_cb, _data);
 	return o;
 }
 
