@@ -144,10 +144,10 @@ public:
 	Fl_Float_Input* getInput() const;
 
 private:
-	void sliderCallback();
-	static void sliderCallback_(Fl_Widget* _w, void* _p);
-	void inputCallback();
-	static void inputCallback_(Fl_Widget* _w, void* _p);
+	void slider_cb();
+	static void slider_cb_(Fl_Widget* _w, void* _p);
+	void input_cb();
+	static void input_cb_(Fl_Widget* _w, void* _p);
 
 	Fl_Slider* p_slider;
 	Fl_Float_Input* p_input;

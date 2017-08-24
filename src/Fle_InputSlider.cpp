@@ -37,8 +37,8 @@ Fl_Group(_x, _y, _w, _h, _l)
 	type(FL_HOR_SLIDER);
 	labelsize(13);
 	textsize(13);
-	value(1);
-	bounds(1, 100);
+	value(0);
+	bounds(0, 99);
 	step(1);
 	color(fl_rgb_color(240, 240, 240));
 	selection_color(fl_rgb_color(144, 200, 246));
@@ -65,9 +65,9 @@ void Fle_InputSlider::slider_cb()
 		char s[80];
 		sprintf(s, "%d", static_cast<int>(p_slider->value()));
 		p_input->value(s);          // pass slider's value to input
-		recurse = 0;
 		if(p_func)
 			(p_func)(static_cast<int>(p_slider->value()), p_ptr);
+		recurse = 0;
 	}
 }
 
@@ -87,9 +87,9 @@ void Fle_InputSlider::input_cb()
 		if (sscanf(p_input->value(), "%d", &val) != 1)
 			val = 0;
 		p_slider->value(val);
-		recurse = 0;
 		if (p_func)
 			(p_func)(val, p_ptr);
+		recurse = 0;
 	}
 }
 
@@ -125,12 +125,12 @@ void Fle_InputSlider::value(int _val)
 
 int Fle_InputSlider::value() const
 {
-	return (static_cast<int>(p_slider->value() + 0.5));
+	return static_cast<int>(p_slider->value());
 }
 
 int Fle_InputSlider::minimum() const
 {
-	return (static_cast<int>(p_slider->minimum()));
+	return static_cast<int>(p_slider->minimum());
 }
 
 void Fle_InputSlider::minimum(int val)
@@ -140,7 +140,7 @@ void Fle_InputSlider::minimum(int val)
 
 int Fle_InputSlider::maximum() const
 {
-	return (static_cast<int>(p_slider->maximum()));
+	return static_cast<int>(p_slider->maximum());
 }
 
 void Fle_InputSlider::maximum(int val)
@@ -208,12 +208,11 @@ Fl_Int_Input* Fle_InputSlider::getInput() const
 /************************************************************************/
 Fle_FloatInputSlider::Fle_FloatInputSlider(int _x, int _y, int _w, int _h, const char* _l /*= 0*/, int _textbox_width) : Fl_Group(_x, _y, _w, _h, _l)
 {
-	align(FL_ALIGN_LEFT);
 	p_slider = new Fl_Slider(_x, _y, _w - _textbox_width, _h);
-	p_slider->callback(sliderCallback_, (void*)this);
+	p_slider->callback(slider_cb_, (void*)this);
 
 	p_input = new Fl_Float_Input(_x + _w - _textbox_width, _y, _textbox_width, _h);
-	p_input->callback(inputCallback_, (void*)this);
+	p_input->callback(input_cb_, (void*)this);
 	p_input->when(FL_WHEN_ENTER_KEY | FL_WHEN_NOT_CHANGED);
 
 	align(FL_ALIGN_LEFT);
@@ -238,7 +237,7 @@ void Fle_FloatInputSlider::set_callback(void(*_f)(double, void*), void* _p)
 	p_ptr = _p;
 }
 
-void Fle_FloatInputSlider::sliderCallback()
+void Fle_FloatInputSlider::slider_cb()
 {
 	static int recurse = 0;
 	if (recurse) return;
@@ -248,18 +247,18 @@ void Fle_FloatInputSlider::sliderCallback()
 		char s[80];
 		sprintf(s, "%.2f", p_slider->value());
 		p_input->value(s);          // pass slider's value to input
-		recurse = 0;
 		if (p_func)
 			(p_func)(p_slider->value(), p_ptr);
+		recurse = 0;
 	}
 }
 
-void Fle_FloatInputSlider::sliderCallback_(Fl_Widget* _w, void* _p)
+void Fle_FloatInputSlider::slider_cb_(Fl_Widget* _w, void* _p)
 {
-	static_cast<Fle_FloatInputSlider*>(_p)->sliderCallback();
+	static_cast<Fle_FloatInputSlider*>(_p)->slider_cb();
 }
 
-void Fle_FloatInputSlider::inputCallback()
+void Fle_FloatInputSlider::input_cb()
 {
 	static int recurse = 0;
 	if (recurse) return;
@@ -270,15 +269,15 @@ void Fle_FloatInputSlider::inputCallback()
 		if (sscanf(p_input->value(), "%d", &val) != 1)
 			val = 0;
 		p_slider->value(val);
-		recurse = 0;
 		if (p_func)
 			(p_func)(static_cast<double>(val), p_ptr);
+		recurse = 0;
 	}
 }
 
-void Fle_FloatInputSlider::inputCallback_(Fl_Widget* _w, void* _p)
+void Fle_FloatInputSlider::input_cb_(Fl_Widget* _w, void* _p)
 {
-	static_cast<Fle_FloatInputSlider*>(_p)->inputCallback();
+	static_cast<Fle_FloatInputSlider*>(_p)->input_cb();
 }
 
 void Fle_FloatInputSlider::box(Fl_Boxtype _type)
@@ -301,7 +300,7 @@ uchar Fle_FloatInputSlider::type() const
 void Fle_FloatInputSlider::value(double _val)
 {
 	p_slider->value(_val);
-	sliderCallback();
+	slider_cb();
 }
 
 double Fle_FloatInputSlider::value() const

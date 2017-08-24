@@ -524,27 +524,35 @@ public:
 	};
 	// Description:
 	// Function that adds/packs Left-Right Horizontal layout to this layout.
+	// Left-Right Horizontal layout can add/pack widgets at the most left
+	// as well as the most right side.
 	// Layout can be added at Top or Bottom by specifying the Layout Position.
 	Fle_HLayoutLR* addLayoutLR(int _height, Position _pos = Position::AT_TOP);
 	// Description:
-	// Function that adds/packs Left-Right Horizontal layout to this layout.
+	// Function that adds/packs Left Horizontal layout to this layout.
+	// Left Horizontal layout that start packing widgets from the most left side.
 	// Layout can be added at Top or Bottom by specifying the Layout Position.
 	Fle_HLayoutL* addLayoutL(int _height, Position _pos = Position::AT_TOP);
 	// Description:
-	// Function that adds/packs Left-Right Horizontal layout to this layout.
+	// Function that adds/packs Horizontal layout to this layout.
+	// Horizontal layout that start packing widgets from the most left side.
 	// Layout can be added at Top or Bottom by specifying the Layout Position.
 	Fle_HLayout* addHLayout(int _height, Position _pos = Position::AT_TOP);
 
 	// Description:
 	// Function that adds/packs Top-Bottom Vertical layout to this layout.
+	// Top-Bottom Vertical layout can add/pack widgets at top as well as
+	// at bottom of this layout.
 	// Layout can be added at Top or Bottom by specifying the Layout Position.
 	Fle_VLayoutTB* addLayoutTB(int _height, Position _pos = Position::AT_TOP);
 	// Description:
 	// Function that adds/packs Top Vertical layout to this layout.
+	// Top Vertical layout that starts packing widgets from the top.
 	// Layout can be added at Top or Bottom by specifying the Layout Position.
 	Fle_VLayoutT* addLayoutT(int _height, Position _pos = Position::AT_TOP);
 	// Description:
 	// Function that adds/packs Vertical layout to this layout.
+	// Vertical layout that starts packing widgets from the top.
 	// Layout can be added at Top or Bottom by specifying the Layout Position.
 	Fle_VLayout* addVLayout(int _height, Position _pos = Position::AT_TOP);
 

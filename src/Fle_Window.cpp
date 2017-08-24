@@ -395,3 +395,24 @@ void Fle_Window::setBox(Fle_Box* _b)
 	delete p_box; 
 	p_box = _b; 
 }
+
+void Fle_Window::setTransparency(float _alpha)
+{
+#if defined(_WIN32)
+
+	HWND hwnd = fl_xid(this);
+	LONG_PTR exstyle = GetWindowLongPtr(hwnd, GWL_EXSTYLE);
+	if (!(exstyle & WS_EX_LAYERED)) 
+		SetWindowLongPtr(hwnd, GWL_EXSTYLE, exstyle | WS_EX_LAYERED);
+	SetLayeredWindowAttributes(hwnd, 0, (BYTE)(_alpha * 0xFF), LWA_ALPHA);
+
+#elif defined(__linux__) || defined(__unix__)
+
+	Atom atom = XInternAtom(fl_display, "_NET_WM_WINDOW_OPACITY", False);
+	uint32_t opacity = (uint32_t)(UINT32_MAX * _alpha);
+	XChangeProperty(fl_display, fl_xid(this), atom, XA_CARDINAL, 32, PropModeReplace, (unsigned char *)&opacity, 1);
+
+#else
+	// Transparency only supported on Microsoft Windows and Linux with X11.
+#endif
+}

@@ -127,6 +127,10 @@ public:
 	virtual Fl_Color getBackgroundColor() const;
 
 	// Description:
+	// Function to make this window transparent by specifying the alpha value.
+	void setTransparency(float _alpha);
+
+	// Description:
 	// Function to set a pointer to embedded box.
 	// It first deletes the previous one and then assign a pointer to new one.
 	void setBox(Fle_Box* _b);

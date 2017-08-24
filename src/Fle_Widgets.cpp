@@ -250,7 +250,8 @@ Fle_InputSlider* Fle_Widgets::createIntInputSlider(int _w, int _h, int _value, i
 	o->textsize(12);
 	o->value(_value);
 	o->step(_step);
-	o->bounds(_minimum, _maximum);
+	o->minimum(_minimum);
+	o->maximum(_maximum);
 	return o;
 }
 
