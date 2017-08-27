@@ -34,18 +34,15 @@ Fl_Scroll(_x, _y, _w, _h, _title)
 	p_box->box(FL_NO_BOX);
 	p_box->setImageDrawType(Fle_ImageDrawType::Fit);
 
-	//setBackgroundColor(214, 219, 233);
-	//setBoxColor(214, 219, 233);
-	//setBackgroundColor(238, 243, 250);
-	//setBoxColor(238, 243, 250);
-
 	scrollbar_size(15);
 
+	type(Fl_Scroll::ALWAYS_ON);	// hide both vertical and horizontal scrollbars
 	box(FL_NO_BOX);
 	color(fl_rgb_color(214, 219, 233));
 	align(FL_ALIGN_WRAP | FL_ALIGN_INSIDE | FL_ALIGN_CENTER | FL_ALIGN_TEXT_OVER_IMAGE | FL_ALIGN_CLIP);
 	user_data((void*)this);
 	resizable(this);
+	
 	end(); // This call is necessary to prevent any additional UI widgets from becoming subcomponents of this window.
 }
 

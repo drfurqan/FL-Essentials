@@ -164,3 +164,21 @@ bool Fle_MenuBar::getItemState(const char* _item_name)
 	}
 	return false;
 }
+bool Fle_MenuBar::setItemState(Fl_Callback* _cb, bool _state)
+{
+	Fl_Menu_Item* m = (Fl_Menu_Item*)find_item(_cb);
+	if (!m) return false;
+	if (_state) m->set();
+	else m->clear();
+	return true;
+}
+bool Fle_MenuBar::getItemState(Fl_Callback* _cb)
+{
+	Fl_Menu_Item *m = (Fl_Menu_Item*)find_item(_cb);
+	if (!m)
+	{
+		if (m->value())
+			return true;
+	}
+	return false;
+}

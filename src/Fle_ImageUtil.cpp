@@ -228,12 +228,10 @@ bool Fle_ImageUtil::batchResize(const std::string& _directory_path, int _w, int 
 			cv::resize(src, src, s, 0, 0, _interpolation);
 			std::string name = Fle_StringUtil::extractFileNameWithExt(files[i]);
 			b = cv::imwrite(_directory_path + seprator + folder_name + seprator + name, src);
-			if (b)
-			{
 #ifdef _DEBUG
+			if (b)
 				std::cout << i << " - " << _directory_path + seprator + folder_name + seprator + name << std::endl;
 #endif // _DEBUG
-			}
 		}
 	}
 	return b;

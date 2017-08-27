@@ -26,11 +26,13 @@ Fle_InputSlider::Fle_InputSlider(int _x, int _y, int _w, int _h, const char* _l 
 Fl_Group(_x, _y, _w, _h, _l)
 {
 	p_slider = new Fl_Slider(_x, _y, _w - _textbox_width, _h);
+	p_slider->step(1);
 	p_slider->callback(slider_cb_, (void*)this);
 
 	p_input = new Fl_Int_Input(_x + _w - _textbox_width, _y, _textbox_width, _h);
 	p_input->callback(input_cb_, (void*)this);
-	p_input->when(FL_WHEN_ENTER_KEY | FL_WHEN_NOT_CHANGED);
+	p_input->when(FL_WHEN_CHANGED);
+	//p_input->when(FL_WHEN_ENTER_KEY | FL_WHEN_NOT_CHANGED);
 
 	box(FL_UP_BOX);
 	align(FL_ALIGN_LEFT);
@@ -47,6 +49,9 @@ Fl_Group(_x, _y, _w, _h, _l)
 
 	p_func = nullptr;
 	p_ptr = nullptr;
+
+	m_init_value = 0;
+	m_step = 1;
 }
 
 void Fle_InputSlider::set_callback(void(*_f)(int, void*), void* _p)
@@ -70,10 +75,29 @@ void Fle_InputSlider::slider_cb()
 		recurse = 0;
 	}
 }
-
 void Fle_InputSlider::slider_cb_(Fl_Widget* _w, void* _p)
 {
-	static_cast<Fle_InputSlider*>(_p)->slider_cb();
+	Fle_InputSlider* inp = static_cast<Fle_InputSlider*>(_p);
+	if (!inp) return;
+
+	// Unfortunately, FLTK doesn't give us an output of odd numbers from Fl_Slider.
+	// Therefore, this code is written in order to get the odd number output.
+	// for example if the initial value is 1 and the step value is 2, then
+	// then the output should be 1, 3, 5, 7, 9, so on...
+	// https://groups.google.com/forum/#!topic/fltkgeneral/01mpgj8p__4
+	if (inp->m_step > 1)
+	{
+		Fl_Slider* s = static_cast<Fl_Slider*>(_w);
+		if (!s) return;
+
+		int v = static_cast<int>(s->value());
+		if (v < inp->m_init_value) v = inp->m_init_value - inp->m_step;
+		else if (v > inp->m_init_value) v = inp->m_init_value + inp->m_step;
+		s->value(static_cast<int>(v));
+		inp->m_init_value = v;
+	}
+
+	inp->slider_cb();
 }
 
 void Fle_InputSlider::input_cb()
@@ -86,16 +110,19 @@ void Fle_InputSlider::input_cb()
 		int val = 0;
 		if (sscanf(p_input->value(), "%d", &val) != 1)
 			val = 0;
+
 		p_slider->value(val);
+
 		if (p_func)
 			(p_func)(val, p_ptr);
 		recurse = 0;
 	}
 }
-
 void Fle_InputSlider::input_cb_(Fl_Widget* _w, void* _p)
 {
-	static_cast<Fle_InputSlider*>(_p)->input_cb();
+	Fle_InputSlider* inp = static_cast<Fle_InputSlider*>(_p);
+	if (!inp) return;
+	inp->input_cb();
 }
 
 void Fle_InputSlider::box(Fl_Boxtype _type)
@@ -107,7 +134,6 @@ Fl_Boxtype Fle_InputSlider::box() const
 {
 	return p_slider->box();
 }
-
 void Fle_InputSlider::type(uchar _t)
 {
 	p_slider->type(_t);
@@ -116,23 +142,24 @@ uchar Fle_InputSlider::type() const
 {
 	return p_slider->type();
 }
-
 void Fle_InputSlider::value(int _val)
 {
 	p_slider->value(_val); 
+	m_init_value = _val;
 	slider_cb();
 }
-
 int Fle_InputSlider::value() const
 {
 	return static_cast<int>(p_slider->value());
 }
-
+void Fle_InputSlider::step(int _step)
+{
+	m_step = _step;
+}
 int Fle_InputSlider::minimum() const
 {
 	return static_cast<int>(p_slider->minimum());
 }
-
 void Fle_InputSlider::minimum(int val)
 {
 	p_slider->minimum(val);
@@ -147,17 +174,10 @@ void Fle_InputSlider::maximum(int val)
 {
 	p_slider->maximum(val);
 }
-
 void Fle_InputSlider::bounds(int low, int high)
 {
 	p_slider->bounds(low, high);
 }
-
-void Fle_InputSlider::step(int n)
-{
-	p_slider->step(n);
-}
-
 void Fle_InputSlider::textsize(int n)
 {
 	p_input->textsize(n);
@@ -166,7 +186,6 @@ int Fle_InputSlider::textsize() const
 {
 	return p_input->textsize();
 }
-
 void Fle_InputSlider::color(Fl_Color _c)
 {
 	p_slider->color(_c);
@@ -216,11 +235,12 @@ Fle_FloatInputSlider::Fle_FloatInputSlider(int _x, int _y, int _w, int _h, const
 	p_input->when(FL_WHEN_ENTER_KEY | FL_WHEN_NOT_CHANGED);
 
 	align(FL_ALIGN_LEFT);
+	box(FL_UP_BOX);
 	type(FL_HOR_SLIDER);
 	labelsize(13);
 	textsize(13);
-	value(1);
-	bounds(1, 100);
+	value(0.0);
+	bounds(0, 99);
 	step(0.1);
 	color(fl_rgb_color(240, 240, 240));
 	selection_color(fl_rgb_color(144, 200, 246));
@@ -252,10 +272,11 @@ void Fle_FloatInputSlider::slider_cb()
 		recurse = 0;
 	}
 }
-
 void Fle_FloatInputSlider::slider_cb_(Fl_Widget* _w, void* _p)
 {
-	static_cast<Fle_FloatInputSlider*>(_p)->slider_cb();
+	Fle_FloatInputSlider* inp = static_cast<Fle_FloatInputSlider*>(_p);
+	if (!inp) return;
+	inp->slider_cb();
 }
 
 void Fle_FloatInputSlider::input_cb()
@@ -268,16 +289,19 @@ void Fle_FloatInputSlider::input_cb()
 		int val = 0;
 		if (sscanf(p_input->value(), "%d", &val) != 1)
 			val = 0;
+
 		p_slider->value(val);
+
 		if (p_func)
 			(p_func)(static_cast<double>(val), p_ptr);
 		recurse = 0;
 	}
 }
-
 void Fle_FloatInputSlider::input_cb_(Fl_Widget* _w, void* _p)
 {
-	static_cast<Fle_FloatInputSlider*>(_p)->input_cb();
+	Fle_FloatInputSlider* inp = static_cast<Fle_FloatInputSlider*>(_p);
+	if (!inp) return;
+	inp->input_cb();
 }
 
 void Fle_FloatInputSlider::box(Fl_Boxtype _type)
@@ -302,42 +326,34 @@ void Fle_FloatInputSlider::value(double _val)
 	p_slider->value(_val);
 	slider_cb();
 }
-
 double Fle_FloatInputSlider::value() const
 {
 	return p_slider->value();
 }
-
-double Fle_FloatInputSlider::minimum() const
-{
-	return p_slider->minimum();
-}
-
-void Fle_FloatInputSlider::minimum(double val)
-{
-	p_slider->minimum(val);
-}
-
-double Fle_FloatInputSlider::maximum() const
-{
-	return p_slider->maximum();
-}
-
-void Fle_FloatInputSlider::maximum(double val)
-{
-	p_slider->maximum(val);
-}
-
-void Fle_FloatInputSlider::bounds(double low, double high)
-{
-	p_slider->bounds(low, high);
-}
-
 void Fle_FloatInputSlider::step(double n)
 {
 	p_slider->step(n);
 }
-
+double Fle_FloatInputSlider::minimum() const
+{
+	return p_slider->minimum();
+}
+void Fle_FloatInputSlider::minimum(double val)
+{
+	p_slider->minimum(val);
+}
+double Fle_FloatInputSlider::maximum() const
+{
+	return p_slider->maximum();
+}
+void Fle_FloatInputSlider::maximum(double val)
+{
+	p_slider->maximum(val);
+}
+void Fle_FloatInputSlider::bounds(double low, double high)
+{
+	p_slider->bounds(low, high);
+}
 void Fle_FloatInputSlider::textsize(int n)
 {
 	p_input->textsize(n);

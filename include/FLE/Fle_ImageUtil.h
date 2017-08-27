@@ -104,7 +104,7 @@ public:
 	// Description:
 	// Function to get a rotated image.
 	// Specify angle in degrees.
-	static cv::Mat getRotatedImage(cv::Mat& _img, float _angle, int _interpolation = cv::INTER_CUBIC);
+	static cv::Mat getRotatedImage(cv::Mat& _img, float _angle, int _interpolation = cv::InterpolationFlags::INTER_LINEAR);
 	// Description:
 	// Function to copy FLTK image to OpenCV mat format.
 	// Red and blue will be swapped if _swap_rgb is true.
@@ -140,7 +140,7 @@ public:
 	// _w and _h is the new size of the images.
 	// set _with_aspect_ratio to true if images need to be resized with aspect ratio.
 	// Note: _directory_path should end with "\\".
-	static bool batchResize(const std::string& _directory_path, int _w, int _h, bool _with_aspect_ratio = true, int _interpolation = CV_INTER_CUBIC);
+	static bool batchResize(const std::string& _directory_path, int _w, int _h, bool _with_aspect_ratio = true, int _interpolation = cv::InterpolationFlags::INTER_LINEAR);
 
 };
 

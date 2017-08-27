@@ -31,7 +31,7 @@ Fle_ImageWidget::Fle_ImageWidget(int _x, int _y, int _w, int _h, const char* _ti
 Fl_Widget(_x, _y, _w, _h, _title),
 m_dtype(Fle_ImageDrawType::Fit),
 m_zoom(1),
-m_zoom_factors(cv::Vec2d(1.2, 0.8)),
+m_zoom_factors(cv::Vec2d(1.1, 0.9)),
 m_isize(cv::Size(_w, _h))
 {
 	align(FL_ALIGN_WRAP | FL_ALIGN_INSIDE | FL_ALIGN_CENTER | FL_ALIGN_TEXT_OVER_IMAGE | FL_ALIGN_CLIP);
@@ -216,7 +216,7 @@ void Fle_ImageWidget::zoomIn()
 void Fle_ImageWidget::zoomOut()
 {
 	if (m_image.empty()) return;
-	if (m_dtype != Fle_ImageDrawType::Center) return;		// zooming only works with ImageDrawType::Original.
+	if (m_dtype != Fle_ImageDrawType::Center) return;	// zooming only works with ImageDrawType::Original.
 
 	scaleImage(m_zoom_factors[1]);
 	redraw();
@@ -226,30 +226,24 @@ void Fle_ImageWidget::scaleImage(double _factor)
 	if (m_image.empty()) return;
 	if (m_dtype != Fle_ImageDrawType::Center) return;	// zooming only works with ImageDrawType::Original.
 
+	// set box size by multiplying with the zoom factor.
 	m_zoom *= _factor;
 
 	// limit the zoom factor by 8.
 	if (m_zoom > 8)	m_zoom = 8;
 
-	// set box size by multiplying with the zoom factor.
-	m_isize = cv::Size(static_cast<int>(m_image.cols * m_zoom), static_cast<int>(m_image.rows * m_zoom));
-	
-	// if zoom is less than 1.
-	// if the image size is bigger than the parent's window size,
-	// then fit image with this box by resizing it with aspect ratio,
-	// otherwise resize the box with the image size.
-	if (m_zoom < 1)
+	Fl_Group* g = static_cast<Fl_Group*>(parent());
+	if (g)
 	{
-		m_zoom = 1;
-		Fl_Group* g = static_cast<Fl_Group*>(parent());
-		if (g)
+		m_isize = Fle_ImageUtil::getNewSizeKeepAspectRatio(m_image.cols, m_image.rows, static_cast<int>(g->w() * m_zoom), static_cast<int>(g->h() * m_zoom));
+		
+		// restrict the outward zooming.
+		if (m_zoom < 1)
 		{
-			if (m_image.cols > g->w() || m_image.rows > g->h())
-				m_isize = Fle_ImageUtil::getNewSizeKeepAspectRatio(m_image.cols, m_image.rows, g->w(), g->h());
-			else
-				m_isize = cv::Size(m_image.cols, m_image.rows);
+			m_isize = Fle_ImageUtil::getNewSizeKeepAspectRatio(m_isize.width, m_isize.height, g->w(), g->h());
+			m_zoom = 1;
 		}
 	}
-
+	
 	size(m_isize.width, m_isize.height);
 }

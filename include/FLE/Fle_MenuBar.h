@@ -99,6 +99,12 @@ public:
 	// Description:
 	// Function to get the true/false or on/off state of the menu item.
 	bool getItemState(const char* _item_name);
+	// Description:
+	// Function to set the true/false or on/off state of the menu item.
+	bool setItemState(Fl_Callback* _cb, bool _state);
+	// Description:
+	// Function to get the true/false or on/off state of the menu item.
+	bool getItemState(Fl_Callback* _cb);
 
 protected:
 	// Description:
