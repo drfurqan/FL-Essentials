@@ -1,13 +1,13 @@
 /*********************************************************************************
-created:	2017/01/27   04:02AM
-filename: 	Fle_ScrollBox.h
-file base:	Fle_ScrollBox
+created:	2017/08/28   11:41PM
+filename: 	Fle_BoxWindow.h
+file base:	Fle_BoxWindow
 file ext:	h
 author:		Furqan Ullah (Post-doc, Ph.D.)
 website:    http://real3d.pk
 CopyRight:	All Rights Reserved
 
-purpose:	Customized scroll box widget with image zoom/pan support.
+purpose:	Customized window with an image box that supports zooming/panning.
 
 /**********************************************************************************
 FL-ESSENTIALS (FLE) - FLTK Utility Widgets
@@ -18,93 +18,79 @@ You should have received a copy of this license with this file.
 If not, please contact Dr. Furqan Ullah immediately:
 **********************************************************************************/
 
-#include <FLE/Fle_ScrollBox.h>
-#include <FLE/Fle_ImageUtil.h>
-#include <FLE/Fle_MessageBox.h>
+#include <FLE/Fle_BoxWindow.h>
 
 #include <FL/fl_draw.H>
 
 using namespace R3D;
 
-Fle_ScrollBox::Fle_ScrollBox(int _x, int _y, int _w, int _h, const char* _title) :
-Fl_Scroll(_x, _y, _w, _h, _title)
+Fle_BoxWindow::Fle_BoxWindow(int _x, int _y, int _w, int _h, const char* _title) :
+	Fle_Window(_x, _y, _w, _h, _title)
 {
-	p_box = new Fle_Box(0, 0, _w, _h);
-	p_box->color(fl_rgb_color(214, 219, 233));
-	p_box->box(FL_FLAT_BOX);
-	p_box->setImageDrawType(Fle_ImageDrawType::Fit);
-
-	scrollbar_size(15);
-
-	type(Fl_Scroll::ALWAYS_ON);	// hide both vertical and horizontal scrollbars
-	box(FL_FLAT_BOX);
-	color(fl_rgb_color(214, 219, 233));
-	align(FL_ALIGN_WRAP | FL_ALIGN_INSIDE | FL_ALIGN_CENTER | FL_ALIGN_TEXT_OVER_IMAGE | FL_ALIGN_CLIP);
-	user_data((void*)this);
-	resizable(p_box);
-	
-	end(); // This call is necessary to prevent any additional UI widgets from becoming subcomponents of this window.
+	p_box->setImageDrawType(Fle_ImageDrawType::Center);
+	Fle_Window::end();
+}
+Fle_BoxWindow::Fle_BoxWindow(int _w, int _h, const char* _title) :
+	Fle_Window(_w, _h, _title)
+{
+	p_box->setImageDrawType(Fle_ImageDrawType::Center);
+	Fle_Window::end();
 }
 
-Fle_ScrollBox::~Fle_ScrollBox()
+Fle_BoxWindow::~Fle_BoxWindow()
 {
 }
 
-void Fle_ScrollBox::resize(int _x, int _y, int _w, int _h)
-{
-	Fl_Scroll::resize(_x, _y, _w, _h);
-	p_box->position((_w - p_box->w()) / 2, (_h - p_box->h()) / 2);	// position the image box at center.
-}
-void Fle_ScrollBox::size(int _w, int _h)
-{
-	resize(x(), y(), _w, _h);
-}
-void Fle_ScrollBox::zoomIn()
+void Fle_BoxWindow::zoomIn()
 {
 	p_box->zoomIn();
 	p_box->position((w() - p_box->w()) / 2, (h() - p_box->h()) / 2);	// position the image box at center.
 	redraw();
 }
-void Fle_ScrollBox::zoomOut()
+void Fle_BoxWindow::zoomOut()
 {
 	p_box->zoomOut();
 	p_box->position((w() - p_box->w()) / 2, (h() - p_box->h()) / 2);	// position the image box at center.
 	redraw();
 }
-void Fle_ScrollBox::setBox(Fle_Box* _b) 
-{ 
-	remove(p_box); 
-	delete p_box; 
-	p_box = _b; 
-}
 
-int Fle_ScrollBox::handle(int _event)
+int Fle_BoxWindow::handle(int _event)
 {
 	static int drag_x = 0;
 	static int drag_y = 0;
 
-	// mouse should be inside the widget.
-	//if (Fl::event_x_root() >= x() && Fl::event_x_root() < x() + w() - scrollbar_size() &&
-	//	Fl::event_y_root() >= y() && Fl::event_y_root() < y() + h() - scrollbar_size())
-	//{
-		switch (_event)
-		{
-		case FL_FOCUS:
-		case FL_UNFOCUS:
-			return 1;
+	switch (_event)
+	{
+	case FL_FOCUS:
+	case FL_UNFOCUS:
+		return 1;
 
-		case FL_PUSH:
+	case FL_PUSH:
+		switch (Fl::event_button())
+		{
+		case FL_LEFT_MOUSE:
 			drag_x = p_box->x() - Fl::event_x();    // save where user clicked for dragging
 			drag_y = p_box->y() - Fl::event_y();
 			return 1;
+		}
+		break;
 
-		case FL_RELEASE:
+	case FL_RELEASE:
+		switch (Fl::event_button())
+		{
+		case FL_LEFT_MOUSE:
 			drag_x = 0;
 			drag_y = 0;
 			fl_cursor(FL_CURSOR_DEFAULT);
 			return 1;
+		}
+		break;
 
-		case FL_DRAG:
+	case FL_DRAG:
+		switch (Fl::event_button())
+		{
+		case FL_LEFT_MOUSE:
+
 			// Case # 1:
 			// when the width of the image box is greater than this scroll window's width
 			// and height of the image box is less than the height of this scroll window,
@@ -132,7 +118,7 @@ int Fle_ScrollBox::handle(int _event)
 			if (p_box->h() > h() && p_box->w() <= w())
 			{
 				fl_cursor(FL_CURSOR_NS);
-				
+
 				int dx = (w() - p_box->w()) / 2;
 				int dy = drag_y + Fl::event_y();
 
@@ -152,7 +138,7 @@ int Fle_ScrollBox::handle(int _event)
 			if (p_box->w() > w() && p_box->h() > h())
 			{
 				fl_cursor(FL_CURSOR_MOVE);
-				
+
 				int dx = drag_x + Fl::event_x();
 				int dy = drag_y + Fl::event_y();
 
@@ -170,24 +156,25 @@ int Fle_ScrollBox::handle(int _event)
 			}
 			redraw();
 			return 1;
-
-		case FL_MOUSEWHEEL:
-			switch (Fl::event_dy())
-			{
-			case -1:
-				zoomIn();
-				return 1;
-
-			case 1:
-				zoomOut();
-				return 1;
-			}
-			break;
-
-		default:
-			break;
 		}
-	//}
+		break;
 
-    return Fl_Scroll::handle(_event);
+	case FL_MOUSEWHEEL:
+		switch (Fl::event_dy())
+		{
+		case -1:
+			zoomIn();
+			return 1;
+
+		case 1:
+			zoomOut();
+			return 1;
+		}
+		break;
+
+	default:
+		break;
+	}
+
+	return Fle_Window::handle(_event);
 }

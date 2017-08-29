@@ -44,9 +44,11 @@ m_maxsize(Fle_Size(Fl::w() + 100000, Fl::h() + 100000))
 	color(fl_rgb_color(238, 243, 250));
 
 	p_box = new Fle_Box(0, 0, _w, _h, _title);
+	p_box->box(FL_FLAT_BOX);
 	p_box->color(fl_rgb_color(238, 243, 250));
 	p_box->setImageDrawType(Fle_ImageDrawType::Fit);
 
+	box(FL_FLAT_BOX);
 	resizable(this);
 	size_range(10, 10);
 	user_data((void*)this);
@@ -69,21 +71,25 @@ m_maxsize(Fle_Size(Fl::w() + 100000, Fl::h() + 100000))
 #ifdef WIN32
 	icon(LoadIcon(fl_display, MAKEINTRESOURCE(_icon_index)));
 #endif // WIN32
-	align(FL_ALIGN_WRAP | FL_ALIGN_INSIDE | FL_ALIGN_CENTER | FL_ALIGN_TEXT_OVER_IMAGE | FL_ALIGN_CLIP);
-	color(fl_rgb_color(238, 243, 250));
 
 	p_box = new Fle_Box(0, 0, _w, _h, _title);
+	p_box->box(FL_FLAT_BOX);
 	p_box->color(fl_rgb_color(238, 243, 250));
 	p_box->setImageDrawType(Fle_ImageDrawType::Fit);
 
+	align(FL_ALIGN_WRAP | FL_ALIGN_INSIDE | FL_ALIGN_CENTER | FL_ALIGN_TEXT_OVER_IMAGE | FL_ALIGN_CLIP);
+	color(fl_rgb_color(238, 243, 250));
+	box(FL_FLAT_BOX);
 	resizable(this);
 	size_range(10, 10);
 	user_data((void*)this);
 	callback(closeCallback, (void*)this);
+
 	// positioned at center of the screen.
 	int X, Y, W, H;
 	Fl::screen_work_area(X, Y, W, H);
 	position(X + W / 2 - _w / 2, Y + H / 2 - _h / 2);
+
 	end(); // this call is necessary to prevent any additional UI widgets from becoming subcomponents of this window.
 
 	// setting up timer event.
@@ -166,6 +172,7 @@ void Fle_Window::showNormal()
 void Fle_Window::resize(int _x, int _y, int _w, int _h)
 {
 	Fl_Double_Window::resize(_x, _y, _w, _h);
+	if(p_box) p_box->position((_w - p_box->w()) / 2, (_h - p_box->h()) / 2);	// position the image box at center.
 }
 void Fle_Window::size(int _w, int _h)
 {
@@ -344,11 +351,8 @@ int Fle_Window::processEvents(int _event)
 		break;
 
 	case FL_KEYBOARD:
-		switch (Fl::event_key())
-		{
-		case FL_Escape:							// disabling the Escape key. (by default, Escape key closes the window.)
+		if (Fl::event_key() == FL_Escape)	// disabling the Escape key. (by default, Escape key closes the window.)
 			return 1;
-		}
 		if(keyPressEvent(Fl::event_key()))
 			return 1;
 		break;
@@ -368,6 +372,7 @@ int Fle_Window::handle(int _event)
 void Fle_Window::closeEvent()
 {
 	m_timer.stop();
+	m_idle.stop();
 	hide();
 }
 
@@ -382,7 +387,8 @@ void Fle_Window::closeCallback(Fl_Widget* _w, void* _p)
 /************************************************************************/
 void Fle_Window::setBackgroundColor(uchar _red, uchar _green, uchar _blue) 
 { 
-	Fl_Double_Window::color(fl_rgb_color(_red, _green, _blue)); 
+	if(p_box) p_box->color(fl_rgb_color(_red, _green, _blue));
+	Fl_Double_Window::color(fl_rgb_color(_red, _green, _blue));
 }
 Fl_Color Fle_Window::getBackgroundColor() const 
 { 
@@ -391,9 +397,12 @@ Fl_Color Fle_Window::getBackgroundColor() const
 void Fle_Window::setBox(Fle_Box* _b) 
 {
 	if (_b == nullptr) return;
-	remove(p_box); 
-	delete p_box; 
-	p_box = _b; 
+	if (p_box)
+	{
+		remove(p_box);
+		delete p_box;
+	}
+	p_box = _b;
 }
 
 void Fle_Window::setTransparency(float _alpha)

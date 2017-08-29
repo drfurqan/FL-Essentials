@@ -24,6 +24,7 @@ If not, please contact Dr. Furqan Ullah immediately:
 **********************************************************************************/
 
 #include <FLE/Fle_Layout.h>
+#include <FLE/Fle_Timer.h>
 
 namespace R3D
 {
@@ -89,6 +90,7 @@ public:
 protected:
 	Fle_Box* p_textbox;
 	std::string m_default_text;
+	Fle_Timer m_timer;
 };
 
 }

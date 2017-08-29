@@ -205,6 +205,11 @@ protected:
 	virtual int keyPressEvent(int _key);
 
 	// Description:
+	// Overridden function that handles all kind of events.
+	// Event handler (for internal use).
+	virtual int handle(int _event) override;
+
+	// Description:
 	// A virtual function that is expected to be overridden in the derived class for
 	// handling events such as FL_SHOW, FL_FOCUS, etc.
 	virtual int processEvents(int _event);
@@ -230,11 +235,6 @@ private:
 	// Description:
 	// Overridden function for all kinds of OpenGL rendering.
 	virtual void draw() override;
-
-	// Description:
-	// Overridden function that handles all kind of events.
-	// Event handler (for internal use).
-	virtual int handle(int _event) override;
 
 	// Description:
 	// Function to be called when close (top right) button is clicked (for internal use).

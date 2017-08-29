@@ -21,7 +21,6 @@ If not, please contact Dr. Furqan Ullah immediately:
 **********************************************************************************/
 
 #include <FLE/Fle_StatusBar.h>
-#include <FLE/Fle_Timer.h>
 
 using namespace R3D;
 
@@ -33,6 +32,20 @@ m_default_text("Ready")
 	setBackgroundColor(0, 122, 204);
 	getLayout()->setBackgroundColor(0, 122, 204);
 	Fle_VHLayout::end();
+
+	// function that will be called after the specified time interval is passed.
+	std::function<void()> f = [&]()
+	{
+		if (p_textbox)
+		{
+			p_textbox->setText(m_default_text);
+			p_textbox->redraw();
+			Fle_VHLayout::redraw();
+		}
+	};
+	m_timer.setFunction(f);
+	m_timer.setSingleShot(true);
+	m_timer.pause(false);
 }
 
 Fle_StatusBar::~Fle_StatusBar()
@@ -47,11 +60,7 @@ void Fle_StatusBar::showMessage(const std::string& _text, int _time_in_sec)
 	p_textbox->redraw();
 	Fle_VHLayout::redraw();
 
-	std::function<void()> f = [&]()
-	{
-		p_textbox->setText(m_default_text);
-		p_textbox->redraw();
-		Fle_VHLayout::redraw();
-	};
-	Fle_Timer::singleShot(_time_in_sec, f);
+	m_timer.setTime(_time_in_sec);
+	m_timer.stop();
+	m_timer.start();
 }

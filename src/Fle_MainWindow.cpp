@@ -31,10 +31,10 @@ using namespace R3D;
 static Fl_Menu_Item rightClickMenuItems[] = 
 {
 	{ "\tMenuBar\t",	FL_CTRL + FL_SHIFT + 'm', 0, (void *)1, FL_MENU_TOGGLE | FL_MENU_VALUE/*, FL_BOLD + FL_ITALIC, 14*/ },
-	{ "\tTopBar\t",		0, 0, (void *)2, FL_MENU_TOGGLE | FL_MENU_VALUE },
-	{ "\tLeftBar\t",	0, 0, (void *)3, FL_MENU_TOGGLE | FL_MENU_VALUE },
-	{ "\tRightBar\t",	0, 0, (void *)4, FL_MENU_TOGGLE | FL_MENU_VALUE },
-	{ "\tStatusBar\t",	0, 0, (void *)5, FL_MENU_TOGGLE | FL_MENU_VALUE },
+	{ "\tTopBar\t",		0, 0, (void*)2, FL_MENU_TOGGLE | FL_MENU_VALUE },
+	{ "\tLeftBar\t",	0, 0, (void*)3, FL_MENU_TOGGLE | FL_MENU_VALUE },
+	{ "\tRightBar\t",	0, 0, (void*)4, FL_MENU_TOGGLE | FL_MENU_VALUE },
+	{ "\tStatusBar\t",	0, 0, (void*)5, FL_MENU_TOGGLE | FL_MENU_VALUE },
 	{ 0 }
 };
 

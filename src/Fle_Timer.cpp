@@ -23,7 +23,7 @@ If not, please contact Dr. Furqan Ullah immediately:
 using namespace R3D;
 
 Fle_Timer::Fle_Timer() :
-m_time_in_sec(1/30),
+m_time_in_sec(1.0 / 30.0),
 p_func(nullptr),
 m_pause(false),
 m_singleshot(false)
@@ -86,12 +86,15 @@ void Fle_Timer::timerEvent_cb(void* _p)
 	}
 }
 
+static Fle_Timer s_timer;
 void Fle_Timer::singleShot(double _time_in_sec, const std::function<void()>& _func)
 {
-	Fle_Timer* t = new Fle_Timer(_time_in_sec, _func);
-	t->setSingleShot(true);
-	t->pause(false);
-	t->start();
+	s_timer.setSingleShot(true);
+	s_timer.pause(false);
+	s_timer.setTime(_time_in_sec);
+	s_timer.setFunction(_func);
+	s_timer.stop();
+	s_timer.start();
 }
 
 /************************************************************************/

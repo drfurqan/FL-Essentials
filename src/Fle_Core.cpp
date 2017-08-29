@@ -49,9 +49,11 @@ int __update_system_colors(int _event) // WIN32 only, so far
 	return 1;
 }
 
-int __disable_escape_key(int _event)
+static int __disable_escape_key(int _event)
 {
-	if (_event == FL_SHORTCUT && Fl::event_key(FL_Escape)) { return 1; }
+	if (_event == FL_SHORTCUT && Fl::event_key(FL_Escape)) 
+		return 1;
+
 	return 0;
 }
 
