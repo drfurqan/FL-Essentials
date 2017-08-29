@@ -39,7 +39,8 @@ int main(int argc, char* argv[])
 		file = argv[1];
 
 	// create an image viewer and load the parsed file (if any).
-	Fle_Image_Viewer win(Fl::w()-25, Fl::h()-25, "Real3D Photo Viewer");
+	//Fle_Image_Viewer win(Fl::w() - 25, Fl::h() - 25, "Real3D Photo Viewer");
+	Fle_Image_Viewer win(800, 600, "Real3D Photo Viewer");
 	win.loadImage(file);
 	win.show();
 	win.showMaximized();

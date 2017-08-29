@@ -92,9 +92,10 @@ m_sstime(3)
 	addToolBar();
 	addStatusBar();
 
-	remove(0);	// remove the previous box that was embedded in the central widget.
+	// remove the previous box that was embedded in the central widget.
+	getCentralWidget()->remove(getCentralWidget()->getBox());
 
-	// add the new Fle_DND_ScrollBox for image in the central widget.
+	// now add a new box in the central widget.
 	begin();
 	p_scroll = new Fle_DND_ScrollBox(this, 0, 0, getCentralWidget()->w(), getCentralWidget()->h());
 	p_scroll->getBox()->setImageDrawType(Fle_ImageDrawType::Center);
@@ -117,9 +118,10 @@ m_sstime(3)
 	addToolBar();
 	addStatusBar();
 
-	remove(0);	// remove the previous box that was embedded in the central widget.
+	// remove the previous box that was embedded in the central widget.
+	getCentralWidget()->remove(getCentralWidget()->getBox());
 
-	// add the new Fle_DND_ScrollBox for image in the central widget.
+	// now add a new box in the central widget.
 	begin();
 	p_scroll = new Fle_DND_ScrollBox(this, 0, 0, getCentralWidget()->w(), getCentralWidget()->h());
 	p_scroll->getBox()->setImageDrawType(Fle_ImageDrawType::Center);
@@ -131,7 +133,7 @@ Fle_Image_Viewer::~Fle_Image_Viewer()
 
 bool Fle_Image_Viewer::loadImage(const std::string& _filename)
 {
-	if (Fle_ImageUtil::openCVSupportedImage(_filename))
+	if (Fle_ImageUtil::isOpenCVSupportedImage(_filename))
 	{
 		if (getScrollBox()->getBox()->loadImage(_filename))
 		{
