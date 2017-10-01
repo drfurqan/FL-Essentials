@@ -230,18 +230,23 @@ void Fle_ImageWidget::scaleImage(double _factor)
 	m_zoom *= _factor;
 
 	// limit the zoom factor by 8.
-	if (m_zoom > 8)	m_zoom = 8;
+	if (m_zoom > 10.0)	m_zoom = 10.0;
 
 	Fl_Group* g = static_cast<Fl_Group*>(parent());
 	if (g)
 	{
-		m_isize = Fle_ImageUtil::getNewSizeKeepAspectRatio(m_image.cols, m_image.rows, static_cast<int>(g->w() * m_zoom), static_cast<int>(g->h() * m_zoom));
-		
 		// restrict the outward zooming.
 		if (m_zoom < 1)
 		{
 			m_isize = Fle_ImageUtil::getNewSizeKeepAspectRatio(m_isize.width, m_isize.height, g->w(), g->h());
 			m_zoom = 1;
+		}
+		else
+		{
+			if (m_image.cols >= g->w() || m_image.rows >= g->h())
+				m_isize = Fle_ImageUtil::getNewSizeKeepAspectRatio(m_image.cols, m_image.rows, static_cast<int>(g->w() * m_zoom), static_cast<int>(g->h() * m_zoom));
+			else
+				m_isize = Fle_ImageUtil::getNewSizeKeepAspectRatio(m_image.cols, m_image.rows, static_cast<int>(m_image.cols * m_zoom), static_cast<int>(m_image.rows * m_zoom));
 		}
 	}
 	

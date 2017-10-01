@@ -175,7 +175,7 @@ bool Fle_MenuBar::setItemState(Fl_Callback* _cb, bool _state)
 bool Fle_MenuBar::getItemState(Fl_Callback* _cb)
 {
 	Fl_Menu_Item *m = (Fl_Menu_Item*)find_item(_cb);
-	if (!m)
+	if (m)
 	{
 		if (m->value())
 			return true;
