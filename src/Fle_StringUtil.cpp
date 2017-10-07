@@ -181,3 +181,19 @@ std::vector<std::string> Fle_StringUtil::getLexicographicPermutations(const std:
 	LexicographicPermutations(s, "", p);
 	return p;
 }
+
+bool Fle_StringUtil::endsWith(const std::string& _str, const std::string& _to_match_str)
+{
+	if (_str.size() >= _to_match_str.size() && _str.compare(_str.size() - _to_match_str.size(), _to_match_str.size(), _to_match_str) == 0)
+		return true;
+	else
+		return false;
+}
+
+bool Fle_StringUtil::endsWith_caseInsensitive(std::string _str, std::string _to_match_str)
+{
+	std::transform(_str.begin(), _str.end(), _str.begin(), ::tolower);
+	std::transform(_to_match_str.begin(), _to_match_str.end(), _to_match_str.begin(), ::tolower);
+	return endsWith(_str, _to_match_str);
+
+}

@@ -100,6 +100,7 @@ public:
 		//return  std::to_string(_val);  // C++ 11
 	}
 
+	// Description:
 	// Function to find all lexicographic permutations of given string where 
 	// repetition of characters is allowed.
 	// Example:
@@ -107,6 +108,16 @@ public:
 	// for (const auto& i : p)
 	//	 std::cout << i << " ";
 	static std::vector<std::string> getLexicographicPermutations(const std::string& _input);
+
+	// Description:
+	// Function to check if the input string '_str' ends with given string '_to_match_str'.
+	// It returns true on success.
+	bool endsWith(const std::string& _str, const std::string& _to_match_str);
+
+	// Description:
+	// Case sensitive function to check if the input string '_str' ends with given string '_to_match_str'.
+	// It returns true on success.
+	bool endsWith_caseInsensitive(std::string _str, std::string _to_match_str);
 };
 
 template std::string Fle_StringUtil::convertToString(int _val, int _precision);
