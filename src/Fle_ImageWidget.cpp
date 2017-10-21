@@ -181,7 +181,7 @@ void Fle_ImageWidget::resetZoom()
 {
 	if (m_image.empty()) return;
 
-	m_zoom = 1;
+	m_zoom = 1.0;
 
 	// interesting hack to adjust this widget's position and size in the parent widget.
 	Fl_Group* g = static_cast<Fl_Group*>(parent());

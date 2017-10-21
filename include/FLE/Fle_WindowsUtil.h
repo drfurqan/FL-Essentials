@@ -33,6 +33,14 @@ class FL_ESSENTIALS_EXPORT Fle_WindowsUtil
 {
 public:
 
+	// Description:
+	// Function to create a stdout/stderr console at runtime for subsystem:windows or release mode.
+	// It will enable the dos style console in Release version that you see in Debug version.
+	// It only work on Windows (WIN32) environment.
+	static void enableDosConsoleInReleaseMode();
+
+	// Description:
+	// Options for window.
 	enum class Options
 	{
 		Hide = 0,
@@ -76,6 +84,8 @@ public:
 	// std::string video = getSystemFolderPath(CSIDL_MYVIDEO);
 	static std::string getSystemFolderPath(int _csidl);
 
+	// Description:
+	// Options for getting system folders paths.
 	enum class SystemFolder
 	{
 		Documents = 0,

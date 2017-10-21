@@ -21,7 +21,9 @@ If not, please contact Dr. Furqan Ullah immediately:
 #include <FLE/Fle_WindowsUtil.h>
 
 #ifdef _WIN32
+#define _WIN32_WINNT 0x0501 // needed for AttachConsole
 #include <windows.h>
+#include <wincon.h> // AttachConsole()
 #include <direct.h>
 #include <shlobj.h>
 #endif // _WIN32
@@ -29,6 +31,16 @@ If not, please contact Dr. Furqan Ullah immediately:
 #include <sys/stat.h> // no clue why required -- man pages say so
 
 using namespace R3D;
+
+void Fle_WindowsUtil::enableDosConsoleInReleaseMode()
+{
+#ifdef _WIN32
+	AllocConsole();
+	AttachConsole(GetCurrentProcessId());
+	freopen("CON", "w", stdout);
+	freopen("CON", "w", stderr);
+#endif // _WIN32
+}
 
 bool Fle_WindowsUtil::setWindowOption(const char* _window_title, Options _option)
 {
