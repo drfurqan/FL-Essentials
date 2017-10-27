@@ -28,8 +28,6 @@ If not, please contact Dr. Furqan Ullah immediately:
 #include <FL/Fl_Menu_Bar.H>
 #include <FL/Fl_Menu_Button.H>
 
-#include <opencv2/opencv.hpp>
-
 namespace R3D
 {
 
@@ -79,12 +77,18 @@ public:
 	// Function to get the menu bar items box type/style.
 	Fl_Boxtype getMenuBarItemsBoxType() const { return box(); }
 
-	void setRightClickMenuItems(Fl_Menu_Item* _p, Fl_Callback* _cb, void* _data)
-	{ 
-		p_rightclick_menu_items = _p; 
-		p_rightclick_menu_item_cb = _cb;
-		p_rightclick_menu_cb_data = _data;
-	}
+	// Description:
+	// Function to set ON or OFF state of the menu item (checkBox and radio).
+	bool setItemState(const char* _item_name, bool _state);
+	// Description:
+	// Function that returns false if the menu item is not checked and true otherwise.
+	bool getItemState(const char* _item_name);
+	// Description:
+	// Function to set ON or OFF state of the menu item (checkBox and radio).
+	bool setItemState(Fl_Callback* _cb, bool _state);
+	// Description:
+	// Function that returns false if the menu item is not checked and true otherwise.
+	bool getItemState(Fl_Callback* _cb);
 
 	// Description:
 	// Function to enable the right mouse click menu.
@@ -92,19 +96,14 @@ public:
 	// Description:
 	// Function that returns true if the right mouse click menu is enabled.
 	bool isRightClickMenuEnabled() const { return m_isclickmenu; }
-
 	// Description:
-	// Function to set the true/false or on/off state of the menu item.
-	bool setItemState(const char* _item_name, bool _state);
-	// Description:
-	// Function to get the true/false or on/off state of the menu item.
-	bool getItemState(const char* _item_name);
-	// Description:
-	// Function to set the true/false or on/off state of the menu item.
-	bool setItemState(Fl_Callback* _cb, bool _state);
-	// Description:
-	// Function to get the true/false or on/off state of the menu item.
-	bool getItemState(Fl_Callback* _cb);
+	// Function to set the callback to the right click menu.
+	void setRightClickMenuItems(Fl_Menu_Item* _p, Fl_Callback* _cb, void* _data)
+	{
+		p_rightclick_menu_items = _p;
+		p_rightclick_menu_item_cb = _cb;
+		p_rightclick_menu_cb_data = _data;
+	}
 
 protected:
 	// Description:
@@ -124,7 +123,7 @@ protected:
 	
 	// Description:
 	// Function to handle right mouse click event.
-	int handle(int e);
+	int handle(int _e);
 
 	Fl_Menu_Item* p_rightclick_menu_items;
 	Fl_Callback* p_rightclick_menu_item_cb;

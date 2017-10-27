@@ -80,9 +80,9 @@ void Fle_MenuBar::draw(int _x, int _y, int _w, int _h)
 	}
 }
 
-int Fle_MenuBar::handle(int e)
+int Fle_MenuBar::handle(int _e)
 {
-	switch (e) 
+	switch (_e) 
 	{
 	case FL_PUSH:
 		if (Fl::event_button() == FL_RIGHT_MOUSE) 
@@ -114,7 +114,7 @@ int Fle_MenuBar::handle(int e)
 		}
 		break;
 	}
-	return Fl_Menu_Bar::handle(e);
+	return Fl_Menu_Bar::handle(_e);
 }
 
 void Fle_MenuBar::setMenuBarItemsColor(uchar _red, uchar _green, uchar _blue)
@@ -149,15 +149,19 @@ Fl_Color Fle_MenuBar::getSelectionColor() const
 bool Fle_MenuBar::setItemState(const char* _item_name, bool _state)
 {
 	Fl_Menu_Item* m = (Fl_Menu_Item*)find_item(_item_name);
-	if (!m) return false;
-	if (_state) m->set();
-	else m->clear();
-	return true;
+	if (m)
+	{
+		if (_state) m->set();
+		else m->clear();
+
+		return true;
+	}
+	return false;
 }
 bool Fle_MenuBar::getItemState(const char* _item_name)
 {
-	Fl_Menu_Item *m = (Fl_Menu_Item*)find_item(_item_name);
-	if (!m)
+	Fl_Menu_Item* m = (Fl_Menu_Item*)find_item(_item_name);
+	if (m)
 	{
 		if (m->value())
 			return true;
@@ -167,14 +171,18 @@ bool Fle_MenuBar::getItemState(const char* _item_name)
 bool Fle_MenuBar::setItemState(Fl_Callback* _cb, bool _state)
 {
 	Fl_Menu_Item* m = (Fl_Menu_Item*)find_item(_cb);
-	if (!m) return false;
-	if (_state) m->set();
-	else m->clear();
-	return true;
+	if (m)
+	{
+		if (_state) m->set();
+		else m->clear();
+		
+		return true;
+	}
+	return false;
 }
 bool Fle_MenuBar::getItemState(Fl_Callback* _cb)
 {
-	Fl_Menu_Item *m = (Fl_Menu_Item*)find_item(_cb);
+	Fl_Menu_Item* m = (Fl_Menu_Item*)find_item(_cb);
 	if (m)
 	{
 		if (m->value())
