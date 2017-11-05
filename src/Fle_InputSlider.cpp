@@ -70,7 +70,7 @@ void Fle_InputSlider::slider_cb()
 		char s[80];
 		sprintf(s, "%d", static_cast<int>(p_slider->value()));
 		p_input->value(s);          // pass slider's value to input
-		if(p_func)
+		if (p_func)
 			(p_func)(static_cast<int>(p_slider->value()), p_ptr);
 		recurse = 0;
 	}
@@ -144,7 +144,7 @@ uchar Fle_InputSlider::type() const
 }
 void Fle_InputSlider::value(int _val)
 {
-	p_slider->value(_val); 
+	p_slider->value(static_cast<double>(_val)); 
 	m_init_value = _val;
 	slider_cb();
 }

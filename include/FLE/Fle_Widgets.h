@@ -69,6 +69,7 @@ If not, please contact Dr. Furqan Ullah immediately:
 #include <FL/Fl_Clock.H>
 #include <FL/Fl_Spinner.H>
 #include <FL/Fl_Value_Output.H>
+#include <FL/Fl_Value_Slider.H>
 #include <FL/Fl_Check_Button.H>
 #include <FL/Fl_Light_Button.H>
 
@@ -208,6 +209,14 @@ public:
 	// _cb is the callback with _data.
 	static Fl_Slider* createSlider(int _w, int _h, int _value = 1, int _step = 1, int _minimum = 0, int _maximum = 99, Fl_Callback* _cb = 0, void* _data = 0);
 	// Description:
+	// Function to create a slider (with integer numbers) by specifying it's width, height, label/name, and default/initial index.
+	// _width is the total width of the slider.
+	// _value is the initial value.
+	// _step is the increment/decrement step.
+	// _minimum and _maximum are the bounds of the slider.
+	// _cb is the callback with _data.
+	static Fl_Value_Slider* createValueSlider(int _type, int _w, int _h, int _value = 1, int _step = 1, int _minimum = 0, int _maximum = 99, Fl_Callback* _cb = 0, void* _data = 0);
+	// Description:
 	// Function to create an input slider (with integer numbers) by specifying it's width, height, label/name, and default/initial index.
 	// _label is the name of the slider that will display on the left side of the slider.
 	// assign _label to 0 or nullptr if no _label is required for this widget.
@@ -216,7 +225,7 @@ public:
 	// _step is the increment/decrement step.
 	// _minimum and _maximum are the bounds of the slider.
 	// _cb is the callback with _data.
-	static Fle_InputSlider* createIntInputSlider(int _w, int _h, int _value = 1, int _step = 1, int _minimum = 0, int _maximum = 99);
+	static Fle_InputSlider* createIntInputSlider(int _w, int _h, int _value = 1, int _step = 1, int _minimum = 0, int _maximum = 99, int _textbox_width = 40);
 	// Description:
 	// Function to create an input slider (with double numbers) by specifying it's width, height, label/name, 
 	// and default/initial index.
@@ -227,7 +236,7 @@ public:
 	// _step is the increment/decrement step.
 	// _minimum and _maximum are the bounds of the slider.
 	// _cb is the callback with _data.
-	static Fle_FloatInputSlider* createFloatInputSlider(int _w, int _h, double _value = 1, double _step = 0.1, double _minimum = 0, double _maximum = 100);
+	static Fle_FloatInputSlider* createFloatInputSlider(int _w, int _h, double _value = 1, double _step = 0.1, double _minimum = 0, double _maximum = 100, int _textbox_width = 40);
 
 	// Description:
 	// Function to create an input widget that gives various justifications with copy and paste feature.

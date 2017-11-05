@@ -240,10 +240,23 @@ Fl_Slider* Fle_Widgets::createSlider(int _w, int _h, int _value, int _step, int 
 	if (_cb) o->callback(_cb, _data);
 	return o;
 }
-
-Fle_InputSlider* Fle_Widgets::createIntInputSlider(int _w, int _h, int _value, int _step, int _minimum, int _maximum)
+Fl_Value_Slider* Fle_Widgets::createValueSlider(int _type, int _w, int _h, int _value, int _step, int _minimum, int _maximum, Fl_Callback* _cb, void* _data)
 {
-	Fle_InputSlider* o = new Fle_InputSlider(0, 0, _w, _h);
+	Fl_Value_Slider* o = new Fl_Value_Slider(0, 0, _w, _h, 0);
+	o->type(_type);
+	o->box(FL_UP_BOX);
+	o->labelsize(12);
+	o->textsize(12);
+	o->value(_value);
+	o->step(_step);
+	o->bounds(_minimum, _maximum);
+	if (_cb) o->callback(_cb, _data);
+	return o;
+}
+
+Fle_InputSlider* Fle_Widgets::createIntInputSlider(int _w, int _h, int _value, int _step, int _minimum, int _maximum, int _textbox_width)
+{
+	Fle_InputSlider* o = new Fle_InputSlider(0, 0, _w, _h, 0, _textbox_width);
 	o->type(FL_HOR_SLIDER);
 	o->box(FL_UP_BOX);
 	o->labelsize(12);
@@ -255,9 +268,9 @@ Fle_InputSlider* Fle_Widgets::createIntInputSlider(int _w, int _h, int _value, i
 	return o;
 }
 
-Fle_FloatInputSlider* Fle_Widgets::createFloatInputSlider(int _w, int _h, double _value, double _step, double _minimum, double _maximum)
+Fle_FloatInputSlider* Fle_Widgets::createFloatInputSlider(int _w, int _h, double _value, double _step, double _minimum, double _maximum, int _textbox_width)
 {
-	Fle_FloatInputSlider* o = new Fle_FloatInputSlider(0, 0, _w, _h);
+	Fle_FloatInputSlider* o = new Fle_FloatInputSlider(0, 0, _w, _h, 0, _textbox_width);
 	o->type(FL_HOR_SLIDER);
 	o->box(FL_UP_BOX);
 	o->labelsize(12);

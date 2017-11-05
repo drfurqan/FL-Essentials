@@ -99,6 +99,8 @@ public:
 	// Description:
 	// Constructor to create a window with Vertical-Horizontal layout which 
 	// can add/pack layouts/widgets in horizontal as well as in vertical directions.
+	// Always remember that if you want to make child windows resizeable,
+	// make this layout as resizeable, like l->resizable(l).
 	Fle_HLayoutL(int _x, int _y, int _w, int _h, const char* _title = 0);
 	// Description:
 	// Destructor that destroys the data.

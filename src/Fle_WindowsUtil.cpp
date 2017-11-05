@@ -45,7 +45,7 @@ void Fle_WindowsUtil::enableDosConsoleInReleaseMode()
 bool Fle_WindowsUtil::setWindowOption(const char* _window_title, Options _option)
 {
 #ifdef _WIN32
-	HWND hWnd = FindWindowA(NULL, _window_title);
+	HWND hWnd = FindWindowA(nullptr, _window_title);
 	if (hWnd)
 	{
 		ShowWindow(hWnd, static_cast<int>(_option));

@@ -25,6 +25,7 @@ If not, please contact Dr. Furqan Ullah immediately:
 #include <FLE/Fle_Export.h>
 
 #include <string>
+#include <sstream>
 #include <vector>
 #include <iomanip>		// std::setprecision(6)
 

@@ -151,7 +151,7 @@ public:
 	}
 
 	// Description:
-	// Function to set menubar height in pixels.
+	// Function to set fixed menubar height in pixels.
 	void setMenuBarFixedHeight(int _h);
 	// Description:
 	// Function to get a pointer to menu bar.
@@ -161,7 +161,7 @@ public:
 	Fle_MenuBar* getMenuBar() const { return p_menubar; }
 
 	// Description:
-	// Function to set menubar height in pixels.
+	// Function to set fixed menubar height in pixels.
 	void setTopToolBarFixedHeight(int _h);
 	// Description:
 	// Function to get a pointer to menu bar.
@@ -171,7 +171,7 @@ public:
 	Fle_ToolBar* getTopToolBar() const { return p_toptoolbar; }
 
 	// Description:
-	// Function to set width of the left bar in pixels.
+	// Function to set fixed width of the left bar in pixels.
 	void setLeftToolBarFixedWidth(int _w);
 	// Description:
 	// Function to set a pointer to left toolbar.
@@ -180,7 +180,7 @@ public:
 	// Function to get a pointer to left toolbar.
 	Fle_ToolBar* getLeftToolBar() const { return p_lefttoolbar; }
 	// Description:
-	// Function to set width of the right bar in pixels.
+	// Function to set fixed width of the right bar in pixels.
 	void setRightToolBarFixedWidth(int _w);
 	// Description:
 	// Function to get a pointer to right toolbar.
@@ -204,7 +204,7 @@ public:
 	void setCentralWidget(Fle_Window* _w) { p_centralarea = _w; }
 	// Description:
 	// Function to get a pointer to central widget of this main window.
-	Fle_Window* getCentralWidget() const { return p_centralarea; }
+	Fle_Window* getCentralWindow() const { return p_centralarea; }
 
 protected:
 	// Description:
