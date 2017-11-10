@@ -7,9 +7,7 @@ author:		Furqan Ullah (Post-doc, Ph.D.)
 website:    http://real3d.pk
 CopyRight:	All Rights Reserved
 
-purpose:	Customized box widget with some necessary functionalities that I don't
-find in Fl_Box. setImage() method is thread-safe, you can easily update
-the image in another thread.
+purpose:	Customized tree widget with some necessary functionalities.
 
 /**********************************************************************************
 FL-ESSENTIALS (FLE) - FLTK Utility Widgets
@@ -35,11 +33,7 @@ Fl_Tree(_x, _y, _w, _h, _title)
 	labelcolor(fl_rgb_color(78, 196, 203));
 	item_labelfgcolor(fl_rgb_color(0, 0, 0));
 	item_labelsize(13);
-
-	root()->labelsize(14);
-	//root()->labelfont(FL_BOLD);
 	root_label("Project");
-
 	align(FL_ALIGN_WRAP | FL_ALIGN_INSIDE | FL_ALIGN_CENTER | FL_ALIGN_TEXT_OVER_IMAGE | FL_ALIGN_CLIP);
 }
 
@@ -58,8 +52,8 @@ void Fle_Tree::assignUserIcons(Fl_Tree* tree)
 	{
 		"11 11 3 1",
 		".  c None",
-		"x  c #d8d833",
-		"@  c #808011",
+		"x  c #4ec4cb",
+		"@  c #4ec4cb",
 		"...........",
 		".....@@@@..",
 		"....@xxxx@.",
@@ -76,21 +70,15 @@ void Fle_Tree::assignUserIcons(Fl_Tree* tree)
 
 	static const char *L_document_xpm[] =
 	{
-		"11 11 3 1",
+		"5 5 3 1",
 		".  c None",
-		"x  c #d8d8f8",
-		"@  c #202060",
-		".@@@@@@@@@.",
-		".@xxxxxxx@.",
-		".@xxxxxxx@.",
-		".@xxxxxxx@.",
-		".@xxxxxxx@.",
-		".@xxxxxxx@.",
-		".@xxxxxxx@.",
-		".@xxxxxxx@.",
-		".@xxxxxxx@.",
-		".@xxxxxxx@.",
-		".@@@@@@@@@."
+		"x  c #4ec4cb",
+		"@  c #4ec4cb",
+		".@@@@@.",
+		".@xxx@.",
+		".@xxx@.",
+		".@xxx@.",
+		".@@@@@."
 	};
 	static Fl_Pixmap L_documentpixmap(L_document_xpm);
 
@@ -99,25 +87,16 @@ void Fle_Tree::assignUserIcons(Fl_Tree* tree)
 		item->usericon(item->has_children() ? &L_folderpixmap : &L_documentpixmap);
 }
 
-void Fle_Tree::setItemTextSize(int _size)
-{
-	for (Fl_Tree_Item* item = first(); item; item = next(item))
-		item->labelsize(_size);
-	redraw();
-}
-
 void Fle_Tree::addItems(const std::vector<std::string>& _items, const std::string& _main_node)
 {
 	if (_items.empty() || _main_node.empty()) return;
 
-	begin();
 	for (std::size_t i = 0; i < _items.size(); i++)
 	{
 		std::string s = _main_node + "/" + Fle_StringUtil::extractFileNameWithoutExt(_items[i]);
 		add(s.c_str());
 	}
 	close(_main_node.c_str());
-	end();
 }
 
 void Fle_Tree::removeItem(const std::string& _item)

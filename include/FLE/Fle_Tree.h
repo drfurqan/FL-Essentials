@@ -11,9 +11,7 @@ author:		Furqan Ullah (Post-doc, Ph.D.)
 website:    http://real3d.pk
 CopyRight:	All Rights Reserved
 
-purpose:	Customized box widget with some necessary functionalities that I don't
-			find in Fl_Box. setImage() method is thread-safe, you can easily update
-			the image in another thread.
+purpose:	Customized tree widget with some necessary functionalities.
 
 /**********************************************************************************
 FL-ESSENTIALS (FLE) - FLTK Utility Widgets
@@ -39,25 +37,21 @@ class FL_ESSENTIALS_EXPORT Fle_Tree : public Fl_Tree
 {
 public:
 	// Description:
-	// Constructor to create a box widget inside the parent window.
-	// Default box style/type is Fl_Boxtype::FL_NO_BOX.
-	// Default box position is move-able with setPositionFixed(false).
-	// Default box width is expand-able with setWidthFixed(false).
-	// Default box height is expand-able with setHeightFixed(false).
-	// Default margins are zero with setMargins(0,0,0,0).
-	// By default Box_Widget does not automatically resizes itself to fit the text with setFitToTextEnabled(false). 
-	// By default, image draw type is ImageDrawType::Fit.
-	// Note: zooming only wors with ImageDrawType::Center.
+	// Constructor to create a tree widget by specifying it's size, position, and title.
 	Fle_Tree(int _x, int _y, int _w, int _h, const char* _title = 0);
 	// Description:
 	// Destructor to release data.
 	virtual ~Fle_Tree();
 
+	// Description:
+	// Function to add items (file paths e.g. D:\\file.jpg) to the the tree node.
 	void addItems(const std::vector<std::string>& _items, const std::string& _main_node);
+	// Description:
+	// Function to remove the tree item by specifying its name.
 	void removeItem(const std::string& _item);
 
-	void setItemTextSize(int _size);
-
+	// Description:
+	// Static function to assign the default icons to the tree items.
 	static void assignUserIcons(Fl_Tree* tree);
 
 protected:

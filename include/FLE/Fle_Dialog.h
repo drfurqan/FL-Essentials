@@ -59,6 +59,11 @@ public:
 	virtual void end();
 
 	// Description:
+	// Function to set the background color of the dialog.
+	// default value is 80, 80, 80.
+	void setBackgroundColor(uchar _red, uchar _green, uchar _blue);
+
+	// Description:
 	// Function to set the left margin in pixels, 
 	// meaning that the space or border on the left side of the layout.
 	// default value is zero.
@@ -418,7 +423,7 @@ public:
 	// Example: 
 	// Fle_Dialog::MessageBox("Information", "Camera device has already been connected!");
 	// The default dialog size is (458, 132).
-	static void MessageBox(
+	static void Message(
 		const char* _title,  				// title of the dialog window.
 		const std::string& _text,			// initial value and the returned value of the multi-line text box.
 		const char* _btn_text = "Ok"	// button text.

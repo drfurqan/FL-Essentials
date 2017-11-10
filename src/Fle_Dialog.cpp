@@ -41,12 +41,10 @@ m_bottommargin(0),
 p_ok(nullptr),
 p_cancel(nullptr)
 {
-	setBackgroundColor(80, 80, 80);
-
+	Fle_Window::setBackgroundColor(80, 80, 80);
 	Fle_Window::begin();
 	p_main_vlayout = new Fle_VLayout(_x_margin, _y_margin, _w - _x_margin - _x_margin, _h - _y_margin - _y_margin);
 	p_main_vlayout->color(fl_rgb_color(80, 80, 80));
-	Fle_Window::end();
 
 	p_main_vlayout->begin();
 	p_central_hlayout = new Fle_VHLayout(0, 0, _w, _h - _status_bar_height);
@@ -83,12 +81,10 @@ m_bottommargin(0),
 p_ok(nullptr),
 p_cancel(nullptr)
 {
-	setBackgroundColor(80, 80, 80);
-
+	Fle_Window::setBackgroundColor(80, 80, 80);
 	Fle_Window::begin();
 	p_main_vlayout = new Fle_VLayout(_x_margin, _y_margin, _w - _x_margin - _x_margin, _h - _y_margin - _y_margin);
 	p_main_vlayout->color(fl_rgb_color(80, 80, 80));
-	Fle_Window::end();
 
 	p_main_vlayout->begin();
 	p_central_hlayout = new Fle_VHLayout(0, 0, _w, _h - _status_bar_height);
@@ -127,6 +123,16 @@ void Fle_Dialog::end()
 {
 	p_central_hlayout->end();
 	Fle_Window::end();
+}
+
+void Fle_Dialog::setBackgroundColor(uchar _red, uchar _green, uchar _blue)
+{
+	Fle_Window::setBackgroundColor(_red, _green, _blue);
+	getMainLayout()->color(fl_rgb_color(_red, _green, _blue));
+	getCentralLayout()->setBackgroundColor(_red, _green, _blue);
+	getCentralLayout()->getLayout()->setBackgroundColor(_red, _green, _blue);
+	getStatusBar()->setBackgroundColor(_red, _green, _blue);
+	getStatusBar()->getLayout()->setBackgroundColor(_red, _green, _blue);
 }
 
 void Fle_Dialog::setStatusBarFixedHeight(int _h)
@@ -1092,7 +1098,7 @@ int Fle_Dialog::ask(
 {
 	return ask(_title, _text, _1st_btn_text, _2nd_btn_text, nullptr);
 }
-void Fle_Dialog::MessageBox(
+void Fle_Dialog::Message(
 	const char* _title,  				// title of the dialog window.
 	const std::string& _text,
 	const char* _btn_text				// first button text.
