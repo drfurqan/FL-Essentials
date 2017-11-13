@@ -82,6 +82,13 @@ public:
 	virtual void update() override;
 
 	// Description:
+	// Function to set the background color of the widget.
+	void setBackgroundColor(uchar _red, uchar _green, uchar _blue);
+	// Description:
+	// Function to set the background color of the widget.
+	void setBackgroundColor(Fl_Color _color);
+
+	// Description:
 	// Function to toggle (show/hide) the menu bar.
 	void toggleMenuBar();
 	// Description:
@@ -158,6 +165,16 @@ public:
 	// You can hide() or show() the menu bar by calling both functions,
 	// once you do it, don't forget to call updateContents() function to adjust the
 	// central area.
+	// By right clicking on the menu bar, a popup window will appear for toggling the
+	// menu, top, right, left, and status bars.
+	// Right click popup/menu items can be easily customized, 
+	// see the following example that hides two of it's items from the popup.
+	// Example:
+	// getMenuBar()->getRightClickPopupItems()[0].show();	// show the 0'th indexed item which is "MenuBar".
+	// getMenuBar()->getRightClickPopupItems()[1].hide();	// hide the 1'st indexed item which is "TopBar".
+	// getMenuBar()->getRightClickPopupItems()[2].hide();	// hide the 2'nd indexed item which is "LeftBar".
+	// getMenuBar()->getRightClickPopupItems()[3].hide();	// hide the 3'rd indexed item which is "RightBar".
+	// getMenuBar()->getRightClickPopupItems()[4].show();	// show the 4'th indexed item which is "StatusBar".
 	Fle_MenuBar* getMenuBar() const { return p_menubar; }
 
 	// Description:

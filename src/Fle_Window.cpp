@@ -390,6 +390,11 @@ void Fle_Window::setBackgroundColor(uchar _red, uchar _green, uchar _blue)
 	if(p_box) p_box->color(fl_rgb_color(_red, _green, _blue));
 	Fl_Double_Window::color(fl_rgb_color(_red, _green, _blue));
 }
+void Fle_Window::setBackgroundColor(Fl_Color _color)
+{
+	if (p_box) p_box->color(_color);
+	Fl_Double_Window::color(_color);
+}
 Fl_Color Fle_Window::getBackgroundColor() const 
 { 
 	return Fl_Double_Window::color(); 

@@ -27,10 +27,10 @@ using namespace R3D;
 Fle_MenuBar::Fle_MenuBar(int _x, int _y, int _w, int _h, const char* _text) :
 Fl_Menu_Bar(_x, _y, _w, _h, _text),
 m_menubox(Fl_Boxtype::FL_UP_BOX),
-p_rightclick_menu_items(nullptr),
-p_rightclick_menu_item_cb(nullptr),
-p_rightclick_menu_cb_data(nullptr),
-m_isclickmenu(true)
+p_rightclick_popup_items(nullptr),
+p_rightclick_popup_item_cb(nullptr),
+p_rightclick_popup_cb_data(nullptr),
+m_is_popup(true)
 {
 	// Qt colors
 	//setMenuBarColor(255, 255, 255);
@@ -40,6 +40,8 @@ m_isclickmenu(true)
 	setMenuBarColor(214, 219, 233);
 	setMenuBarItemsColor(234, 240, 255);
 	setSelectionColor(253, 244, 191);
+	setRightClickPopupColor(fl_rgb_color(234, 240, 255));
+	setRightClickPopupTextColor(fl_rgb_color(0, 0, 0));
 	box(Fl_Boxtype::FL_FLAT_BOX);
 	down_box(Fl_Boxtype::FL_FLAT_BOX);
 	textsize(12);
@@ -87,20 +89,21 @@ int Fle_MenuBar::handle(int _e)
 	case FL_PUSH:
 		if (Fl::event_button() == FL_RIGHT_MOUSE) 
 		{
-			if (p_rightclick_menu_items && p_rightclick_menu_item_cb && p_rightclick_menu_cb_data && m_isclickmenu)
+			if (p_rightclick_popup_items && p_rightclick_popup_item_cb && p_rightclick_popup_cb_data && m_is_popup)
 			{
 				Fl_Menu_Button mb(Fl::event_x(), Fl::event_y(), 0, 0);
 				mb.box(FL_FLAT_BOX);
 				mb.down_box(FL_FLAT_BOX);
 				//mb.color(fl_rgb_color(242, 244, 254));
-				mb.color(fl_rgb_color(234, 240, 255));
+				mb.color(m_rclick_pop_clr);
+				mb.textcolor(m_rclick_pop_tclr);
 				mb.color2(fl_rgb_color(253, 244, 191));
 				mb.labelsize(12);
 				mb.textsize(12);
 				mb.clear_visible_focus();
 
-				mb.menu(p_rightclick_menu_items);
-				mb.callback(p_rightclick_menu_item_cb, p_rightclick_menu_cb_data);
+				mb.menu(p_rightclick_popup_items);
+				mb.callback(p_rightclick_popup_item_cb, p_rightclick_popup_cb_data);
 				mb.popup();
 			}
 			return 1;          // tells caller we handled this event
@@ -121,6 +124,10 @@ void Fle_MenuBar::setMenuBarItemsColor(uchar _red, uchar _green, uchar _blue)
 {
 	Fl_Menu_Bar::color(fl_rgb_color(_red, _green, _blue));
 }
+void Fle_MenuBar::setMenuBarItemsColor(Fl_Color _color)
+{
+	Fl_Menu_Bar::color(_color);
+}
 Fl_Color Fle_MenuBar::getMenuBarItemsColor() const
 {
 	return Fl_Menu_Bar::color();
@@ -136,6 +143,10 @@ Fl_Color Fle_MenuBar::getMenuBarColor() const
 void Fle_MenuBar::setSelectionColor(uchar _red, uchar _green, uchar _blue)
 {
 	Fl_Menu_Bar::selection_color(fl_rgb_color(_red, _green, _blue));
+}
+void Fle_MenuBar::setSelectionColor(Fl_Color _color)
+{
+	Fl_Menu_Bar::selection_color(_color);
 }
 Fl_Color Fle_MenuBar::getSelectionColor() const
 {
@@ -186,6 +197,51 @@ bool Fle_MenuBar::getItemState(Fl_Callback* _cb)
 	if (m)
 	{
 		if (m->value())
+			return true;
+	}
+	return false;
+}
+
+bool Fle_MenuBar::setItemActive(const char* _item_name, bool _state)
+{
+	Fl_Menu_Item* m = (Fl_Menu_Item*)find_item(_item_name);
+	if (m)
+	{
+		if (_state) m->activate();
+		else m->deactivate();
+
+		return true;
+	}
+	return false;
+}
+bool Fle_MenuBar::isItemActive(const char* _item_name)
+{
+	Fl_Menu_Item* m = (Fl_Menu_Item*)find_item(_item_name);
+	if (m)
+	{
+		if (m->active())
+			return true;
+	}
+	return false;
+}
+bool Fle_MenuBar::setItemActive(Fl_Callback* _cb, bool _state)
+{
+	Fl_Menu_Item* m = (Fl_Menu_Item*)find_item(_cb);
+	if (m)
+	{
+		if (_state) m->activate();
+		else m->deactivate();
+
+		return true;
+	}
+	return false;
+}
+bool Fle_MenuBar::isItemActive(Fl_Callback* _cb)
+{
+	Fl_Menu_Item* m = (Fl_Menu_Item*)find_item(_cb);
+	if (m)
+	{
+		if (m->active())
 			return true;
 	}
 	return false;

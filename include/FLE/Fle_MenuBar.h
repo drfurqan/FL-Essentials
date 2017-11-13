@@ -47,17 +47,26 @@ public:
 	// Function to set the main menu bar color in RGB format.
 	void setMenuBarColor(uchar _red, uchar _green, uchar _blue);
 	// Description:
+	// Function to set the main menu bar color in RGB format.
+	void setMenuBarColor(Fl_Color _color) { m_menucolor = _color; }
+	// Description:
 	// Function to get the main menu bar color in RGB format.
 	Fl_Color getMenuBarColor() const;
 	// Description:
 	// Function to set the menu bar items background color in RGB format;
 	void setMenuBarItemsColor(uchar _red, uchar _green, uchar _blue);
 	// Description:
+	// Function to set the menu bar items background color in RGB format;
+	void setMenuBarItemsColor(Fl_Color _color);
+	// Description:
 	// Function to get the menu bar items background color in RGB format;
 	Fl_Color getMenuBarItemsColor() const;
 	// Description:
 	// Function to set the button color (in RGB format) when it is selected.
 	void setSelectionColor(uchar _red, uchar _green, uchar _blue);
+	// Description:
+	// Function to set the button color (in RGB format) when it is selected.
+	void setSelectionColor(Fl_Color _color);
 	// Description:
 	// Function to get the selected button color (in RGB format).
 	Fl_Color getSelectionColor() const;
@@ -91,19 +100,51 @@ public:
 	bool getItemState(Fl_Callback* _cb);
 
 	// Description:
+	// Function to set active or deactive menu item.
+	bool setItemActive(const char* _item_name, bool _state);
+	// Description:
+	// Function that returns true if the menu item is active.
+	bool isItemActive(const char* _item_name);
+	// Description:
+	// Function to set active or deactive menu item.
+	bool setItemActive(Fl_Callback* _cb, bool _state);
+	// Description:
+	// Function that returns true if the menu item is active.
+	bool isItemActive(Fl_Callback* _cb);
+
+	// Description:
 	// Function to enable the right mouse click menu.
-	void setRightClickMenuEnabled(bool _b) { m_isclickmenu = _b; }
+	void setRightClickPopupEnabled(bool _b) { m_is_popup = _b; }
 	// Description:
 	// Function that returns true if the right mouse click menu is enabled.
-	bool isRightClickMenuEnabled() const { return m_isclickmenu; }
+	bool isRightClickPopupEnabled() const { return m_is_popup; }
 	// Description:
-	// Function to set the callback to the right click menu.
-	void setRightClickMenuItems(Fl_Menu_Item* _p, Fl_Callback* _cb, void* _data)
+	// Function to set popup items, callback, and the user data.
+	// This will the popup window that will appear when a use right clicks on the menu bar.
+	void setRightClickPopupCallback(Fl_Menu_Item* _p, Fl_Callback* _cb, void* _data)
 	{
-		p_rightclick_menu_items = _p;
-		p_rightclick_menu_item_cb = _cb;
-		p_rightclick_menu_cb_data = _data;
+		p_rightclick_popup_items = _p;
+		p_rightclick_popup_item_cb = _cb;
+		p_rightclick_popup_cb_data = _data;
 	}
+	// Description:
+	// Function to set a pointer to right click popup items.
+	void setRightClickPopupItems(Fl_Menu_Item* _p) { p_rightclick_popup_items = _p; }
+	// Description:
+	// Function to get a pointer to right click popup items.
+	Fl_Menu_Item* getRightClickPopupItems() const { return p_rightclick_popup_items; }
+	// Description:
+	// Function to set a color to the right click popup window.
+	void setRightClickPopupColor(Fl_Color _color) { m_rclick_pop_clr = _color; }
+	// Description:
+	// Function to get a color of the right click popup window.
+	Fl_Color getRightClickPopupColor(Fl_Color _color) const { return m_rclick_pop_clr; }
+	// Description:
+	// Function to set a color to the right click popup window.
+	void setRightClickPopupTextColor(Fl_Color _color) { m_rclick_pop_tclr = _color; }
+	// Description:
+	// Function to get a color of the right click popup window.
+	Fl_Color getRightClickPopupTextColor(Fl_Color _color) const { return m_rclick_pop_tclr; }
 
 protected:
 	// Description:
@@ -125,12 +166,14 @@ protected:
 	// Function to handle right mouse click event.
 	int handle(int _e);
 
-	Fl_Menu_Item* p_rightclick_menu_items;
-	Fl_Callback* p_rightclick_menu_item_cb;
-	void* p_rightclick_menu_cb_data;
-	bool m_isclickmenu;
+	Fl_Menu_Item* p_rightclick_popup_items;
+	Fl_Callback* p_rightclick_popup_item_cb;
+	void* p_rightclick_popup_cb_data;
+	bool m_is_popup;
 
 	Fl_Color m_menucolor;
+	Fl_Color m_rclick_pop_clr;
+	Fl_Color m_rclick_pop_tclr;
 	Fl_Boxtype m_menubox;
 };
 

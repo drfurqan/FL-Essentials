@@ -185,6 +185,13 @@ void Fle_HLayoutLR::setBackgroundColor(uchar _red, uchar _green, uchar _blue)
 	p_right->setBackgroundColor(_red, _green, _blue);
 	Fle_Window::setBackgroundColor(_red, _green, _blue);
 }
+void Fle_HLayoutLR::setBackgroundColor(Fl_Color _color)
+{
+	p_main->color(_color);
+	p_left->setBackgroundColor(_color);
+	p_right->setBackgroundColor(_color);
+	Fle_Window::setBackgroundColor(_color);
+}
 Fl_Color Fle_HLayoutLR::getBackgroundColor() const 
 { 
 	return p_left->getBackgroundColor();
@@ -340,6 +347,13 @@ void Fle_VLayoutTB::setBackgroundColor(uchar _red, uchar _green, uchar _blue)
 	p_top->setBackgroundColor(_red, _green, _blue);
 	p_bottom->setBackgroundColor(_red, _green, _blue);
 	Fle_Window::setBackgroundColor(_red, _green, _blue);
+}
+void Fle_VLayoutTB::setBackgroundColor(Fl_Color _color)
+{
+	p_main->color(_color);
+	p_top->setBackgroundColor(_color);
+	p_bottom->setBackgroundColor(_color);
+	Fle_Window::setBackgroundColor(_color);
 }
 Fl_Color Fle_VLayoutTB::getBackgroundColor() const
 {

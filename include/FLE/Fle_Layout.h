@@ -127,10 +127,10 @@ public:
 
 	// Description:
 	// Function to set a pointer to main layout.
-	void setLayout(Fle_HLayout* _p) { p_layout = _p; }
+	void setCentralLayout(Fle_HLayout* _p) { p_layout = _p; }
 	// Description:
 	// Function to get a pointer to main layout.
-	Fle_HLayout* getLayout() const { return p_layout; }
+	Fle_HLayout* getCentralLayout() const { return p_layout; }
 
 protected:
 	Fle_HLayout* p_layout;
@@ -179,11 +179,14 @@ public:
 	virtual void resize(int _x, int _y, int _w, int _h) override;
 
 	// Description:
-	// Function to set background color in RGB format;
-	virtual void setBackgroundColor(uchar _red, uchar _green, uchar _blue) override;
+	// Function to set the background color of the widget.
+	void setBackgroundColor(uchar _red, uchar _green, uchar _blue);
 	// Description:
-	// Function to get background color in RGB format;
-	virtual Fl_Color getBackgroundColor() const override;
+	// Function to set the background color of the widget.
+	void setBackgroundColor(Fl_Color _color);
+	// Description:
+	// Function to get the background color of the widget.
+	Fl_Color getBackgroundColor() const;
 
 	// Description:
 	// Function to set the left margin in pixels, 
@@ -226,10 +229,10 @@ public:
 
 	// Description:
 	// Function to set a pointer to main layout.
-	void setMainLayout(Fle_HLayout* _p) { p_main = _p; }
+	void setCentralLayout(Fle_HLayout* _p) { p_main = _p; }
 	// Description:
 	// Function to get a pointer to main layout.
-	Fle_HLayout* getMainLayout() const { return p_main; }
+	Fle_HLayout* getCentralLayout() const { return p_main; }
 	// Description:
 	// Function to set a pointer to top layout.
 	void setLeftLayout(Fle_HLayoutL* _p) { p_left = _p; }
@@ -304,10 +307,10 @@ public:
 
 	// Description:
 	// Function to set a pointer to main layout.
-	void setLayout(Fle_VLayout* _p) { p_layout = _p; }
+	void setCentralLayout(Fle_VLayout* _p) { p_layout = _p; }
 	// Description:
 	// Function to get a pointer to main layout.
-	Fle_VLayout* getLayout() const { return p_layout; }
+	Fle_VLayout* getCentralLayout() const { return p_layout; }
 
 protected:
 	Fle_VLayout* p_layout;
@@ -356,11 +359,14 @@ public:
 	virtual void resize(int _x, int _y, int _w, int _h) override;
 
 	// Description:
-	// Function to set background color in RGB format;
-	virtual void setBackgroundColor(uchar _red, uchar _green, uchar _blue) override;
+	// Function to set the background color of the widget.
+	void setBackgroundColor(uchar _red, uchar _green, uchar _blue);
 	// Description:
-	// Function to get background color in RGB format;
-	virtual Fl_Color getBackgroundColor() const override;
+	// Function to set the background color of the widget.
+	void setBackgroundColor(Fl_Color _color);
+	// Description:
+	// Function to get the background color of the widget.
+	Fl_Color getBackgroundColor() const;
 
 	// Description:
 	// Function to set the left margin in pixels, 
@@ -403,10 +409,10 @@ public:
 
 	// Description:
 	// Function to set a pointer to main layout.
-	void setMainLayout(Fle_VLayout* _p) { p_main = _p; }
+	void setCentralLayout(Fle_VLayout* _p) { p_main = _p; }
 	// Description:
 	// Function to get a pointer to main layout.
-	Fle_VLayout* getMainLayout() const { return p_main; }
+	Fle_VLayout* getCentralLayout() const { return p_main; }
 	// Description:
 	// Function to set a pointer to top layout.
 	void setTopLayout(Fle_VLayoutT* _p) { p_top = _p; }
@@ -560,7 +566,7 @@ public:
 
 	// Description:
 	// Function to get a pointer to the main layout of this window.
-	Fle_VLayoutTB* getLayout() const { return p_tblayout; }
+	Fle_VLayoutTB* getCentralLayout() const { return p_tblayout; }
 
 protected:
 	Fle_VLayoutTB* p_tblayout;

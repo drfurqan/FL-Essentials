@@ -226,9 +226,11 @@ void Fl_Menu_Item::draw(int x, int y, int w, int h, const Fl_Menu_* m,
 		int gap = 8;		// +
 		if (flags & FL_MENU_RADIO) 
 		{
-			fl_draw_box(FL_ROUND_DOWN_BOX, x + 2 + gap, y + d, W, W, FL_BACKGROUND2_COLOR);
+			//fl_draw_box(FL_ROUND_DOWN_BOX, x + 2 + gap, y + d, W, W, FL_BACKGROUND2_COLOR);	// -
+			fl_draw_box(FL_FLAT_BOX, x + 2 + gap, y + d, W, W, FL_BACKGROUND2_COLOR);			// +
 			if (value()) {
-				int tW = (W - Fl::box_dw(FL_ROUND_DOWN_BOX)) / 2 + 1;
+				//int tW = (W - Fl::box_dw(FL_ROUND_DOWN_BOX)) / 2 + 1;							// -
+				int tW = (W - Fl::box_dw(FL_FLAT_BOX)) / 2 + 1;									// +
 				if ((W - tW) & 1) tW++;	// Make sure difference is even to center
 				int td = (W - tW) / 2;
 				if (Fl::is_scheme("gtk+")) {

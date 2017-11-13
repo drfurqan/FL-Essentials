@@ -49,10 +49,10 @@ p_cancel(nullptr)
 	p_main_vlayout->begin();
 	p_central_hlayout = new Fle_VHLayout(0, 0, _w, _h - _status_bar_height);
 	p_central_hlayout->setBackgroundColor(80, 80, 80);
-	p_central_hlayout->getLayout()->setBackgroundColor(80, 80, 80);
-	p_central_hlayout->getLayout()->getTopLayout()->setSpacing(10);
-	p_central_hlayout->getLayout()->getBottomLayout()->setSpacing(10);
-	p_central_hlayout->getLayout()->setMargins(10, 10, 10, 0);
+	p_central_hlayout->getCentralLayout()->setBackgroundColor(80, 80, 80);
+	p_central_hlayout->getCentralLayout()->getTopLayout()->setSpacing(10);
+	p_central_hlayout->getCentralLayout()->getBottomLayout()->setSpacing(10);
+	p_central_hlayout->getCentralLayout()->setMargins(10, 10, 10, 0);
 	p_main_vlayout->end();
 
 	p_main_vlayout->begin();
@@ -64,8 +64,8 @@ p_cancel(nullptr)
 
 	p_statusbar_vhlayout = new Fle_VHLayout(0, 0, _w, _status_bar_height);
 	p_statusbar_vhlayout->setBackgroundColor(80, 80, 80);
-	p_statusbar_vhlayout->getLayout()->setBackgroundColor(80, 80, 80);
-	p_statusbar_vhlayout->getLayout()->setMargins(10, 20, 10, 0);
+	p_statusbar_vhlayout->getCentralLayout()->setBackgroundColor(80, 80, 80);
+	p_statusbar_vhlayout->getCentralLayout()->setMargins(10, 20, 10, 0);
 	p_main_vlayout->end();
 
 	p_main_vlayout->resizable(p_central_hlayout);
@@ -89,10 +89,10 @@ p_cancel(nullptr)
 	p_main_vlayout->begin();
 	p_central_hlayout = new Fle_VHLayout(0, 0, _w, _h - _status_bar_height);
 	p_central_hlayout->setBackgroundColor(80, 80, 80);
-	p_central_hlayout->getLayout()->setBackgroundColor(80, 80, 80);
-	p_central_hlayout->getLayout()->getTopLayout()->setSpacing(10);
-	p_central_hlayout->getLayout()->getBottomLayout()->setSpacing(10);
-	p_central_hlayout->getLayout()->setMargins(10, 10, 10, 0);
+	p_central_hlayout->getCentralLayout()->setBackgroundColor(80, 80, 80);
+	p_central_hlayout->getCentralLayout()->getTopLayout()->setSpacing(10);
+	p_central_hlayout->getCentralLayout()->getBottomLayout()->setSpacing(10);
+	p_central_hlayout->getCentralLayout()->setMargins(10, 10, 10, 0);
 	p_main_vlayout->end();
 
 	p_main_vlayout->begin();
@@ -103,8 +103,8 @@ p_cancel(nullptr)
 
 	p_statusbar_vhlayout = new Fle_VHLayout(0, 0, _w, _status_bar_height);
 	p_statusbar_vhlayout->setBackgroundColor(80, 80, 80);
-	p_statusbar_vhlayout->getLayout()->setBackgroundColor(80, 80, 80);
-	p_statusbar_vhlayout->getLayout()->setMargins(10, 20, 10, 0);
+	p_statusbar_vhlayout->getCentralLayout()->setBackgroundColor(80, 80, 80);
+	p_statusbar_vhlayout->getCentralLayout()->setMargins(10, 20, 10, 0);
 	p_main_vlayout->end();
 
 	p_main_vlayout->resizable(p_central_hlayout);
@@ -130,9 +130,9 @@ void Fle_Dialog::setBackgroundColor(uchar _red, uchar _green, uchar _blue)
 	Fle_Window::setBackgroundColor(_red, _green, _blue);
 	getMainLayout()->color(fl_rgb_color(_red, _green, _blue));
 	getCentralLayout()->setBackgroundColor(_red, _green, _blue);
-	getCentralLayout()->getLayout()->setBackgroundColor(_red, _green, _blue);
+	getCentralLayout()->getCentralLayout()->setBackgroundColor(_red, _green, _blue);
 	getStatusBar()->setBackgroundColor(_red, _green, _blue);
-	getStatusBar()->getLayout()->setBackgroundColor(_red, _green, _blue);
+	getStatusBar()->getCentralLayout()->setBackgroundColor(_red, _green, _blue);
 }
 
 void Fle_Dialog::setStatusBarFixedHeight(int _h)
@@ -230,9 +230,9 @@ int Fle_Dialog::getNumber(int _w, int _h,
 	hl1->endRight();
 
 	// set dialog's margins.
-	d->getCentralLayout()->getLayout()->setMargins(10, 10, 15, 0);
+	d->getCentralLayout()->getCentralLayout()->setMargins(10, 10, 15, 0);
 	// set statusbar's margins and height.
-	d->getStatusBar()->getLayout()->setMargins(10, 10, 10, 0);
+	d->getStatusBar()->getCentralLayout()->setMargins(10, 10, 10, 0);
 	d->setStatusBarFixedHeight(58);
 
 	d->setResizeable(false);
@@ -370,9 +370,9 @@ int Fle_Dialog::getNumbers(int _w, int _h, const char* _title,
 	hl1->endRight();
 
 	// set dialog's margins.
-	d->getCentralLayout()->getLayout()->setMargins(10, 10, 15, 0);
+	d->getCentralLayout()->getCentralLayout()->setMargins(10, 10, 15, 0);
 	// set statusbar's margins and height.
-	d->getStatusBar()->getLayout()->setMargins(10, 10, 10, 0);
+	d->getStatusBar()->getCentralLayout()->setMargins(10, 10, 10, 0);
 	d->setStatusBarFixedHeight(58);
 
 	d->setResizeable(false);
@@ -467,9 +467,9 @@ int Fle_Dialog::getInput(int _w, int _h, const char* _title, const char* _label,
 	hl1->endRight();
 
 	// set dialog's margins.
-	d->getCentralLayout()->getLayout()->setMargins(10, 10, 15, 0);
+	d->getCentralLayout()->getCentralLayout()->setMargins(10, 10, 15, 0);
 	// set statusbar's margins and height.
-	d->getStatusBar()->getLayout()->setMargins(10, 10, 10, 0);
+	d->getStatusBar()->getCentralLayout()->setMargins(10, 10, 10, 0);
 	d->setStatusBarFixedHeight(58);
 
 	d->setResizeable(false);
@@ -580,9 +580,9 @@ int Fle_Dialog::getInputs(int _w, int _h,
 	hl1->endRight();
 
 	// set dialog's margins.
-	d->getCentralLayout()->getLayout()->setMargins(10, 10, 15, 0);
+	d->getCentralLayout()->getCentralLayout()->setMargins(10, 10, 15, 0);
 	// set statusbar's margins and height.
-	d->getStatusBar()->getLayout()->setMargins(10, 10, 10, 0);
+	d->getStatusBar()->getCentralLayout()->setMargins(10, 10, 10, 0);
 	d->setStatusBarFixedHeight(58);
 
 	// disable resizing the window. It will disable the close button also.
@@ -683,9 +683,9 @@ int Fle_Dialog::getItem(int _w, int _h, const char* _title, const char* _label, 
 	hl1->endRight();
 
 	// set dialog's margins.
-	d->getCentralLayout()->getLayout()->setMargins(10, 10, 15, 0);
+	d->getCentralLayout()->getCentralLayout()->setMargins(10, 10, 15, 0);
 	// set statusbar's margins and height.
-	d->getStatusBar()->getLayout()->setMargins(10, 10, 10, 0);
+	d->getStatusBar()->getCentralLayout()->setMargins(10, 10, 10, 0);
 	d->setStatusBarFixedHeight(58);
 
 	d->setResizeable(false);
@@ -825,9 +825,9 @@ int Fle_Dialog::getText(int _w, int _h,
 	hl1->endRight();
 
 	// set dialog's margins.
-	d->getCentralLayout()->getLayout()->setMargins(10, 10, 10, 0);
+	d->getCentralLayout()->getCentralLayout()->setMargins(10, 10, 10, 0);
 	// set statusbar's margins and height.
-	d->getStatusBar()->getLayout()->setMargins(10, 16, 10, 0);
+	d->getStatusBar()->getCentralLayout()->setMargins(10, 16, 10, 0);
 	d->setStatusBarFixedHeight(58);
 
 	d->setResizeable(false);
@@ -929,9 +929,9 @@ int Fle_Dialog::openHelpDialog(
 	hl1->endRight();
 
 	// set dialog's margins.
-	d->getCentralLayout()->getLayout()->setMargins(10, 10, 10, 0);
+	d->getCentralLayout()->getCentralLayout()->setMargins(10, 10, 10, 0);
 	// set statusbar's margins and height.
-	d->getStatusBar()->getLayout()->setMargins(10, 16, 10, 0);
+	d->getStatusBar()->getCentralLayout()->setMargins(10, 16, 10, 0);
 	d->setStatusBarFixedHeight(58);
 
 	d->setResizeable(false);
@@ -1035,9 +1035,9 @@ int Fle_Dialog::ask(int _w, int _h, 			// width and height of the dialog window.
 	hl1->endRight();
 
 	// set dialog's margins.
-	d->getCentralLayout()->getLayout()->setMargins(10, 10, 10, 0);
+	d->getCentralLayout()->getCentralLayout()->setMargins(10, 10, 10, 0);
 	// set statusbar's margins and height.
-	d->getStatusBar()->getLayout()->setMargins(10, 16, 10, 0);
+	d->getStatusBar()->getCentralLayout()->setMargins(10, 16, 10, 0);
 	d->setStatusBarFixedHeight(58);
 
 	d->setResizeable(false);

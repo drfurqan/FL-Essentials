@@ -25,5 +25,7 @@ Fle_Spinner::Fle_Spinner(int _x, int _y, int _w, int _h, const char* _lable) :
 Fl_Spinner(_x, _y, _w, _h, _lable)
 {
 	up_button_.box(_FL_GTK_UP_BOX);
+	up_button_.color(FL_WHITE);
 	down_button_.box(_FL_GTK_UP_BOX);
+	down_button_.color(FL_WHITE);
 }

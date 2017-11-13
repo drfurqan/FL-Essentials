@@ -11,38 +11,39 @@ author:		Furqan Ullah (Post-doc, Ph.D.)
 website:    http://real3d.pk
 CopyRight:	All Rights Reserved
 
-purpose:	Customized color chooser widget.
+purpose:	Customized color chooser with two color widgets.
 
 usage example:
-			// save the current color in case of user press the cancel button.
-			double b1[3];
-			double b2[3];
-			window->GetBackground(b1);
-			window->GetBackground2(b2);
 
-			Fle_ColorChooser* c = new Fle_ColorChooser(600, 240, "Select background color");
-			c->setDefaultColors(0.809 * 255, 0.762 * 255, 0.856 * 255, 0.66 * 255, 0.689 * 255, 0.851 * 255);
-			c->getChooser1()->callback(bg_color1_cb, mw);
-			c->getChooser2()->callback(bg_color2_cb, mw);
-			if (c->exec() == 0)
-			{
-				window->SetBackground(b1[0], b1[1], b1[2]);
-				window->SetBackground2(b2[0], b2[1], b2[2]);
-				MainWindow->Redraw();
-			}
+// save the current color in case of user presses the cancel button.
+double b1[3];
+double b2[3];
+window->GetBackground(b1);
+window->GetBackground2(b2);
 
-			// callback for the color chooser.
-			void MainWindow::bg_color1_cb(Fl_Widget* _w, void* _p)
-			{
-				MainWindow* mw = static_cast<MainWindow*>(_p);
-				if (!mw) return;
+Fle_ColorChooser* c = new Fle_ColorChooser(600, 240, "Select background color");
+c->setDefaultColors(0.809 * 255, 0.762 * 255, 0.856 * 255, 0.66 * 255, 0.689 * 255, 0.851 * 255);
+c->getChooser1()->callback(bg_color1_cb, mw);
+c->getChooser2()->callback(bg_color2_cb, mw);
+if (c->exec() == 0)
+{
+	window->SetBackground(b1[0], b1[1], b1[2]);
+	window->SetBackground2(b2[0], b2[1], b2[2]);
+	MainWindow->Redraw();
+}
 
-				Fl_Color_Chooser* c = static_cast<Fl_Color_Chooser*>(_w);
-				if (!c) return;
+// callback for the color chooser.
+void MainWindow::bg_color1_cb(Fl_Widget* _w, void* _p)
+{
+	MainWindow* mw = static_cast<MainWindow*>(_p);
+	if (!mw) return;
 
-				mw->window->SetBackground(c->r(), c->g(), c->b());
-				mw->window->Redraw();
-			}
+	Fl_Color_Chooser* c = static_cast<Fl_Color_Chooser*>(_w);
+	if (!c) return;
+
+	mw->window->SetBackground(c->r(), c->g(), c->b());
+	mw->window->Redraw();
+}
 
 /**********************************************************************************
 FL-ESSENTIALS (FLE) - FLTK Utility Widgets

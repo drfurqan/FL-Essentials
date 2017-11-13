@@ -7,9 +7,8 @@ author:		Furqan Ullah (Post-doc, Ph.D.)
 website:    http://real3d.pk
 CopyRight:	All Rights Reserved
 
-purpose:	StatusBar class to create a horizontal kind of bar which contains various
-widgets to be added in the status bar. Widgets will be added from the most
-left side by default.
+purpose:	StatusBar class to create a horizontal kind of bar. 
+By default, widgets will be inserted/added from the most left side of the bar.
 
 /**********************************************************************************
 FL-ESSENTIALS (FLE) - FLTK Utility Widgets
@@ -30,7 +29,7 @@ p_textbox(nullptr),
 m_default_text("Ready")
 {
 	setBackgroundColor(0, 122, 204);
-	getLayout()->setBackgroundColor(0, 122, 204);
+	getCentralLayout()->setBackgroundColor(0, 122, 204);
 	Fle_VHLayout::end();
 
 	// function that will be called after the specified time interval is passed.

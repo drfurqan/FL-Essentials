@@ -62,8 +62,8 @@ void Fle_Core::init()
 	/************************************************************************/
 	// FLTK default initialization.
 	Fl::scheme("gleam");						// theme of FLTK widgets.
-	Fl::visual(FL_DOUBLE | FL_INDEX | FL_RGB | FL_ALPHA | FL_MULTISAMPLE);
-	Fl::gl_visual(FL_DOUBLE | FL_INDEX | FL_RGB | FL_DEPTH | FL_ACCUM | FL_ALPHA | FL_STENCIL | FL_MULTISAMPLE);
+	Fl::visual(FL_RGB);
+	Fl::gl_visual(FL_RGB);
 	Fl::use_high_res_GL(1);
 	Fl::set_color(FL_BLACK, 50, 50, 50);		// change the black color of FLTK widgets to dark gray.
 	Fl::box_color(FL_GRAY);

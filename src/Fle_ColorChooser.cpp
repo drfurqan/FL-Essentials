@@ -7,7 +7,7 @@ author:		Furqan Ullah (Post-doc, Ph.D.)
 website:    http://real3d.pk
 CopyRight:	All Rights Reserved
 
-purpose:	Customized color chooser widget.
+purpose:	Customized color chooser with two color widgets.
 
 /**********************************************************************************
 FL-ESSENTIALS (FLE) - FLTK Utility Widgets
@@ -20,7 +20,6 @@ If not, please contact Dr. Furqan Ullah immediately:
 
 #include <FLE/Fle_ColorChooser.h>
 
-
 using namespace R3D;
 
 Fle_ColorChooser::Fle_ColorChooser(int _w, int _h, const char* _title)
@@ -29,6 +28,8 @@ Fle_ColorChooser::Fle_ColorChooser(int _w, int _h, const char* _title)
 	p_dialog->setBackgroundColor(74, 84, 89);
 	p_dialog->callback(close_cb, p_dialog);
 	p_dialog->setMargins(10, 10, 10, 10);
+	p_dialog->setFixedWidth(_w);
+	p_dialog->setFixedHeight(_h);
 
 	p_layout = p_dialog->getCentralLayout()->addHLayout(150);
 
@@ -86,8 +87,8 @@ Fle_ColorChooser::Fle_ColorChooser(int _w, int _h, const char* _title)
 	}
 	hl1->endRight();
 
-	p_dialog->getCentralLayout()->getLayout()->setMargins(10, 10, 15, 0);	// set dialog's margins.
-	p_dialog->getStatusBar()->getLayout()->setMargins(10, 10, 10, 0);	// set statusbar's margins and height.
+	p_dialog->getCentralLayout()->getCentralLayout()->setMargins(10, 10, 15, 0);	// set dialog's margins.
+	p_dialog->getStatusBar()->getCentralLayout()->setMargins(10, 10, 10, 0);	// set statusbar's margins and height.
 	p_dialog->setStatusBarFixedHeight(58);
 	p_dialog->setResizeable(true);
 	p_dialog->hotspot(p_ok);

@@ -111,20 +111,23 @@ public:
 	// The widget will be resized while resizing the 
 	// parent widget if it's true, otherwise widget will be fixed on false.
 	// Default value is true
-	virtual void setResizeable(bool _b);
+	void setResizeable(bool _b);
 	// Description:
 	// Function to set the fixed width of the widget.
-	virtual void setFixedWidth(int _w);
+	void setFixedWidth(int _w);
 	// Description:
 	// Function to set the fixed height of the widget.
-	virtual void setFixedHeight(int _h);
+	void setFixedHeight(int _h);
 
 	// Description:
-	// Function to set background color in RGB format;
-	virtual void setBackgroundColor(uchar _red, uchar _green, uchar _blue);
+	// Function to set the background color of the widget.
+	void setBackgroundColor(uchar _red, uchar _green, uchar _blue);
 	// Description:
-	// Function to get background color in RGB format;
-	virtual Fl_Color getBackgroundColor() const;
+	// Function to set the background color of the widget.
+	void setBackgroundColor(Fl_Color _color);
+	// Description:
+	// Function to get the background color of the widget.
+	Fl_Color getBackgroundColor() const;
 
 	// Description:
 	// Function to make this window transparent by specifying the alpha value.

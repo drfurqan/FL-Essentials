@@ -55,7 +55,7 @@ m_bottommargin(0)
 	Fle_Window::begin();
 	{
 		p_menubar = new Fle_MenuBar(-1, 0, _w + 2, mb_size, label());	// little expanded to hide the left and right borders.
-		p_menubar->setRightClickMenuItems(rightClickMenuItems, rightClickMenuItem_cb, (void*)this);
+		p_menubar->setRightClickPopupCallback(rightClickMenuItems, rightClickMenuItem_cb, (void*)this);
 
 		p_statusbar = new Fle_StatusBar(0, _h - sb_size, _w, sb_size);
 
@@ -102,7 +102,7 @@ m_bottommargin(0)
 	Fle_Window::begin();
 	{
 		p_menubar = new Fle_MenuBar(-1, 0, _w + 2, mb_size, label());	// little expanded to hide the left and right borders.
-		p_menubar->setRightClickMenuItems(rightClickMenuItems, rightClickMenuItem_cb, (void*)this);
+		p_menubar->setRightClickPopupCallback(rightClickMenuItems, rightClickMenuItem_cb, (void*)this);
 
 		p_statusbar = new Fle_StatusBar(0, _h - sb_size, _w, sb_size);
 
@@ -196,22 +196,25 @@ int Fle_MainWindow::keyPressEvent(int _key)
 void Fle_MainWindow::rightClickMenuItem_cb(Fl_Widget* _w, void* _p)
 {
 	Fl_Menu_* menu = static_cast<Fl_Menu_*>(_w);
+	if (!menu) return;
 	Fle_MainWindow* win = static_cast<Fle_MainWindow*>(_p);
+	if (!win) return;
 	const Fl_Menu_Item* m = menu->mvalue();
-	if (m && win)
-	{
-		std::string l(m->label());
-		if (l == std::string("\tMenuBar\t"))
-			win->toggleMenuBar();
-		else if (l == std::string("\tTopBar\t"))
-			win->toggleTopToolBar();
-		else if (l == std::string("\tLeftBar\t"))
-			win->toggleLeftToolBar();
-		else if (l == std::string("\tRightBar\t"))
-			win->toggleRightToolBar();
-		else if (l == std::string("\tStatusBar\t"))
-			win->toggleStatusBar();
-	}
+	if (!m) return;
+
+	std::string l(m->label());
+	if (l == std::string("\tMenuBar\t"))
+		win->toggleMenuBar();
+	else if (l == std::string("\tTopBar\t"))
+		win->toggleTopToolBar();
+	else if (l == std::string("\tLeftBar\t"))
+		win->toggleLeftToolBar();
+	else if (l == std::string("\tRightBar\t"))
+		win->toggleRightToolBar();
+	else if (l == std::string("\tStatusBar\t"))
+		win->toggleStatusBar();
+	win->size(win->w(), win->h());
+	win->redraw();
 }
 
 void Fle_MainWindow::toggleMenuBar()
@@ -673,4 +676,15 @@ void Fle_MainWindow::updateContents()
 	if (p_statusbar->visible()) p_statusbar->position(0, Fle_Window::h() - p_statusbar->h());
 	p_lefttoolbar->resize(0, p_centralarea->y(), p_lefttoolbar->w(), p_centralarea->h());
 	p_righttoolbar->resize(p_centralarea->x() + p_centralarea->w() + gap + m_rightmargin, p_centralarea->y(), p_righttoolbar->w(), p_centralarea->h());
+}
+
+void Fle_MainWindow::setBackgroundColor(uchar _red, uchar _green, uchar _blue)
+{
+	p_centralarea->setBackgroundColor(_red, _green, _blue);
+	Fle_Window::setBackgroundColor(_red, _green, _blue);
+}
+void Fle_MainWindow::setBackgroundColor(Fl_Color _color)
+{
+	p_centralarea->setBackgroundColor(_color);
+	Fle_Window::setBackgroundColor(_color);
 }
