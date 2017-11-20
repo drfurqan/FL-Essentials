@@ -279,7 +279,7 @@ void Fl_Menu_Item::draw(int x, int y, int w, int h, const Fl_Menu_* m,
 			/* Check button of menu                                                 */
 			/************************************************************************/
 			//fl_draw_box(FL_DOWN_BOX, x + 2, y + d, W , W, FL_BACKGROUND2_COLOR);			// -
-			fl_draw_box(FL_FLAT_BOX, x + 2 + 8, y + d, W + 2, W + 2, fl_rgb_color(233, 236, 238));		// +
+			fl_draw_box(FL_FLAT_BOX, x + 2 + 8, y + d, W + 2, W + 2, FL_BACKGROUND2_COLOR);		// +
 			if (value())
 			{
 				if (Fl::is_scheme("gtk+")) 

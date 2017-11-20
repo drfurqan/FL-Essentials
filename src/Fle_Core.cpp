@@ -65,7 +65,6 @@ void Fle_Core::init()
 	Fl::visual(FL_RGB);
 	Fl::gl_visual(FL_RGB);
 	Fl::use_high_res_GL(1);
-	Fl::set_color(FL_BLACK, 50, 50, 50);		// change the black color of FLTK widgets to dark gray.
 	Fl::box_color(FL_GRAY);
 	Fl::set_box_color(FL_GRAY);
 	Fl::visible_focus(0);						// disable dotted rectangle to focused widget.
