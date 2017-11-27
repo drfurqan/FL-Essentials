@@ -61,6 +61,10 @@ public:
 	// Description:
 	// Function to set the background color of the dialog.
 	// default value is 80, 80, 80.
+	void setBackgroundColor(Fl_Color _color);
+	// Description:
+	// Function to set the background color of the dialog.
+	// default value is 80, 80, 80.
 	void setBackgroundColor(uchar _red, uchar _green, uchar _blue);
 
 	// Description:
@@ -269,7 +273,7 @@ public:
 	//	  Fle_Font(13, FL_WHITE),
 	//	  "Enter the Description",
 	//	  Fle_Font(13, FL_WHITE),
-	//	  fl_rgb_color(80, 80, 80),
+	//	  fl_rgb_color(74, 84, 89),
 	//	  fl_rgb_color(230, 230, 255)))
 	// {
 	//	 std::cout << input_text_ << std::endl;
@@ -350,8 +354,9 @@ public:
 		Fle_Font _text_prop,				// _text properties
 		const char* _label,  				// label of the multi-line text box. Assign to 0 or nullptr if you don't want a label.
 		Fle_Font _label_prop,				// _label properties
-		Fl_Color _text_bkgrnd_color = fl_rgb_color(80, 80, 80),		// background color of the text box.
-		Fl_Color _text_selection_color = fl_rgb_color(230, 230, 255)		// text selection color
+		Fl_Color _text_bkgrnd_color = fl_rgb_color(74, 84, 89),		// background color of the text box.
+		Fl_Color _text_selection_color = fl_rgb_color(230, 230, 255),		// text selection color
+		Fl_Color _dialog_bkgrd_color = fl_rgb_color(74, 84, 89)		// dialog bakcgroud color.
 		);
 
 	// Description:
@@ -374,7 +379,7 @@ public:
 		const char* _2nd_btn_text = "No",					// 2nd button text.
 		const char* _3rd_btn_text = "Cancel",				// 3rd button text.
 		Fle_Font _text_prop = Fle_Font(13, FL_WHITE),				// _text properties
-		Fl_Color _text_bkgrnd_color = fl_rgb_color(80, 80, 80),		// background color of the text box.
+		Fl_Color _text_bkgrnd_color = fl_rgb_color(74, 84, 89),		// background color of the text box.
 		Fl_Color _text_selection_color = fl_rgb_color(230, 230, 255)// text selection color
 		);
 	// Description:

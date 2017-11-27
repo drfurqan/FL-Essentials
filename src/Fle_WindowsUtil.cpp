@@ -23,12 +23,13 @@ If not, please contact Dr. Furqan Ullah immediately:
 #ifdef _WIN32
 #define _WIN32_WINNT 0x0501 // needed for AttachConsole
 #include <windows.h>
-#include <wincon.h> // AttachConsole()
+#include <wincon.h> 	// AttachConsole()
 #include <direct.h>
 #include <shlobj.h>
+#include <Shellapi.h>	// SHELLEXECUTEINFO
 #endif // _WIN32
-#include <sys/types.h> // required for stat.h
-#include <sys/stat.h> // no clue why required -- man pages say so
+#include <sys/types.h> 	// required for stat.h
+#include <sys/stat.h> 	// no clue why required -- man pages say so
 
 using namespace R3D;
 
@@ -98,6 +99,7 @@ static std::string m_wstring_verb;
 
 void Fle_WindowsUtil::shellExecute(const std::string& _filename, const std::string& _command)
 {
+	if (_filename.empty()) return;
 #ifdef _WIN32
 #ifdef _UNICODE
 	m_wstring_file = string_to_wstring(_filename).c_str();
@@ -158,7 +160,34 @@ std::string Fle_WindowsUtil::getSystemFolderPath(Fle_WindowsUtil::SystemFolder _
 		return getSystemFolderPath(CSIDL_MYMUSIC);
 	else if (_folder == Fle_WindowsUtil::SystemFolder::Desktop)
 		return getSystemFolderPath(CSIDL_DESKTOP);
-#endif
+	else if (_folder == Fle_WindowsUtil::SystemFolder::Windows)
+		return getSystemFolderPath(CSIDL_WINDOWS);
+	else if (_folder == Fle_WindowsUtil::SystemFolder::ProgramFiles)
+		return getSystemFolderPath(CSIDL_PROGRAM_FILES);
+	else if (_folder == Fle_WindowsUtil::SystemFolder::CommonAppData)
+		return getSystemFolderPath(CSIDL_COMMON_APPDATA);
+	else if (_folder == Fle_WindowsUtil::SystemFolder::StartMenu)
+		return getSystemFolderPath(CSIDL_STARTMENU);
+	#endif
 
 	return "";
+}
+
+std::string Fle_WindowsUtil::getCurrentDirectory()
+{
+	const unsigned long n = 1024;
+	#if defined(_WIN32)
+		char cd[n];
+		#ifdef _UNICODE
+			GetCurrentDirectoryA(n, cd);
+		#else
+			GetCurrentDirectory(n, cd);
+		#endif
+			return std::string(cd);
+	#else
+	return "";
+	//char result[n];
+	//ssize_t count = readlink("/proc/self/exe", result, n);
+	//return std::string(result, (count > 0) ? count : 0);
+	#endif
 }

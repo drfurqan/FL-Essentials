@@ -92,12 +92,20 @@ public:
 		Pictures,
 		Videos,
 		Music,
-		Desktop
+		Desktop,
+		Windows,
+		ProgramFiles,
+		CommonAppData,
+		StartMenu
 	};
 
 	// Description:
 	// Function to get the system folder path such as Documents, Pictures, Videos, Music, etc.
 	static std::string getSystemFolderPath(Fle_WindowsUtil::SystemFolder _folder);
+
+	// Description:
+	// Function that returns the directory path with no end backslash.
+	static std::string getCurrentDirectory();
 };
 
 }

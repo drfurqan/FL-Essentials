@@ -41,15 +41,15 @@ m_bottommargin(0),
 p_ok(nullptr),
 p_cancel(nullptr)
 {
-	Fle_Window::setBackgroundColor(80, 80, 80);
+	Fle_Window::setBackgroundColor(74, 84, 89);
 	Fle_Window::begin();
 	p_main_vlayout = new Fle_VLayout(_x_margin, _y_margin, _w - _x_margin - _x_margin, _h - _y_margin - _y_margin);
-	p_main_vlayout->color(fl_rgb_color(80, 80, 80));
+	p_main_vlayout->color(fl_rgb_color(74, 84, 89));
 
 	p_main_vlayout->begin();
 	p_central_hlayout = new Fle_VHLayout(0, 0, _w, _h - _status_bar_height);
-	p_central_hlayout->setBackgroundColor(80, 80, 80);
-	p_central_hlayout->getCentralLayout()->setBackgroundColor(80, 80, 80);
+	p_central_hlayout->setBackgroundColor(74, 84, 89);
+	p_central_hlayout->getCentralLayout()->setBackgroundColor(74, 84, 89);
 	p_central_hlayout->getCentralLayout()->getTopLayout()->setSpacing(10);
 	p_central_hlayout->getCentralLayout()->getBottomLayout()->setSpacing(10);
 	p_central_hlayout->getCentralLayout()->setMargins(10, 10, 10, 0);
@@ -63,8 +63,8 @@ p_cancel(nullptr)
 	b->color(fl_rgb_color(142, 142, 142));
 
 	p_statusbar_vhlayout = new Fle_VHLayout(0, 0, _w, _status_bar_height);
-	p_statusbar_vhlayout->setBackgroundColor(80, 80, 80);
-	p_statusbar_vhlayout->getCentralLayout()->setBackgroundColor(80, 80, 80);
+	p_statusbar_vhlayout->setBackgroundColor(74, 84, 89);
+	p_statusbar_vhlayout->getCentralLayout()->setBackgroundColor(74, 84, 89);
 	p_statusbar_vhlayout->getCentralLayout()->setMargins(10, 20, 10, 0);
 	p_main_vlayout->end();
 
@@ -81,15 +81,15 @@ m_bottommargin(0),
 p_ok(nullptr),
 p_cancel(nullptr)
 {
-	Fle_Window::setBackgroundColor(80, 80, 80);
+	Fle_Window::setBackgroundColor(74, 84, 89);
 	Fle_Window::begin();
 	p_main_vlayout = new Fle_VLayout(_x_margin, _y_margin, _w - _x_margin - _x_margin, _h - _y_margin - _y_margin);
-	p_main_vlayout->color(fl_rgb_color(80, 80, 80));
+	p_main_vlayout->color(fl_rgb_color(74, 84, 89));
 
 	p_main_vlayout->begin();
 	p_central_hlayout = new Fle_VHLayout(0, 0, _w, _h - _status_bar_height);
-	p_central_hlayout->setBackgroundColor(80, 80, 80);
-	p_central_hlayout->getCentralLayout()->setBackgroundColor(80, 80, 80);
+	p_central_hlayout->setBackgroundColor(74, 84, 89);
+	p_central_hlayout->getCentralLayout()->setBackgroundColor(74, 84, 89);
 	p_central_hlayout->getCentralLayout()->getTopLayout()->setSpacing(10);
 	p_central_hlayout->getCentralLayout()->getBottomLayout()->setSpacing(10);
 	p_central_hlayout->getCentralLayout()->setMargins(10, 10, 10, 0);
@@ -102,8 +102,8 @@ p_cancel(nullptr)
 	b->color(fl_rgb_color(142, 142, 142));
 
 	p_statusbar_vhlayout = new Fle_VHLayout(0, 0, _w, _status_bar_height);
-	p_statusbar_vhlayout->setBackgroundColor(80, 80, 80);
-	p_statusbar_vhlayout->getCentralLayout()->setBackgroundColor(80, 80, 80);
+	p_statusbar_vhlayout->setBackgroundColor(74, 84, 89);
+	p_statusbar_vhlayout->getCentralLayout()->setBackgroundColor(74, 84, 89);
 	p_statusbar_vhlayout->getCentralLayout()->setMargins(10, 20, 10, 0);
 	p_main_vlayout->end();
 
@@ -125,6 +125,15 @@ void Fle_Dialog::end()
 	Fle_Window::end();
 }
 
+void Fle_Dialog::setBackgroundColor(Fl_Color _color)
+{
+	Fle_Window::setBackgroundColor(_color);
+	getMainLayout()->color(_color);
+	getCentralLayout()->setBackgroundColor(_color);
+	getCentralLayout()->getCentralLayout()->setBackgroundColor(_color);
+	getStatusBar()->setBackgroundColor(_color);
+	getStatusBar()->getCentralLayout()->setBackgroundColor(_color);
+}
 void Fle_Dialog::setBackgroundColor(uchar _red, uchar _green, uchar _blue)
 {
 	Fle_Window::setBackgroundColor(_red, _green, _blue);
@@ -170,7 +179,7 @@ int Fle_Dialog::getNumber(int _w, int _h,
 	if (_label)
 	{
 		Fle_Box* b = new Fle_Box(0, 0, _w - 132, 25);
-		b->color(fl_rgb_color(80, 80, 80));
+		b->color(fl_rgb_color(74, 84, 89));
 		b->setText(_label);
 		b->getFont()->setColor(fl_rgb_color(255, 255, 255));
 		b->getFont()->setAlignment(FL_ALIGN_LEFT);
@@ -184,7 +193,7 @@ int Fle_Dialog::getNumber(int _w, int _h,
 
 	s->type(FL_FLOAT_INPUT);
 	s->box(FL_FLAT_BOX);
-	s->color(fl_rgb_color(110, 110, 110));
+	s->color(fl_rgb_color(74 + 20, 84 + 20, 89 + 20));
 	s->selection_color(fl_rgb_color(255, 255, 255));
 	s->textcolor(fl_rgb_color(255, 255, 255));
 	s->value(_value);
@@ -209,20 +218,20 @@ int Fle_Dialog::getNumber(int _w, int _h,
 	}
 
 	Fle_HLayoutLR* hl1 = d->getStatusBar()->addLayoutLR(23);
-	hl1->setBackgroundColor(80, 80, 80);
+	hl1->setBackgroundColor(74, 84, 89);
 
 	hl1->beginRight();
 
 	Fle_Button* ok = new Fle_Button(0, 0, 90, 22, "OK");
-	ok->color(fl_rgb_color(80, 80, 80));
-	ok->selection_color(fl_rgb_color(80, 80, 80));
+	ok->color(fl_rgb_color(74, 84, 89));
+	ok->selection_color(fl_rgb_color(74, 84, 89));
 	ok->labelcolor(fl_rgb_color(255, 255, 255));
 	ok->labelsize(12);
 	d->setOkButton(ok);
 
 	Fle_Button* cancel = new Fle_Button(0, 0, 90, 22, "Cancel");
-	cancel->color(fl_rgb_color(80, 80, 80));
-	cancel->selection_color(fl_rgb_color(80, 80, 80));
+	cancel->color(fl_rgb_color(74, 84, 89));
+	cancel->selection_color(fl_rgb_color(74, 84, 89));
 	cancel->labelcolor(fl_rgb_color(255, 255, 255));
 	cancel->labelsize(12);
 	d->setCancelButton(cancel);
@@ -306,7 +315,7 @@ int Fle_Dialog::getNumbers(int _w, int _h, const char* _title,
 		l->begin();
 
 		Fle_Box* b = new Fle_Box(0, 0, _w - 132, 25);
-		b->color(fl_rgb_color(80, 80, 80));
+		b->color(fl_rgb_color(74, 84, 89));
 		b->setText(_labels[i]);
 		b->getFont()->setColor(fl_rgb_color(255, 255, 255));
 		b->getFont()->setAlignment(FL_ALIGN_LEFT);
@@ -314,7 +323,7 @@ int Fle_Dialog::getNumbers(int _w, int _h, const char* _title,
 		s[i] = new Fle_Spinner(0, 0, 100, 25);
 		s[i]->type(FL_FLOAT_INPUT);
 		s[i]->box(FL_UP_BOX);
-		s[i]->color(fl_rgb_color(110, 110, 110));
+		s[i]->color(fl_rgb_color(74 + 20, 84 + 20, 89 + 20));
 		s[i]->selection_color(fl_rgb_color(255, 255, 255));
 		s[i]->textcolor(fl_rgb_color(255, 255, 255));
 		s[i]->value(_values[i]);
@@ -349,20 +358,20 @@ int Fle_Dialog::getNumbers(int _w, int _h, const char* _title,
 	}
 
 	Fle_HLayoutLR* hl1 = d->getStatusBar()->addLayoutLR(23);
-	hl1->setBackgroundColor(80, 80, 80);
+	hl1->setBackgroundColor(74, 84, 89);
 
 	hl1->beginRight();
 
 	Fle_Button* ok = new Fle_Button(0, 0, 90, 22, "OK");
-	ok->color(fl_rgb_color(80, 80, 80));
-	ok->selection_color(fl_rgb_color(80, 80, 80));
+	ok->color(fl_rgb_color(74, 84, 89));
+	ok->selection_color(fl_rgb_color(74, 84, 89));
 	ok->labelcolor(fl_rgb_color(255, 255, 255));
 	ok->labelsize(12);
 	d->setOkButton(ok);
 
 	Fle_Button* cancel = new Fle_Button(0, 0, 90, 22, "Cancel");
-	cancel->color(fl_rgb_color(80, 80, 80));
-	cancel->selection_color(fl_rgb_color(80, 80, 80));
+	cancel->color(fl_rgb_color(74, 84, 89));
+	cancel->selection_color(fl_rgb_color(74, 84, 89));
 	cancel->labelcolor(fl_rgb_color(255, 255, 255));
 	cancel->labelsize(12);
 	d->setCancelButton(cancel);
@@ -446,20 +455,20 @@ int Fle_Dialog::getInput(int _w, int _h, const char* _title, const char* _label,
 	l->end();
 
 	Fle_HLayoutLR* hl1 = d->getStatusBar()->addLayoutLR(23);
-	hl1->setBackgroundColor(80, 80, 80);
+	hl1->setBackgroundColor(74, 84, 89);
 
 	hl1->beginRight();
 
 	Fle_Button* ok = new Fle_Button(0, 0, 90, 22, "OK");
-	ok->color(fl_rgb_color(80, 80, 80));
-	ok->selection_color(fl_rgb_color(80, 80, 80));
+	ok->color(fl_rgb_color(74, 84, 89));
+	ok->selection_color(fl_rgb_color(74, 84, 89));
 	ok->labelcolor(fl_rgb_color(255, 255, 255));
 	ok->labelsize(12);
 	d->setOkButton(ok);
 
 	Fle_Button* cancel = new Fle_Button(0, 0, 90, 22, "Cancel");
-	cancel->color(fl_rgb_color(80, 80, 80));
-	cancel->selection_color(fl_rgb_color(80, 80, 80));
+	cancel->color(fl_rgb_color(74, 84, 89));
+	cancel->selection_color(fl_rgb_color(74, 84, 89));
 	cancel->labelcolor(fl_rgb_color(255, 255, 255));
 	cancel->labelsize(12);
 	d->setCancelButton(cancel);
@@ -533,7 +542,7 @@ int Fle_Dialog::getInputs(int _w, int _h,
 
 		// create a label at the most left size.
 		Fle_Box* b = new Fle_Box(0, 0, static_cast<int>(n * 7), 25);
-		b->color(fl_rgb_color(80, 80, 80));
+		b->color(fl_rgb_color(74, 84, 89));
 		b->setText(_labels[i]);
 		b->getFont()->setColor(fl_rgb_color(255, 255, 255));
 		b->getFont()->setAlignment(FL_ALIGN_LEFT);
@@ -553,15 +562,15 @@ int Fle_Dialog::getInputs(int _w, int _h,
 
 	// now, create a layout in the statusbar for Ok and Cancel buttons.
 	Fle_HLayoutLR* hl1 = d->getStatusBar()->addLayoutLR(23);
-	hl1->setBackgroundColor(80, 80, 80);
+	hl1->setBackgroundColor(74, 84, 89);
 
 	// start packing in the statusbar's layout.
 	hl1->beginRight();
 
 	// add/pack Ok button first.
 	Fle_Button* ok = new Fle_Button(0, 0, 90, 22, "OK");
-	ok->color(fl_rgb_color(80, 80, 80));
-	ok->selection_color(fl_rgb_color(80, 80, 80));
+	ok->color(fl_rgb_color(74, 84, 89));
+	ok->selection_color(fl_rgb_color(74, 84, 89));
 	ok->labelcolor(fl_rgb_color(255, 255, 255));
 	ok->labelsize(12);
 	ok->clear_visible_focus();
@@ -569,8 +578,8 @@ int Fle_Dialog::getInputs(int _w, int _h,
 
 	// then, add/pack cancel button.
 	Fle_Button* cancel = new Fle_Button(0, 0, 90, 22, "Cancel");
-	cancel->color(fl_rgb_color(80, 80, 80));
-	cancel->selection_color(fl_rgb_color(80, 80, 80));
+	cancel->color(fl_rgb_color(74, 84, 89));
+	cancel->selection_color(fl_rgb_color(74, 84, 89));
 	cancel->labelcolor(fl_rgb_color(255, 255, 255));
 	cancel->labelsize(12);
 	cancel->clear_visible_focus();
@@ -635,7 +644,7 @@ int Fle_Dialog::getItem(int _w, int _h, const char* _title, const char* _label, 
 	if (_label)
 	{
 		Fle_Box* b = new Fle_Box(0, 0, _w - 217, 25);
-		b->color(fl_rgb_color(80, 80, 80));
+		b->color(fl_rgb_color(74, 84, 89));
 		b->setText(_label);
 		b->getFont()->setColor(fl_rgb_color(255, 255, 255));
 		b->getFont()->setAlignment(FL_ALIGN_LEFT);
@@ -662,20 +671,20 @@ int Fle_Dialog::getItem(int _w, int _h, const char* _title, const char* _label, 
 	l->end();
 
 	Fle_HLayoutLR* hl1 = d->getStatusBar()->addLayoutLR(23);
-	hl1->setBackgroundColor(80, 80, 80);
+	hl1->setBackgroundColor(74, 84, 89);
 
 	hl1->beginRight();
 
 	Fle_Button* ok = new Fle_Button(0, 0, 90, 22, "OK");
-	ok->color(fl_rgb_color(80, 80, 80));
-	ok->selection_color(fl_rgb_color(80, 80, 80));
+	ok->color(fl_rgb_color(74, 84, 89));
+	ok->selection_color(fl_rgb_color(74, 84, 89));
 	ok->labelcolor(fl_rgb_color(255, 255, 255));
 	ok->labelsize(12);
 	d->setOkButton(ok);
 
 	Fle_Button* cancel = new Fle_Button(0, 0, 90, 22, "Cancel");
-	cancel->color(fl_rgb_color(80, 80, 80));
-	cancel->selection_color(fl_rgb_color(80, 80, 80));
+	cancel->color(fl_rgb_color(74, 84, 89));
+	cancel->selection_color(fl_rgb_color(74, 84, 89));
 	cancel->labelcolor(fl_rgb_color(255, 255, 255));
 	cancel->labelsize(12);
 	d->setCancelButton(cancel);
@@ -735,7 +744,7 @@ int Fle_Dialog::getText(int _w, int _h,
 		_text_prop,
 		_label,
 		_label_prop,
-		fl_rgb_color(80, 80, 80),
+		fl_rgb_color(74, 84, 89),
 		fl_rgb_color(230, 230, 255));
 }
 int Fle_Dialog::getText(int _w, int _h,
@@ -749,7 +758,7 @@ Fle_Font _text_prop)
 		_text_prop,
 		nullptr,
 		Fle_Font(13, FL_WHITE, FL_ALIGN_LEFT, FL_HELVETICA_BOLD),
-		fl_rgb_color(80, 80, 80),
+		fl_rgb_color(74, 84, 89),
 		fl_rgb_color(230, 230, 255));
 }
 
@@ -804,20 +813,20 @@ int Fle_Dialog::getText(int _w, int _h,
 	l->end();
 
 	Fle_HLayoutLR* hl1 = d->getStatusBar()->addLayoutLR(23);
-	hl1->setBackgroundColor(80, 80, 80);
+	hl1->setBackgroundColor(74, 84, 89);
 
 	hl1->beginRight();
 
 	Fle_Button* ok = new Fle_Button(0, 0, 90, 22, "OK");
-	ok->color(fl_rgb_color(80, 80, 80));
-	ok->selection_color(fl_rgb_color(80, 80, 80));
+	ok->color(fl_rgb_color(74, 84, 89));
+	ok->selection_color(fl_rgb_color(74, 84, 89));
 	ok->labelcolor(fl_rgb_color(255, 255, 255));
 	ok->labelsize(12);
 	d->setOkButton(ok);
 
 	Fle_Button* cancel = new Fle_Button(0, 0, 90, 22, "Cancel");
-	cancel->color(fl_rgb_color(80, 80, 80));
-	cancel->selection_color(fl_rgb_color(80, 80, 80));
+	cancel->color(fl_rgb_color(74, 84, 89));
+	cancel->selection_color(fl_rgb_color(74, 84, 89));
 	cancel->labelcolor(fl_rgb_color(255, 255, 255));
 	cancel->labelsize(12);
 	d->setCancelButton(cancel);
@@ -872,11 +881,13 @@ int Fle_Dialog::openHelpDialog(
 	const char* _label,
 	Fle_Font _label_prop,
 	Fl_Color _text_bkgrnd_color,
-	Fl_Color _text_selection_color)
+	Fl_Color _text_selection_color,
+	Fl_Color _dialog_bkgrd_color)
 {
 	Fle_Dialog* d = new Fle_Dialog(_w, _h, _title, 58, 0, 0);
 	d->callback(static_dialog_cb, d);
 	d->setMargins(10, 10, 10, 10);
+	d->setBackgroundColor(_dialog_bkgrd_color);
 
 	int lh = 74;
 
@@ -900,6 +911,7 @@ int Fle_Dialog::openHelpDialog(
 	}
 
 	Fle_HLayout* l = d->getCentralLayout()->addHLayout(_h - lh);
+	l->color(_dialog_bkgrd_color);
 	l->begin();
 
 	Fl_Help_View* s = new Fl_Help_View(0, 0, _w - 20, 25);
@@ -915,13 +927,13 @@ int Fle_Dialog::openHelpDialog(
 	l->end();
 
 	Fle_HLayoutLR* hl1 = d->getStatusBar()->addLayoutLR(23);
-	hl1->setBackgroundColor(80, 80, 80);
+	hl1->setBackgroundColor(_dialog_bkgrd_color);
 
 	hl1->beginRight();
 
 	Fle_Button* ok = new Fle_Button(0, 0, 90, 22, "OK");
-	ok->color(fl_rgb_color(80, 80, 80));
-	ok->selection_color(fl_rgb_color(80, 80, 80));
+	ok->color(_dialog_bkgrd_color);
+	ok->selection_color(_dialog_bkgrd_color);
 	ok->labelcolor(fl_rgb_color(255, 255, 255));
 	ok->labelsize(12);
 	d->setOkButton(ok);
@@ -999,13 +1011,13 @@ int Fle_Dialog::ask(int _w, int _h, 			// width and height of the dialog window.
 	l->end();
 
 	Fle_HLayoutLR* hl1 = d->getStatusBar()->addLayoutLR(23);
-	hl1->setBackgroundColor(80, 80, 80);
+	hl1->setBackgroundColor(74, 84, 89);
 
 	hl1->beginRight();
 
 	Fle_Button* yes = new Fle_Button(0, 0, 90, 22, _1st_btn_text);
-	yes->color(fl_rgb_color(80, 80, 80));
-	yes->selection_color(fl_rgb_color(80, 80, 80));
+	yes->color(fl_rgb_color(74, 84, 89));
+	yes->selection_color(fl_rgb_color(74, 84, 89));
 	yes->labelcolor(fl_rgb_color(255, 255, 255));
 	yes->labelsize(12);
 	d->setOkButton(yes);
@@ -1014,8 +1026,8 @@ int Fle_Dialog::ask(int _w, int _h, 			// width and height of the dialog window.
 	if (_2nd_btn_text)
 	{
 		no = new Fle_Button(0, 0, 90, 22, _2nd_btn_text);
-		no->color(fl_rgb_color(80, 80, 80));
-		no->selection_color(fl_rgb_color(80, 80, 80));
+		no->color(fl_rgb_color(74, 84, 89));
+		no->selection_color(fl_rgb_color(74, 84, 89));
 		no->labelcolor(fl_rgb_color(255, 255, 255));
 		no->labelsize(12);
 		d->setCancelButton(no);
@@ -1025,8 +1037,8 @@ int Fle_Dialog::ask(int _w, int _h, 			// width and height of the dialog window.
 	if (_3rd_btn_text)
 	{
 		cancel = new Fle_Button(0, 0, 90, 22, _3rd_btn_text);
-		cancel->color(fl_rgb_color(80, 80, 80));
-		cancel->selection_color(fl_rgb_color(80, 80, 80));
+		cancel->color(fl_rgb_color(74, 84, 89));
+		cancel->selection_color(fl_rgb_color(74, 84, 89));
 		cancel->labelcolor(fl_rgb_color(255, 255, 255));
 		cancel->labelsize(12);
 		d->setCancelButton(no);

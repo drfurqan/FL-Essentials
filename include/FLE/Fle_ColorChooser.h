@@ -3,7 +3,7 @@
 #define Fle_ColorChooser_h__
 
 /*********************************************************************************
-created:	2017/11/10   04:02AM
+created:	2017/11/22   04:02AM
 filename: 	Fle_ColorChooser.h
 file base:	Fle_ColorChooser
 file ext:	h
@@ -11,39 +11,9 @@ author:		Furqan Ullah (Post-doc, Ph.D.)
 website:    http://real3d.pk
 CopyRight:	All Rights Reserved
 
-purpose:	Customized color chooser with two color widgets.
+purpose:	Customized standard color chooser.
 
 usage example:
-
-// save the current color in case of user presses the cancel button.
-double b1[3];
-double b2[3];
-window->GetBackground(b1);
-window->GetBackground2(b2);
-
-Fle_ColorChooser* c = new Fle_ColorChooser(600, 240, "Select background color");
-c->setDefaultColors(0.809 * 255, 0.762 * 255, 0.856 * 255, 0.66 * 255, 0.689 * 255, 0.851 * 255);
-c->getChooser1()->callback(bg_color1_cb, mw);
-c->getChooser2()->callback(bg_color2_cb, mw);
-if (c->exec() == 0)
-{
-	window->SetBackground(b1[0], b1[1], b1[2]);
-	window->SetBackground2(b2[0], b2[1], b2[2]);
-	MainWindow->Redraw();
-}
-
-// callback for the color chooser.
-void MainWindow::bg_color1_cb(Fl_Widget* _w, void* _p)
-{
-	MainWindow* mw = static_cast<MainWindow*>(_p);
-	if (!mw) return;
-
-	Fl_Color_Chooser* c = static_cast<Fl_Color_Chooser*>(_w);
-	if (!c) return;
-
-	mw->window->SetBackground(c->r(), c->g(), c->b());
-	mw->window->Redraw();
-}
 
 /**********************************************************************************
 FL-ESSENTIALS (FLE) - FLTK Utility Widgets
@@ -55,63 +25,93 @@ If not, please contact Dr. Furqan Ullah immediately:
 **********************************************************************************/
 
 #include <FLE/Fle_Export.h>
-#include <FLE/Fle_Dialog.h>
-#include <FLE/Fle_Layout.h>
 
 #include <FL/Fl_Color_Chooser.H>
-
-#include <string>
-#include <vector>
+#include <FL/Fl_Menu_Button.H>
 
 namespace R3D
 {
 
-class FL_ESSENTIALS_EXPORT Fle_ColorChooser
+class FL_ESSENTIALS_EXPORT Fle_ColorChooser : public Fl_Group
 {
 public:
 	// Description:
-	// Constructor to create a color choose widget.
-	Fle_ColorChooser(int _w, int _h, const char* _title = "Color Chooser");
-	// Description:
-	// Destructor to release data.
-	virtual ~Fle_ColorChooser();
+	// Constructor that's create a color choose widget with dark theme.
+	Fle_ColorChooser(int X, int Y, int W, int H, const char *L = 0);
 
 	// Description:
-	// Function to set the default color of the color chooser.
-	void setDefaultColors(unsigned char _r1, unsigned char _g1, unsigned char _b1,
-		unsigned char _r2, unsigned char _g2, unsigned char _b2);
-	
-	// Description:
-	// Function to execute the color chooser.
-	// It returns 0 on Cancel button press and 1 on Ok button.
-	// Note: exec will delete the widget so always create 
-	// a new object in order to use it many times.
-	int exec();
+	// Returns which Fl_Color_Chooser variant is currently active
+	// return color modes are rgb(0), byte(1), hex(2), or hsv(3)
+	int mode() { return choice.value(); }
 
 	// Description:
-	// Function to return a pointer to first chooser.
-	Fl_Color_Chooser* getChooser1() const { return p_cc1; }
+	// Set which Fl_Color_Chooser variant is currently active
+	// param[in] newMode color modes are rgb(0), byte(1), hex(2), or hsv(3)
+	void mode(int newMode);
+
 	// Description:
-	// Function to return a pointer to second chooser.
-	Fl_Color_Chooser* getChooser2() const { return p_cc2; }
+	// Returns the current hue.
+	// 0 <= hue < 6. Zero is red, one is yellow, two is green, etc.
+	// <em>This value is convenient for the internal calculations - some other
+	// systems consider hue to run from zero to one, or from 0 to 360.</em>
+	double hue() const { return hue_; }
+
 	// Description:
-	// Function to return a dialog.
-	Fle_Dialog* getDialog() const { return p_dialog; }
+	// Returns the saturation.
+	// 0 <= saturation <= 1.
+	double saturation() const { return saturation_; }
+
+	// Description:
+	// Returns the value/brightness.
+	// 0 <= value <= 1.
+	double value() const { return value_; }
+
+	// Description:
+	// Returns the current red value.
+	// 0 <= r <= 1.
+	double r() const { return r_; }
+
+	// Description:
+	// Returns the current green value.
+	// 0 <= g <= 1.
+	double g() const { return g_; }
+
+	// Description:
+	// Returns the current blue value.
+	// 0 <= b <= 1.
+	double b() const { return b_; }
+
+	// Description:
+	// Set the hsv values.
+	// The passed values are clamped(or for hue, modulus 6 is used) to get
+	// legal values.Does not do the callback.
+	// param[in] H, S, V color components.
+	// return 1 if a new hsv value was set, 0 if the hsv value was the previous one.
+	int hsv(double H, double S, double V);
+
+	// Description:
+	// Sets the current rgb color values.
+	// Does not do the callback.Does not clamp(but out of range values will
+	// produce psychedelic effects in the hue selector).
+	// param[in] R, G, B color components.
+	// return 1 if a new rgb value was set, 0 if the rgb value was the previous one.
+	int rgb(double R, double G, double B);
 
 protected:
-	Fle_HLayout* p_layout;
-	Fle_Button* p_ok;
-	Fle_Button* p_reset;
-	Fle_Button* p_cancel;
-	unsigned char m_default_color1[3];
-	unsigned char m_default_color2[3];
+	Flcc_HueBox huebox;
+	Flcc_ValueBox valuebox;
+	Fl_Menu_Button choice;
+	Flcc_Value_Input rvalue;
+	Flcc_Value_Input gvalue;
+	Flcc_Value_Input bvalue;
+	Fl_Box resize_box;
 
 private:
-	Fl_Color_Chooser* p_cc1;
-	Fl_Color_Chooser* p_cc2;
-	Fle_Dialog* p_dialog;
-	static void close_cb(Fl_Widget* _w, void* _p);
-	static void default_colors_cb(Fl_Widget* _w, void* _p);
+	double hue_, saturation_, value_;
+	double r_, g_, b_;
+	void set_valuators();
+	static void rgb_cb(Fl_Widget*, void*);
+	static void mode_cb(Fl_Widget*, void*);
 };
 
 }

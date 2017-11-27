@@ -1,5 +1,5 @@
 /*********************************************************************************
-created:	2017/11/10   04:02AM
+created:	2017/11/22   04:02AM
 filename: 	Fle_ColorChooser.cpp
 file base:	Fle_ColorChooser
 file ext:	h
@@ -7,7 +7,7 @@ author:		Furqan Ullah (Post-doc, Ph.D.)
 website:    http://real3d.pk
 CopyRight:	All Rights Reserved
 
-purpose:	Customized color chooser with two color widgets.
+purpose:	Customized standard color chooser.
 
 /**********************************************************************************
 FL-ESSENTIALS (FLE) - FLTK Utility Widgets
@@ -20,142 +20,188 @@ If not, please contact Dr. Furqan Ullah immediately:
 
 #include <FLE/Fle_ColorChooser.h>
 
+#include <math.h>  // fmod
+
 using namespace R3D;
 
-Fle_ColorChooser::Fle_ColorChooser(int _w, int _h, const char* _title)
+Fle_ColorChooser::Fle_ColorChooser(int X, int Y, int W, int H, const char* L) :
+	Fl_Group(0, 0, 195, 115, L),
+	huebox(0, 0, 115, 115),
+	valuebox(115, 0, 20, 115),
+	choice(140, 0, 55, 25),
+	rvalue(140, 30, 55, 25),
+	gvalue(140, 60, 55, 25),
+	bvalue(140, 90, 55, 25),
+	resize_box(0, 0, 115, 115)
 {
-	p_dialog = new Fle_Dialog(_w, _h, _title, 58, 0, 0);
-	p_dialog->setBackgroundColor(74, 84, 89);
-	p_dialog->callback(close_cb, p_dialog);
-	p_dialog->setMargins(10, 10, 10, 10);
-	p_dialog->setFixedWidth(_w);
-	p_dialog->setFixedHeight(_h);
+	end();
+	resizable(resize_box);
+	resize(X, Y, W, H);
+	r_ = g_ = b_ = 0;
+	hue_ = 0.0;
+	saturation_ = 0.0;
+	value_ = 0.0;
+	huebox.box(FL_FLAT_BOX);
+	valuebox.box(FL_FLAT_BOX);
+	valuebox.color2(fl_rgb_color(78, 196, 203));
 
-	p_layout = p_dialog->getCentralLayout()->addHLayout(150);
+	choice.add("rgb");
+	choice.add("byte");
+	choice.add("hex");
+	choice.add("hsv");
+	choice.value(0);
+	choice.color(fl_rgb_color(74 + 15, 84 + 15, 89 + 15));
+	choice.color2(fl_rgb_color(253, 244, 191));
+	choice.box(FL_BORDER_BOX);
+	choice.down_box(FL_BORDER_BOX);
+	choice.textcolor(fl_rgb_color(250, 250, 250));
+	choice.textfont(FL_HELVETICA);
+	choice.labelsize(14);
+	choice.textsize(14);
+	choice.clear_visible_focus();
+	choice.tooltip("Color mode, floating point, bytes, hex, or hsv.");
+	set_valuators();
 
-	setDefaultColors(74, 84, 89, 74, 84, 89);
-	p_layout->begin();
+	rvalue.box(FL_BORDER_BOX);
+	gvalue.box(FL_BORDER_BOX);
+	bvalue.box(FL_BORDER_BOX);
+
+	rvalue.color(fl_rgb_color(74 + 10, 84 + 10, 89 + 10));
+	gvalue.color(fl_rgb_color(74 + 10, 84 + 10, 89 + 10));
+	bvalue.color(fl_rgb_color(74 + 10, 84 + 10, 89 + 10));
+
+	rvalue.textcolor(fl_rgb_color(250, 250, 250));
+	gvalue.textcolor(fl_rgb_color(250, 250, 250));
+	bvalue.textcolor(fl_rgb_color(250, 250, 250));
+
+	rvalue.textsize(14);
+	gvalue.textsize(14);
+	bvalue.textsize(14);
+
+
+	rvalue.callback(rgb_cb);
+	gvalue.callback(rgb_cb);
+	bvalue.callback(rgb_cb);
+	choice.callback(mode_cb);
+}
+
+enum 
+{
+	M_RGB,	/**< mode() of Fl_Color_Chooser showing RGB values */
+	M_BYTE,	/**< mode() of Fl_Color_Chooser showing byte values */
+	M_HEX,	/**< mode() of Fl_Color_Chooser showing hex values */
+	M_HSV	/**< mode() of Fl_Color_Chooser showing HSV values */
+};
+
+void Fle_ColorChooser::rgb_cb(Fl_Widget* o, void*) 
+{
+	Fle_ColorChooser* c = (Fle_ColorChooser*)(o->parent());
+	double R = c->rvalue.value();
+	double G = c->gvalue.value();
+	double B = c->bvalue.value();
+	if (c->mode() == M_HSV) 
 	{
-		p_cc1 = new Fl_Color_Chooser(0, 0, 285, 150);
-		p_cc1->box(FL_FLAT_BOX);
-		p_cc1->rgb(m_default_color1[0] / 255.0, m_default_color1[1] / 255.0, m_default_color1[2] / 255.0);
-		p_cc1->color(fl_rgb_color(74, 84, 89));
-		p_cc1->color2(fl_rgb_color(74, 84, 89));
-		p_cc1->selection_color(fl_rgb_color(74, 84, 89));
-		p_cc1->labelcolor(fl_rgb_color(255, 255, 255));
-		p_cc1->labelsize(14);
-		p_cc1->mode(1);
-		p_cc1->when(FL_WHEN_RELEASE);
-		
-		p_cc2 = new Fl_Color_Chooser(0, 0, 285, 150);
-		p_cc2->box(FL_FLAT_BOX);
-		p_cc2->rgb(m_default_color2[0] / 255.0, m_default_color2[1] / 255.0, m_default_color2[2] / 255.0);
-		p_cc2->color(fl_rgb_color(74, 84, 89));
-		p_cc2->color2(fl_rgb_color(74, 84, 89));
-		p_cc2->selection_color(fl_rgb_color(74, 84, 89));
-		p_cc2->labelcolor(fl_rgb_color(255, 255, 255));
-		p_cc2->labelsize(14);
-		p_cc2->mode(1);
-		p_cc2->when(FL_WHEN_RELEASE);
+		if (c->hsv(R, G, B)) 
+			c->do_callback();
+		return;
 	}
-	p_layout->end();
-
-	Fle_HLayoutLR* hl1 = p_dialog->getStatusBar()->addLayoutLR(23);
-	hl1->setBackgroundColor(74, 84, 89);
-	hl1->beginRight();
+	if (c->mode() != M_RGB)
 	{
-		p_ok = new Fle_Button(0, 0, 90, 22, "OK");
-		p_ok->color(fl_rgb_color(74, 84, 89));
-		p_ok->selection_color(fl_rgb_color(74, 84, 89));
-		p_ok->labelcolor(fl_rgb_color(255, 255, 255));
-		p_ok->labelsize(12);
-		p_dialog->setOkButton(p_ok);
-
-		p_cancel = new Fle_Button(0, 0, 90, 22, "Cancel");
-		p_cancel->color(fl_rgb_color(74, 84, 89));
-		p_cancel->selection_color(fl_rgb_color(74, 84, 89));
-		p_cancel->labelcolor(fl_rgb_color(255, 255, 255));
-		p_cancel->labelsize(12);
-		p_dialog->setCancelButton(p_cancel);
-
-		p_reset = new Fle_Button(0, 0, 90, 22, "Default");
-		p_reset->color(fl_rgb_color(74, 84, 89));
-		p_reset->selection_color(fl_rgb_color(74, 84, 89));
-		p_reset->labelcolor(fl_rgb_color(255, 255, 255));
-		p_reset->labelsize(12);
-		p_reset->callback(default_colors_cb, this);
+		R = R / 255.0;
+		G = G / 255.0;
+		B = B / 255.0;
 	}
-	hl1->endRight();
-
-	p_dialog->getCentralLayout()->getCentralLayout()->setMargins(10, 10, 15, 0);	// set dialog's margins.
-	p_dialog->getStatusBar()->getCentralLayout()->setMargins(10, 10, 10, 0);	// set statusbar's margins and height.
-	p_dialog->setStatusBarFixedHeight(58);
-	p_dialog->setResizeable(true);
-	p_dialog->hotspot(p_ok);
-	p_dialog->set_modal();
-	int X, Y, W, H;
-	Fl::screen_work_area(X, Y, W, H);
-	p_dialog->position(X + W / 2 - _w / 2, Y + H / 2 - _h / 2);
+	if (c->rgb(R, G, B)) c->do_callback();
 }
 
-Fle_ColorChooser::~Fle_ColorChooser()
+void Fle_ColorChooser::mode_cb(Fl_Widget* o, void*)
 {
+	Fle_ColorChooser* c = (Fle_ColorChooser*)(o->parent());
+	// force them to redraw even if value is the same:
+	c->rvalue.value(-1);
+	c->gvalue.value(-1);
+	c->bvalue.value(-1);
+	c->set_valuators();
 }
 
-void Fle_ColorChooser::close_cb(Fl_Widget* _w, void* _p)
+void Fle_ColorChooser::mode(int newMode)
 {
-	Fle_Dialog* d = static_cast<Fle_Dialog*>(_p);
-	if (!d) return;
-	d->hide();
-	Fl::delete_widget(d);
+	choice.value(newMode);
+	choice.do_callback();
 }
 
-void Fle_ColorChooser::default_colors_cb(Fl_Widget* _w, void* _p)
+void Fle_ColorChooser::set_valuators() 
 {
-	Fle_ColorChooser* cc = static_cast<Fle_ColorChooser*>(_p);
-	if (!cc) return;
-	cc->p_cc1->rgb(cc->m_default_color1[0] / 255.0, cc->m_default_color1[1] / 255.0, cc->m_default_color1[2] / 255.0);
-	cc->p_cc2->rgb(cc->m_default_color2[0] / 255.0, cc->m_default_color2[1] / 255.0, cc->m_default_color2[2] / 255.0);
-	cc->p_cc1->do_callback();
-	cc->p_cc2->do_callback();
-}
-
-void Fle_ColorChooser::setDefaultColors(unsigned char _r1, unsigned char _g1, unsigned char _b1,
-	unsigned char _r2, unsigned char _g2, unsigned char _b2)
-{
-	m_default_color1[0] = _r1;
-	m_default_color1[1] = _g1;
-	m_default_color1[2] = _b1;
-	m_default_color2[0] = _r2;
-	m_default_color2[1] = _g2;
-	m_default_color2[2] = _b2;
-}
-
-int Fle_ColorChooser::exec()
-{
-	p_dialog->show();
-	while (p_dialog->shown())
+	switch (mode()) 
 	{
-		Fl::wait();
-		Fl_Widget* o;
-		while ((o = Fl::readqueue()) && p_dialog->shown())
-		{
-			if (o == p_ok)
-			{
-				p_dialog->hide();
-				Fl::delete_widget(p_dialog);
-				return 1;
-			}
-			else
-			{
-				if (o == p_cancel || o == p_dialog)
-				{
-					p_dialog->hide();
-					Fl::delete_widget(p_dialog);
-					return 0;
-				}
-			}
-		}
+	case M_RGB:
+		rvalue.range(0, 1); rvalue.step(1, 1000); rvalue.value(r_);
+		gvalue.range(0, 1); gvalue.step(1, 1000); gvalue.value(g_);
+		bvalue.range(0, 1); bvalue.step(1, 1000); bvalue.value(b_);
+		break;
+	case M_BYTE: /* FALLTHROUGH */
+	case M_HEX:
+		rvalue.range(0, 255); rvalue.step(1); rvalue.value(int(255 * r_ + .5));
+		gvalue.range(0, 255); gvalue.step(1); gvalue.value(int(255 * g_ + .5));
+		bvalue.range(0, 255); bvalue.step(1); bvalue.value(int(255 * b_ + .5));
+		break;
+	case M_HSV:
+		rvalue.range(0, 6); rvalue.step(1, 1000); rvalue.value(hue_);
+		gvalue.range(0, 1); gvalue.step(1, 1000); gvalue.value(saturation_);
+		bvalue.range(0, 1); bvalue.step(1, 1000); bvalue.value(value_);
+		break;
 	}
-	return 0;
+}
+
+int Fle_ColorChooser::rgb(double R, double G, double B) 
+{
+	if (R == r_ && G == g_ && B == b_) return 0;
+	r_ = R; g_ = G; b_ = B;
+	double ph = hue_;
+	double ps = saturation_;
+	double pv = value_;
+	Fl_Color_Chooser::rgb2hsv(R, G, B, hue_, saturation_, value_);
+	set_valuators();
+	set_changed();
+	if (value_ != pv) 
+	{
+		#ifdef UPDATE_HUE_BOX
+		huebox.damage(FL_DAMAGE_SCROLL);
+		#endif
+		valuebox.damage(FL_DAMAGE_EXPOSE);
+	}
+	if (hue_ != ph || saturation_ != ps) 
+	{
+		huebox.damage(FL_DAMAGE_EXPOSE);
+		valuebox.damage(FL_DAMAGE_SCROLL);
+	}
+	return 1;
+}
+
+int Fle_ColorChooser::hsv(double H, double S, double V) 
+{
+	H = fmod(H, 6.0); if (H < 0.0) H += 6.0;
+	if (S < 0.0) S = 0.0; else if (S > 1.0) S = 1.0;
+	if (V < 0.0) V = 0.0; else if (V > 1.0) V = 1.0;
+	if (H == hue_ && S == saturation_ && V == value_) return 0;
+	double ph = hue_;
+	double ps = saturation_;
+	double pv = value_;
+	hue_ = H; saturation_ = S; value_ = V;
+	if (value_ != pv) 
+	{
+		#ifdef UPDATE_HUE_BOX
+		huebox.damage(FL_DAMAGE_SCROLL);
+		#endif
+		valuebox.damage(FL_DAMAGE_EXPOSE);
+	}
+	if (hue_ != ph || saturation_ != ps) 
+	{
+		huebox.damage(FL_DAMAGE_EXPOSE);
+		valuebox.damage(FL_DAMAGE_SCROLL);
+	}
+	Fl_Color_Chooser::hsv2rgb(H, S, V, r_, g_, b_);
+	set_valuators();
+	set_changed();
+	return 1;
 }
