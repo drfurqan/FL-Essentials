@@ -658,8 +658,8 @@ int Fle_Dialog::getItem(int _w, int _h, const char* _title, const char* _label, 
 
 	s->box(FL_FLAT_BOX);
 	s->down_box(FL_FLAT_BOX);
-	s->color(fl_rgb_color(120, 120, 120));
-	s->color2(fl_rgb_color(255, 255, 255));
+	s->color(fl_rgb_color(74 + 20, 84 + 20, 89 + 20));
+	s->color2(fl_rgb_color(253, 244, 191));
 	s->textcolor(fl_rgb_color(255, 255, 255));
 	s->textsize(13);
 	for (auto const i : _items)
