@@ -201,6 +201,37 @@ public:
 		const std::vector<double>& _steps);				// incremental/decremental steps of the input spinners.
 
 	// Description:
+	// Function to create a dialog box with spinners and choice menus.
+
+	// Usage Example:
+	//std::vector<const char*> _labels = { "Data: ", "Data X: ", "Data Y: ", "Data Z: " };
+	//std::vector<double> _values = { 3, 874, 671, 922};
+	//std::vector<double> _minimums = { 1, 0, 0, 0 };
+	//std::vector<double> _maximums = { 3, 65535, 65535, 65535 };
+	//std::vector<double> _steps = { 1, 0.01, 0.001, 0.001 };
+	//std::vector<const char*> _menu_labels = { "Byte Order : ", "Data Type: " };
+	//std::vector< std::vector<std::string> > _menus = { { "01", "02" }, { "10", "12" } };
+
+	//if (Fle_Dialog::getNumbers(300, 400, "Specify the volume properties...", _labels, _values, _minimums, _maximums, _steps, _menu_labels, _menus))
+	//{
+	//	for (std::size_t i = 0; i < _labels.size(); i++)
+	//		std::cout << _values[i] << std::endl;
+	//	std::cout << "Selected menu items are " << std::endl;
+	//	for (std::size_t i = 0; i < _menus.size(); i++)
+	//		std::cout << _menus[i][0] << std::endl;
+	//}
+	static int getNumbers(int _w, int _h,				// width and height of the dialog window.
+		const char* _title,								// title of the dialog window.
+		const std::vector<const char*>& _labels,		// labels of input spinners.
+		std::vector<double>& _values,					// default or initial values (results will be stored in _values).
+		const std::vector<double>& _minimums,			// minimum values of the input spinners.
+		const std::vector<double>& _maximums,			// maximum values of the input spinners.
+		const std::vector<double>& _steps,				// incremental/decremental steps of the input spinners.	
+		const std::vector<const char*>& _menus_lables,	// labels for menus.
+		std::vector< std::vector<std::string> >& _menus // menus and menu items.
+	);
+
+	// Description:
 	// Function to execute a dialog window that has one input text box. 
 	//
 	// Example: 

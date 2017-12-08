@@ -79,6 +79,8 @@ m_bottommargin(0)
 	}
 	Fle_Window::end();
 
+	Fle_Window::setBackgroundColor(41, 57, 85);
+	getBox()->color(fl_rgb_color(41, 57, 85));
 	color(fl_rgb_color(41, 57, 85));
 	user_data((void*)this);
 	resizable(p_centralarea);
@@ -126,6 +128,8 @@ m_bottommargin(0)
 	}
 	Fle_Window::end();
 
+	Fle_Window::setBackgroundColor(41, 57, 85);
+	getBox()->color(fl_rgb_color(41, 57, 85));
 	color(fl_rgb_color(41, 57, 85));
 	user_data((void*)this);
 	resizable(p_centralarea);
@@ -324,7 +328,7 @@ void Fle_MainWindow::updateContents()
 {
 	// adjust the central area while resizing the window.
 	// 31 combination of visible or not-visible widgets that I have fixed.
-	// It was hella time consuming but it was really important better visualization and convenience. 
+	// It was hella time consuming but it was really important for better visualization and convenience. 
 	// Now all toolbars, menubar, and statusbar are
 	// synchronized to each other.
 	int gap = 0;

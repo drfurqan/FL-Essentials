@@ -200,6 +200,7 @@ int Fle_Dialog::getNumber(int _w, int _h,
 	s->minimum(_minimum);
 	s->maximum(_maximum);
 	s->step(_step);
+	s->when(FL_WHEN_CHANGED);
 
 	l->end();
 
@@ -330,6 +331,7 @@ int Fle_Dialog::getNumbers(int _w, int _h, const char* _title,
 		s[i]->minimum(_minimums[i]);
 		s[i]->maximum(_maximums[i]);
 		s[i]->step(_steps[i]);
+		s[i]->when(FL_WHEN_CHANGED);
 
 		//s[i]->box(FL_FLAT_BOX);
 		//s[i]->color(fl_rgb_color(74, 84, 89));
@@ -432,6 +434,154 @@ int Fle_Dialog::getNumbers(int _w, int _h, const char* _title,
 {
 	bool b = false;
 	return getNumbers(_w, _h, _title, _labels, _values, _minimums, _maximums, _steps, nullptr, b);
+}
+
+int Fle_Dialog::getNumbers(int _w, int _h, const char* _title,
+	const std::vector<const char*>& _labels,
+	std::vector<double>& _values,
+	const std::vector<double>& _minimums,
+	const std::vector<double>& _maximums,
+	const std::vector<double>& _steps,
+	const std::vector<const char*>& _menus_lables,
+	std::vector< std::vector<std::string> >& _menus)
+{
+	Fle_Dialog* d = new Fle_Dialog(_w, _h, _title, 58, 0, 0);
+	d->callback(static_dialog_cb, d);
+	d->setMargins(10, 10, 10, 10);
+
+	std::vector<Fle_Spinner*> s(_labels.size());
+	for (std::size_t i = 0; i < _labels.size(); i++)
+	{
+		Fle_HLayout* l = d->getCentralLayout()->addHLayout(25);
+
+		l->begin();
+
+		Fle_Box* b = new Fle_Box(0, 0, _w - 132, 25);
+		b->color(fl_rgb_color(74, 84, 89));
+		b->setText(_labels[i]);
+		b->getFont()->setColor(fl_rgb_color(255, 255, 255));
+		b->getFont()->setAlignment(FL_ALIGN_LEFT);
+
+		s[i] = new Fle_Spinner(0, 0, 100, 25);
+		s[i]->type(FL_FLOAT_INPUT);
+		s[i]->box(FL_UP_BOX);
+		s[i]->color(fl_rgb_color(74 + 20, 84 + 20, 89 + 20));
+		s[i]->selection_color(fl_rgb_color(255, 255, 255));
+		s[i]->textcolor(fl_rgb_color(255, 255, 255));
+		s[i]->value(_values[i]);
+		s[i]->minimum(_minimums[i]);
+		s[i]->maximum(_maximums[i]);
+		s[i]->step(_steps[i]);
+		s[i]->when(FL_WHEN_CHANGED);
+
+		//s[i]->box(FL_FLAT_BOX);
+		//s[i]->color(fl_rgb_color(74, 84, 89));
+		//s[i]->textcolor(fl_rgb_color(255, 255, 255));
+		//s[i]->textsize(14);
+		//s[i]->getDownButton().color(fl_rgb_color(74, 84, 89));
+		//s[i]->getDownButton().box(_FL_GTK_UP_BOX);
+		//s[i]->getUpButton().color(fl_rgb_color(74, 84, 89));
+		//s[i]->getUpButton().box(_FL_GTK_UP_BOX);
+
+		l->end();
+	}
+
+	std::vector<Fl_Choice*> choice(_menus_lables.size());
+	for (std::size_t i = 0; i < _menus_lables.size(); i++)
+	{
+		Fle_HLayout* l = d->getCentralLayout()->addHLayout(25);
+
+		l->begin();
+
+		Fle_Box* b = new Fle_Box(0, 0, _w - 132, 25);
+		b->color(fl_rgb_color(74, 84, 89));
+		b->setText(_menus_lables[i]);
+		b->getFont()->setColor(fl_rgb_color(255, 255, 255));
+		b->getFont()->setAlignment(FL_ALIGN_LEFT);
+
+		choice[i] = new Fl_Choice(0, 0, 100, 25);
+		choice[i]->box(FL_FLAT_BOX);
+		choice[i]->down_box(FL_FLAT_BOX);
+		choice[i]->color(fl_rgb_color(74 + 20, 84 + 20, 89 + 20));
+		choice[i]->color2(fl_rgb_color(253, 244, 191));
+		choice[i]->textcolor(fl_rgb_color(255, 255, 255));
+		choice[i]->textsize(13);
+		for (auto const j : _menus[i])
+			choice[i]->add(j.c_str());
+		choice[i]->value(0);
+		choice[i]->clear_visible_focus();
+
+		l->end();
+	}
+
+	Fle_HLayoutLR* hl1 = d->getStatusBar()->addLayoutLR(23);
+	hl1->setBackgroundColor(74, 84, 89);
+
+	hl1->beginRight();
+
+	Fle_Button* ok = new Fle_Button(0, 0, 90, 22, "OK");
+	ok->color(fl_rgb_color(74, 84, 89));
+	ok->selection_color(fl_rgb_color(74, 84, 89));
+	ok->labelcolor(fl_rgb_color(255, 255, 255));
+	ok->labelsize(12);
+	d->setOkButton(ok);
+
+	Fle_Button* cancel = new Fle_Button(0, 0, 90, 22, "Cancel");
+	cancel->color(fl_rgb_color(74, 84, 89));
+	cancel->selection_color(fl_rgb_color(74, 84, 89));
+	cancel->labelcolor(fl_rgb_color(255, 255, 255));
+	cancel->labelsize(12);
+	d->setCancelButton(cancel);
+
+	hl1->endRight();
+
+	// set dialog's margins.
+	d->getCentralLayout()->getCentralLayout()->setMargins(10, 10, 15, 0);
+	// set statusbar's margins and height.
+	d->getStatusBar()->getCentralLayout()->setMargins(10, 10, 10, 0);
+	d->setStatusBarFixedHeight(58);
+
+	d->setResizeable(false);
+	d->hotspot(ok);
+	d->set_modal();
+	d->show();
+	int X, Y, W, H;
+	Fl::screen_work_area(X, Y, W, H);
+	d->position(X + W / 2 - _w / 2, Y + H / 2 - _h / 2);
+
+	while (d->shown())
+	{
+		Fl::wait();
+		Fl_Widget* o;
+		while ((o = Fl::readqueue()) && d->shown())
+		{
+			if (o == ok)
+			{
+				for (std::size_t i = 0; i < _labels.size(); i++)
+					_values[i] = s[i]->value();
+
+				for (std::size_t i = 0; i < _menus.size(); i++)
+				{
+					std::string selected_item = _menus[i].at(choice[i]->value());
+					_menus[i].clear();
+					_menus[i].push_back(selected_item);
+				}
+
+				Fl::delete_widget(d);
+				return 1;
+			}
+			else
+			{
+				if (o == cancel || o == d)
+				{
+					d->hide();
+					Fl::delete_widget(d);
+					return 0;
+				}
+			}
+		}
+	}
+	return 0;
 }
 
 int Fle_Dialog::getInput(int _w, int _h, const char* _title, const char* _label, std::string& _value)

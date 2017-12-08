@@ -144,10 +144,12 @@ public:
 };
 
 /************************************************************************/
-/*                                                                      */
+/* FLE Customizations                                                   */
 /************************************************************************/
-//#define LEADING 4 // extra vertical leading -
-#define LEADING 8 // extra vertical leading +
+//#define LEADING 4 // - (extra vertical leading)
+#define LEADING 10	// + (extra vertical leading)
+#define MENU_ITEM_UPPER_GAP 4 // + (extra gap between the drop down menu items and the main menu)
+#define MENU_ITEM_LOWER_GAP 4 // + (extra border gap at the bottom of the menu items)
 
 extern char fl_draw_shortcut;
 
@@ -416,8 +418,8 @@ menuwindow::menuwindow(const Fl_Menu_Item* m, int X, int Y, int Wp, int Hp,
 	/************************************************************************/
 	/*                                                                      */
 	/************************************************************************/
-	//int BW = Fl::box_dx(box());				// -  (height of the drop down menu)
-	int BW = Fl::box_dx(box()) + 1;				// +  (one pixel for lower border width) 
+	//int BW = Fl::box_dx(box());						// -  (height of the drop down menu)
+	int BW = Fl::box_dx(box()) + MENU_ITEM_LOWER_GAP;	// + (extra border gap at the bottom of the menu items)
 	W += hotKeysw + hotModsw + 2 * BW + 7;
 	if (Wp > W) W = Wp;
 	if (Wtitle > W) W = Wtitle;
@@ -509,7 +511,8 @@ void menuwindow::drawentry(const Fl_Menu_Item* m, int n, int eraseit) {
 	int xx = BW;
 	int W = w();
 	int ww = W - 2 * BW - 1;
-	int yy = BW + 1 + n*itemheight;
+	// int yy = BW + 1 + n * itemheight;						// - (vertical position of the menu items)
+	int yy = BW + 1 + MENU_ITEM_UPPER_GAP + n * itemheight;		// + (extra gap between the drop down menu items and the main menu)
 	int hh = itemheight - LEADING;
 
 	if (eraseit && n != selected) {

@@ -33,8 +33,7 @@ Fl_Tree(_x, _y, _w, _h, _title)
 	labelcolor(fl_rgb_color(78, 196, 203));
 	item_labelfgcolor(fl_rgb_color(0, 0, 0));
 	item_labelsize(13);
-	root_label("Project");
-	align(FL_ALIGN_WRAP | FL_ALIGN_INSIDE | FL_ALIGN_CENTER | FL_ALIGN_TEXT_OVER_IMAGE | FL_ALIGN_CLIP);
+	align(FL_ALIGN_WRAP | FL_ALIGN_INSIDE | FL_ALIGN_TOP | FL_ALIGN_TEXT_OVER_IMAGE | FL_ALIGN_CLIP);
 }
 
 Fle_Tree::~Fle_Tree()

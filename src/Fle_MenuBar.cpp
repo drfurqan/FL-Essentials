@@ -26,7 +26,7 @@ using namespace R3D;
 
 Fle_MenuBar::Fle_MenuBar(int _x, int _y, int _w, int _h, const char* _text) :
 Fl_Menu_Bar(_x, _y, _w, _h, _text),
-m_menubox(Fl_Boxtype::FL_UP_BOX),
+m_menubox(Fl_Boxtype::FL_FLAT_BOX),
 p_rightclick_popup_items(nullptr),
 p_rightclick_popup_item_cb(nullptr),
 p_rightclick_popup_cb_data(nullptr),
@@ -73,7 +73,7 @@ void Fle_MenuBar::draw(int _x, int _y, int _w, int _h)
 			int y1 = _y + Fl::box_dy(box());
 			int y2 = y1 + _h - Fl::box_dh(box()) - 1;
 
-			// Draw a vertical divider between menus.
+			// draw a vertical divider between menus.
 			fl_color(FL_DARK3);
 			fl_yxline(X - 6, y1, y2);
 			fl_color(FL_LIGHT3);
@@ -116,6 +116,9 @@ int Fle_MenuBar::handle(int _e)
 			return 1;          // tells caller we handled this event
 		}
 		break;
+
+	default:
+		return Fl_Menu_Bar::handle(_e);
 	}
 	return Fl_Menu_Bar::handle(_e);
 }
@@ -135,6 +138,7 @@ Fl_Color Fle_MenuBar::getMenuBarItemsColor() const
 void Fle_MenuBar::setMenuBarColor(uchar _red, uchar _green, uchar _blue)
 {
 	m_menucolor = fl_rgb_color(_red, _green, _blue);
+	redraw();
 }
 Fl_Color Fle_MenuBar::getMenuBarColor() const
 {
