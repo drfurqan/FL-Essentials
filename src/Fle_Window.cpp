@@ -408,7 +408,9 @@ Fl_Color Fle_Window::getBackgroundColor() const
 }
 void Fle_Window::setBox(Fle_Box* _b) 
 {
-	if (_b == nullptr) return;
+	if (_b == nullptr) 
+		return;
+
 	if (p_box)
 	{
 		remove(p_box);
@@ -425,7 +427,7 @@ void Fle_Window::setTransparency(float _alpha)
 	LONG_PTR exstyle = GetWindowLongPtr(hwnd, GWL_EXSTYLE);
 	if (!(exstyle & WS_EX_LAYERED)) 
 		SetWindowLongPtr(hwnd, GWL_EXSTYLE, exstyle | WS_EX_LAYERED);
-	SetLayeredWindowAttributes(hwnd, 0, (BYTE)(_alpha * 0xFF), LWA_ALPHA);
+	SetLayeredWindowAttributes(hwnd, 0, (BYTE)(0xFF * _alpha), LWA_ALPHA);
 
 #elif defined(__linux__) || defined(__unix__)
 

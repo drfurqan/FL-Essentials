@@ -106,6 +106,19 @@ public:
 	// Description:
 	// Function that returns the directory path with no end backslash.
 	static std::string getCurrentDirectory();
+
+	// Description:
+	// Function that returns MSVC version string.
+	// Pass _MSC_VER as argument.
+	static std::string getMsvcVersionString(int _msc_ver);
+
+	// Description:
+	// Function make the given process id window always on top.
+	static void makeWindowAlwaysOnTop(unsigned long _process_id, bool _isontop);
+
+	// Description:
+	// Function make this window always on top.
+	static void makeWindowAlwaysOnTop(bool _isontop);
 };
 
 }

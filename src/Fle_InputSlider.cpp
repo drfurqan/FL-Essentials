@@ -19,6 +19,7 @@ If not, please contact Dr. Furqan Ullah immediately:
 **********************************************************************************/
 
 #include <FLE/Fle_InputSlider.h>
+#include <FLE/Fle_StringUtil.h>
 
 using namespace R3D;
 
@@ -265,7 +266,17 @@ void Fle_FloatInputSlider::slider_cb()
 	{
 		recurse = 1;
 		char s[80];
-		sprintf(s, "%.2f", p_slider->value());
+		std::size_t ndecimals = Fle_StringUtil::getDecimalCount(p_slider->step());
+		if (ndecimals == 1)
+			sprintf(s, "%.1f", p_slider->value());
+		else if (ndecimals == 2)
+			sprintf(s, "%.2f", p_slider->value());
+		else if (ndecimals == 3)
+			sprintf(s, "%.3f", p_slider->value());
+		else if (ndecimals == 4)
+			sprintf(s, "%.4f", p_slider->value());
+		else if (ndecimals > 4)
+			sprintf(s, "%.4f", p_slider->value());
 		p_input->value(s);          // pass slider's value to input
 		if (p_func)
 			(p_func)(p_slider->value(), p_ptr);
@@ -286,11 +297,11 @@ void Fle_FloatInputSlider::input_cb()
 	else
 	{
 		recurse = 1;
-		int val = 0;
-		if (sscanf(p_input->value(), "%d", &val) != 1)
-			val = 0;
+		float val = 0.f;
+		if (sscanf(p_input->value(), "%f", &val) != 1)
+			val = 0.f;
 
-		p_slider->value(val);
+		p_slider->value(static_cast<double>(val));
 
 		if (p_func)
 			(p_func)(static_cast<double>(val), p_ptr);

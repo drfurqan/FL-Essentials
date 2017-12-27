@@ -23,6 +23,7 @@ If not, please contact Dr. Furqan Ullah immediately:
 #include <FLE/Fle_Dialog.h>
 #include <FLE/Fle_Input.h>
 #include <FLE/Fle_Spinner.h>
+#include <FLE/Fle_InputSlider.h>
 
 #include <FL/Fl_Button.H>
 #include <FL/Fl_Multiline_Input.H>
@@ -157,6 +158,154 @@ static void static_dialog_cb(Fl_Widget* _w, void* _p)
 	Fl::delete_widget(d);
 }
 
+int Fle_Dialog::getFloatInputSlider(int _w, int _h,
+	const char* _title,
+	const char* _label,
+	double& _value,
+	double _minimum,
+	double _maximum,
+	double _step,
+	void(*_callback)(double, void*), void* _data,
+	const char* _checkbox_label,
+	bool& _checkbox)
+{
+	Fle_Dialog* d = new Fle_Dialog(_w, _h, _title, 58, 0, 0);
+	d->callback(static_dialog_cb, d);
+	d->setMargins(10, 10, 10, 10);
+
+	Fle_HLayout* l = d->getCentralLayout()->addHLayout(22);
+
+	l->begin();
+
+	Fle_FloatInputSlider* s;
+	if (_label)
+	{
+		Fle_Box* b = new Fle_Box(0, 0, 132, 22);
+		b->color(fl_rgb_color(74, 84, 89));
+		b->setText(_label);
+		b->getFont()->setColor(fl_rgb_color(255, 255, 255));
+		b->getFont()->setAlignment(FL_ALIGN_LEFT);
+
+		s = new Fle_FloatInputSlider(0, 0, _w - 160, 22, nullptr, 55);
+	}
+	else
+	{
+		s = new Fle_FloatInputSlider(0, 0, _w - 23, 22, nullptr, 55);
+	}
+
+	s->type(FL_HOR_SLIDER);
+	s->box(FL_BORDER_BOX);
+	s->color(fl_rgb_color(74 + 20, 84 + 20, 89 + 20));
+	s->selection_color(fl_rgb_color(255, 255, 255));
+	s->textcolor(fl_rgb_color(255, 255, 255));
+	s->labelsize(12);
+	s->textsize(12);
+	s->value(_value);
+	s->minimum(_minimum);
+	s->maximum(_maximum);
+	s->step(_step);
+	s->set_callback(_callback, _data);
+	s->getSlider()->when(FL_WHEN_CHANGED);
+	s->tooltip("Specify the number and then press 'Enter' to set it\nor change using the spinner up/down buttons.");
+
+	l->end();
+
+	Fl_Check_Button* check = nullptr;
+	if (_checkbox_label)
+	{
+		Fle_HLayout* l = d->getCentralLayout()->addHLayout(30);
+		l->begin();
+		check = new Fl_Check_Button(0, 0, _w, 30, _checkbox_label);
+		check->box(FL_FLAT_BOX);
+		check->down_box(FL_FRAME_BOX);		
+		check->color(fl_rgb_color(74, 84, 89));
+		if (_checkbox) check->value(1);
+		else check->value(0);
+		check->labelsize(12);
+		check->labelcolor(fl_rgb_color(255, 255, 255));
+		check->clear_visible_focus();
+		l->end();
+	}
+
+	Fle_HLayoutLR* hl1 = d->getStatusBar()->addLayoutLR(23);
+	hl1->setBackgroundColor(74, 84, 89);
+
+	hl1->beginRight();
+
+	Fle_Button* ok = new Fle_Button(0, 0, 90, 22, "OK");
+	ok->color(fl_rgb_color(74, 84, 89));
+	ok->selection_color(fl_rgb_color(74, 84, 89));
+	ok->labelcolor(fl_rgb_color(255, 255, 255));
+	ok->labelsize(12);
+	d->setOkButton(ok);
+
+	Fle_Button* cancel = new Fle_Button(0, 0, 90, 22, "Cancel");
+	cancel->color(fl_rgb_color(74, 84, 89));
+	cancel->selection_color(fl_rgb_color(74, 84, 89));
+	cancel->labelcolor(fl_rgb_color(255, 255, 255));
+	cancel->labelsize(12);
+	d->setCancelButton(cancel);
+
+	hl1->endRight();
+
+	// set dialog's margins.
+	d->getCentralLayout()->getCentralLayout()->setMargins(10, 10, 15, 0);
+	// set statusbar's margins and height.
+	d->getStatusBar()->getCentralLayout()->setMargins(10, 10, 10, 0);
+	d->setStatusBarFixedHeight(58);
+
+	d->setResizeable(false);
+	d->hotspot(ok);
+	d->set_modal();
+	d->show();
+	int X, Y, W, H;
+	Fl::screen_work_area(X, Y, W, H);
+	d->position(X + W / 2 - _w / 2, Y + H / 2 - _h / 2);
+
+	while (d->shown())
+	{
+		Fl::wait();
+		Fl_Widget* o;
+		while ((o = Fl::readqueue()) && d->shown())
+		{
+			if (o == ok)
+			{
+				_value = s->value();
+				if (check)
+				{
+					if (check->value() == 1) _checkbox = true;
+					else _checkbox = false;
+				}
+				Fl::delete_widget(d);
+				return 1;
+			}
+			else
+			{
+				if (o == cancel || o == d)
+				{
+					d->hide();
+					Fl::delete_widget(d);
+					return 0;
+				}
+			}
+		}
+	}
+	return 0;
+}
+
+int Fle_Dialog::getFloatInputSlider(int _w, int _h,
+	const char* _title,
+	const char* _label,
+	double& _value,
+	double _minimum,
+	double _maximum,
+	double _step,
+	void(*_callback)(double, void*), void* _data)
+{
+	bool b = false;
+	return getFloatInputSlider(_w, _h, _title, _label, _value, _minimum, _maximum, _step, _callback, _data, nullptr, b);
+}
+
 int Fle_Dialog::getNumber(int _w, int _h, 
 	const char* _title, 
 	const char* _label, 
@@ -201,6 +350,7 @@ int Fle_Dialog::getNumber(int _w, int _h,
 	s->maximum(_maximum);
 	s->step(_step);
 	s->when(FL_WHEN_CHANGED);
+	s->tooltip("Specify the number and then press 'Enter' to set it\nor change using the spinner up/down buttons.");
 
 	l->end();
 
@@ -210,6 +360,9 @@ int Fle_Dialog::getNumber(int _w, int _h,
 		Fle_HLayout* l = d->getCentralLayout()->addHLayout(30);
 		l->begin();
 		check = new Fl_Check_Button(0, 0, _w, 30, _checkbox_label);
+		check->box(FL_FLAT_BOX);
+		check->down_box(FL_FRAME_BOX);
+		check->color(fl_rgb_color(74, 84, 89));
 		if (_checkbox) check->value(1);
 		else check->value(0);
 		check->labelsize(12);
@@ -332,6 +485,7 @@ int Fle_Dialog::getNumbers(int _w, int _h, const char* _title,
 		s[i]->maximum(_maximums[i]);
 		s[i]->step(_steps[i]);
 		s[i]->when(FL_WHEN_CHANGED);
+		s[i]->tooltip("Specify the number and then press 'Enter' to set it\nor change using the spinner up/down buttons.");
 
 		//s[i]->box(FL_FLAT_BOX);
 		//s[i]->color(fl_rgb_color(74, 84, 89));
@@ -351,7 +505,10 @@ int Fle_Dialog::getNumbers(int _w, int _h, const char* _title,
 		Fle_HLayout* l = d->getCentralLayout()->addHLayout(30);
 		l->begin();
 		check = new Fl_Check_Button(0, 0, _w, 30, _checkbox_label);
-		if(_checkbox) check->value(1);
+		check->box(FL_FLAT_BOX);
+		check->down_box(FL_FRAME_BOX);
+		check->color(fl_rgb_color(74, 84, 89));
+		if (_checkbox) check->value(1);
 		else check->value(0);
 		check->labelsize(12);
 		check->labelcolor(fl_rgb_color(255, 255, 255));
@@ -473,6 +630,7 @@ int Fle_Dialog::getNumbers(int _w, int _h, const char* _title,
 		s[i]->maximum(_maximums[i]);
 		s[i]->step(_steps[i]);
 		s[i]->when(FL_WHEN_CHANGED);
+		s[i]->tooltip("Specify the number and then press 'Enter' to set it\nor change using the spinner up/down buttons.");
 
 		//s[i]->box(FL_FLAT_BOX);
 		//s[i]->color(fl_rgb_color(74, 84, 89));

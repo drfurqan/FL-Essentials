@@ -112,7 +112,7 @@ bool Fle_ImageWidget::loadImage(const std::string& _filename)
 		Fl::unlock();			// release the lock; allow other threads to access FLTK again
 		Fl::awake();			// use Fl::awake() to signal main thread to refresh the GUI
 	}
-	catch (cv::Exception& _ex)
+	catch (const cv::Exception& _ex)
 	{
 		Fle_MessageBox::Error("Something went wrong in loading image file!");
 		std::cout << "Exception reading image from disk: %s\n" << _ex.what();
@@ -163,7 +163,7 @@ bool Fle_ImageWidget::saveImage(const std::string& _filename, const std::vector<
 		Fl::unlock();			// release the lock; allow other threads to access FLTK again
 		Fl::awake();			// use Fl::awake() to signal main thread to refresh the GUI
 	}
-	catch (cv::Exception& _ex)
+	catch (const cv::Exception& _ex)
 	{
 		Fle_MessageBox::Error("Something went wrong in saving image file!");
 		std::cout << "Exception converting image to PNG format: %s\n" << _ex.what();

@@ -113,12 +113,18 @@ public:
 	// Description:
 	// Function to check if the input string '_str' ends with given string '_to_match_str'.
 	// It returns true on success.
-	bool endsWith(const std::string& _str, const std::string& _to_match_str);
+	static bool endsWith(const std::string& _str, const std::string& _to_match_str);
 
 	// Description:
 	// Case sensitive function to check if the input string '_str' ends with given string '_to_match_str'.
 	// It returns true on success.
-	bool endsWith_caseInsensitive(std::string _str, std::string _to_match_str);
+	static bool endsWith_caseInsensitive(std::string _str, std::string _to_match_str);
+
+	// Description:
+	// Function that counts decimals of the given number and returns it.
+	// It only counts up to 5 decimals. More than five decimals will give you zero.
+	// Example: getDecimalCount(0.001) will return 3.
+	static std::size_t getDecimalCount(double _num);
 };
 
 template std::string Fle_StringUtil::convertToString(int _val, int _precision);

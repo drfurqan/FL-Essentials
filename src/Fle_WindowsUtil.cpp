@@ -27,6 +27,7 @@ If not, please contact Dr. Furqan Ullah immediately:
 #include <direct.h>
 #include <shlobj.h>
 #include <Shellapi.h>	// SHELLEXECUTEINFO
+#include <process.h>	// _getpid()
 #endif // _WIN32
 #include <sys/types.h> 	// required for stat.h
 #include <sys/stat.h> 	// no clue why required -- man pages say so
@@ -191,3 +192,89 @@ std::string Fle_WindowsUtil::getCurrentDirectory()
 	//return std::string(result, (count > 0) ? count : 0);
 	#endif
 }
+
+std::string Fle_WindowsUtil::getMsvcVersionString(int _msc_ver)
+{
+	std::string version;
+	switch (_msc_ver)
+	{
+	case 1310:
+		version = "MSVC++ 7.1 (Visual Studio 2003)";
+		break;
+	case 1400:
+		version = "MSVC++ 8.0 (Visual Studio 2005)";
+		break;
+	case 1500:
+		version = "MSVC++ 9.0 (Visual Studio 2008)";
+		break;
+	case 1600:
+		version = "MSVC++ 10.0 (Visual Studio 2010)";
+		break;
+	case 1700:
+		version = "MSVC++ 11.0 (Visual Studio 2012)";
+		break;
+	case 1800:
+		version = "MSVC++ 12.0 (Visual Studio 2013)";
+		break;
+	case 1900:
+		version = "MSVC++ 14.0 (Visual Studio 2015)";
+		break;
+	case 1910:
+		version = "MSVC++ 14.1 (Visual Studio 2017)";
+		break;
+	case 1912:
+		version = "MSVC++ 14.1 (Visual Studio 2017)";
+		break;
+	default:
+		version = "unknown MSVC++ version";
+	}
+	return version;
+}
+
+/************************************************************************/
+/* Make Window Always on Top                                            */
+/************************************************************************/
+#if defined(_WIN32)
+BOOL CALLBACK EnumWindowsAlwaysOnTop(HWND _windowHandle, LPARAM _lParam)
+{
+	DWORD searchedProcessId = (DWORD)_lParam;  // This is the process ID we search for (passed from BringToForeground as lParam)
+	DWORD windowProcessId = 0;
+	GetWindowThreadProcessId(_windowHandle, &windowProcessId); // Get process ID of the window we just found
+	if (searchedProcessId == windowProcessId)
+	{
+		SetWindowPos(_windowHandle, HWND_TOPMOST, 0, 0, 0, 0, SWP_SHOWWINDOW | SWP_NOSIZE | SWP_NOMOVE);
+		return 0;	// Stop enumerating windows
+	}
+	return 1;		// Continue enumerating
+}
+BOOL CALLBACK EnumWindowsNotAlwaysOnTop(HWND _windowHandle, LPARAM _lParam)
+{
+	unsigned long searchedProcessId = (unsigned long)_lParam;  // This is the process ID we search for (passed from BringToForeground as lParam)
+	unsigned long windowProcessId = 0;
+	GetWindowThreadProcessId(_windowHandle, &windowProcessId); // Get process ID of the window we just found
+	if (searchedProcessId == windowProcessId)
+	{
+		SetWindowPos(_windowHandle, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_SHOWWINDOW | SWP_NOSIZE | SWP_NOMOVE);
+		return 0;	// Stop enumerating windows
+	}
+	return 1;		// Continue enumerating
+}
+#endif // _WIN32
+
+void Fle_WindowsUtil::makeWindowAlwaysOnTop(unsigned long _process_id, bool _isontop)
+{
+#if defined(_WIN32)
+	if (_isontop)
+		EnumWindows(&EnumWindowsAlwaysOnTop, (LPARAM)_process_id);
+	else
+		EnumWindows(&EnumWindowsNotAlwaysOnTop, (LPARAM)_process_id);
+#endif // _WIN32
+}
+
+void Fle_WindowsUtil::makeWindowAlwaysOnTop(bool _isontop)
+{
+	#if defined(_WIN32)
+	makeWindowAlwaysOnTop(_getpid(), _isontop);
+	#endif // _WIN32
+}
+

@@ -130,6 +130,43 @@ public:
 	// }
 	int exec();
 
+	/************************************************************************/
+	/* Static quick dialogs to get inputs from user.                        */
+	/************************************************************************/
+
+	// Description:
+	// Function to execute a dialog window that has a float type input slider. 
+	// Example: 
+	// This example will create 1 float type input slider with 1 label.
+	//
+	// double tran = 1.f;
+	// if (Fle_Dialog::getFloatInputSlider(400, 120,
+	//	  "Specify the window transparency from 0 ~ 1!", "Transparency: ",
+	//	  tran, 0.0, 1.0, 0.01,
+	//	  win_transparency_cb, _p))
+	// {
+	//	  win_transparency_cb(tran, this);
+	// }
+	static int getFloatInputSlider(int _w, int _h,			// width and height of the dialog window.
+		const char* _title, 							// title of the dialog window.
+		const char* _label, 							// label of input spinner.
+		double& _value, 								// default or initial value (result will be stored in _value).
+		double _minimum, 								// minimum value of the input spinner.
+		double _maximum, 								// maximum value of the input spinner.
+		double _step,									// incremental/decremental step of the input spinner.
+		void(*_callback)(double, void*), void* _data,	// pointer to a callback function and a data for this slider.
+		const char* _checkbox_label,					// if specified, a check box is created after the slider (result will be stored in _checkbox).
+		bool& _checkbox);								// default or initial value (result of the check box will be stored in this variable).
+	
+	static int getFloatInputSlider(int _w, int _h,		// width and height of the dialog window.
+		const char* _title, 							// title of the dialog window.
+		const char* _label, 							// label of input spinner.
+		double& _value, 								// default or initial value (result will be stored in _value).
+		double _minimum, 								// minimum value of the input spinner.
+		double _maximum, 								// maximum value of the input spinner.
+		double _step,									// incremental/decremental step of the input spinner.
+		void(*_callback)(double, void*), void* _data);	// pointer to a callback function and a data for this slider.
+
 	// Description:
 	// Function to execute a dialog window that has a spinner input field. 
 	// Example: 
@@ -147,8 +184,8 @@ public:
 		double _minimum, 								// minimum value of the input spinner.
 		double _maximum, 								// maximum value of the input spinner.
 		double _step,									// incremental/decremental step of the input spinner.
-		const char* _checkbox_label,					// if specified, a check box is created after spinners (result will be stored in _checkbox).
-		bool& _checkbox);
+		const char* _checkbox_label,					// if specified, a check box is created after the slider (result will be stored in _checkbox).
+		bool& _checkbox);								// default or initial value (result of the check box will be stored in this variable).
 
 	static int getNumber(int _w, int _h,				// width and height of the dialog window.
 		const char* _title, 							// title of the dialog window.
@@ -189,8 +226,8 @@ public:
 		const std::vector<double>& _minimums,			// minimum values of the input spinners.
 		const std::vector<double>& _maximums,			// maximum values of the input spinners.
 		const std::vector<double>& _steps,				// incremental/decremental steps of the input spinners.	
-		const char* _checkbox_label,					// if specified, a check box is created after spinners (result will be stored in _checkbox).
-		bool& _checkbox);
+		const char* _checkbox_label,					// if specified, a check box is created after the slider (result will be stored in _checkbox).
+		bool& _checkbox);								// default or initial value (result of the check box will be stored in this variable).
 
 	static int getNumbers(int _w, int _h,				// width and height of the dialog window.
 		const char* _title,								// title of the dialog window.

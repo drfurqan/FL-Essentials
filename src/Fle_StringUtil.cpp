@@ -197,3 +197,16 @@ bool Fle_StringUtil::endsWith_caseInsensitive(std::string _str, std::string _to_
 	return endsWith(_str, _to_match_str);
 
 }
+
+std::size_t Fle_StringUtil::getDecimalCount(double _num)
+{
+	std::stringstream stream;
+	stream << _num;
+	std::string s(stream.str());
+	if (std::stod(s) == std::stoi(s))
+		return 0;
+	size_t found;
+	std::stoi(s, &found);	// look for "."
+	std::size_t n = std::string(s).substr(found).size() - 1;
+	return n < 0 ? 0 : n;
+}
