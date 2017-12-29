@@ -75,7 +75,7 @@ void Fle_ImageWidget::draw(int _x, int _y, int _w, int _h)
 	m_fimage.release();
 	m_fimage = cv::Mat::zeros(m_isize, m_image.type());
 
-	cv::resize(m_image, m_fimage, m_isize, 0, 0, cv::INTER_CUBIC);
+	cv::resize(m_image, m_fimage, m_isize, 0, 0, cv::INTER_LINEAR);
 	if (m_fimage.channels() == 4) cv::cvtColor(m_fimage, m_fimage, CV_BGRA2RGBA);
 	else if (m_fimage.channels() == 3) cv::cvtColor(m_fimage, m_fimage, CV_BGR2RGB);
 		
@@ -103,10 +103,10 @@ bool Fle_ImageWidget::loadImage(const std::string& _filename)
 		if (!m_image.empty())
 		{
 			redraw();
+			m_filepath = _filename;
 			Fl::unlock();			// release the lock; allow other threads to access FLTK again
 			Fl::awake();			// use Fl::awake() to signal main thread to refresh the GUI
 
-			m_filepath = _filename;
 			return true;
 		}
 		Fl::unlock();			// release the lock; allow other threads to access FLTK again
