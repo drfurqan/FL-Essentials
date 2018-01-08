@@ -30,6 +30,7 @@ If not, please contact Dr. Furqan Ullah immediately:
 
 namespace R3D
 {
+
 // Description:
 // Image draw types.
 enum class Fle_ImageDrawType
@@ -43,58 +44,49 @@ class FL_ESSENTIALS_EXPORT Fle_ImageUtil
 {
 public:
 	// Description:
-	// Function to return the pixel intensity (of a grayscale or black&white image) at _x, _y.
-	static unsigned char getPixelGrayscale(cv::Mat& _image, int _x, int _y)
+	// Function that returns the pixel intensity at _x, _y.
+	template <typename DataType>
+	static DataType getPixel(cv::Mat& _image, int _x, int _y)
 	{
-		return _image.at<unsigned char>(cv::Point(_x, _y));
-	}
-	// Description:
-	// Function to return the pixel intensity with alpha component
-	// (of a grayscale or black&white image) at _x, _y.
-	static cv::Vec2b getPixelGA(cv::Mat& _image, int _x, int _y)
-	{
-		return _image.at<cv::Vec2b>(cv::Point(_x, _y));
-	}
-	// Description:
-	// Function to return the pixel intensity (of a color image) at _x, _y.
-	static cv::Vec3b getPixelBGR(cv::Mat& _image, int _x, int _y)
-	{
-		return _image.at<cv::Vec3b>(cv::Point(_x, _y));
-	}
-	// Description:
-	// Function to return the pixel intensity (of a color image with alpha component) at _x, _y.
-	static cv::Vec4b getPixelBGRA(cv::Mat& _image, int _x, int _y)
-	{
-		return _image.at<cv::Vec4b>(cv::Point(_x, _y));
+		return _image.at<DataType>(cv::Point(_x, _y));
 	}
 
 	// Description:
 	// Function to set the color intensity of the (_x, _y) pixel.
-	// This function is for grayscale or black&white image.
-	static void setPixel(cv::Mat& _image, int _x, int _y, unsigned char _p)
+	template <typename DataType>
+	static void setPixel(cv::Mat& _image, int _x, int _y, const DataType& _p)
 	{
-		_image.at<unsigned char>(cv::Point(_x, _y)) = _p;
+		_image.at<DataType>(cv::Point(_x, _y)) = _p;
 	}
+
 	// Description:
-	// Function to set the color intensity of the (_x, _y) pixel.
-	// This function is for grayscale or black&white image that has 2 components grayscale and alpha.
-	static void setPixel(cv::Mat& _image, int _x, int _y, const cv::Vec2b& _ga)
+	// Function to get the X derivative of the given image.
+	template <typename DataType, typename ReturnType>
+	ReturnType getDerivativeX(const cv::Mat& _img, int _x, int _y)
 	{
-		_image.at<cv::Vec2b>(cv::Point(_x, _y)) = _ga;
+		ReturnType gradient_in_x =
+				_img.at<DataType>(_y - 1, _x - 1) +
+			2 * _img.at<DataType>(_y, _x - 1) +
+				_img.at<DataType>(_y + 1, _x - 1) -
+				_img.at<DataType>(_y - 1, _x + 1) -
+			2 * _img.at<DataType>(_y, _x + 1) -
+				_img.at<DataType>(_y + 1, _x + 1);
+		return gradient_in_x;
 	}
+
 	// Description:
-	// Function to set the color intensity of the (_x, _y) pixel.
-	// This function is for color image that has 3 components BGR (Blue, Green, Red).
-	static void setPixel(cv::Mat& _image, int _x, int _y, const cv::Vec3b& _bgr)
+	// Function to get the Y derivative of the given image.
+	template <typename DataType, typename ReturnType>
+	ReturnType getDerivativeY(const cv::Mat& _img, int _x, int _y)
 	{
-		_image.at<cv::Vec3b>(cv::Point(_x, _y)) = _bgr;
-	}
-	// Description:
-	// Function to set the color intensity of the (_x, _y) pixel.
-	// This function is for color image that has 4 components BGRA (Blue, Green, Red, Alpha).
-	static void setPixel(cv::Mat& _image, int _x, int _y, const cv::Vec4b& _bgra)
-	{
-		_image.at<cv::Vec4b>(cv::Point(_x, _y)) = _bgra;
+		ReturnType gradient_in_y =
+				_img.at<DataType>(_y - 1, _x - 1) +
+			2 * _img.at<DataType>(_y - 1, _x) +
+				_img.at<DataType>(_y - 1, _x + 1) -
+				_img.at<DataType>(_y + 1, _x - 1) -
+			2 * _img.at<DataType>(_y + 1, _x) -
+				_img.at<DataType>(_y + 1, _x + 1);
+		return gradient_in_y;
 	}
 
 	// Description:
@@ -144,21 +136,10 @@ public:
 
 };
 
-// Example to get a pixel value and set a pixel to OpenCV cv::Mat
-// void imageProcessing(cv::Mat& _image)
-// {
-//	 for (int y = 0; y < _image.rows; y++)
-//	 {
-//		 for (int x = 0; x < _image.cols; x++)
-//		 {
-//			 cv::Vec3b p = Fle_ImageUtil::getPixelBGR(_image, x, y);
-//
-//			 unsigned char g = (p[0] + p[1] + p[2]) / 3;	// average of RGB
-//
-//			 Fle_ImageUtil::setPixel(_image, x, y, cv::Vec3b(g, g, g));
-//		 }
-//	 }
-// }
+template void Fle_ImageUtil::setPixel<unsigned char>(cv::Mat& _image, int _x, int _y, const unsigned char& _p);
+template void Fle_ImageUtil::setPixel<cv::Vec2b>(cv::Mat& _image, int _x, int _y, const cv::Vec2b& _p);
+template void Fle_ImageUtil::setPixel<cv::Vec3b>(cv::Mat& _image, int _x, int _y, const cv::Vec3b& _p);
+template void Fle_ImageUtil::setPixel<cv::Vec4b>(cv::Mat& _image, int _x, int _y, const cv::Vec4b& _p);
 
 }
 

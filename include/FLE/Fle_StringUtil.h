@@ -95,7 +95,7 @@ public:
 	static std::string convertToString(_T _val, int _precision = 3)
 	{
 		std::stringstream stream;
-		stream << std::setprecision(_precision) << _val;
+		stream << std::fixed << std::setprecision(_precision) << _val;
 		return stream.str();
 		// OR
 		//return  std::to_string(_val);  // C++ 11
