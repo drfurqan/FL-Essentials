@@ -93,7 +93,7 @@ public:
 
 	// Description:
 	// Static function that will create a single shot timer. 
-	// It executes the specified function "_func" only once (after the specified time)..
+	// It executes the specified function "_func" only once (after the specified time in seconds).
 	static void singleShot(double _time_in_sec, const std::function<void()>& _func);
 
 protected:
