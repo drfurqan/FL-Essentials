@@ -25,6 +25,7 @@ If not, please contact Dr. Furqan Ullah immediately:
 #include <FLE/Fle_Export.h>
 
 #include <string>
+#include <vector>
 
 namespace R3D
 {
@@ -108,6 +109,21 @@ public:
 	static std::string getCurrentDirectory();
 
 	// Description:
+	// Function that returns a list of all folders in the given folder.
+	// Example:
+	// auto folders = Fle_WindowsUtil::getAllFolders("D:\\images\\*.*");
+	// for (auto f : folders)
+	//	 std::cout << f << std::endl;
+	static std::vector<std::string> getAllFolders(const std::string& _folder_path);
+	// Description:
+	// Function that returns a list of all files in the given folder.
+	// Example:
+	// auto files = Fle_WindowsUtil::getAllFiles("D:\\images\\*.*");
+	// for (auto f : files)
+	//	 std::cout << f << std::endl;
+	static std::vector<std::string> getAllFiles(const std::string& _folder_path);
+
+	// Description:
 	// Function that returns MSVC version string.
 	// Pass _MSC_VER as argument.
 	static std::string getMsvcVersionString(int _msc_ver);
@@ -119,6 +135,15 @@ public:
 	// Description:
 	// Function make this window always on top.
 	static void makeWindowAlwaysOnTop(bool _isontop);
+
+	// Description:
+	// Function that create a mutex and returns it's handle.
+	static void* createMutex(const char* _name);
+
+private:
+	// Description:
+	// Function that returns a list of all folders in the given folder.
+	static void getAllFiles(const std::string& _folder_path, std::vector<std::string>& _outfolders);
 };
 
 }

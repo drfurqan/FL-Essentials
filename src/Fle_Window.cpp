@@ -159,21 +159,25 @@ void Fle_Window::showMinimized()
 {
 	show();
 	Fle_WindowsUtil::setWindowOption(label(), Fle_WindowsUtil::Options::ShowMinimized);
+	size(w(), h());
 }
 void Fle_Window::showMaximized()
 {
 	showMinimized();		// this does the trick for a little animation started from bottom.
 	Fle_WindowsUtil::setWindowOption(label(), Fle_WindowsUtil::Options::ShowMaximized);
+	size(w(), h());
 }
 void Fle_Window::showFullScreen()
 {
 	show();
 	fullscreen();
+	size(w(), h());
 }
 void Fle_Window::showNormal()
 {
 	show();
 	fullscreen_off();
+	size(w(), h());
 }
 
 void Fle_Window::resize(int _x, int _y, int _w, int _h)

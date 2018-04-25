@@ -55,7 +55,7 @@ void Fle_Group::draw()
 
     // draw the main group box
     if(damage() & ~FL_DAMAGE_CHILD)
-        fl_draw_box(box(), x(), y()+lblH/2, w(), h()-lblH/2, color());
+        fl_draw_box(box(), x(), y()+lblH/2, w(), h()-lblH/2, color2());
 
     // clip and draw the children
     fl_clip(x()+2, y()+lblH+1, w()-4, h()-lblH-3);

@@ -24,8 +24,16 @@ using namespace R3D;
 Fle_Spinner::Fle_Spinner(int _x, int _y, int _w, int _h, const char* _lable) :
 Fl_Spinner(_x, _y, _w, _h, _lable)
 {
+	input_.when(FL_WHEN_ENTER_KEY | FL_WHEN_CHANGED | FL_WHEN_RELEASE);
+
 	up_button_.box(_FL_GTK_UP_BOX);
 	up_button_.color(FL_WHITE);
 	down_button_.box(_FL_GTK_UP_BOX);
 	down_button_.color(FL_WHITE);
+}
+
+void Fle_Spinner::when(uchar i)
+{ 
+	Fl_Spinner::when(i);
+	input_.when(i); 
 }

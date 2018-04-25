@@ -36,18 +36,8 @@ public:
 	Fle_Spinner(int _x, int _y, int _w, int _h, const char* _lable = 0);
 
 	// Description:
-	// Function to set box type to up button.
-	void setUpButtonBox(Fl_Boxtype _box) { up_button_.box(_box); }
-	// Description:
-	// Function to get the up button box type.
-	Fl_Boxtype getUpButtonBox() const { up_button_.box(); }
-
-	// Description:
-	// Function to set box type to down button.
-	void setDownButtonBox(Fl_Boxtype _box) { down_button_.box(_box); }
-	// Description:
-	// Function to get the down button box type.
-	Fl_Boxtype getDownButtonBox() const { down_button_.box(); }
+	// Function that sets the flags used to decide when a callback is called.
+	void when(uchar i);
 
 	// Description:
 	// Function to get a reference to up button.

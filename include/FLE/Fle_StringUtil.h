@@ -64,7 +64,7 @@ public:
 	// Extract file extension from a given file path.
 	static std::string extractFileExt(const std::string& _path);
 	// Description:
-	// Extract directory path from a given file path.
+	// Extract directory path (without back-slash) from a given file path.
 	static std::string extractDirectory(const std::string& _path);
 	// Description:
 	// Change file extension of a give file path.
@@ -102,6 +102,14 @@ public:
 	}
 
 	// Description:
+	// Function to find the given string in the given string and replace it with the new string.
+	// auto s = replaceinString(str, " ", "-"); // replacing space with a dash.
+	static std::string replace(const std::string& _str, const std::string& _tofind, const std::string& _toreplace);
+	// Description:
+	// Function that convert the given string from single backslash to double backslash.
+	static void replaceWithDoubleBackslash(std::string& _path);
+
+	// Description:
 	// Function to find all lexicographic permutations of given string where 
 	// repetition of characters is allowed.
 	// Example:
@@ -125,6 +133,10 @@ public:
 	// It only counts up to 5 decimals. More than five decimals will give you zero.
 	// Example: getDecimalCount(0.001) will return 3.
 	static std::size_t getDecimalCount(double _num);
+
+	// Description:
+	// Function that returns a list of words separated by spaces.
+	static std::vector<std::string> splitByWhiteSpaces(const std::string& _str);
 };
 
 template std::string Fle_StringUtil::convertToString(int _val, int _precision);

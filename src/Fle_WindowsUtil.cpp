@@ -65,9 +65,8 @@ std::wstring Fle_WindowsUtil::string_to_wstring(const std::string& _str)
 {
 	std::wstring temp;
 #ifdef _WIN32
-	int len;
 	int slength = static_cast<int>(_str.length() + 1);
-	len = MultiByteToWideChar(CP_ACP, 0, _str.c_str(), slength, 0, 0);
+	int len = MultiByteToWideChar(CP_ACP, 0, _str.c_str(), slength, 0, 0);
 	wchar_t* buf = new wchar_t[len];
 	MultiByteToWideChar(CP_ACP, 0, _str.c_str(), slength, buf, len);
 	temp = buf;
@@ -278,3 +277,94 @@ void Fle_WindowsUtil::makeWindowAlwaysOnTop(bool _isontop)
 	#endif // _WIN32
 }
 
+std::vector<std::string> Fle_WindowsUtil::getAllFolders(const std::string& _folder_path)
+{
+	std::vector<std::string> folders;
+	#if defined(_WIN32)
+	WIN32_FIND_DATA FindFileData;
+	HANDLE hFind = FindFirstFile(_folder_path.data(), &FindFileData);
+	if (hFind != INVALID_HANDLE_VALUE)
+	{
+		do
+		{
+			if ((FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0 && (FindFileData.cFileName[0] != '.'))
+				folders.push_back(FindFileData.cFileName);
+
+		} while (FindNextFile(hFind, &FindFileData));
+	}
+	FindClose(hFind);
+	#endif // _WIN32
+	return folders;
+}
+
+void Fle_WindowsUtil::getAllFiles(const std::string& _folder_path, std::vector<std::string>& _outfolders)
+{
+#if defined(_WIN32)
+	WIN32_FIND_DATA FindFileData;
+	HANDLE hFind = FindFirstFile(_folder_path.data(), &FindFileData);
+	if (hFind != INVALID_HANDLE_VALUE)
+	{
+		do
+		{
+			//if ((FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0 && (FindFileData.cFileName[0] != '.'))
+			if ((FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0)
+				getAllFiles(FindFileData.cFileName, _outfolders);
+			else if(FindFileData.cFileName[0] != '.')
+				_outfolders.push_back(FindFileData.cFileName);
+
+		} while (FindNextFile(hFind, &FindFileData));
+	}
+	FindClose(hFind);
+#endif // _WIN32
+}
+
+std::vector<std::string> Fle_WindowsUtil::getAllFiles(const std::string& _folder_path)
+{
+	std::vector<std::string> dir;
+	getAllFiles(_folder_path, dir);
+	return dir;
+}
+
+void* Fle_WindowsUtil::createMutex(const char* _name)
+{
+	void* h = nullptr;
+	#if defined(_WIN32)
+	h = CreateMutex(nullptr, TRUE, _name);
+	unsigned long e = GetLastError();
+	if (e == ERROR_ALREADY_EXISTS)
+	{
+		CloseHandle(h);
+		return nullptr;
+	}
+	else if (e == ERROR_ACCESS_DENIED)
+	{
+		CloseHandle(h);
+		return nullptr;
+	}
+	#endif // _WIN32
+	return h;
+}
+
+#if defined _WIN32
+#include <intrin.h>
+void cpuid(int32_t(&_out)[4], int32_t _x) 
+{
+	__cpuidex(_out, _x, 0);
+}
+std::uint64_t xgetbv(std::uint32_t _x) 
+{
+	return _xgetbv(_x);
+}
+#else
+#include <cpuid.h>
+void cpuid(std::int32_t(&out)[4], std::int32_t x)
+{
+	__cpuid_count(x, 0, out[0], out[1], out[2], out[3]);
+}
+std::uint64_t xgetbv(std::uint32_t index)
+{
+	std::uint32_t eax, edx;
+	__asm__ __volatile__("xgetbv" : "=a"(eax), "=d"(edx) : "c"(index));
+	return ((uint64_t)edx << 32) | eax;
+}
+#endif

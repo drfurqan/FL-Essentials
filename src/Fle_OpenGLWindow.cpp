@@ -32,8 +32,8 @@ Fl_Gl_Window(_x, _y, _w, _h, _title),
 m_minsize(Fle_Size(10, 10)),
 m_maxsize(Fle_Size(Fl::w() + 1000, Fl::h() + 1000))
 {
-	mode(FL_DOUBLE | FL_RGB8 | FL_DEPTH | FL_ACCUM | FL_ALPHA | FL_STENCIL | FL_MULTISAMPLE);
-#ifdef WIN32
+	Fl_Gl_Window::mode(FL_RGB8 | FL_DOUBLE | FL_ALPHA | FL_DEPTH | FL_ACCUM | FL_STENCIL | FL_MULTISAMPLE);
+	#ifdef WIN32
 	icon(LoadIcon(fl_display, MAKEINTRESOURCE(_icon_index)));
 #endif // WIN32
 	color(fl_rgb_color(214, 219, 233));
@@ -64,8 +64,8 @@ Fl_Gl_Window(0, 0, _w, _h, _title),
 m_minsize(Fle_Size(10, 10)),
 m_maxsize(Fle_Size(Fl::w() + 1000, Fl::h() + 1000))
 {
-	mode(FL_DOUBLE | FL_RGB8 | FL_DEPTH | FL_ACCUM | FL_ALPHA | FL_STENCIL | FL_MULTISAMPLE);
-#ifdef WIN32
+	Fl_Gl_Window::mode(FL_RGB8 | FL_DOUBLE | FL_ALPHA | FL_DEPTH | FL_ACCUM | FL_STENCIL | FL_MULTISAMPLE);
+	#ifdef WIN32
 	icon(LoadIcon(fl_display, MAKEINTRESOURCE(_icon_index)));
 #endif // WIN32
 	color(fl_rgb_color(214, 219, 233));

@@ -87,6 +87,19 @@ public:
 	Fl_Boxtype getMenuBarItemsBoxType() const { return box(); }
 
 	// Description:
+	// Function to set ON or OFF state of the radio menu item.
+	bool setRadioItemOn(const char* _item_name, bool _state);
+	// Description:
+	// Function that returns false if the menu item is not checked and true otherwise.
+	bool isRadioItemOn(const char* _item_name);
+	// Description:
+	// Function to set ON or OFF state of the radio menu item.
+	bool setRadioItemOn(Fl_Callback* _cb, bool _state);
+	// Description:
+	// Function that returns false if the menu item is not checked and true otherwise.
+	bool isRadioItemOn(Fl_Callback* _cb);
+
+	// Description:
 	// Function to set ON or OFF state of the menu item (checkBox and radio).
 	bool setItemState(const char* _item_name, bool _state);
 	// Description:
@@ -120,13 +133,25 @@ public:
 	bool isRightClickPopupEnabled() const { return m_is_popup; }
 	// Description:
 	// Function to set popup items, callback, and the user data.
-	// This will the popup window that will appear when a use right clicks on the menu bar.
-	void setRightClickPopupCallback(Fl_Menu_Item* _p, Fl_Callback* _cb, void* _data)
+	// The popup window that will appear when a use right clicks on the menu bar.
+	void setRightClickPopupCallback(Fl_Menu_Item* _popup_items, Fl_Callback* _cb, void* _data)
 	{
-		p_rightclick_popup_items = _p;
+		p_rightclick_popup_items = _popup_items;
 		p_rightclick_popup_item_cb = _cb;
 		p_rightclick_popup_cb_data = _data;
 	}
+	// Description:
+	// Function to set popup menu items.
+	// The popup window that will appear when a use right clicks on the menu bar.
+	// Usage Example:
+	// static Fl_Menu_Item items[] =
+	// {
+	//	 { "\tUpdate Label...\t\t", 0, update_label_cb, this, 0 },
+
+	// { 0 }
+	// };
+	// menubar->setRightClickPopupMenuItems(items);
+	void setRightClickPopupMenuItems(Fl_Menu_Item* _popup_items) { p_rightclick_popup_items = _popup_items; }
 	// Description:
 	// Function to set a pointer to right click popup items.
 	void setRightClickPopupItems(Fl_Menu_Item* _p) { p_rightclick_popup_items = _p; }
@@ -157,14 +182,14 @@ protected:
 	// fl_polygon
 	// fl_arc
 	// fl_pie
-	virtual void draw();
+	virtual void draw() override;
 	// Description:
 	// Overloaded function that is being called inside the draw() function.
 	void draw(int _x, int _y, int _w, int _h);
 	
 	// Description:
 	// Function to handle right mouse click event.
-	int handle(int _e);
+	int handle(int _e) override;
 
 	Fl_Menu_Item* p_rightclick_popup_items;
 	Fl_Callback* p_rightclick_popup_item_cb;

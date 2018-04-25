@@ -305,7 +305,11 @@ public:
 	static int getInputs(int _w, int _h,				// width and height of the dialog window.
 		const char* _title,								// title of the dialog window.
 		const std::vector<const char*>& _labels,		// labels of input boxes.
-		std::vector<std::string>& _values);				// default or initial values (results will be stored in _values).
+		std::vector<std::string>& _values,
+		Fle_Font _label_prop = Fle_Font(14, fl_rgb_color(78, 196, 203), FL_ALIGN_LEFT, FL_HELVETICA_BOLD),				// _label properties
+		Fl_Color _text_bkgrnd_color = fl_rgb_color(78, 196, 203),		// background color of the text box.
+		Fl_Color _text_color = fl_rgb_color(78, 196, 203)		// text selection color
+		);				// default or initial values (results will be stored in _values).
 
 	// Description:
 	// Function to execute a dialog window that has one menu with items and it's label. 
@@ -502,6 +506,22 @@ public:
 		const char* _btn_text = "Ok"	// button text.
 	);
 
+	// Description:
+	// Function to execute a dialog window that has one input text box. 
+	//
+	// Example: 
+	// This example will create 1 input text box with 1 label.
+	//
+	// std::string filepath;
+	// if (Fle_Dialog::browse(450, 120, "Specify the file path or just press Ok to browse!", "Enter File Path: ", filepath))
+	// {
+	//	 std::cout << filepath << std::endl;
+	// }
+	static int browse(int _w, int _h, 				// width and height of the dialog window.
+		const char* _title,  							// title of the dialog window.
+		const char* _label,  							// label of input box.
+		const char* _filters,  							// filters for file browser.
+		std::string& _value); 							// default or initial value (result will be stored in _value).
 
 	// Description:
 	// Function to set a pointer to Ok button.

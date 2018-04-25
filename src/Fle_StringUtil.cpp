@@ -139,6 +139,26 @@ bool Fle_StringUtil::isFileExist(const std::string& _path)
 	return f.good();
 }
 
+std::string Fle_StringUtil::replace(const std::string& _str, const std::string& _tofind, const std::string& _toreplace)
+{
+	std::string s(_str);
+	std::size_t position = 0;
+	for (position = s.find(_tofind); position != std::string::npos; position = s.find(_tofind, position))
+		s.replace(position, 1, _toreplace);
+	return s;
+}
+void Fle_StringUtil::replaceWithDoubleBackslash(std::string& _path)
+{
+	for (int i = 0; i < _path.size(); i++)
+	{
+		if (_path[i] == '\\')
+		{
+			_path.insert(i, "\\");
+			i++;
+		}
+	}
+}
+
 static void LexicographicPermutations(const std::string& _input, const std::string& _output, std::vector<std::string>& _permutations)
 {
 	// base condition (permutation found)
@@ -209,4 +229,14 @@ std::size_t Fle_StringUtil::getDecimalCount(double _num)
 	std::stoi(s, &found);	// look for "."
 	std::size_t n = std::string(s).substr(found).size() - 1;
 	return n < 0 ? 0 : n;
+}
+
+std::vector<std::string> Fle_StringUtil::splitByWhiteSpaces(const std::string& _str)
+{
+	std::string buf;
+	std::stringstream ss(_str);
+	std::vector<std::string> tokens;
+	while (ss >> buf)
+		tokens.push_back(buf);
+	return tokens;
 }

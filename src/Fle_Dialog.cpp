@@ -24,6 +24,7 @@ If not, please contact Dr. Furqan Ullah immediately:
 #include <FLE/Fle_Input.h>
 #include <FLE/Fle_Spinner.h>
 #include <FLE/Fle_InputSlider.h>
+#include <FLE/Fle_FileDialog.h>
 
 #include <FL/Fl_Button.H>
 #include <FL/Fl_Multiline_Input.H>
@@ -206,7 +207,6 @@ int Fle_Dialog::getFloatInputSlider(int _w, int _h,
 	s->step(_step);
 	s->set_callback(_callback, _data);
 	s->getSlider()->when(FL_WHEN_CHANGED);
-	s->tooltip("Specify the number and then press 'Enter' to set it\nor change using the spinner up/down buttons.");
 
 	l->end();
 
@@ -350,7 +350,6 @@ int Fle_Dialog::getNumber(int _w, int _h,
 	s->maximum(_maximum);
 	s->step(_step);
 	s->when(FL_WHEN_CHANGED);
-	s->tooltip("Specify the number and then press 'Enter' to set it\nor change using the spinner up/down buttons.");
 
 	l->end();
 
@@ -485,7 +484,6 @@ int Fle_Dialog::getNumbers(int _w, int _h, const char* _title,
 		s[i]->maximum(_maximums[i]);
 		s[i]->step(_steps[i]);
 		s[i]->when(FL_WHEN_CHANGED);
-		s[i]->tooltip("Specify the number and then press 'Enter' to set it\nor change using the spinner up/down buttons.");
 
 		//s[i]->box(FL_FLAT_BOX);
 		//s[i]->color(fl_rgb_color(74, 84, 89));
@@ -630,7 +628,6 @@ int Fle_Dialog::getNumbers(int _w, int _h, const char* _title,
 		s[i]->maximum(_maximums[i]);
 		s[i]->step(_steps[i]);
 		s[i]->when(FL_WHEN_CHANGED);
-		s[i]->tooltip("Specify the number and then press 'Enter' to set it\nor change using the spinner up/down buttons.");
 
 		//s[i]->box(FL_FLAT_BOX);
 		//s[i]->color(fl_rgb_color(74, 84, 89));
@@ -826,7 +823,10 @@ int Fle_Dialog::getInput(int _w, int _h, const char* _title, const char* _label,
 int Fle_Dialog::getInputs(int _w, int _h, 
 	const char* _title,
 	const std::vector<const char*>& _labels,
-	std::vector<std::string>& _values)
+	std::vector<std::string>& _values,
+	Fle_Font _label_prop,
+	Fl_Color _text_bkgrnd_color,
+	Fl_Color _text_color)
 {
 	Fle_Dialog* d = new Fle_Dialog(_w, _h, _title, 58, 0, 0);
 	d->callback(static_dialog_cb, d);
@@ -852,17 +852,19 @@ int Fle_Dialog::getInputs(int _w, int _h,
 		Fle_Box* b = new Fle_Box(0, 0, static_cast<int>(n * 7), 25);
 		b->color(fl_rgb_color(74, 84, 89));
 		b->setText(_labels[i]);
-		b->getFont()->setColor(fl_rgb_color(255, 255, 255));
-		b->getFont()->setAlignment(FL_ALIGN_LEFT);
+		b->getFont()->setColor(_label_prop.getColor());
+		b->getFont()->setAlignment(_label_prop.getAlignment());
+		b->getFont()->setFace(_label_prop.getFace());
+		b->getFont()->setSize(_label_prop.getSize());
 
 		// create a input with the adjusted size.
 		s[i] = new Fle_Input(0, 0, _w - b->w() - 32, 25, 0);
 		s[i]->box(FL_FLAT_BOX);
 		s[i]->justify(FL_ALIGN_LEFT);
-		s[i]->color(fl_rgb_color(255, 255, 255));
+		s[i]->color(_text_bkgrnd_color);
 		s[i]->value(std::string(_values[i]).c_str());
-		s[i]->textcolor(fl_rgb_color(0, 0, 0));
-		s[i]->textsize(13);
+		s[i]->textcolor(_text_color);
+		s[i]->textsize(12);
 
 		// end packing.
 		l->end();
@@ -1449,6 +1451,95 @@ int Fle_Dialog::exec()
 				if (o == p_cancel || o == this)
 				{
 					Fl::delete_widget(this);
+					return 0;
+				}
+			}
+		}
+	}
+	return 0;
+}
+
+int Fle_Dialog::browse(int _w, int _h, const char* _title, const char* _label, const char* _filters, std::string& _value)
+{
+	Fle_Dialog* d = new Fle_Dialog(_w, _h, _title, 58, 0, 0);
+	d->callback(static_dialog_cb, d);
+	d->setMargins(10, 10, 10, 10);
+
+	Fle_HLayout* l = d->getCentralLayout()->addHLayout(25);
+
+	l->begin();
+
+	Fle_Input* s = new Fle_Input(0, 0, _w - 25, 25, _label);
+	s->box(FL_FLAT_BOX);
+	s->justify(FL_ALIGN_LEFT);
+	s->color(fl_rgb_color(255, 255, 255));
+	if(!_value.empty())
+		s->value(std::string(_value).c_str());
+	s->textcolor(fl_rgb_color(0, 0, 0));
+	s->textsize(13);
+
+	l->end();
+
+	Fle_HLayoutLR* hl1 = d->getStatusBar()->addLayoutLR(23);
+	hl1->setBackgroundColor(74, 84, 89);
+
+	hl1->beginRight();
+
+	Fle_Button* ok = new Fle_Button(0, 0, 90, 22, "Ok");
+	ok->color(fl_rgb_color(74, 84, 89));
+	ok->selection_color(fl_rgb_color(74, 84, 89));
+	ok->labelcolor(fl_rgb_color(255, 255, 255));
+	ok->labelsize(12);
+	d->setOkButton(ok);
+
+	Fle_Button* cancel = new Fle_Button(0, 0, 90, 22, "Cancel");
+	cancel->color(fl_rgb_color(74, 84, 89));
+	cancel->selection_color(fl_rgb_color(74, 84, 89));
+	cancel->labelcolor(fl_rgb_color(255, 255, 255));
+	cancel->labelsize(12);
+	d->setCancelButton(cancel);
+
+	hl1->endRight();
+
+	// set dialog's margins.
+	d->getCentralLayout()->getCentralLayout()->setMargins(10, 10, 15, 0);
+	// set statusbar's margins and height.
+	d->getStatusBar()->getCentralLayout()->setMargins(10, 10, 10, 0);
+	d->setStatusBarFixedHeight(58);
+
+	d->setResizeable(false);
+	d->hotspot(ok);
+	d->set_modal();
+	d->show();
+	int X, Y, W, H;
+	Fl::screen_work_area(X, Y, W, H);
+	d->position(X + W / 2 - _w / 2, Y + H / 2 - _h / 2);
+
+	while (d->shown())
+	{
+		Fl::wait();
+		Fl_Widget* o;
+		while ((o = Fl::readqueue()) && d->shown())
+		{
+			if (o == ok)
+			{
+				_value = std::string(s->value());
+				if (_value.empty())
+				{
+					Fle_FileDialog dlg;
+					int n = dlg.browsSingleFile(_filters, _title);
+					if (n > 0)
+						_value = dlg.getPath(0);
+				}
+				Fl::delete_widget(d);
+				return 1;
+			}
+			else
+			{
+				if (o == cancel || o == d)
+				{
+					d->hide();
+					Fl::delete_widget(d);
 					return 0;
 				}
 			}

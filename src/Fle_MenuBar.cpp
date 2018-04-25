@@ -89,7 +89,7 @@ int Fle_MenuBar::handle(int _e)
 	case FL_PUSH:
 		if (Fl::event_button() == FL_RIGHT_MOUSE) 
 		{
-			if (p_rightclick_popup_items && p_rightclick_popup_item_cb && p_rightclick_popup_cb_data && m_is_popup)
+			if (p_rightclick_popup_items && m_is_popup)
 			{
 				Fl_Menu_Button mb(Fl::event_x(), Fl::event_y(), 0, 0);
 				mb.box(FL_FLAT_BOX);
@@ -103,7 +103,8 @@ int Fle_MenuBar::handle(int _e)
 				mb.clear_visible_focus();
 
 				mb.menu(p_rightclick_popup_items);
-				mb.callback(p_rightclick_popup_item_cb, p_rightclick_popup_cb_data);
+				if (p_rightclick_popup_item_cb && p_rightclick_popup_cb_data)
+					mb.callback(p_rightclick_popup_item_cb, p_rightclick_popup_cb_data);
 				mb.popup();
 			}
 			return 1;          // tells caller we handled this event
@@ -161,6 +162,39 @@ Fl_Color Fle_MenuBar::getSelectionColor() const
 	//return cv::Vec3b(r, g, b);
 }
 
+bool Fle_MenuBar::setRadioItemOn(const char* _item_name, bool _state)
+{
+	Fl_Menu_Item* m = (Fl_Menu_Item*)find_item(_item_name);
+	if (m)
+	{
+		if (_state) m->setonly();
+		else m->clear();
+
+		return true;
+	}
+	return false;
+}
+bool Fle_MenuBar::isRadioItemOn(const char* _item_name)
+{
+	return getItemState(_item_name);
+}
+bool Fle_MenuBar::setRadioItemOn(Fl_Callback* _cb, bool _state)
+{
+	Fl_Menu_Item* m = (Fl_Menu_Item*)find_item(_cb);
+	if (m)
+	{
+		if (_state) m->setonly();
+		else m->clear();
+
+		return true;
+	}
+	return false;
+}
+bool Fle_MenuBar::isRadioItemOn(Fl_Callback* _cb)
+{
+	return getItemState(_cb);
+}
+
 bool Fle_MenuBar::setItemState(const char* _item_name, bool _state)
 {
 	Fl_Menu_Item* m = (Fl_Menu_Item*)find_item(_item_name);
@@ -178,7 +212,7 @@ bool Fle_MenuBar::getItemState(const char* _item_name)
 	Fl_Menu_Item* m = (Fl_Menu_Item*)find_item(_item_name);
 	if (m)
 	{
-		if (m->value())
+		if (m->value() > 0)
 			return true;
 	}
 	return false;
@@ -200,7 +234,7 @@ bool Fle_MenuBar::getItemState(Fl_Callback* _cb)
 	Fl_Menu_Item* m = (Fl_Menu_Item*)find_item(_cb);
 	if (m)
 	{
-		if (m->value())
+		if (m->value() > 0)
 			return true;
 	}
 	return false;

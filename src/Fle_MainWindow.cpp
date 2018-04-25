@@ -168,6 +168,7 @@ void Fle_MainWindow::resize(int _x, int _y, int _w, int _h)
 	Fle_Window::resize(_x, _y, _w, _h);
 	updateContents();
 }
+
 void Fle_MainWindow::size(int _w, int _h)
 {
 	Fle_Window::size(_w, _h);
@@ -226,6 +227,7 @@ void Fle_MainWindow::toggleMenuBar()
 	if (p_menubar->visible()) p_menubar->hide();
 	else p_menubar->show();
 	updateContents();
+	size(w(), h());
 }
 void Fle_MainWindow::toggleTopToolBar()
 {
@@ -311,7 +313,7 @@ void Fle_MainWindow::setStatusBarFixedHeight(int _h)
 
 void Fle_MainWindow::updateGeometry()
 {
-	if (!visible())
+	if (!shown())
 		return;
 
 	// This is the only solution that I found to update the geometry contents after show().
@@ -321,12 +323,15 @@ void Fle_MainWindow::updateGeometry()
 	// time which is 0.01 here.
 	// updated: 
 	// with hide and show that do not change the size of the window.
+
 	std::function<void()> f = [&]()
 	{
-		hide();
-		show();
+		int W = w();
+		int H = h();
+		size(W - 1, H - 1);
+		size(W + 8, H + 8);
 	};
-	Fle_Timer::singleShot(0.001, f);
+	Fle_Timer::singleShot(0.1, f);
 }
 void Fle_MainWindow::updateContents()
 {
@@ -679,9 +684,14 @@ void Fle_MainWindow::updateContents()
 			);
 	}
 
-	if (p_menubar->visible()) p_toptoolbar->position(0, p_menubar->h());
-	else  p_toptoolbar->position(0, 0);
-	if (p_statusbar->visible()) p_statusbar->position(0, Fle_Window::h() - p_statusbar->h());
+	if (p_menubar->visible()) 
+		p_toptoolbar->position(0, p_menubar->h());
+	else  
+		p_toptoolbar->position(0, 0);
+
+	if (p_statusbar->visible()) 
+		p_statusbar->position(0, Fle_Window::h() - p_statusbar->h());
+
 	p_lefttoolbar->resize(0, p_centralarea->y(), p_lefttoolbar->w(), p_centralarea->h());
 	p_righttoolbar->resize(p_centralarea->x() + p_centralarea->w() + gap + m_rightmargin, p_centralarea->y(), p_righttoolbar->w(), p_centralarea->h());
 }

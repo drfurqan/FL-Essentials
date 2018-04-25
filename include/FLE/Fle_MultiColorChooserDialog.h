@@ -1,17 +1,18 @@
 #pragma once
-#ifndef Fle_ColorChoosers_h__
-#define Fle_ColorChoosers_h__
+#ifndef Fle_MultiColorChooserDialog_h__
+#define Fle_MultiColorChooserDialog_h__
 
 /*********************************************************************************
 created:	2017/11/22   04:02AM
-filename: 	Fle_ColorChoosers.h
-file base:	Fle_ColorChoosers
+filename: 	Fle_MultiColorChooserDialog.h
+file base:	Fle_MultiColorChooserDialog
 file ext:	h
 author:		Furqan Ullah (Post-doc, Ph.D.)
 website:    http://real3d.pk
 CopyRight:	All Rights Reserved
 
-purpose:	Customized standard color choosers.
+purpose:	customized multi color dialog that creates two color choosers
+inside of a dialog box with OK, Cancel, and Default buttons.
 
 usage example:
 
@@ -22,10 +23,9 @@ window->GetBackground(b1);
 window->GetBackground2(b2);
 
 Fle_ColorChooser* c = new Fle_ColorChooser(600, 240, "Select background color");
-c->setDefaultColors(0.809 * 255, 0.762 * 255, 0.856 * 255, 0.66 * 255, 0.689 * 255, 0.851 * 255);
 c->getChooser1()->callback(bg_color1_cb, mw);
 c->getChooser2()->callback(bg_color2_cb, mw);
-if (c->exec() == 0)
+if (c->exec() == 0) // 0 for canceled
 {
 	window->SetBackground(b1[0], b1[1], b1[2]);
 	window->SetBackground2(b2[0], b2[1], b2[2]);
@@ -35,10 +35,10 @@ if (c->exec() == 0)
 // callback for the color chooser.
 void MainWindow::bg_color1_cb(Fl_Widget* _w, void* _p)
 {
-	MainWindow* mw = static_cast<MainWindow*>(_p);
+	auto mw = static_cast<MainWindow*>(_p);
 	if (!mw) return;
 
-	Fl_Color_Chooser* c = static_cast<Fl_Color_Chooser*>(_w);
+	auto c = static_cast<Fl_Color_Chooser*>(_w);
 	if (!c) return;
 
 	mw->window->SetBackground(c->r(), c->g(), c->b());
@@ -69,20 +69,22 @@ namespace R3D
 // Class that creates two color choosers inside of a dialog box
 // with OK, Cancel, and Default buttons.
 
-class FL_ESSENTIALS_EXPORT Fle_ColorChoosers
+class FL_ESSENTIALS_EXPORT Fle_MultiColorChooserDialog
 {
 public:
 	// Description:
 	// Constructor to create a color choose widget.
-	Fle_ColorChoosers(int _w, int _h, const char* _title = "Color Chooser");
+	Fle_MultiColorChooserDialog(int _w = 600, int _h = 240, 
+		double _r1 = 0.0, double _g1 = 0.0, double _b1 = 0.0, 
+		double _r2 = 0.29, double _g2 = 0.33, double _b2 = 0.35, 
+		const char* _title = "Choose Colors");
 	// Description:
 	// Destructor to release data.
-	virtual ~Fle_ColorChoosers();
+	virtual ~Fle_MultiColorChooserDialog();
 
 	// Description:
 	// Function to set the default color of the color chooser.
-	void setDefaultColors(unsigned char _r1, unsigned char _g1, unsigned char _b1,
-		unsigned char _r2, unsigned char _g2, unsigned char _b2);
+	void setDefaultColors(double _r1, double _g1, double _b1, double _r2, double _g2, double _b2);
 	
 	// Description:
 	// Function to execute the color chooser.
@@ -106,8 +108,8 @@ protected:
 	Fle_Button* p_ok;
 	Fle_Button* p_reset;
 	Fle_Button* p_cancel;
-	unsigned char m_default_color1[3];
-	unsigned char m_default_color2[3];
+	double m_default_color1[3];
+	double m_default_color2[3];
 
 private:
 	Fle_ColorChooser* p_cc1;
@@ -119,4 +121,4 @@ private:
 
 }
 
-#endif // Fle_ColorChoosers_h__
+#endif // Fle_MultiColorChooserDialog_h__

@@ -1,13 +1,14 @@
 /*********************************************************************************
 created:	2017/11/22   04:02AM
-filename: 	Fle_ColorChoosers.cpp
-file base:	Fle_ColorChoosers
-file ext:	h
+filename: 	Fle_MultiColorChooserDialog.cpp
+file base:	Fle_MultiColorChooserDialog
+file ext:	cpp
 author:		Furqan Ullah (Post-doc, Ph.D.)
 website:    http://real3d.pk
 CopyRight:	All Rights Reserved
 
-purpose:	Customized standard color choosers.
+purpose:	customized multi color dialog that creates two color choosers
+inside of a dialog box with OK, Cancel, and Default buttons.
 
 /**********************************************************************************
 FL-ESSENTIALS (FLE) - FLTK Utility Widgets
@@ -18,16 +19,22 @@ You should have received a copy of this license with this file.
 If not, please contact Dr. Furqan Ullah immediately:
 **********************************************************************************/
 
-#include <FLE/Fle_ColorChoosers.h>
+#include <FLE/Fle_MultiColorChooserDialog.h>
 
 using namespace R3D;
 
-// Description:
-// Class that creates two color choosers inside of a dialog box
-// with OK, Cancel, and Default buttons.
-
-Fle_ColorChoosers::Fle_ColorChoosers(int _w, int _h, const char* _title)
+Fle_MultiColorChooserDialog::Fle_MultiColorChooserDialog(int _w, int _h, 
+	double _r1, double _g1, double _b1, 
+	double _r2, double _g2, double _b2, 
+	const char* _title)
 {
+	m_default_color1[0] = _r1;
+	m_default_color1[1] = _g1;
+	m_default_color1[2] = _b1;
+	m_default_color2[0] = _r2;
+	m_default_color2[1] = _g2;
+	m_default_color2[2] = _b2;
+
 	p_dialog = new Fle_Dialog(_w, _h, _title, 58, 0, 0);
 	p_dialog->setBackgroundColor(74, 84, 89);
 	p_dialog->callback(close_cb, p_dialog);
@@ -37,12 +44,11 @@ Fle_ColorChoosers::Fle_ColorChoosers(int _w, int _h, const char* _title)
 
 	p_layout = p_dialog->getCentralLayout()->addHLayout(150);
 
-	setDefaultColors(74, 84, 89, 74, 84, 89);
 	p_layout->begin();
 	{
 		p_cc1 = new Fle_ColorChooser(0, 0, 285, 150);
 		p_cc1->box(FL_FLAT_BOX);
-		p_cc1->rgb(m_default_color1[0] / 255.0, m_default_color1[1] / 255.0, m_default_color1[2] / 255.0);
+		p_cc1->rgb(_r1, _g1, _b1);
 		p_cc1->color(fl_rgb_color(74, 84, 89));
 		p_cc1->color2(fl_rgb_color(74, 84, 89));
 		p_cc1->selection_color(fl_rgb_color(74, 84, 89));
@@ -53,7 +59,7 @@ Fle_ColorChoosers::Fle_ColorChoosers(int _w, int _h, const char* _title)
 		
 		p_cc2 = new Fle_ColorChooser(0, 0, 285, 150);
 		p_cc2->box(FL_FLAT_BOX);
-		p_cc2->rgb(m_default_color2[0] / 255.0, m_default_color2[1] / 255.0, m_default_color2[2] / 255.0);
+		p_cc2->rgb(_r2, _g2, _b2);
 		p_cc2->color(fl_rgb_color(74, 84, 89));
 		p_cc2->color2(fl_rgb_color(74, 84, 89));
 		p_cc2->selection_color(fl_rgb_color(74, 84, 89));
@@ -64,7 +70,7 @@ Fle_ColorChoosers::Fle_ColorChoosers(int _w, int _h, const char* _title)
 	}
 	p_layout->end();
 
-	Fle_HLayoutLR* hl1 = p_dialog->getStatusBar()->addLayoutLR(23);
+	auto hl1 = p_dialog->getStatusBar()->addLayoutLR(23);
 	hl1->setBackgroundColor(74, 84, 89);
 	hl1->beginRight();
 	{
@@ -102,11 +108,11 @@ Fle_ColorChoosers::Fle_ColorChoosers(int _w, int _h, const char* _title)
 	p_dialog->position(X + W / 2 - _w / 2, Y + H / 2 - _h / 2);
 }
 
-Fle_ColorChoosers::~Fle_ColorChoosers()
+Fle_MultiColorChooserDialog::~Fle_MultiColorChooserDialog()
 {
 }
 
-void Fle_ColorChoosers::close_cb(Fl_Widget* _w, void* _p)
+void Fle_MultiColorChooserDialog::close_cb(Fl_Widget* _w, void* _p)
 {
 	Fle_Dialog* d = static_cast<Fle_Dialog*>(_p);
 	if (!d) return;
@@ -114,18 +120,17 @@ void Fle_ColorChoosers::close_cb(Fl_Widget* _w, void* _p)
 	Fl::delete_widget(d);
 }
 
-void Fle_ColorChoosers::default_colors_cb(Fl_Widget* _w, void* _p)
+void Fle_MultiColorChooserDialog::default_colors_cb(Fl_Widget* _w, void* _p)
 {
-	Fle_ColorChoosers* cc = static_cast<Fle_ColorChoosers*>(_p);
+	auto cc = static_cast<Fle_MultiColorChooserDialog*>(_p);
 	if (!cc) return;
-	cc->p_cc1->rgb(cc->m_default_color1[0] / 255.0, cc->m_default_color1[1] / 255.0, cc->m_default_color1[2] / 255.0);
-	cc->p_cc2->rgb(cc->m_default_color2[0] / 255.0, cc->m_default_color2[1] / 255.0, cc->m_default_color2[2] / 255.0);
+	cc->p_cc1->rgb(cc->m_default_color1[0], cc->m_default_color1[1], cc->m_default_color1[2]);
+	cc->p_cc2->rgb(cc->m_default_color2[0], cc->m_default_color2[1], cc->m_default_color2[2]);
 	cc->p_cc1->do_callback();
 	cc->p_cc2->do_callback();
 }
 
-void Fle_ColorChoosers::setDefaultColors(unsigned char _r1, unsigned char _g1, unsigned char _b1,
-	unsigned char _r2, unsigned char _g2, unsigned char _b2)
+void Fle_MultiColorChooserDialog::setDefaultColors(double _r1, double _g1, double _b1, double _r2, double _g2, double _b2)
 {
 	m_default_color1[0] = _r1;
 	m_default_color1[1] = _g1;
@@ -133,9 +138,10 @@ void Fle_ColorChoosers::setDefaultColors(unsigned char _r1, unsigned char _g1, u
 	m_default_color2[0] = _r2;
 	m_default_color2[1] = _g2;
 	m_default_color2[2] = _b2;
+	default_colors_cb(0, this);
 }
 
-int Fle_ColorChoosers::exec()
+int Fle_MultiColorChooserDialog::exec()
 {
 	p_dialog->show();
 	while (p_dialog->shown())
@@ -161,5 +167,6 @@ int Fle_ColorChoosers::exec()
 			}
 		}
 	}
+
 	return 0;
 }
