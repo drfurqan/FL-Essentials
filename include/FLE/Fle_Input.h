@@ -41,7 +41,7 @@ public:
 	Fle_InputWidget(int _x, int _y, int _w, int _h, const char* _lable = 0);
 
 protected:
-	int handle(int _event);
+	int handle(int _event) override;
 
 private:
 	static void copy_cb(Fl_Widget*, void*);
@@ -103,7 +103,7 @@ public:
 	Fl_Box* getLabelBox() const { return p_label; }
 
 protected:
-	int handle(int _event);
+	int handle(int _event) override;
 
 private:
 	Fle_InputWidget* p_input;

@@ -149,7 +149,7 @@ std::string Fle_StringUtil::replace(const std::string& _str, const std::string& 
 }
 void Fle_StringUtil::replaceWithDoubleBackslash(std::string& _path)
 {
-	for (int i = 0; i < _path.size(); i++)
+	for (std::size_t i = 0; i < _path.size(); i++)
 	{
 		if (_path[i] == '\\')
 		{

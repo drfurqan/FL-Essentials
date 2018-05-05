@@ -188,7 +188,7 @@ protected:
 	// fl_polygon
 	// fl_arc
 	// fl_pie
-	virtual void draw();
+	virtual void draw() override;
 	// Description:
 	// Overloaded function that is being called inside the draw() function.
 	void draw(int _x, int _y, int _w, int _h);

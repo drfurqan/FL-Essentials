@@ -38,7 +38,7 @@ public:
 	Fle_Group(int _x, int _y, int _w, int _h, const char* _title = 0);
 
 protected:
-	void draw();
+	virtual void draw() override;
 };
 
 }

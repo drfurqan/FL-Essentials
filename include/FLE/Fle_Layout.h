@@ -70,7 +70,7 @@ public:
 	bool isAutoSizeEnabled() const { return m_isauto; }
 
 protected:
-	void draw();
+	virtual void draw() override;
 
 	bool m_isauto;
 };

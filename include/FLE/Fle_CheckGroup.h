@@ -73,7 +73,7 @@ public:
 	void setOffsetSize(int _size);
 
 protected:
-	void draw();
+	virtual void draw() override;
 
 	Fl_Check_Button* p_chkbtn;
 	int m_spacesize;

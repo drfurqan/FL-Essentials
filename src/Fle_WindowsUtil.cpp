@@ -277,59 +277,15 @@ void Fle_WindowsUtil::makeWindowAlwaysOnTop(bool _isontop)
 	#endif // _WIN32
 }
 
-std::vector<std::string> Fle_WindowsUtil::getAllFolders(const std::string& _folder_path)
-{
-	std::vector<std::string> folders;
-	#if defined(_WIN32)
-	WIN32_FIND_DATA FindFileData;
-	HANDLE hFind = FindFirstFile(_folder_path.data(), &FindFileData);
-	if (hFind != INVALID_HANDLE_VALUE)
-	{
-		do
-		{
-			if ((FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0 && (FindFileData.cFileName[0] != '.'))
-				folders.push_back(FindFileData.cFileName);
-
-		} while (FindNextFile(hFind, &FindFileData));
-	}
-	FindClose(hFind);
-	#endif // _WIN32
-	return folders;
-}
-
-void Fle_WindowsUtil::getAllFiles(const std::string& _folder_path, std::vector<std::string>& _outfolders)
-{
-#if defined(_WIN32)
-	WIN32_FIND_DATA FindFileData;
-	HANDLE hFind = FindFirstFile(_folder_path.data(), &FindFileData);
-	if (hFind != INVALID_HANDLE_VALUE)
-	{
-		do
-		{
-			//if ((FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0 && (FindFileData.cFileName[0] != '.'))
-			if ((FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0)
-				getAllFiles(FindFileData.cFileName, _outfolders);
-			else if(FindFileData.cFileName[0] != '.')
-				_outfolders.push_back(FindFileData.cFileName);
-
-		} while (FindNextFile(hFind, &FindFileData));
-	}
-	FindClose(hFind);
-#endif // _WIN32
-}
-
-std::vector<std::string> Fle_WindowsUtil::getAllFiles(const std::string& _folder_path)
-{
-	std::vector<std::string> dir;
-	getAllFiles(_folder_path, dir);
-	return dir;
-}
-
 void* Fle_WindowsUtil::createMutex(const char* _name)
 {
 	void* h = nullptr;
 	#if defined(_WIN32)
+	#ifdef _UNICODE
+	h = CreateMutex(nullptr, TRUE, string_to_wstring(_name).c_str());
+	#else
 	h = CreateMutex(nullptr, TRUE, _name);
+	#endif // _UNICODE
 	unsigned long e = GetLastError();
 	if (e == ERROR_ALREADY_EXISTS)
 	{

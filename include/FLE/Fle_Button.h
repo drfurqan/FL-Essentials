@@ -187,7 +187,7 @@ public:
 protected:
 	// Description:
 	// Function to be called when close (top right) button is clicked (for internal use).
-	virtual int handle(int _event);
+	virtual int handle(int _event) override;
 	// Description:
 	// A virtual function that is expected to be overridden in the derived class for
 	// drawing FLTK widgets such as 
@@ -198,7 +198,7 @@ protected:
 	// fl_polygon
 	// fl_arc
 	// fl_pie
-	virtual void draw();
+	virtual void draw() override;
 	// Description:
 	// Overloaded function that is being called inside the draw() function.
 	void draw(int _x, int _y, int _w, int _h);

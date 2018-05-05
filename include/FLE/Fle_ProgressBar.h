@@ -44,8 +44,7 @@ public:
 	double value() const;
 
 protected:
-	void draw();
-
+	virtual void draw() override;
 };
 
 }
