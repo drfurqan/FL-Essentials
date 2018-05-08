@@ -52,9 +52,9 @@ void Fle_ImageWidget::clear(const cv::Vec3b& _color)
 
 void Fle_ImageWidget::draw()
 {
-	draw(Fl_Widget::x(), Fl_Widget::y(), Fl_Widget::w(), Fl_Widget::h());
+	drawImage(Fl_Widget::x(), Fl_Widget::y(), Fl_Widget::w(), Fl_Widget::h());
 }
-void Fle_ImageWidget::draw(int _x, int _y, int _w, int _h)
+void Fle_ImageWidget::drawImage(int _x, int _y, int _w, int _h)
 {	
 	if (m_image.empty()) return;
 	if (m_image.cols <= 0 || m_image.rows <= 0) return;
@@ -78,9 +78,9 @@ void Fle_ImageWidget::draw(int _x, int _y, int _w, int _h)
 	cv::resize(m_image, m_fimage, m_isize, 0, 0, cv::INTER_LINEAR);
 	if (m_fimage.channels() == 4) cv::cvtColor(m_fimage, m_fimage, CV_BGRA2RGBA);
 	else if (m_fimage.channels() == 3) cv::cvtColor(m_fimage, m_fimage, CV_BGR2RGB);
-		
-	int X = _x + (_w - m_isize.width) / 2;
-	int Y = _y + (_h - m_isize.height) / 2;
+
+	const int X = _x + (_w - m_isize.width) / 2;
+	const int Y = _y + (_h - m_isize.height) / 2;
 
 	fl_push_clip(X, Y, m_isize.width, m_isize.height);
 
@@ -89,7 +89,6 @@ void Fle_ImageWidget::draw(int _x, int _y, int _w, int _h)
 	// fl_draw_image(m_fimage.datastart, X, Y, s.width, s.height, m_fimage.channels(), m_fimage.step);
 	Fl_RGB_Image o(m_fimage.datastart, m_isize.width, m_isize.height, m_fimage.channels(), static_cast<int>(m_fimage.step));
 	o.draw(X, Y);	// Fl_RGB_Image works fine with the transparent PNG images.
-
 	fl_pop_clip();
 }
 
@@ -151,7 +150,7 @@ cv::Mat Fle_ImageWidget::getImage() const
 	return m;
 }
 
-bool Fle_ImageWidget::saveImage(const std::string& _filename, const std::vector<int>& _compression_params)
+bool Fle_ImageWidget::saveImage(const std::string& _filename, const std::vector<int>& _compression_params) const
 {
 	if (m_image.empty()) return false;
 

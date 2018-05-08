@@ -24,8 +24,6 @@ If not, please contact Dr. Furqan Ullah immediately:
 
 #include <FLE/Fle_ImageUtil.h>
 
-#include <FL/Fl_Box.H>
-
 #include <opencv2/opencv.hpp>
 
 namespace R3D
@@ -53,7 +51,7 @@ public:
 	void setImageDrawType(Fle_ImageDrawType _type) { m_dtype = _type; resetZoom(); }
 	// Description:
 	// Function to get the image draw type.
-	Fle_ImageDrawType getImageDrawType() { return m_dtype; }
+	Fle_ImageDrawType getImageDrawType() const { return m_dtype; }
 
 	// Description:
 	// Function to set an image as background.
@@ -71,7 +69,7 @@ public:
 	// compression_params.push_back(IMWRITE_PNG_COMPRESSION);
 	// compression_params.push_back(9);
 	// saveImage("D:\\a.png", compression_params);
-	bool saveImage(const std::string& _filename, const std::vector<int>& _compression_params = std::vector<int>());
+	bool saveImage(const std::string& _filename, const std::vector<int>& _compression_params = std::vector<int>()) const;
 
 	// Description:
 	// Function to set the file path used for loadImage().
@@ -116,7 +114,7 @@ protected:
 	virtual void draw() override;
 	// Description:
 	// Overloaded function that is being called inside the draw() function.
-	void draw(int _x, int _y, int _w, int _h);
+	void drawImage(int _x, int _y, int _w, int _h);
 
 	cv::Mat m_image;
 	cv::Mat m_fimage;

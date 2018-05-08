@@ -86,13 +86,13 @@ void Fle_Box::draw()
 
 	Fle_ImageWidget::draw();
 
-	draw(
+	drawText(
 		Fle_ImageWidget::x() + m_leftmargin, 
 		Fle_ImageWidget::y() + m_topmargin, 
 		Fle_ImageWidget::w() - m_rightmargin - m_leftmargin,
 		Fle_ImageWidget::h() - m_bottommargin - m_topmargin);
 }
-void Fle_Box::draw(int _x, int _y, int _w, int _h)
+void Fle_Box::drawText(int _x, int _y, int _w, int _h)
 {
 	if (!m_text.empty() && m_istext)
 	{

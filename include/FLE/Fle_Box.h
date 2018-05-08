@@ -191,7 +191,7 @@ protected:
 	virtual void draw() override;
 	// Description:
 	// Overloaded function that is being called inside the draw() function.
-	void draw(int _x, int _y, int _w, int _h);
+	void drawText(int _x, int _y, int _w, int _h);
 	
 	Fle_Font m_font;
 	bool m_istext;
