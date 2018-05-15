@@ -175,8 +175,8 @@ void Fle_HLayoutLR::endRight()
 void Fle_HLayoutLR::resize(int _x, int _y, int _w, int _h)
 {
 	Fle_Window::resize(_x, _y, _w, _h);
-	p_left->size(_w - p_right->getGeometryWidth(), _h);
-	p_right->size(p_right->getGeometryWidth(), _h);
+	p_left->size(_w - p_right->getGeometryWidth(), _h - m_topmargin - m_bottommargin);
+	p_right->size(p_right->getGeometryWidth(), _h - m_topmargin - m_bottommargin);
 }
 void Fle_HLayoutLR::setBackgroundColor(uchar _red, uchar _green, uchar _blue) 
 { 

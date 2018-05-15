@@ -67,6 +67,19 @@ public:
 	virtual void size(int _w, int _h);
 
 	// Description:
+	// Function to set the width of the window.
+	void setWidth(int _w) { size(_w, h()); }
+	// Description:
+	// Function to get the width of the window.
+	auto getWidth() const { return w(); }
+	// Description:
+	// Function to set the height of the window.
+	void setHeight(int _h) { size(w(), _h); }
+	// Description:
+	// Function to get the height of the window.
+	auto getHeight() const { return h(); }
+
+	// Description:
 	// Function to redraw/update the window.
 	// Both update() and redraw() do the same work.
 	virtual void redraw();

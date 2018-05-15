@@ -252,13 +252,13 @@ void Fle_Button::draw()
 
 	draw_backdrop();
 
-	draw(
+	draw_(
 		Fl_Button::x() + m_leftmargin, 
 		Fl_Button::y() + m_topmargin, 
 		Fl_Button::w() - m_rightmargin, 
 		Fl_Button::h() - m_bottommargin);
 }
-void Fle_Button::draw(int _x, int _y, int _w, int _h)
+void Fle_Button::draw_(int _x, int _y, int _w, int _h)
 {
 	int X = _x + Fl::box_dx(box());
 	int Y = _y + Fl::box_dy(box());

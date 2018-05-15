@@ -201,7 +201,7 @@ protected:
 	virtual void draw() override;
 	// Description:
 	// Overloaded function that is being called inside the draw() function.
-	void draw(int _x, int _y, int _w, int _h);
+	void draw_(int _x, int _y, int _w, int _h);
 	
 	Fl_Shared_Image* p_on;
 	Fl_Shared_Image* p_off;

@@ -45,7 +45,6 @@ Fl_Group(_x, _y, _w, _h, _l)
 	step(1);
 	color(fl_rgb_color(240, 240, 240));
 	selection_color(fl_rgb_color(144, 200, 246));
-
 	end();
 
 	p_func = nullptr;
