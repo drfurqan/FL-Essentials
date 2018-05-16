@@ -89,6 +89,7 @@ void Fle_ImageWidget::drawImage(int _x, int _y, int _w, int _h)
 	// fl_draw_image(m_fimage.datastart, X, Y, s.width, s.height, m_fimage.channels(), m_fimage.step);
 	Fl_RGB_Image o(m_fimage.datastart, m_isize.width, m_isize.height, m_fimage.channels(), static_cast<int>(m_fimage.step));
 	o.draw(X, Y);	// Fl_RGB_Image works fine with the transparent PNG images.
+	
 	fl_pop_clip();
 }
 
@@ -142,12 +143,19 @@ cv::Mat Fle_ImageWidget::getImage() const
 	// http://www.fltk.org/doc-1.3/advanced.html#advanced_multithreading
 	// I'm drawing from a different (not main) thread, therefore, FLTK needs to be locked up.
 
-	cv::Mat m;
 	Fl::lock();				// acquire the lock
-	m = m_image.clone();
+	cv::Mat m = m_image.clone();
 	Fl::unlock();			// release the lock; allow other threads to access FLTK again
 	Fl::awake();			// use Fl::awake() to signal main thread to refresh the GUI
 	return m;
+}
+cv::Size Fle_ImageWidget::getImageSize() const
+{
+	Fl::lock();				// acquire the lock
+	cv::Size s(m_image.cols, m_image.rows);
+	Fl::unlock();			// release the lock; allow other threads to access FLTK again
+	Fl::awake();			// use Fl::awake() to signal main thread to refresh the GUI
+	return s;
 }
 
 bool Fle_ImageWidget::saveImage(const std::string& _filename, const std::vector<int>& _compression_params) const
@@ -176,9 +184,10 @@ bool Fle_ImageWidget::saveImage(const std::string& _filename, const std::vector<
 	return b;
 }
 
-void Fle_ImageWidget::resetZoom()
+void Fle_ImageWidget::resetZoom(const cv::Size& _img_size)
 {
-	if (m_image.empty()) return;
+	if (_img_size.width == 0 || _img_size.height == 0)
+		return;
 
 	m_zoom = 1.0;
 
@@ -188,15 +197,15 @@ void Fle_ImageWidget::resetZoom()
 	{
 		cv::Size s;
 		if (m_dtype == Fle_ImageDrawType::Fit)
-			s = Fle_ImageUtil::getNewSizeKeepAspectRatio(m_image.cols, m_image.rows, g->w(), g->h());
+			s = Fle_ImageUtil::getNewSizeKeepAspectRatio(_img_size.width, _img_size.height, g->w(), g->h());
 		else if (m_dtype == Fle_ImageDrawType::Stretch)
 			s = cv::Size(g->w(), g->h());
 		else if (m_dtype == Fle_ImageDrawType::Center)
 		{
-			if(m_image.cols > g->w() || m_image.rows > g->h())
-				s = Fle_ImageUtil::getNewSizeKeepAspectRatio(m_image.cols, m_image.rows, g->w(), g->h());
+			if(_img_size.width > g->w() || _img_size.height > g->h())
+				s = Fle_ImageUtil::getNewSizeKeepAspectRatio(_img_size.width, _img_size.height, g->w(), g->h());
 			else
-				s = cv::Size(m_image.cols, m_image.rows);
+				s = cv::Size(_img_size.width, _img_size.height);
 		}
 		size(s.width, s.height);
 		position(static_cast<int>((g->w() - Fl_Widget::w()) / 2), static_cast<int>((g->h() - Fl_Widget::h()) / 2));
@@ -204,26 +213,35 @@ void Fle_ImageWidget::resetZoom()
 	}
 }
 
+void Fle_ImageWidget::resetZoom()
+{
+	resetZoom(getImageSize());
+}
+
 void Fle_ImageWidget::zoomIn()
 {
-	if (m_image.empty()) return;
-	if (m_dtype != Fle_ImageDrawType::Center) return;	// zooming only works with ImageDrawType::Original.
+	if (m_dtype != Fle_ImageDrawType::Center)
+		return;	// zooming only works with ImageDrawType::Original.
 
 	scaleImage(m_zoom_factors[0]);
 	redraw();
 }
 void Fle_ImageWidget::zoomOut()
 {
-	if (m_image.empty()) return;
-	if (m_dtype != Fle_ImageDrawType::Center) return;	// zooming only works with ImageDrawType::Original.
+	if (m_dtype != Fle_ImageDrawType::Center) 
+		return;	// zooming only works with ImageDrawType::Original.
 
 	scaleImage(m_zoom_factors[1]);
 	redraw();
 }
 void Fle_ImageWidget::scaleImage(double _factor)
 {
-	if (m_image.empty()) return;
-	if (m_dtype != Fle_ImageDrawType::Center) return;	// zooming only works with ImageDrawType::Original.
+	const cv::Size imgsize = getImageSize();
+	if (imgsize.width == 0 || imgsize.height == 0)
+		return;
+
+	if (m_dtype != Fle_ImageDrawType::Center) 
+		return;	// zooming only works with ImageDrawType::Original.
 
 	// set box size by multiplying with the zoom factor.
 	m_zoom *= _factor;
@@ -242,10 +260,10 @@ void Fle_ImageWidget::scaleImage(double _factor)
 		}
 		else
 		{
-			if (m_image.cols >= g->w() || m_image.rows >= g->h())
-				m_isize = Fle_ImageUtil::getNewSizeKeepAspectRatio(m_image.cols, m_image.rows, static_cast<int>(g->w() * m_zoom), static_cast<int>(g->h() * m_zoom));
+			if (imgsize.width >= g->w() || imgsize.height >= g->h())
+				m_isize = Fle_ImageUtil::getNewSizeKeepAspectRatio(imgsize.width, imgsize.height, static_cast<int>(g->w() * m_zoom), static_cast<int>(g->h() * m_zoom));
 			else
-				m_isize = Fle_ImageUtil::getNewSizeKeepAspectRatio(m_image.cols, m_image.rows, static_cast<int>(m_image.cols * m_zoom), static_cast<int>(m_image.rows * m_zoom));
+				m_isize = Fle_ImageUtil::getNewSizeKeepAspectRatio(imgsize.width, imgsize.height, static_cast<int>(imgsize.width * m_zoom), static_cast<int>(imgsize.height * m_zoom));
 		}
 	}
 	

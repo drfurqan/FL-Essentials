@@ -79,14 +79,12 @@ public:
 	std::string getFilePath() const { return m_filepath; }
 
 	// Description:
-	// Function to get the loaded image width.
-	int getImageWidth() const { return m_image.cols; }
-	// Description:
-	// Function to get the loaded image height.
-	int getImageHeight() const { return m_image.rows; }
+	// Function to get the loaded image size.
+	cv::Size getImageSize() const;
 
 	// Description:
 	// Function to reset zooming.
+	void resetZoom(const cv::Size& _img_size);
 	void resetZoom();
 	// Description:
 	// Function that resizes the size of this widget with a scale of 0.8.

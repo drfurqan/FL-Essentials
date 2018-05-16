@@ -184,6 +184,11 @@ void Fle_MainWindow::update()
 {
 	redraw();
 }
+void Fle_MainWindow::draw()
+{
+	Fle_Window::draw();
+
+}
 
 int Fle_MainWindow::keyPressEvent(int _key)
 {

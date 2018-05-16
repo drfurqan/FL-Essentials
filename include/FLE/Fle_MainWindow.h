@@ -225,6 +225,9 @@ public:
 
 protected:
 	// Description:
+	// Overridden function for all kinds of OpenGL rendering.
+	virtual void draw() override;
+	// Description:
 	// Overridden function to set the Ctr+Shift+m keys for toggling main menubar.
 	virtual int keyPressEvent(int _key) override;	// keyboard key press events.
 

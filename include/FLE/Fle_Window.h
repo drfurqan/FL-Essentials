@@ -237,6 +237,10 @@ protected:
 	// This function should have "hide()" function in order to close or hide the window.
 	virtual void closeEvent();
 
+	// Description:
+	// Overridden function for all kinds of OpenGL rendering.
+	virtual void draw() override;
+
 	Fle_Timer m_timer;
 	Fle_Idle m_idle;
 
@@ -248,10 +252,6 @@ protected:
 	Fle_Box* p_box;
 
 private:
-	// Description:
-	// Overridden function for all kinds of OpenGL rendering.
-	virtual void draw() override;
-
 	// Description:
 	// Function to be called when close (top right) button is clicked (for internal use).
 	static void closeCallback(Fl_Widget* _w, void* _p);

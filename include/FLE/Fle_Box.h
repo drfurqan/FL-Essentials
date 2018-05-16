@@ -166,6 +166,7 @@ public:
 	// Function to get the bottom margin in pixels.
 	int getBottomMargin() const { return m_bottommargin; }
 
+	// Description:
 	// Function to set the box margins in pixels, 
 	// meaning that the space (as border) on the sides of the box.
 	// default value is setMargins(0,0,0,0).
@@ -176,6 +177,19 @@ public:
 		m_topmargin = _top;
 		m_bottommargin = _bottom;
 	}
+
+	// Description:
+	// Function to set the region of interest for the border frame.
+	void setBorderRoi(const cv::Rect& _roi) { m_roi = _roi; }
+	// Description:
+	// Function to get the region of interest for the border frame.
+	cv::Rect getBorderRoi() const { return m_roi; }
+	// Description:
+	// Function to set the region of interest enabled.
+	void setBorderEnabled(const bool _b) { m_isroi = _b; }
+	// Description:
+	// Function that returns true if the region of interest is enabled.
+	bool isBorderEnabled() const { return m_isroi; }
 
 protected:
 	// Description:
@@ -210,6 +224,8 @@ protected:
 	cv::Point m_fixedpos;
 	bool m_isfixedx;
 	bool m_isfixedy;
+	cv::Rect m_roi;
+	bool m_isroi;
 };
 
 }

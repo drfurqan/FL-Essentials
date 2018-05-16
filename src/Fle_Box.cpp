@@ -28,20 +28,22 @@ If not, please contact Dr. Furqan Ullah immediately:
 using namespace R3D;
 
 Fle_Box::Fle_Box(int _x, int _y, int _w, int _h, const char* _title) :
-Fle_ImageWidget(_x, _y, _w, _h, _title),
-m_text(""),
-m_istext(true),
-m_autoSize(false),
-m_type(Fl_Boxtype::FL_NO_BOX),
-m_leftmargin(0),
-m_rightmargin(0),
-m_topmargin(0),
-m_bottommargin(0),
-m_minsize(cv::Size(1, 1)),
-m_maxsize(cv::Size(Fl::w() + 10000000, Fl::h() + 10000000)),
-m_isfixedx(false),
-m_isfixedy(false),
-m_fixedpos(cv::Point(_x, _y))
+	Fle_ImageWidget(_x, _y, _w, _h, _title),
+	m_text(""),
+	m_istext(true),
+	m_autoSize(false),
+	m_type(Fl_Boxtype::FL_NO_BOX),
+	m_leftmargin(0),
+	m_rightmargin(0),
+	m_topmargin(0),
+	m_bottommargin(0),
+	m_minsize(cv::Size(1, 1)),
+	m_maxsize(cv::Size(Fl::w() + 10000000, Fl::h() + 10000000)),
+	m_isfixedx(false),
+	m_isfixedy(false),
+	m_fixedpos(cv::Point(_x, _y)),
+	m_isroi(false),
+	m_roi(cv::Rect(0, 0, _w, _h))
 {
 	box(Fl_Boxtype::FL_NO_BOX);
 	align(FL_ALIGN_WRAP | FL_ALIGN_INSIDE | FL_ALIGN_CENTER | FL_ALIGN_TEXT_OVER_IMAGE | FL_ALIGN_CLIP);
@@ -85,6 +87,17 @@ void Fle_Box::draw()
 		Fle_ImageWidget::color());
 
 	Fle_ImageWidget::draw();
+
+	if (m_isroi)
+	{
+		draw_box(
+			Fl_Boxtype::FL_BORDER_FRAME,
+			m_roi.x,
+			m_roi.y,
+			m_roi.width,
+			m_roi.height,
+			fl_rgb_color(1, 0, 0));
+	}
 
 	drawText(
 		Fle_ImageWidget::x() + m_leftmargin, 
