@@ -9,7 +9,7 @@ C++ish interface). The directory structure is: <br/>
 -  /examples (Examples to illustrate possible use cases for FLE)
 -  /include/FLE (Public header C and C++ header files) <br/>	
 -  /include/FLE/Math (Classes for 3D math and OpenGL programming)
--  /lib (Weblinks for Static libraries for VS2013, VS2015) <br/>	
+-  /lib (Prebuild static libraries for VS2017) <br/>	
 -  /src	 (Source code) <br/>						
 <br/>
 
