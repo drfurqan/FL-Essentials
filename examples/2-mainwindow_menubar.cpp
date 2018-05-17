@@ -54,8 +54,8 @@ int main()
 	w->setMaximumSize(Fle_Size(10000, 10000));
 
 	// load image from disk and display in the central widget.
-	w->getCentralWidget()->getBox()->loadImage("D:\\aw.jpg");
-	w->getCentralWidget()->getBox()->setImageDrawType(Fle_ImageDrawType::Fit);
+	w->getCentralWindow()->getBox()->loadImage("D:\\aw.jpg");
+	w->getCentralWindow()->getBox()->setImageDrawType(Fle_ImageDrawType::Fit);
 
 	// show the menubar and set it's fixed height.
 	w->getMenuBar()->show();

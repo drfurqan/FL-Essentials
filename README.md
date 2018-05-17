@@ -31,7 +31,7 @@ Written by  Dr. Furqan Ullah.
 Report bugs to drfurqan@users.noreply.github.com.
 
 ## Copyright
-Copyright (c) 2017 Dr. Furqan Ullah.
+Copyright (c) 2018 Dr. Furqan Ullah.
 
 ## See Also
 Source code at: <https://github.com/drfurqan/FL-Essentials>.

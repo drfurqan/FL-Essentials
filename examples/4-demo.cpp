@@ -99,12 +99,12 @@ int main()
 	w->getStatusBar()->show();
 
 	// load image from disk and display in the central widget.
-	w->getCentralWidget()->getBox()->loadImage("D:\\aw.jpg");
-	w->getCentralWidget()->getBox()->setImageDrawType(Fle_ImageDrawType::Fit);
+	w->getCentralWindow()->getBox()->loadImage("D:\\aw.jpg");
+	w->getCentralWindow()->getBox()->setImageDrawType(Fle_ImageDrawType::Fit);
 
 	// add OpenGL window in the central widget.
 	//w->begin();
-	//Fle_OpenGLWindow* opengl = new Fle_OpenGLWindow(0, 0, w->getCentralWidget()->w(), w->getCentralWidget()->h(), "OpenGL Window");
+	//Fle_OpenGLWindow* opengl = new Fle_OpenGLWindow(0, 0, w->getCentralWindow()->w(), w->getCentralWindow()->h(), "OpenGL Window");
 	//w->end();
 
 	// set the menubar fixed height.

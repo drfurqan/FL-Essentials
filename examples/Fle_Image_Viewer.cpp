@@ -88,16 +88,16 @@ m_sstime(3)
 	callback(exit_cb, this);
 	setMargins(0, 0, 1, 2);
 	addMenuBar();
-	getMenuBar()->setRightClickMenuEnabled(false);
+	getMenuBar()->setRightClickPopupEnabled(false);
 	addToolBar();
 	addStatusBar();
 
 	// remove the previous box that was embedded in the central widget.
-	getCentralWidget()->remove(getCentralWidget()->getBox());
+	getCentralWindow()->remove(getCentralWindow()->getBox());
 
 	// now add a new box in the central widget.
 	begin();
-	p_scroll = new Fle_DND_ScrollBox(this, 0, 0, getCentralWidget()->w(), getCentralWidget()->h());
+	p_scroll = new Fle_DND_ScrollBox(this, 0, 0, getCentralWindow()->w(), getCentralWindow()->h());
 	p_scroll->getBox()->setImageDrawType(Fle_ImageDrawType::Center);
 	end();
 }
@@ -114,16 +114,16 @@ m_sstime(3)
 	callback(exit_cb, this);
 	setMargins(0, 0, 1, 2);
 	addMenuBar();
-	getMenuBar()->setRightClickMenuEnabled(false);
+	getMenuBar()->setRightClickPopupEnabled(false);
 	addToolBar();
 	addStatusBar();
 
 	// remove the previous box that was embedded in the central widget.
-	getCentralWidget()->remove(getCentralWidget()->getBox());
+	getCentralWindow()->remove(getCentralWindow()->getBox());
 
 	// now add a new box in the central widget.
 	begin();
-	p_scroll = new Fle_DND_ScrollBox(this, 0, 0, getCentralWidget()->w(), getCentralWidget()->h());
+	p_scroll = new Fle_DND_ScrollBox(this, 0, 0, getCentralWindow()->w(), getCentralWindow()->h());
 	p_scroll->getBox()->setImageDrawType(Fle_ImageDrawType::Center);
 	end();
 }
@@ -151,7 +151,7 @@ bool Fle_Image_Viewer::loadImage(const std::string& _filename)
 
 void Fle_Image_Viewer::updateTitle(const std::string& _s)
 {
-	m_ptitle = Fle_StringUtil::extractFileNameWithExt(_s) + " [" + std::to_string(getScrollBox()->getBox()->getImageWidth()) + " x " + std::to_string(getScrollBox()->getBox()->getImageHeight()) + "px" + "]" + " - " + m_title;
+	m_ptitle = Fle_StringUtil::extractFileNameWithExt(_s) + " [" + std::to_string(getScrollBox()->getBox()->getImageSize().width) + " x " + std::to_string(getScrollBox()->getBox()->getImageSize().height) + "px" + "]" + " - " + m_title;
 	label(m_ptitle.c_str());
 }
 void Fle_Image_Viewer::updateDirectoryPaths(const std::string& _file)
@@ -390,7 +390,7 @@ void Fle_Image_Viewer::print_cb(Fl_Widget* _w, void* _p)
 		int width, height;
 		printer->printable_rect(&width, &height);
 		printer->origin(width / 2, height / 2);
-		printer->print_widget(v->getCentralWidget(), -v->getScrollBox()->getBox()->w() / 2, -v->getScrollBox()->getBox()->h() / 2);
+		printer->print_widget(v->getCentralWindow(), -v->getScrollBox()->getBox()->w() / 2, -v->getScrollBox()->getBox()->h() / 2);
 		printer->end_page();
 		printer->end_job();
 	}
@@ -420,7 +420,7 @@ void Fle_Image_Viewer::copy_cb(Fl_Widget* _w, void* _p)
 
 	Fl_Copy_Surface *copy_surf = new Fl_Copy_Surface(v->getScrollBox()->getBox()->w(), v->getScrollBox()->getBox()->h());
 	copy_surf->set_current();				// direct graphics requests to the clipboard
-	copy_surf->draw(v->getCentralWidget()); // draw the g widget in the clipboard
+	copy_surf->draw(v->getCentralWindow()); // draw the g widget in the clipboard
 	delete copy_surf;						// after this, the clipboard is loaded
 	Fl_Display_Device::display_device()->set_current();  // direct graphics requests back to the display
 
@@ -536,7 +536,7 @@ void Fle_Image_Viewer::resize_cb(Fl_Widget* _w, void* _p)
 			if (check) s = Fle_ImageUtil::getNewSizeKeepAspectRatio(src.cols, src.rows, static_cast<int>(_values[0]), static_cast<int>(_values[1]));
 			cv::resize(src, src, s, 0, 0, CV_INTER_CUBIC);
 			v->getScrollBox()->getBox()->setImage(src);
-			v->m_ptitle = Fle_StringUtil::extractFileNameWithExt(v->m_dir_files[v->m_dir_nfile]) + " [" + std::to_string(v->getScrollBox()->getBox()->getImageWidth()) + " x " + std::to_string(v->getScrollBox()->getBox()->getImageHeight()) + "px" + "]" + " - " + v->m_title;
+			v->m_ptitle = Fle_StringUtil::extractFileNameWithExt(v->m_dir_files[v->m_dir_nfile]) + " [" + std::to_string(v->getScrollBox()->getBox()->getImageSize().width) + " x " + std::to_string(v->getScrollBox()->getBox()->getImageSize().height) + "px" + "]" + " - " + v->m_title;
 			v->label(v->m_ptitle.c_str());	// update title of this window.
 			v->redraw();
 			v->getStatusBar()->showMessage("Image has been resized...", 5);
@@ -713,9 +713,9 @@ void Fle_Image_Viewer::about_cb(Fl_Widget* _w, void* _p)
 
 	std::ostringstream sstream;
 	sstream <<
-		"<br><p>Written in FLE Version: 1.3.4</p>"
-		"<br><p>Release Date: 2017/07/01 12:44AM</p>"
-		"<br><p>Copyright(C) 2017</p>"
+		"<br><p>Written in FLE Version: 1.3.6</p>"
+		"<br><p>Release Date: 2018/05/17 12:44AM</p>"
+		"<br><p>Copyright(C) 2018</p>"
 		"<p><a href=\"http://real3d.pk/\">Website</a> " << "and <a href=\"http://blog.real3d.pk/\">Blog</a></p>"
 		"<br><p><b><i>For all questions and bug reports, email to info@real3d.pk.<b><i></p>"
 		"<br><p><b><i>Warning: This computer program is only for non-commercial purposes.<i></b></p>";

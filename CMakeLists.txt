@@ -14,7 +14,7 @@ project (fle)
 
 set(VERSION_MAJOR 1)
 set(VERSION_MINOR_0 3)
-set(VERSION_MINOR_1 5)
+set(VERSION_MINOR_1 6)
 set(VERSION_PLAIN ${VERSION_MAJOR}.${VERSION_MINOR_0}.${VERSION_MINOR_1})
 
 # ------------------------------------------------------------------------------
@@ -39,9 +39,12 @@ ${CMAKE_SOURCE_DIR}/src/Fle_Box.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_BoxWindow.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_Button.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_CheckGroup.cpp
+${CMAKE_SOURCE_DIR}/src/Fle_ColorChooser.cpp
+${CMAKE_SOURCE_DIR}/src/Fle_ColorChooserDialog.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_Core.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_Dialog.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_FileDialog.cpp
+${CMAKE_SOURCE_DIR}/src/Fle_FileSys.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_Font.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_Group.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_ImageUtil.cpp
@@ -52,6 +55,7 @@ ${CMAKE_SOURCE_DIR}/src/Fle_Layout.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_MainWindow.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_MenuBar.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_MessageBox.cpp
+${CMAKE_SOURCE_DIR}/src/Fle_MultiColorChooserDialog.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_OpenGLWindow.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_ProgressBar.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_ScrollBox.cpp
@@ -60,6 +64,7 @@ ${CMAKE_SOURCE_DIR}/src/Fle_StatusBar.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_StringUtil.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_Timer.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_ToolBar.cpp
+${CMAKE_SOURCE_DIR}/src/Fle_Tree.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_Widgets.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_Window.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_WindowsUtil.cpp
@@ -83,10 +88,13 @@ ${CMAKE_SOURCE_DIR}/include/FLE/Fle_BoxWindow.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_Button.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_CheckGroup.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_Color.h
+${CMAKE_SOURCE_DIR}/include/FLE/Fle_ColorChooser.h
+${CMAKE_SOURCE_DIR}/include/FLE/Fle_ColorChooserDialog.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_Core.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_Dialog.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_Export.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_FileDialog.h
+${CMAKE_SOURCE_DIR}/include/FLE/Fle_FileSys.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_Font.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_Group.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_ImageUtil.h
@@ -97,6 +105,7 @@ ${CMAKE_SOURCE_DIR}/include/FLE/Fle_Layout.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_MainWindow.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_MenuBar.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_MessageBox.h
+${CMAKE_SOURCE_DIR}/include/FLE/Fle_MultiColorChooserDialog.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_OpenGLWindow.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_ProgressBar.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_ScrollBox.h
@@ -106,6 +115,7 @@ ${CMAKE_SOURCE_DIR}/include/FLE/Fle_StatusBar.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_StringUtil.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_Timer.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_ToolBar.h
+${CMAKE_SOURCE_DIR}/include/FLE/Fle_Tree.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_Widgets.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_Window.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_WindowsUtil.h
