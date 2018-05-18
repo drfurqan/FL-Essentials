@@ -236,3 +236,46 @@ bool Fle_ImageUtil::batchResize(const std::string& _directory_path, int _w, int 
 	}
 	return b;
 }
+
+std::vector<cv::Mat> Fle_ImageUtil::splitChannels(const cv::Mat& _mat) const
+{
+	if (_mat.channels() < 1)
+		return std::vector<cv::Mat>{};
+
+	auto chan = std::unique_ptr<cv::Mat[]>(new cv::Mat[_mat.channels()]);
+	cv::split(_mat, chan.get());
+
+	std::vector<cv::Mat> result{};
+	for (int i = 0; i < _mat.channels(); i++)
+		result.emplace_back(chan[i]);
+
+	return result;
+}
+cv::Mat Fle_ImageUtil::mergeChannels(std::vector<cv::Mat> _mats) const
+{
+	if (_mats.size() <= 0)
+		throw std::invalid_argument{ "no input mat" };
+
+	// check
+	if (_mats.at(0).channels() != 1)
+		throw std::invalid_argument{ "mat 0 not 1 channel" };
+
+	int type = _mats.at(0).type();
+	auto size = _mats.at(0).size();
+
+	for (std::size_t i = 1; i < _mats.size(); i++)
+	{
+		if ((type != _mats.at(i).type()) || (size != _mats.at(i).size()))
+			throw std::invalid_argument{ "mats have different sizes or depths. (or not 1 channel)" };
+	}
+
+	cv::Mat result{ _mats.at(0).rows, _mats.at(0).cols, _mats.at(0).type() };
+
+	std::unique_ptr<cv::Mat[]> mergeinput(new cv::Mat[_mats.size()]);
+	for (std::size_t i = 0; i < _mats.size(); i++)
+		mergeinput[i] = _mats.at(i);
+
+	cv::merge(mergeinput.get(), _mats.size(), result);
+
+	return result;
+}

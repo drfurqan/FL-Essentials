@@ -133,7 +133,13 @@ public:
 	// set _with_aspect_ratio to true if images need to be resized with aspect ratio.
 	// Note: _directory_path should end with "\\".
 	static bool batchResize(const std::string& _directory_path, int _w, int _h, bool _with_aspect_ratio = true, int _interpolation = cv::InterpolationFlags::INTER_LINEAR);
-
+	
+	// Description:
+	// Function to split channels from the given mat.
+	std::vector<cv::Mat> splitChannels(const cv::Mat& _mat) const;
+	// Description:
+	// Function to merge the given channels.
+	cv::Mat mergeChannels(std::vector<cv::Mat> _mats) const;
 };
 
 template void Fle_ImageUtil::setPixel<unsigned char>(cv::Mat& _image, int _x, int _y, const unsigned char& _p);
