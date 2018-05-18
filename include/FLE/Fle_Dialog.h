@@ -267,6 +267,18 @@ public:
 		const std::vector<const char*>& _menus_lables,	// labels for menus.
 		std::vector< std::vector<std::string> >& _menus // menus and menu items.
 	);
+	// Description:
+	// Similar to above function, just the location of menus is at top.
+	static int getNumbers(int _w, int _h,				// width and height of the dialog window.
+		const char* _title,								// title of the dialog window.
+		const std::vector<const char*>& _menus_lables,	// labels for menus.
+		std::vector< std::vector<std::string> >& _menus, // menus and menu items.
+		const std::vector<const char*>& _labels,		// labels of input spinners.
+		std::vector<double>& _values,					// default or initial values (results will be stored in _values).
+		const std::vector<double>& _minimums,			// minimum values of the input spinners.
+		const std::vector<double>& _maximums,			// maximum values of the input spinners.
+		const std::vector<double>& _steps				// incremental/decremental steps of the input spinners.	
+	);
 
 	// Description:
 	// Function to execute a dialog window that has one input text box. 
