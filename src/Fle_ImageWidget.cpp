@@ -39,13 +39,12 @@ m_isize(cv::Size(_w, _h))
 
 Fle_ImageWidget::~Fle_ImageWidget()
 {
-	m_fimage.release();
 }
 void Fle_ImageWidget::clear(const cv::Vec3b& _color)
 {
 	cv::Mat m(m_isize, CV_8UC3);
-	for (int y = 0; y < m.rows; y++)
-		for (int x = 0; x < m.cols; x++)
+	for (auto y = 0; y < m.rows; y++)
+		for (auto x = 0; x < m.cols; x++)
 			Fle_ImageUtil::setPixel(m, x, y, _color);
 	setImage(m);
 }
@@ -54,7 +53,7 @@ void Fle_ImageWidget::draw()
 {
 	drawImage(Fl_Widget::x(), Fl_Widget::y(), Fl_Widget::w(), Fl_Widget::h());
 }
-void Fle_ImageWidget::drawImage(int _x, int _y, int _w, int _h)
+void Fle_ImageWidget::drawImage(const int _x, const int _y, const int _w, const int _h)
 {	
 	if (m_image.empty()) return;
 	if (m_image.cols <= 0 || m_image.rows <= 0) return;
@@ -72,50 +71,52 @@ void Fle_ImageWidget::drawImage(int _x, int _y, int _w, int _h)
 			m_isize = cv::Size(m_image.cols, m_image.rows);
 	}
 
-	m_fimage.release();
-	m_fimage = cv::Mat::zeros(m_isize, m_image.type());
+	const auto channel = m_image.channels();
 
-	cv::resize(m_image, m_fimage, m_isize, 0, 0, cv::INTER_LINEAR);
-	if (m_fimage.channels() == 4) cv::cvtColor(m_fimage, m_fimage, CV_BGRA2RGBA);
-	else if (m_fimage.channels() == 3) cv::cvtColor(m_fimage, m_fimage, CV_BGR2RGB);
+	cv::Mat fimage;
+	cv::resize(m_image, fimage, m_isize, 0, 0, cv::INTER_LINEAR);
+	if (channel == 4) cv::cvtColor(fimage, fimage, CV_BGRA2RGBA);
+	else if (channel == 3) cv::cvtColor(fimage, fimage, CV_BGR2RGB);
 
-	const int X = _x + (_w - m_isize.width) / 2;
-	const int Y = _y + (_h - m_isize.height) / 2;
+	const auto X = _x + (_w - m_isize.width) / 2;
+	const auto Y = _y + (_h - m_isize.height) / 2;
 
 	fl_push_clip(X, Y, m_isize.width, m_isize.height);
 
-	// fl_draw_image does not support (4-channels) transparent images like PNG. 
-	// It only support RGB (3-channels).
-	// fl_draw_image(m_fimage.datastart, X, Y, s.width, s.height, m_fimage.channels(), m_fimage.step);
-	Fl_RGB_Image o(m_fimage.datastart, m_isize.width, m_isize.height, m_fimage.channels(), static_cast<int>(m_fimage.step));
-	o.draw(X, Y);	// Fl_RGB_Image works fine with the transparent PNG images.
+	if (channel <= 3)
+	{
+		// fl_draw_image does not support (4-channels) transparent images like PNG. 
+		// It only support RGB (3-channels).
+		fl_draw_image(fimage.datastart, X, Y, m_isize.width, m_isize.height, fimage.channels(), static_cast<int>(fimage.step));
+	}
+	else
+	{
+		Fl_RGB_Image o(fimage.datastart, m_isize.width, m_isize.height, fimage.channels(), static_cast<int>(fimage.step));
+		o.draw(X, Y);	// Fl_RGB_Image works fine with the transparent PNG images.
+	}
 	
 	fl_pop_clip();
 }
 
 bool Fle_ImageWidget::loadImage(const std::string& _filename)
 {
-	if (_filename.empty()) return false;
+	if (_filename.empty())
+		return false;
+
 	try
 	{
-		Fl::lock();				// acquire the lock
-		m_image = cv::imread(_filename, CV_LOAD_IMAGE_UNCHANGED);
-		if (!m_image.empty())
+		auto img = cv::imread(_filename, CV_LOAD_IMAGE_UNCHANGED);
+		if (!img.empty())
 		{
-			redraw();
+			setImage(img);
 			m_filepath = _filename;
-			Fl::unlock();			// release the lock; allow other threads to access FLTK again
-			Fl::awake();			// use Fl::awake() to signal main thread to refresh the GUI
-
 			return true;
 		}
-		Fl::unlock();			// release the lock; allow other threads to access FLTK again
-		Fl::awake();			// use Fl::awake() to signal main thread to refresh the GUI
 	}
 	catch (const cv::Exception& _ex)
 	{
 		Fle_MessageBox::Error("Something went wrong in loading image file!");
-		std::cout << "Exception reading image from disk: %s\n" << _ex.what();
+		std::cout << "Exception reading image from disk: " << _ex.what() << "\n";
 	}
 	catch (...)
 	{
@@ -123,65 +124,64 @@ bool Fle_ImageWidget::loadImage(const std::string& _filename)
 	}
 	return false;
 }
+
 void Fle_ImageWidget::setImage(const cv::Mat& _image)
 {
 	// Details of multi-threaded programming in FLTK:
 	// http://www.fltk.org/doc-1.3/advanced.html#advanced_multithreading
 	// I'm drawing from a different (not main) thread, therefore, FLTK needs to be locked up.
-	
-	if (_image.empty()) return;
+
+	if (_image.empty()) 
+		return;
 
 	Fl::lock();				// acquire the lock
 	m_image = _image;
-	redraw();
 	Fl::unlock();			// release the lock; allow other threads to access FLTK again
-	Fl::awake();			// use Fl::awake() to signal main thread to refresh the GUI
 }
 cv::Mat Fle_ImageWidget::getImage() const
 {
-	// Details of multi-threaded programming in FLTK:
-	// http://www.fltk.org/doc-1.3/advanced.html#advanced_multithreading
-	// I'm drawing from a different (not main) thread, therefore, FLTK needs to be locked up.
-
+	cv::Mat m;
 	Fl::lock();				// acquire the lock
-	cv::Mat m = m_image.clone();
-	Fl::unlock();			// release the lock; allow other threads to access FLTK again
-	Fl::awake();			// use Fl::awake() to signal main thread to refresh the GUI
+	m = m_image.clone();
+	Fl::unlock();			// release the lock
 	return m;
 }
 cv::Size Fle_ImageWidget::getImageSize() const
 {
+	cv::Size s;
 	Fl::lock();				// acquire the lock
-	cv::Size s(m_image.cols, m_image.rows);
-	Fl::unlock();			// release the lock; allow other threads to access FLTK again
-	Fl::awake();			// use Fl::awake() to signal main thread to refresh the GUI
+	s = cv::Size(m_image.cols, m_image.rows);
+	Fl::unlock();			// release the lock
 	return s;
 }
 
 bool Fle_ImageWidget::saveImage(const std::string& _filename, const std::vector<int>& _compression_params) const
 {
-	if (m_image.empty()) return false;
-
-	bool b = true;
 	try 
 	{
 		Fl::lock();				// acquire the lock
+
+		if (m_image.empty())
+		{
+			Fl::unlock();			// release the lock
+			return false;
+		}
+
+		bool b;
 		b = cv::imwrite(_filename, m_image, _compression_params);
-		Fl::unlock();			// release the lock; allow other threads to access FLTK again
-		Fl::awake();			// use Fl::awake() to signal main thread to refresh the GUI
+		Fl::unlock();			// release the lock
+		return b;
 	}
 	catch (const cv::Exception& _ex)
 	{
 		Fle_MessageBox::Error("Something went wrong in saving image file!");
-		std::cout << "Exception converting image to PNG format: %s\n" << _ex.what();
-		b = false;
+		std::cout << "Exception converting image to PNG format: " << _ex.what() << "\n";
 	}
 	catch (...)
 	{
 		Fle_MessageBox::Error("Something went wrong in saving image file!");
-		b = false;
 	}
-	return b;
+	return false;
 }
 
 void Fle_ImageWidget::resetZoom(const cv::Size& _img_size)
@@ -192,7 +192,7 @@ void Fle_ImageWidget::resetZoom(const cv::Size& _img_size)
 	m_zoom = 1.0;
 
 	// interesting hack to adjust this widget's position and size in the parent widget.
-	Fl_Group* g = static_cast<Fl_Group*>(parent());
+	auto g = static_cast<Fl_Group*>(parent());
 	if (g)
 	{
 		cv::Size s;
@@ -234,9 +234,9 @@ void Fle_ImageWidget::zoomOut()
 	scaleImage(m_zoom_factors[1]);
 	redraw();
 }
-void Fle_ImageWidget::scaleImage(double _factor)
+void Fle_ImageWidget::scaleImage(const double _factor)
 {
-	const cv::Size imgsize = getImageSize();
+	const auto imgsize = getImageSize();
 	if (imgsize.width == 0 || imgsize.height == 0)
 		return;
 
@@ -249,7 +249,7 @@ void Fle_ImageWidget::scaleImage(double _factor)
 	// limit the zoom factor by 8.
 	if (m_zoom > 10.0)	m_zoom = 10.0;
 
-	Fl_Group* g = static_cast<Fl_Group*>(parent());
+	auto g = static_cast<Fl_Group*>(parent());
 	if (g)
 	{
 		// restrict the outward zooming.

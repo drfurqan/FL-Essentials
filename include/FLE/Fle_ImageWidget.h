@@ -23,6 +23,7 @@ If not, please contact Dr. Furqan Ullah immediately:
 **********************************************************************************/
 
 #include <FLE/Fle_ImageUtil.h>
+#include <Fl/Fl_Widget.H>
 
 #include <opencv2/opencv.hpp>
 
@@ -94,7 +95,7 @@ public:
 	void zoomIn();
 	// Description:
 	// Function that resizes the size of this widget with a scale of _factor.
-	void scaleImage(double _factor);
+	void scaleImage(const double _factor);
 
 	// Description:
 	// Function to set zoom in and out factors.
@@ -109,18 +110,17 @@ protected:
 	// Description:
 	// A virtual function that is expected to be overridden in the derived class for
 	// drawing FLTK widgets such as 
-	virtual void draw() override;
+	void draw() override;
 	// Description:
 	// Overloaded function that is being called inside the draw() function.
-	void drawImage(int _x, int _y, int _w, int _h);
+	void drawImage(const int _x, const int _y, const int _w, const int _h);
 
 	cv::Mat m_image;
-	cv::Mat m_fimage;
+	cv::Size m_isize;
+	cv::Vec2d m_zoom_factors;
 	Fle_ImageDrawType m_dtype;
 	std::string m_filepath;
-	cv::Vec2d m_zoom_factors;
 	double m_zoom;
-	cv::Size m_isize;
 };
 
 }

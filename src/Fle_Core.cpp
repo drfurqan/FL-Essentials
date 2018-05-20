@@ -81,8 +81,8 @@ void Fle_Core::init()
 	__update_system_colors(1);
 	fl_register_images();						// Initialize FLTK image lib (essential)
 
-	Fl_Shared_Image::scaling_algorithm(Fl_RGB_Scaling::FL_RGB_SCALING_BILINEAR);
-	Fl_Shared_Image::RGB_scaling(Fl_RGB_Scaling::FL_RGB_SCALING_BILINEAR);
+	Fl_Image::scaling_algorithm(Fl_RGB_Scaling::FL_RGB_SCALING_BILINEAR);
+	Fl_Image::RGB_scaling(Fl_RGB_Scaling::FL_RGB_SCALING_BILINEAR);
 	/************************************************************************/
 }
 
