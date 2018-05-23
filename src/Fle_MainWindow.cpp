@@ -131,7 +131,7 @@ m_bottommargin(0)
 	Fle_Window::setBackgroundColor(41, 57, 85);
 	getBox()->color(fl_rgb_color(41, 57, 85));
 	color(fl_rgb_color(41, 57, 85));
-	user_data((void*)this);
+	user_data(static_cast<void*>(this));
 	resizable(p_centralarea);
 	size_range(100, 100);
 
@@ -329,7 +329,7 @@ void Fle_MainWindow::updateGeometry()
 	// updated: 
 	// with hide and show that do not change the size of the window.
 
-	std::function<void()> f = [&]()
+	const std::function<void()> f = [&]()
 	{
 		int W = w();
 		int H = h();
@@ -703,11 +703,11 @@ void Fle_MainWindow::updateContents()
 
 void Fle_MainWindow::setBackgroundColor(uchar _red, uchar _green, uchar _blue)
 {
-	p_centralarea->setBackgroundColor(_red, _green, _blue);
 	Fle_Window::setBackgroundColor(_red, _green, _blue);
+	p_centralarea->setBackgroundColor(_red, _green, _blue);
 }
 void Fle_MainWindow::setBackgroundColor(Fl_Color _color)
 {
-	p_centralarea->setBackgroundColor(_color);
 	Fle_Window::setBackgroundColor(_color);
+	p_centralarea->setBackgroundColor(_color);
 }

@@ -134,10 +134,10 @@ public:
 
 	// Description:
 	// Function to set the background color of the widget.
-	void setBackgroundColor(uchar _red, uchar _green, uchar _blue);
+	virtual void setBackgroundColor(uchar _red, uchar _green, uchar _blue);
 	// Description:
 	// Function to set the background color of the widget.
-	void setBackgroundColor(Fl_Color _color);
+	virtual void setBackgroundColor(Fl_Color _color);
 	// Description:
 	// Function to get the background color of the widget.
 	Fl_Color getBackgroundColor() const;

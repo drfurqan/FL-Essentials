@@ -7,7 +7,7 @@ author:		Furqan Ullah (Post-doc, Ph.D.)
 website:    http://real3d.pk
 CopyRight:	All Rights Reserved
 
-purpose:	Customized image widget with load, save, zoom/pan support.
+purpose:	customized image widget with load, save, zoom/pan support.
 
 /**********************************************************************************
 FL-ESSENTIALS (FLE) - FLTK Utility Widgets
@@ -109,7 +109,7 @@ bool Fle_ImageWidget::loadImage(const std::string& _filename)
 		if (!img.empty())
 		{
 			setImage(img);
-			m_filepath = _filename;
+			setFileLocation(_filename);
 			return true;
 		}
 	}
@@ -123,6 +123,10 @@ bool Fle_ImageWidget::loadImage(const std::string& _filename)
 		Fle_MessageBox::Error("Something went wrong in loading image file!");
 	}
 	return false;
+}
+bool Fle_ImageWidget::loadImage()
+{
+	return loadImage(m_filename);
 }
 
 void Fle_ImageWidget::setImage(const cv::Mat& _image)
@@ -146,6 +150,7 @@ cv::Mat Fle_ImageWidget::getImage() const
 	Fl::unlock();			// release the lock
 	return m;
 }
+
 cv::Size Fle_ImageWidget::getImageSize() const
 {
 	cv::Size s;

@@ -11,7 +11,7 @@ author:		Furqan Ullah (Post-doc, Ph.D.)
 website:    http://real3d.pk
 CopyRight:	All Rights Reserved
 
-purpose:	Customized image widget with load, save, zoom/pan support.
+purpose:	customized image widget with load, save, zoom/pan support.
 
 /**********************************************************************************
 FL-ESSENTIALS (FLE) - FLTK Utility Widgets
@@ -49,7 +49,7 @@ public:
 	// Description:
 	// Function to set image draw type, meaning that how the image should be drawn inside the window.
 	// Note: zooming only wors with ImageDrawType::Center.
-	void setImageDrawType(Fle_ImageDrawType _type) { m_dtype = _type; resetZoom(); }
+	void setImageDrawType(const Fle_ImageDrawType _type) { m_dtype = _type; resetZoom(); }
 	// Description:
 	// Function to get the image draw type.
 	Fle_ImageDrawType getImageDrawType() const { return m_dtype; }
@@ -61,8 +61,12 @@ public:
 	// Function to get a clone of the background image.
 	cv::Mat getImage() const;
 	// Description:
-	// Function to set an image as background.
+	// Function to load an image from the given file path.
+	// _filename should a file name plus extension.
 	bool loadImage(const std::string& _filename);
+	// Description:
+	// Function to load an image from the path specified by setFilePath();
+	bool loadImage();
 	// Description:
 	// Function to save the current image to disk.
 	// example:
@@ -74,10 +78,11 @@ public:
 
 	// Description:
 	// Function to set the file path used for loadImage().
-	void setFilePath(const std::string& _filepath) { m_filepath = _filepath; }
+	// _filename should a file name plus extension.
+	void setFileLocation(const std::string& _filename) { m_filename = _filename; }
 	// Description:
 	// Function to get the file path used for loadImage().
-	std::string getFilePath() const { return m_filepath; }
+	auto getFileLocation() const { return m_filename; }
 
 	// Description:
 	// Function to get the loaded image size.
@@ -86,6 +91,8 @@ public:
 	// Description:
 	// Function to reset zooming.
 	void resetZoom(const cv::Size& _img_size);
+	// Description:
+	// Function to reset zooming.
 	void resetZoom();
 	// Description:
 	// Function that resizes the size of this widget with a scale of 0.8.
@@ -119,7 +126,7 @@ protected:
 	cv::Size m_isize;
 	cv::Vec2d m_zoom_factors;
 	Fle_ImageDrawType m_dtype;
-	std::string m_filepath;
+	std::string m_filename;
 	double m_zoom;
 };
 

@@ -83,10 +83,10 @@ public:
 
 	// Description:
 	// Function to set the background color of the widget.
-	void setBackgroundColor(uchar _red, uchar _green, uchar _blue);
+	void setBackgroundColor(uchar _red, uchar _green, uchar _blue) override;
 	// Description:
 	// Function to set the background color of the widget.
-	void setBackgroundColor(Fl_Color _color);
+	void setBackgroundColor(Fl_Color _color) override;
 
 	// Description:
 	// Function to toggle (show/hide) the menu bar.
@@ -221,7 +221,7 @@ public:
 	void setCentralWidget(Fle_Window* _w) { p_centralarea = _w; }
 	// Description:
 	// Function to get a pointer to central widget of this main window.
-	Fle_Window* getCentralWindow() const { return p_centralarea; }
+	Fle_Window* getCentralWidget() const { return p_centralarea; }
 
 protected:
 	// Description:
@@ -229,7 +229,7 @@ protected:
 	virtual void draw() override;
 	// Description:
 	// Overridden function to set the Ctr+Shift+m keys for toggling main menubar.
-	virtual int keyPressEvent(int _key) override;	// keyboard key press events.
+	virtual int keyPressEvent(int _key) override; // keyboard key press events.
 
 	// Description:
 	// Embedded central area of the MainWindow.
