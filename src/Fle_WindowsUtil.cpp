@@ -234,26 +234,26 @@ std::string Fle_WindowsUtil::getMsvcVersionString(int _msc_ver)
 /* Make Window Always on Top                                            */
 /************************************************************************/
 #if defined(_WIN32)
-BOOL CALLBACK EnumWindowsAlwaysOnTop(HWND _windowHandle, LPARAM _lParam)
+BOOL CALLBACK EnumWindowsAlwaysOnTop(HWND _window_handle, LPARAM _l_param)
 {
-	DWORD searchedProcessId = (DWORD)_lParam;  // This is the process ID we search for (passed from BringToForeground as lParam)
+	DWORD searchedProcessId = static_cast<DWORD>(_l_param);  // This is the process ID we search for (passed from BringToForeground as lParam)
 	DWORD windowProcessId = 0;
-	GetWindowThreadProcessId(_windowHandle, &windowProcessId); // Get process ID of the window we just found
+	GetWindowThreadProcessId(_window_handle, &windowProcessId); // Get process ID of the window we just found
 	if (searchedProcessId == windowProcessId)
 	{
-		SetWindowPos(_windowHandle, HWND_TOPMOST, 0, 0, 0, 0, SWP_SHOWWINDOW | SWP_NOSIZE | SWP_NOMOVE);
+		SetWindowPos(_window_handle, HWND_TOPMOST, 0, 0, 0, 0, SWP_SHOWWINDOW | SWP_NOSIZE | SWP_NOMOVE);
 		return 0;	// Stop enumerating windows
 	}
 	return 1;		// Continue enumerating
 }
-BOOL CALLBACK EnumWindowsNotAlwaysOnTop(HWND _windowHandle, LPARAM _lParam)
+BOOL CALLBACK EnumWindowsNotAlwaysOnTop(HWND _window_handle, LPARAM _l_param)
 {
-	unsigned long searchedProcessId = (unsigned long)_lParam;  // This is the process ID we search for (passed from BringToForeground as lParam)
+	unsigned long searchedProcessId = static_cast<unsigned long>(_l_param);  // This is the process ID we search for (passed from BringToForeground as lParam)
 	unsigned long windowProcessId = 0;
-	GetWindowThreadProcessId(_windowHandle, &windowProcessId); // Get process ID of the window we just found
+	GetWindowThreadProcessId(_window_handle, &windowProcessId); // Get process ID of the window we just found
 	if (searchedProcessId == windowProcessId)
 	{
-		SetWindowPos(_windowHandle, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_SHOWWINDOW | SWP_NOSIZE | SWP_NOMOVE);
+		SetWindowPos(_window_handle, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_SHOWWINDOW | SWP_NOSIZE | SWP_NOMOVE);
 		return 0;	// Stop enumerating windows
 	}
 	return 1;		// Continue enumerating
@@ -286,7 +286,7 @@ void* Fle_WindowsUtil::createMutex(const char* _name)
 	#else
 	h = CreateMutex(nullptr, TRUE, _name);
 	#endif // _UNICODE
-	unsigned long e = GetLastError();
+	const unsigned long e = GetLastError();
 	if (e == ERROR_ALREADY_EXISTS)
 	{
 		CloseHandle(h);
@@ -301,26 +301,21 @@ void* Fle_WindowsUtil::createMutex(const char* _name)
 	return h;
 }
 
-#if defined _WIN32
-#include <intrin.h>
-void cpuid(int32_t(&_out)[4], int32_t _x) 
+bool Fle_WindowsUtil::mutexAlreadyExists(const char* _name)
 {
-	__cpuidex(_out, _x, 0);
+	void* h = nullptr;
+	#if defined(_WIN32)
+	#ifdef _UNICODE
+	h = CreateMutex(nullptr, TRUE, string_to_wstring(_name).c_str());
+	#else
+	h = CreateMutex(nullptr, TRUE, _name);
+	#endif // _UNICODE
+	if (GetLastError() == ERROR_ALREADY_EXISTS)
+	{
+		CloseHandle(h);
+		return true;
+	}
+	#endif // _WIN32
+	CloseHandle(h);
+	return false;
 }
-std::uint64_t xgetbv(std::uint32_t _x) 
-{
-	return _xgetbv(_x);
-}
-#else
-#include <cpuid.h>
-void cpuid(std::int32_t(&out)[4], std::int32_t x)
-{
-	__cpuid_count(x, 0, out[0], out[1], out[2], out[3]);
-}
-std::uint64_t xgetbv(std::uint32_t index)
-{
-	std::uint32_t eax, edx;
-	__asm__ __volatile__("xgetbv" : "=a"(eax), "=d"(edx) : "c"(index));
-	return ((uint64_t)edx << 32) | eax;
-}
-#endif

@@ -140,10 +140,9 @@ public:
 	// Function that create a mutex and returns it's handle.
 	static void* createMutex(const char* _name);
 
-private:
 	// Description:
-	// Function that returns a list of all folders in the given folder.
-	static void getAllFiles(const std::string& _folder_path, std::vector<std::string>& _outfolders);
+	// Function that returns true if the given mutex name already exists.
+	static bool mutexAlreadyExists(const char* _name);
 };
 
 }

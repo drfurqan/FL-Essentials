@@ -32,8 +32,7 @@ Fl_Group(_x, _y, _w, _h, _l)
 
 	p_input = new Fl_Int_Input(_x + _w - _textbox_width, _y, _textbox_width, _h);
 	p_input->callback(input_cb_, (void*)this);
-	p_input->when(FL_WHEN_CHANGED);
-	//p_input->when(FL_WHEN_ENTER_KEY | FL_WHEN_NOT_CHANGED);
+	p_input->when(FL_WHEN_ENTER_KEY | FL_WHEN_NOT_CHANGED);
 
 	box(FL_UP_BOX);
 	align(FL_ALIGN_LEFT);
@@ -107,9 +106,7 @@ void Fle_InputSlider::input_cb()
 	else
 	{
 		recurse = 1;
-		int val = 0;
-		if (sscanf(p_input->value(), "%d", &val) != 1)
-			val = 0;
+		int val = std::stoi(p_input->value());
 
 		p_slider->value(val);
 
