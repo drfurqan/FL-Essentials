@@ -106,12 +106,13 @@ void Fle_InputSlider::input_cb()
 	else
 	{
 		recurse = 1;
-		int val = std::stoi(p_input->value());
-
-		p_slider->value(val);
+		int val = 0;
+		if (sscanf(p_input->value(), "%d", &val) != 1)
+			val = 0;
 
 		if (p_func)
 			(p_func)(val, p_ptr);
+
 		recurse = 0;
 	}
 }
