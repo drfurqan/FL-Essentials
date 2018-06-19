@@ -46,21 +46,42 @@ cv::Size Fle_ImageUtil::getNewSizeKeepAspectRatio(int _old_w, int _old_h, int _n
 	return cv::Size(_final_w, _final_h);
 }
 
-cv::Mat Fle_ImageUtil::getRotatedImage(cv::Mat& _img, float _angle, int _interpolation)
+cv::Mat Fle_ImageUtil::getRotatedImage(const cv::Mat& _img, const double _angle, const int _interpolation)
 {
-	// get rotation matrix for rotating the image around its center.
-	const cv::Point2f center(_img.cols / 2.f, _img.rows / 2.f);
-	auto rot = cv::getRotationMatrix2D(center, _angle, 1.0);
-	// determine bounding rectangle.
-	auto bbox = cv::RotatedRect(center, _img.size(), _angle).boundingRect();
-	// adjust transformation matrix.
-	rot.at<double>(0, 2) += bbox.width / 2.0 - center.x;
-	rot.at<double>(1, 2) += bbox.height / 2.0 - center.y;
+	cv::Mat dst;
+	if (_img.empty())
+		return dst;
 
-	cv::Mat rotated;
-	cv::warpAffine(_img, rotated, rot, bbox.size(), _interpolation);
+	if (_angle == 0.)
+	{
+		dst = _img;
+	}
+	if (_angle == 90.)
+	{
+		cv::transpose(_img, dst);
+		cv::flip(dst, dst, 0);
+	}
+	else if (_angle == 180.)
+	{
+		cv::flip(_img, dst, -1);
+	}
+	else if (_angle == 270.)
+	{
+		cv::transpose(_img, dst);
+		cv::flip(dst, dst, 1);
+	}
+	else
+	{
+		// get rotation matrix for rotating the image around its center.
+		const cv::Point2f center(_img.cols / 2.f, _img.rows / 2.f);
+		auto rot = cv::getRotationMatrix2D(center, _angle, 1.0);
+		auto bbox = cv::RotatedRect(center, _img.size(), _angle).boundingRect();		// determine bounding rectangle.
+		rot.at<double>(0, 2) += bbox.width / 2.0 - center.x;							// adjust transformation matrix.
+		rot.at<double>(1, 2) += bbox.height / 2.0 - center.y;
+		cv::warpAffine(_img, dst, rot, bbox.size(), _interpolation);
+	}
 
-	return rotated;
+	return dst;
 }
 
 void Fle_ImageUtil::convertToMat(Fl_Image* _img, cv::Mat& _dst, bool _swap_rgb)

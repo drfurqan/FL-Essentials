@@ -96,7 +96,8 @@ public:
 	// Description:
 	// Function to get a rotated image.
 	// Specify angle in degrees.
-	static cv::Mat getRotatedImage(cv::Mat& _img, float _angle, int _interpolation = cv::InterpolationFlags::INTER_LINEAR);
+	static cv::Mat getRotatedImage(const cv::Mat& _img, const double _angle, const int _interpolation = cv::InterpolationFlags::INTER_LINEAR);
+
 	// Description:
 	// Function to copy FLTK image to OpenCV mat format.
 	// Red and blue will be swapped if _swap_rgb is true.
