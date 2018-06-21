@@ -19,7 +19,6 @@ If not, please contact Dr. Furqan Ullah immediately:
 **********************************************************************************/
 
 #include <FLE/Fle_StringUtil.h>
-#include <iostream>
 #include <fstream>
 #include <sstream>
 #include <algorithm>

@@ -148,7 +148,7 @@ int Fle_MultiColorChooserDialog::exec()
 	{
 		Fl::wait();
 		Fl_Widget* o;
-		while ((o = Fl::readqueue()) && p_dialog->shown())
+		while (((o = Fl::readqueue())) && p_dialog->shown())
 		{
 			if (o == p_ok)
 			{

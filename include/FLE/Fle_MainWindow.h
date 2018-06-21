@@ -26,7 +26,6 @@ If not, please contact Dr. Furqan Ullah immediately:
 #include <FLE/Fle_MenuBar.h>
 #include <FLE/Fle_ToolBar.h>
 #include <FLE/Fle_StatusBar.h>
-#include <FLE/Fle_Color.h>
 
 namespace R3D
 {

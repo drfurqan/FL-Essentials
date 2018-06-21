@@ -24,8 +24,6 @@ If not, please contact Dr. Furqan Ullah immediately:
 
 #include <FLE/Fle_Export.h>
 
-#include <FL/Fl.H>
-
 #include <functional>
 
 namespace R3D

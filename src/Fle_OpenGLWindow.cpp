@@ -40,8 +40,8 @@ m_maxsize(Fle_Size(Fl::w() + 1000, Fl::h() + 1000))
 	align(FL_ALIGN_WRAP | FL_ALIGN_INSIDE | FL_ALIGN_CENTER | FL_ALIGN_TEXT_OVER_IMAGE | FL_ALIGN_CLIP);
 	resizable(this);
 	size_range(10, 10);
-	callback(closeCallback, (void*)this);
-	end();
+	callback(closeCallback, static_cast<void*>(this));
+	Fl_Gl_Window::end();
 
 	// setting up timer event.
 	std::function<void()> tf = [&]()
@@ -72,13 +72,13 @@ m_maxsize(Fle_Size(Fl::w() + 1000, Fl::h() + 1000))
 	align(FL_ALIGN_WRAP | FL_ALIGN_INSIDE | FL_ALIGN_CENTER | FL_ALIGN_TEXT_OVER_IMAGE | FL_ALIGN_CLIP);
 	resizable(this);
 	size_range(10, 10);
-	callback((Fl_Callback*)closeCallback, (void*)this);
+	callback(closeCallback, static_cast<void*>(this));
 	
 	// positioned at center of the screen.
 	int X, Y, W, H;
 	Fl::screen_work_area(X, Y, W, H);
 	position(X + W / 2 - _w / 2, Y + H / 2 - _h / 2);
-	end(); // this call is necessary to prevent any additional UI widgets from becoming subcomponents of this window.
+	Fl_Gl_Window::end(); // this call is necessary to prevent any additional UI widgets from becoming subcomponents of this window.
 	
 		   // setting up timer event.
 	std::function<void()> tf = [&]()
@@ -98,7 +98,7 @@ m_maxsize(Fle_Size(Fl::w() + 1000, Fl::h() + 1000))
 
 Fle_OpenGLWindow::~Fle_OpenGLWindow()
 {
-	closeEvent();
+	Fle_OpenGLWindow::closeEvent();
 }
 
 void Fle_OpenGLWindow::begin()
@@ -314,6 +314,9 @@ int Fle_OpenGLWindow::processEvents(int _event)
 		case FL_MIDDLE_MOUSE:
 			mouseMiddleButtonPressEvent(x, y);
 			return 1;
+
+		default:
+			break;
 		}
 		break;
 
@@ -331,6 +334,9 @@ int Fle_OpenGLWindow::processEvents(int _event)
 		case FL_MIDDLE_MOUSE:
 			mouseMiddleButtonReleaseEvent();
 			return 1;
+
+		default:
+			break;
 		}
 		break;
 
@@ -344,6 +350,9 @@ int Fle_OpenGLWindow::processEvents(int _event)
 		case -1:
 			mouseWheelForwardEvent();
 			return 1;
+
+		default:
+			break;
 		}
 		break;
 
@@ -364,6 +373,9 @@ int Fle_OpenGLWindow::processEvents(int _event)
 		case FL_MIDDLE_MOUSE:
 			mouseMiddleButtonDragEvent(x, y);
 			return 1;
+	
+		default:
+			break;
 		}
 		break;
 
@@ -379,9 +391,14 @@ int Fle_OpenGLWindow::processEvents(int _event)
 			// disabling the Escape key. (by default, Escape key closes the window.)
 		case FL_Escape:
 			return 1;
+
+		default:
+			break;
 		}
+
 		if(keyPressEvent(Fl::event_key()))
 			return 1;
+
 		break;
 
 	default:

@@ -144,7 +144,7 @@ public:
 
 	// Description:
 	// Function to make this window transparent by specifying the alpha value.
-	void setTransparency(float _alpha);
+	void setTransparency(float _alpha) const;
 
 	// Description:
 	// Function to set a pointer to embedded box.

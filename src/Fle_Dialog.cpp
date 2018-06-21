@@ -213,7 +213,7 @@ int Fle_Dialog::getFloatInputSlider(int _w, int _h,
 	Fl_Check_Button* check = nullptr;
 	if (_checkbox_label)
 	{
-		Fle_HLayout* l = d->getCentralLayout()->addHLayout(30);
+		l = d->getCentralLayout()->addHLayout(30);
 		l->begin();
 		check = new Fl_Check_Button(0, 0, _w, 30, _checkbox_label);
 		check->box(FL_FLAT_BOX);
@@ -266,7 +266,7 @@ int Fle_Dialog::getFloatInputSlider(int _w, int _h,
 	{
 		Fl::wait();
 		Fl_Widget* o;
-		while ((o = Fl::readqueue()) && d->shown())
+		while (((o = Fl::readqueue())) && d->shown())
 		{
 			if (o == ok)
 			{
@@ -356,7 +356,7 @@ int Fle_Dialog::getNumber(int _w, int _h,
 	Fl_Check_Button* check = nullptr;
 	if (_checkbox_label)
 	{
-		Fle_HLayout* l = d->getCentralLayout()->addHLayout(30);
+		l = d->getCentralLayout()->addHLayout(30);
 		l->begin();
 		check = new Fl_Check_Button(0, 0, _w, 30, _checkbox_label);
 		check->box(FL_FLAT_BOX);
@@ -409,7 +409,7 @@ int Fle_Dialog::getNumber(int _w, int _h,
 	{
 		Fl::wait();
 		Fl_Widget* o;
-		while ((o = Fl::readqueue()) && d->shown())
+		while (((o = Fl::readqueue())) && d->shown())
 		{
 			if (o == ok)
 			{
@@ -553,7 +553,7 @@ int Fle_Dialog::getNumbers(int _w, int _h, const char* _title,
 	{
 		Fl::wait();
 		Fl_Widget* o;
-		while ((o = Fl::readqueue()) && d->shown())
+		while (((o = Fl::readqueue())) && d->shown())
 		{
 			if (o == ok)
 			{
@@ -708,7 +708,7 @@ int Fle_Dialog::getNumbers(int _w, int _h, const char* _title,
 	{
 		Fl::wait();
 		Fl_Widget* o;
-		while ((o = Fl::readqueue()) && d->shown())
+		while (((o = Fl::readqueue())) && d->shown())
 		{
 			if (o == ok)
 			{
@@ -856,7 +856,7 @@ int Fle_Dialog::getNumbers(int _w, int _h, const char* _title,
 	{
 		Fl::wait();
 		Fl_Widget* o;
-		while ((o = Fl::readqueue()) && d->shown())
+		while (((o = Fl::readqueue())) && d->shown())
 		{
 			if (o == ok)
 			{
@@ -946,7 +946,7 @@ int Fle_Dialog::getInput(int _w, int _h, const char* _title, const char* _label,
 	{
 		Fl::wait();
 		Fl_Widget* o;
-		while ((o = Fl::readqueue()) && d->shown())
+		while (((o = Fl::readqueue())) && d->shown())
 		{
 			if (o == ok)
 			{
@@ -1065,7 +1065,7 @@ int Fle_Dialog::getInputs(int _w, int _h,
 	{
 		Fl::wait();
 		Fl_Widget* o;
-		while ((o = Fl::readqueue()) && d->shown())
+		while (((o = Fl::readqueue())) && d->shown())
 		{
 			if (o == ok)
 			{
@@ -1167,7 +1167,7 @@ int Fle_Dialog::getItem(int _w, int _h, const char* _title, const char* _label, 
 	{
 		Fl::wait();
 		Fl_Widget* o;
-		while ((o = Fl::readqueue()) && d->shown())
+		while (((o = Fl::readqueue())) && d->shown())
 		{
 			if (o == ok)
 			{
@@ -1309,7 +1309,7 @@ int Fle_Dialog::getText(int _w, int _h,
 	{
 		Fl::wait();
 		Fl_Widget* o;
-		while ((o = Fl::readqueue()) && d->shown())
+		while (((o = Fl::readqueue())) && d->shown())
 		{
 			if (o == ok)
 			{
@@ -1416,7 +1416,7 @@ int Fle_Dialog::openHelpDialog(
 	{
 		Fl::wait();
 		Fl_Widget* o;
-		while ((o = Fl::readqueue()) && d->shown())
+		while (((o = Fl::readqueue())) && d->shown())
 		{
 			if (o == ok)
 			{
@@ -1522,7 +1522,7 @@ int Fle_Dialog::ask(int _w, int _h, 			// width and height of the dialog window.
 	{
 		Fl::wait();
 		Fl_Widget* o;
-		while ((o = Fl::readqueue()) && d->shown())
+		while (((o = Fl::readqueue())) && d->shown())
 		{
 			if (o == yes)
 			{
@@ -1587,7 +1587,7 @@ int Fle_Dialog::exec()
 	{
 		Fl::wait();
 		Fl_Widget* o;
-		while ((o = Fl::readqueue()) && visible())
+		while (((o = Fl::readqueue())) && visible())
 		{
 			if (o == p_ok)
 			{
@@ -1667,7 +1667,7 @@ int Fle_Dialog::browse(int _w, int _h, const char* _title, const char* _label, c
 	{
 		Fl::wait();
 		Fl_Widget* o;
-		while ((o = Fl::readqueue()) && d->shown())
+		while (((o = Fl::readqueue())) && d->shown())
 		{
 			if (o == ok)
 			{

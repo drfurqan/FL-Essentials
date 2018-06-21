@@ -20,6 +20,8 @@ If not, please contact Dr. Furqan Ullah immediately:
 
 #include <FLE/Fle_Input.h>
 
+#include <FL/Fl_Menu_Button.H>
+
 using namespace R3D;
 
 Fle_InputWidget::Fle_InputWidget(int _x, int _y, int _w, int _h, const char* _lable) :
@@ -75,6 +77,9 @@ int Fle_InputWidget::handle(int _event)
 			return 1;
 		}
 		break;
+
+	default:
+		break;
 	}
 
 	return Fl_Input::handle(_event);
@@ -102,14 +107,13 @@ Fl_Group(_x, _y, _w, _h)
 
 	Fl_Group::begin();
 
-
 	if (_label_align == FL_ALIGN_LEFT)
 	{
 		p_label = new Fl_Box(0, 0, W, H, _lable);
 		p_box = new Fl_Box(W + gap, 0, _w - W - gap, _h);
 		p_input = new Fle_InputWidget(W + gap, 0, _w - W - gap, _h);
 	}
-	else if (_label_align == FL_ALIGN_RIGHT)
+	else /*if (_label_align == FL_ALIGN_RIGHT)*/
 	{
 		p_box = new Fl_Box(0, 0, _w - W, _h);
 		p_input = new Fle_InputWidget(0, 0, _w - W, _h);

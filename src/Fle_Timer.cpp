@@ -20,6 +20,8 @@ If not, please contact Dr. Furqan Ullah immediately:
 
 #include <FLE/Fle_Timer.h>
 
+#include <FL/Fl.H>
+
 using namespace R3D;
 
 Fle_Timer::Fle_Timer() :

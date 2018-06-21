@@ -25,7 +25,6 @@ If not, please contact Dr. Furqan Ullah immediately:
 #include <FLE/Fle_Export.h>
 
 #include <string>  
-#include <sstream>  
 #include <experimental/filesystem>  
 
 namespace R3D

@@ -59,9 +59,6 @@ If not, please contact Dr. Furqan Ullah immediately:
 #include <FLE/Fle_Layout.h>
 #include <FLE/Fle_ColorChooser.h>
 
-#include <string>
-#include <vector>
-
 namespace R3D
 {
 

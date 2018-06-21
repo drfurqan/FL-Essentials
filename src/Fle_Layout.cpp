@@ -20,8 +20,6 @@ If not, please contact Dr. Furqan Ullah immediately:
 
 #include <FLE/Fle_Layout.h>
 
-#include <iostream>
-
 using namespace R3D;
 
 /**************************************************************************/
@@ -449,6 +447,7 @@ Fle_HLayoutLR* Fle_VHLayout::addLayoutLR(int _height, Position _pos)
 		p_tblayout->endBottom();
 		p_tblayout->beginTop();
 		Fle_HLayoutLR* ho = new Fle_HLayoutLR(0, 0, p_tblayout->w(), _height);
+		ho->setBackgroundColor(p_tblayout->getBackgroundColor());
 		ho->end();
 		p_tblayout->endTop();
 		return ho;
@@ -458,6 +457,7 @@ Fle_HLayoutLR* Fle_VHLayout::addLayoutLR(int _height, Position _pos)
 		p_tblayout->endTop();
 		p_tblayout->beginBottom();
 		Fle_HLayoutLR* ho = new Fle_HLayoutLR(0, 0, p_tblayout->w(), _height);
+		ho->setBackgroundColor(p_tblayout->getBackgroundColor());
 		ho->end();
 		p_tblayout->endBottom();
 		return ho;
@@ -471,6 +471,7 @@ Fle_HLayoutL* Fle_VHLayout::addLayoutL(int _height, Position _pos)
 		p_tblayout->endBottom();
 		p_tblayout->beginTop();
 		Fle_HLayoutL* ho = new Fle_HLayoutL(0, 0, p_tblayout->w(), _height);
+		ho->setBackgroundColor(p_tblayout->getBackgroundColor());
 		ho->end();
 		p_tblayout->endTop();
 		return ho;
@@ -480,6 +481,7 @@ Fle_HLayoutL* Fle_VHLayout::addLayoutL(int _height, Position _pos)
 		p_tblayout->endTop();
 		p_tblayout->beginBottom();
 		Fle_HLayoutL* ho = new Fle_HLayoutL(0, 0, p_tblayout->w(), _height);
+		ho->setBackgroundColor(p_tblayout->getBackgroundColor());
 		ho->end();
 		p_tblayout->endBottom();
 		return ho;
@@ -493,6 +495,7 @@ Fle_HLayout* Fle_VHLayout::addHLayout(int _height, Position _pos)
 		p_tblayout->endBottom();
 		p_tblayout->beginTop();
 		Fle_HLayout* ho = new Fle_HLayout(0, 0, p_tblayout->w(), _height);
+		ho->color(p_tblayout->getBackgroundColor());
 		ho->end();
 		p_tblayout->endTop();
 		return ho;
@@ -502,6 +505,7 @@ Fle_HLayout* Fle_VHLayout::addHLayout(int _height, Position _pos)
 		p_tblayout->endTop();
 		p_tblayout->beginBottom();
 		Fle_HLayout* ho = new Fle_HLayout(0, 0, p_tblayout->w(), _height);
+		ho->color(p_tblayout->getBackgroundColor());
 		ho->end();
 		p_tblayout->endBottom();
 		return ho;
@@ -517,6 +521,7 @@ Fle_VLayoutTB* Fle_VHLayout::addLayoutTB(int _height, Position _pos)
 		p_tblayout->endBottom();
 		p_tblayout->beginTop();
 		Fle_VLayoutTB* ho = new Fle_VLayoutTB(0, 0, p_tblayout->w(), _height);
+		ho->color(p_tblayout->getBackgroundColor());
 		ho->end();
 		p_tblayout->endTop();
 		return ho;
@@ -526,6 +531,7 @@ Fle_VLayoutTB* Fle_VHLayout::addLayoutTB(int _height, Position _pos)
 		p_tblayout->endTop();
 		p_tblayout->beginBottom();
 		Fle_VLayoutTB* ho = new Fle_VLayoutTB(0, 0, p_tblayout->w(), _height);
+		ho->color(p_tblayout->getBackgroundColor());
 		ho->end();
 		p_tblayout->endBottom();
 		return ho;
@@ -540,6 +546,7 @@ Fle_VLayoutT* Fle_VHLayout::addLayoutT(int _height, Position _pos)
 		p_tblayout->endBottom();
 		p_tblayout->beginTop();
 		Fle_VLayoutT* ho = new Fle_VLayoutT(0, 0, p_tblayout->w(), _height);
+		ho->color(p_tblayout->getBackgroundColor());
 		ho->end();
 		p_tblayout->endTop();
 		return ho;
@@ -549,6 +556,7 @@ Fle_VLayoutT* Fle_VHLayout::addLayoutT(int _height, Position _pos)
 		p_tblayout->endTop();
 		p_tblayout->beginBottom();
 		Fle_VLayoutT* ho = new Fle_VLayoutT(0, 0, p_tblayout->w(), _height);
+		ho->color(p_tblayout->getBackgroundColor());
 		ho->end();
 		p_tblayout->endBottom();
 		return ho;
@@ -562,6 +570,7 @@ Fle_VLayout* Fle_VHLayout::addVLayout(int _height, Position _pos)
 		p_tblayout->endBottom();
 		p_tblayout->beginTop();
 		Fle_VLayout* ho = new Fle_VLayout(0, 0, p_tblayout->w(), _height);
+		ho->color(p_tblayout->getBackgroundColor());
 		ho->end();
 		p_tblayout->endTop();
 		return ho;
@@ -571,6 +580,7 @@ Fle_VLayout* Fle_VHLayout::addVLayout(int _height, Position _pos)
 		p_tblayout->endTop();
 		p_tblayout->beginBottom();
 		Fle_VLayout* ho = new Fle_VLayout(0, 0, p_tblayout->w(), _height);
+		ho->color(p_tblayout->getBackgroundColor());
 		ho->end();
 		p_tblayout->endBottom();
 		return ho;

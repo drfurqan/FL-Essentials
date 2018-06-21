@@ -267,8 +267,8 @@ void Fle_Button::draw_(int _x, int _y, int _w, int _h)
 
 	if (p_on)
 	{
-		int X = _x + (_w - p_on->w()) / 2;
-		int Y = _y + (_h - p_on->h()) / 2;
+		X = X + (_w - p_on->w()) / 2;
+		Y = Y + (_h - p_on->h()) / 2;
 
 		if (p_on && p_off)
 		{

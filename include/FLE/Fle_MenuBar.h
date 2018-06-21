@@ -24,7 +24,6 @@ If not, please contact Dr. Furqan Ullah immediately:
 
 #include <FLE/Fle_Export.h>
 
-#include <FL/Fl.H>
 #include <FL/Fl_Menu_Bar.H>
 #include <FL/Fl_Menu_Button.H>
 

@@ -36,7 +36,7 @@ Fle_ColorChooser::Fle_ColorChooser(int X, int Y, int W, int H, const char* L) :
 {
 	end();
 	resizable(resize_box);
-	resize(X, Y, W, H);
+	Fl_Group::resize(X, Y, W, H);
 	r_ = g_ = b_ = 0;
 	hue_ = 0.0;
 	saturation_ = 0.0;
@@ -95,7 +95,7 @@ enum
 
 void Fle_ColorChooser::rgb_cb(Fl_Widget* o, void*) 
 {
-	Fle_ColorChooser* c = (Fle_ColorChooser*)(o->parent());
+	Fle_ColorChooser* c = static_cast<Fle_ColorChooser*>(o->parent());
 	double R = c->rvalue.value();
 	double G = c->gvalue.value();
 	double B = c->bvalue.value();
@@ -116,7 +116,7 @@ void Fle_ColorChooser::rgb_cb(Fl_Widget* o, void*)
 
 void Fle_ColorChooser::mode_cb(Fl_Widget* o, void*)
 {
-	Fle_ColorChooser* c = (Fle_ColorChooser*)(o->parent());
+	Fle_ColorChooser* c = static_cast<Fle_ColorChooser*>(o->parent());
 	// force them to redraw even if value is the same:
 	c->rvalue.value(-1);
 	c->gvalue.value(-1);

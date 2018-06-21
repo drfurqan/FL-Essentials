@@ -82,7 +82,7 @@ m_bottommargin(0)
 	Fle_Window::setBackgroundColor(41, 57, 85);
 	getBox()->color(fl_rgb_color(41, 57, 85));
 	color(fl_rgb_color(41, 57, 85));
-	user_data((void*)this);
+	user_data(static_cast<void*>(this));
 	resizable(p_centralarea);
 	size_range(100, 100);
 }

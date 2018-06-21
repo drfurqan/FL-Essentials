@@ -21,7 +21,6 @@ If not, please contact Dr. Furqan Ullah immediately:
 **********************************************************************************/
 
 #include <FLE/Fle_Box.h>
-#include <FLE/Fle_ImageUtil.h>
 
 #include <FL/fl_draw.H>
 

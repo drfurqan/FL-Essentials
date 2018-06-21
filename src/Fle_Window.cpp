@@ -51,9 +51,9 @@ m_maxsize(Fle_Size(Fl::w() + 100000, Fl::h() + 100000))
 	box(FL_FLAT_BOX);
 	resizable(this);
 	size_range(10, 10);
-	user_data((void*)this);
-	callback(closeCallback, (void*)this);
-	end(); // This call is necessary to prevent any additional UI widgets from becoming subcomponents of this window.
+	user_data(static_cast<void*>(this));
+	callback(closeCallback, static_cast<void*>(this));
+	Fl_Double_Window::end(); // This call is necessary to prevent any additional UI widgets from becoming subcomponents of this window.
 
 	// setting up timer event.
 	std::function<void()> tf = [&]()
@@ -89,15 +89,15 @@ m_maxsize(Fle_Size(Fl::w() + 100000, Fl::h() + 100000))
 	box(FL_FLAT_BOX);
 	resizable(this);
 	size_range(10, 10);
-	user_data((void*)this);
-	callback(closeCallback, (void*)this);
+	user_data(static_cast<void*>(this));
+	callback(closeCallback, static_cast<void*>(this));
 
 	// positioned at center of the screen.
 	int X, Y, W, H;
 	Fl::screen_work_area(X, Y, W, H);
 	position(X + W / 2 - _w / 2, Y + H / 2 - _h / 2);
 
-	end(); // this call is necessary to prevent any additional UI widgets from becoming subcomponents of this window.
+	Fl_Double_Window::end(); // this call is necessary to prevent any additional UI widgets from becoming subcomponents of this window.
 
 	// setting up timer event.
 	std::function<void()> tf = [&]()
@@ -302,6 +302,9 @@ int Fle_Window::processEvents(int _event)
 		case FL_MIDDLE_MOUSE:
 			mouseMiddleButtonPressEvent(x, y);
 			break;
+
+		default:
+			break;
 		}
 		break;
 
@@ -319,6 +322,9 @@ int Fle_Window::processEvents(int _event)
 		case FL_MIDDLE_MOUSE:
 			mouseMiddleButtonReleaseEvent();
 			break;
+
+		default:
+			break;
 		}
 		break;
 
@@ -331,6 +337,9 @@ int Fle_Window::processEvents(int _event)
 
 		case -1:
 			mouseWheelForwardEvent();
+			break;
+
+		default:
 			break;
 		}
 		break;
@@ -351,6 +360,9 @@ int Fle_Window::processEvents(int _event)
 
 		case FL_MIDDLE_MOUSE:
 			mouseMiddleButtonDragEvent(x, y);
+			break;
+
+		default:
 			break;
 		}
 		break;
@@ -423,7 +435,7 @@ void Fle_Window::setBox(Fle_Box* _b)
 	p_box = _b;
 }
 
-void Fle_Window::setTransparency(float _alpha)
+void Fle_Window::setTransparency(float _alpha) const
 {
 #if defined(_WIN32)
 
