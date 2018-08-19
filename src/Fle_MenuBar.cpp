@@ -21,6 +21,7 @@ If not, please contact Dr. Furqan Ullah immediately:
 #include <FLE/Fle_MenuBar.h>
 
 #include <FL/fl_draw.H>
+#include <FL/Fl.H>
 
 using namespace R3D;
 

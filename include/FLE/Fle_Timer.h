@@ -94,6 +94,10 @@ public:
 	// It executes the specified function "_func" only once (after the specified time in seconds).
 	static void singleShot(double _time_in_sec, const std::function<void()>& _func);
 
+	// Description:
+	// Function to get the local date and time.
+	static std::string getLocalTime(const char* _format = "%Y-%m-%d %X");
+
 protected:
 	// Description:
 	// A virtual function that is expected to be overridden in the derived class for

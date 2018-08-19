@@ -65,8 +65,6 @@ void Fle_Core::init()
 	Fl::visual(FL_RGB);
 	Fl::gl_visual(FL_RGB);
 	Fl::use_high_res_GL(1);
-	Fl::box_color(FL_GRAY);
-	Fl::set_box_color(FL_GRAY);
 	Fl::visible_focus(0);						// disable dotted rectangle to focused widget.
 	Fl::set_font(0, "Segoe UI");				// default windows font
 	Fl::add_handler(__disable_escape_key);

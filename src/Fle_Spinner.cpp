@@ -26,10 +26,10 @@ Fl_Spinner(_x, _y, _w, _h, _lable)
 {
 	input_.when(FL_WHEN_ENTER_KEY | FL_WHEN_CHANGED | FL_WHEN_RELEASE);
 
-	up_button_.box(_FL_GTK_UP_BOX);
-	up_button_.color(FL_WHITE);
-	down_button_.box(_FL_GTK_UP_BOX);
-	down_button_.color(FL_WHITE);
+	up_button_.box(FL_UP_BOX);
+	up_button_.color(FL_LIGHT3);
+	down_button_.box(FL_UP_BOX);
+	down_button_.color(FL_LIGHT3);
 }
 
 void Fle_Spinner::when(uchar i)

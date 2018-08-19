@@ -28,10 +28,10 @@ Fl_Group(_x, _y, _w, _h, _l)
 {
 	p_slider = new Fl_Slider(_x, _y, _w - _textbox_width, _h);
 	p_slider->step(1);
-	p_slider->callback(slider_cb_, (void*)this);
+	p_slider->callback(slider_cb_, static_cast<void*>(this));
 
 	p_input = new Fl_Int_Input(_x + _w - _textbox_width, _y, _textbox_width, _h);
-	p_input->callback(input_cb_, (void*)this);
+	p_input->callback(input_cb_, static_cast<void*>(this));
 	p_input->when(FL_WHEN_ENTER_KEY | FL_WHEN_NOT_CHANGED);
 
 	box(FL_UP_BOX);
@@ -68,9 +68,12 @@ void Fle_InputSlider::slider_cb()
 		recurse = 1;
 		char s[80];
 		sprintf(s, "%d", static_cast<int>(p_slider->value()));
+
 		p_input->value(s);          // pass slider's value to input
+
 		if (p_func)
 			(p_func)(static_cast<int>(p_slider->value()), p_ptr);
+
 		recurse = 0;
 	}
 }
@@ -109,6 +112,8 @@ void Fle_InputSlider::input_cb()
 		int val = 0;
 		if (sscanf(p_input->value(), "%d", &val) != 1)
 			val = 0;
+
+		p_slider->value(static_cast<double>(val));
 
 		if (p_func)
 			(p_func)(val, p_ptr);
@@ -226,10 +231,10 @@ Fl_Int_Input* Fle_InputSlider::getInput() const
 Fle_FloatInputSlider::Fle_FloatInputSlider(int _x, int _y, int _w, int _h, const char* _l /*= 0*/, int _textbox_width) : Fl_Group(_x, _y, _w, _h, _l)
 {
 	p_slider = new Fl_Slider(_x, _y, _w - _textbox_width, _h);
-	p_slider->callback(slider_cb_, (void*)this);
+	p_slider->callback(slider_cb_, static_cast<void*>(this));
 
 	p_input = new Fl_Float_Input(_x + _w - _textbox_width, _y, _textbox_width, _h);
-	p_input->callback(input_cb_, (void*)this);
+	p_input->callback(input_cb_, static_cast<void*>(this));
 	p_input->when(FL_WHEN_ENTER_KEY | FL_WHEN_NOT_CHANGED);
 
 	align(FL_ALIGN_LEFT);
@@ -274,9 +279,12 @@ void Fle_FloatInputSlider::slider_cb()
 			sprintf(s, "%.4f", p_slider->value());
 		else if (ndecimals > 4)
 			sprintf(s, "%.4f", p_slider->value());
+
 		p_input->value(s);          // pass slider's value to input
+
 		if (p_func)
 			(p_func)(p_slider->value(), p_ptr);
+
 		recurse = 0;
 	}
 }
@@ -302,6 +310,7 @@ void Fle_FloatInputSlider::input_cb()
 
 		if (p_func)
 			(p_func)(static_cast<double>(val), p_ptr);
+
 		recurse = 0;
 	}
 }

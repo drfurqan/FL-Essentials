@@ -44,7 +44,7 @@ m_isfixedx(false),
 m_isfixedy(false),
 m_fixedpos(cv::Point(_x, _y))
 {
-	box(Fl_Boxtype::FL_UP_BOX);
+	box(_FL_GLEAM_UP_BOX);
 	align(FL_ALIGN_WRAP | FL_ALIGN_CENTER | FL_ALIGN_TEXT_OVER_IMAGE | FL_ALIGN_CLIP);
 }
 Fle_Button::Fle_Button(int _x, int _y, int _w, int _h, const char* _icon_file_on, const char* _icon_file_off, cv::Size _size) :

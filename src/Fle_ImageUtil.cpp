@@ -20,7 +20,7 @@ If not, please contact Dr. Furqan Ullah immediately:
 
 #include <FLE/Fle_ImageUtil.h>
 #include <FLE/Fle_StringUtil.h>
-#include <FLE/Fle_WindowsUtil.h>
+#include <FLE/Fle_Timer.h>
 
 #if (_MSC_VER >= 1900)
 #include <filesystem>	// for create directory
@@ -147,7 +147,7 @@ cv::Mat Fle_ImageUtil::getMat(Fl_Image* _img, bool _swap_rgb)
 bool Fle_ImageUtil::isOpenCVSupportedImage(const std::string& _filename)
 {
 	const auto ext = Fle_StringUtil::convertToLower(Fle_StringUtil::extractFileExt(_filename));
-	if (ext == "jpg" || ext == "jpeg" || ext == "jpe" || ext == "jp2" || ext == "png" || ext == "bmp" || ext == "tif" || ext == "tiff" || ext == "pgm" || ext == "pbm" || ext == "ppm" || ext == "ras" || ext == "sr")
+	if (ext == "jpg" || ext == "jpeg" || ext == "jpe" || ext == "jp2" || ext == "png" || ext == "bmp" || ext == "dib" || ext == "tif" || ext == "tiff" || ext == "pgm" || ext == "pbm" || ext == "ppm" || ext == "ras" || ext == "sr" || ext == "webp")
 		return true;
 	return false;
 }
@@ -182,30 +182,17 @@ std::vector<std::string> Fle_ImageUtil::getDirectoryImageFiles(const std::string
 		"jpe", "JPE", 
 		"jp2", "JP2", 
 		"png", "PNG", 
-		"bmp", "BMP", 
-		"tif", "TIF", 
+		"bmp", "BMP",
+		"dib", "DIB",
+		"tif", "TIF",
 		"tiff", "TIFF", 
 		"pgm", "PGM", 
 		"pbm", "PBM", 
 		"ppm", "PPM", 
 		"ras", "RAS", 
-		"sr", "SR" };
-
-	// cv::glob gives sorting file paths, so useless the following method that try not to sort
-	// the file paths, it removed all other file paths that are not OpenCV supported images.
-	//std::vector<std::string> paths;
-	//paths.reserve(100);
-	//std::vector<std::string> files = getDirectoryFiles(_path, "*");
-	//for (std::size_t i = 0; i < files.size(); i++)
-	//{
-	//	std::cout << files[i] << std::endl;
-	//	for (std::size_t j = 0; j < imgs.size(); j++)
-	//	{
-	//		if (Fle_StringUtil::extractFileExt(files[i]) == imgs[j])
-	//			paths.push_back(files[i]);
-	//	}
-	//}
-	//return paths;
+		"sr", "SR",
+		"webp", "WEBP"
+	};
 
 	// this method returns only OpenCV supported file paths.
 	std::vector<std::string> files;
@@ -223,39 +210,47 @@ bool Fle_ImageUtil::batchResize(const std::string& _directory_path, int _w, int 
 	if (_directory_path.empty()) return false;
 	if (_w < 1 || _h < 1) return false;
 
-	std::vector<std::string> files = Fle_ImageUtil::getDirectoryImageFiles(Fle_StringUtil::extractDirectory(_directory_path));
+	auto files = Fle_ImageUtil::getDirectoryImageFiles(Fle_StringUtil::extractDirectory(_directory_path));
 	if (files.empty()) return false;
 
 	const std::string folder_name = "resized";
-	std::string seprator;
+	std::string separator;
 #if defined(_WIN32)
-	seprator = "\\";
+	separator = "\\";
 #else 
-	seprator = "/";
+	separator = "/";
 #endif
 
-	if (Fle_WindowsUtil::create_directory(_directory_path + seprator + folder_name)) // create src folder
-		std::cout << "New directory has been created, named 'resized'." << std::endl;
+	auto t = Fle_Timer::getLocalTime("%Y-%m-%d %X");
+	auto folder = "Processed-" + t;
+	std::replace(folder.begin() + folder.size() - t.size(), folder.end(), ':', '-');
+	auto dir = _directory_path + separator + folder;
 
-	auto b = false;
-	for (std::size_t i = 0; i < files.size(); i++)
+	namespace fs = std::experimental::filesystem;
+	const auto r = fs::create_directories(dir);
+	if (r)
 	{
-		auto src = cv::imread(files[i], CV_LOAD_IMAGE_UNCHANGED);
-		if (!src.empty())
+		auto b = false;
+		for (std::size_t i = 0; i < files.size(); i++)
 		{
-			cv::Size s(_w, _h);
-			if (_with_aspect_ratio)
-				s = Fle_ImageUtil::getNewSizeKeepAspectRatio(src.cols, src.rows, _w, _h);
-			cv::resize(src, src, s, 0, 0, _interpolation);
-			const auto name = Fle_StringUtil::extractFileNameWithExt(files[i]);
-			b = cv::imwrite(_directory_path + seprator + folder_name + seprator + name, src);
-#ifdef _DEBUG
-			if (b)
-				std::cout << i << " - " << _directory_path + seprator + folder_name + seprator + name << std::endl;
-#endif // _DEBUG
+			auto src = cv::imread(files[i], cv::IMREAD_UNCHANGED);
+			if (!src.empty())
+			{
+				cv::Size s(_w, _h);
+				if (_with_aspect_ratio)
+					s = Fle_ImageUtil::getNewSizeKeepAspectRatio(src.cols, src.rows, _w, _h);
+				cv::resize(src, src, s, 0, 0, _interpolation);
+				const auto name = Fle_StringUtil::extractFileNameWithExt(files[i]);
+				b = cv::imwrite(dir + separator + name, src);
+				#ifdef _DEBUG
+				if (b) std::cout << i << " - " << dir + separator + name << std::endl;
+				#endif // _DEBUG
+			}
 		}
+		return b;
 	}
-	return b;
+
+	return false;
 }
 
 std::vector<cv::Mat> Fle_ImageUtil::splitChannels(const cv::Mat& _mat) const
