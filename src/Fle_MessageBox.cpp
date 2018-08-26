@@ -32,6 +32,7 @@ If not, please contact Dr. Furqan Ullah immediately:
 #endif // WIN32
 
 #include <sstream>
+#include <FL/fl_ask.H>
 
 namespace R3D
 {
@@ -1453,43 +1454,43 @@ using namespace R3D;
 Fle_MessageBox::Fle_MessageBox(const char* message, const char* title, int ImageId, bool pos, int IDI_ICON) :
 Fl_Double_Window(Fl::x() + Fl::w()/2 - 458 / 2, Fl::y() + Fl::h()/2 - 132 / 2, 458, 132, title)
 {
-    #ifdef WIN32
-    icon(LoadIcon(fl_display, MAKEINTRESOURCE(IDI_ICON)));
-    #endif // WIN32
-    color(fl_rgb_color(240, 240, 240));
+	#ifdef WIN32
+	icon(LoadIcon(fl_display, MAKEINTRESOURCE(IDI_ICON)));
+	#endif // WIN32
+	color(fl_rgb_color(240, 240, 240));
 	callback(closeEvent, (void*)this);
-    begin();
-    {
-        Fl_Box* o = new Fl_Box(0, 0, 70, 84);
-        o->box(FL_FLAT_BOX);
-        o->color(fl_rgb_color(255, 255, 255));
-    }
-    {
-        Fl_Help_View* o = new Fl_Help_View(70, 0, 388, 84);
-        o->box(FL_FLAT_BOX);
-        o->color(fl_rgb_color(255, 255, 255));
-        o->textcolor(0);
-        o->textfont(FL_HELVETICA);
-        o->textsize(12);
-        std::ostringstream sstream;
-        sstream << "<p></p>";
-        sstream << message;
-        o->value(sstream.str().c_str());
-    } // Fl_Text_Display* o
-    { 
-        Fl_Button* o = new Fl_Button(360, 96, 88, 24, "OK");
-        o->color(fl_rgb_color(240, 240, 240));
-        o->labelsize(12);
-	    o->callback(closeEvent, (void*)this);
-    } // Fl_Button* o
-    { 
-        Fl_Box* o = new Fl_Box(28, 14, 36, 36);
-        o->color(fl_rgb_color(255, 255, 255));
-        if(ImageId <= 1) o->image(image_InfoIcon);
-        if(ImageId == 2) o->image(image_WarningIcon);
-        if(ImageId >= 3) o->image(image_ErroIcon);
-        o->align(Fl_Align(FL_ALIGN_CLIP | FL_ALIGN_CENTER));
-    } // Fl_Box* o
+	begin();
+	{
+		Fl_Box* o = new Fl_Box(0, 0, 70, 84);
+		o->box(FL_FLAT_BOX);
+		o->color(fl_rgb_color(255, 255, 255));
+	}
+	{
+		Fl_Help_View* o = new Fl_Help_View(70, 0, 388, 84);
+		o->box(FL_FLAT_BOX);
+		o->color(fl_rgb_color(255, 255, 255));
+		o->textcolor(0);
+		o->textfont(FL_HELVETICA);
+		o->textsize(12);
+		std::ostringstream sstream;
+		sstream << "<p></p>";
+		sstream << message;
+		o->value(sstream.str().c_str());
+	} // Fl_Text_Display* o
+	{ 
+		Fl_Button* o = new Fl_Button(360, 96, 88, 24, "OK");
+		o->color(fl_rgb_color(240, 240, 240));
+		o->labelsize(12);
+		o->callback(closeEvent, (void*)this);
+	} // Fl_Button* o
+	{ 
+		Fl_Box* o = new Fl_Box(28, 14, 36, 36);
+		o->color(fl_rgb_color(255, 255, 255));
+		if(ImageId <= 1) o->image(image_InfoIcon);
+		if(ImageId == 2) o->image(image_WarningIcon);
+		if(ImageId >= 3) o->image(image_ErroIcon);
+		o->align(Fl_Align(FL_ALIGN_CLIP | FL_ALIGN_CENTER));
+	} // Fl_Box* o
 	end();
 	set_modal();
 	if (pos)
@@ -1508,73 +1509,23 @@ void Fle_MessageBox::closeEvent(Fl_Widget* _w, void* _p)
 	delete w;
 }
 
-// copied from FLTK
-#include <FL/fl_ask.H>
-void fle_beep(int type) 
-{
-#ifdef WIN32
-	switch (type) 
-	{
-	case FL_BEEP_QUESTION:
-	case FL_BEEP_PASSWORD:
-		MessageBeep(MB_ICONQUESTION);
-		break;
-	case FL_BEEP_MESSAGE:
-		MessageBeep(MB_ICONASTERISK);
-		break;
-	case FL_BEEP_NOTIFICATION:
-		MessageBeep(MB_ICONWARNING);
-		break;
-	case FL_BEEP_ERROR:
-		MessageBeep(MB_ICONERROR);
-		break;
-	default:
-		MessageBeep(0xFFFFFFFF);
-		break;
-	}
-#elif defined(__APPLE__)
-	switch (type) {
-	case FL_BEEP_DEFAULT:
-	case FL_BEEP_ERROR:
-		NSBeep();
-		break;
-	default:
-		break;
-	}
-#else
-	switch (type) {
-	case FL_BEEP_DEFAULT:
-	case FL_BEEP_ERROR:
-		if (!fl_display) fl_open_display();
-
-		XBell(fl_display, 100);
-		break;
-	default:
-		if (!fl_display) fl_open_display();
-
-		XBell(fl_display, 50);
-		break;
-	}
-#endif // WIN32
-}
-
 void Fle_MessageBox::Information(const char* message, const char* title, bool _center_pos, int IDI_ICON)
 {
-	fle_beep(FL_BEEP_MESSAGE);
+	fl_beep(FL_BEEP_MESSAGE);
 	Fle_MessageBox* b = new Fle_MessageBox(message, title, 1, _center_pos, IDI_ICON);
 	b->set_modal();
 	b->show();
 }
 void Fle_MessageBox::Warning(const char* message, const char* title, bool _center_pos, int IDI_ICON)
 {
-	fle_beep(FL_BEEP_NOTIFICATION);
+	fl_beep(FL_BEEP_NOTIFICATION);
 	Fle_MessageBox* b = new Fle_MessageBox(message, title, 2, _center_pos, IDI_ICON);
 	b->set_modal();
 	b->show();
 }
 void Fle_MessageBox::Error(const char* message, const char* title, bool _center_pos, int IDI_ICON)
 {
-	fle_beep(FL_BEEP_ERROR);
+	fl_beep(FL_BEEP_ERROR);
 	Fle_MessageBox* b = new Fle_MessageBox(message, title, 3, _center_pos, IDI_ICON);
 	b->set_modal();
 	b->show();

@@ -179,17 +179,17 @@ public:
 	}
 
 	// Description:
-	// Function to set the region of interest for the border frame.
-	void setBorderRoi(const cv::Rect& _roi) { m_roi = _roi; }
+	// Function to set the position and size of the rubber band.
+	void setRubberBand(const cv::Rect& _roi) { m_border_roi = _roi; }
 	// Description:
-	// Function to get the region of interest for the border frame.
-	cv::Rect getBorderRoi() const { return m_roi; }
+	// Function to get the position and size of the rubber band.
+	cv::Rect getRubberBand() const { return m_border_roi; }
 	// Description:
-	// Function to set the region of interest enabled.
-	void setBorderEnabled(const bool _b) { m_isroi = _b; }
+	// Function to set rubber band enabled.
+	void setRubberBandEnabled(const bool _b) { m_isroi = _b; }
 	// Description:
-	// Function that returns true if the region of interest is enabled.
-	bool isBorderEnabled() const { return m_isroi; }
+	// Function that returns true if the rubber band is enabled.
+	bool isRubberBandEnabled() const { return m_isroi; }
 
 protected:
 	// Description:
@@ -224,8 +224,9 @@ protected:
 	cv::Point m_fixedpos;
 	bool m_isfixedx;
 	bool m_isfixedy;
-	cv::Rect m_roi;
 	bool m_isroi;
+	cv::Rect m_border_roi;
+	Fl_Color m_border_color;
 };
 
 }

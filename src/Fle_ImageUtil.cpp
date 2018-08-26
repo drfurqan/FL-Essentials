@@ -21,10 +21,12 @@ If not, please contact Dr. Furqan Ullah immediately:
 #include <FLE/Fle_ImageUtil.h>
 #include <FLE/Fle_StringUtil.h>
 #include <FLE/Fle_Timer.h>
+#include <FLE/Fle_WindowsUtil.h>
 
 #if (_MSC_VER >= 1900)
 #include <filesystem>	// for create directory
 #endif
+#include <memory>
 
 using namespace R3D;
 
@@ -146,6 +148,9 @@ cv::Mat Fle_ImageUtil::getMat(Fl_Image* _img, bool _swap_rgb)
 
 bool Fle_ImageUtil::isOpenCVSupportedImage(const std::string& _filename)
 {
+	if (_filename.empty())
+		return false;
+
 	const auto ext = Fle_StringUtil::convertToLower(Fle_StringUtil::extractFileExt(_filename));
 	if (ext == "jpg" || ext == "jpeg" || ext == "jpe" || ext == "jp2" || ext == "png" || ext == "bmp" || ext == "dib" || ext == "tif" || ext == "tiff" || ext == "pgm" || ext == "pbm" || ext == "ppm" || ext == "ras" || ext == "sr" || ext == "webp")
 		return true;
@@ -154,14 +159,7 @@ bool Fle_ImageUtil::isOpenCVSupportedImage(const std::string& _filename)
 
 std::vector<std::string> Fle_ImageUtil::getDirectoryFiles(const std::string& _directory, const std::string& _ext)
 {
-	std::string seprator;
-#if defined(_WIN32)
-	seprator = "\\";
-#else 
-	seprator = "/";
-#endif
-
-	auto f = _directory + seprator + "*." + _ext;
+	auto f = _directory + Fle_StringUtil::separator() + "*." + _ext;
 	const cv::String s(f.c_str());
 
 	std::vector<cv::String> fn;
@@ -169,38 +167,61 @@ std::vector<std::string> Fle_ImageUtil::getDirectoryFiles(const std::string& _di
 
 	std::vector<std::string> files;
 	files.reserve(fn.size());
-	for (const auto& i : fn)
-		files.push_back(i);
+	for (std::size_t i = 0; i < fn.size(); i++)
+		files.push_back(fn[i]);
 
 	return files;
 }
 std::vector<std::string> Fle_ImageUtil::getDirectoryImageFiles(const std::string& _directory)
 {
-	std::vector<std::string> imgs = { 
-		"jpg", "JPG", 
-		"jpeg", "JPEG", 
-		"jpe", "JPE", 
-		"jp2", "JP2", 
-		"png", "PNG", 
+	if (_directory.empty())
+		return std::vector<std::string>();
+
+	// can't use initializer list in vs2010.
+#if (_MSC_VER > 1600)
+	std::vector<std::string> imgs = {
+		"jpg", "JPG",
+		"jpeg", "JPEG",
+		"jpe", "JPE",
+		"jp2", "JP2",
+		"png", "PNG",
 		"bmp", "BMP",
 		"dib", "DIB",
 		"tif", "TIF",
-		"tiff", "TIFF", 
-		"pgm", "PGM", 
-		"pbm", "PBM", 
-		"ppm", "PPM", 
-		"ras", "RAS", 
+		"tiff", "TIFF",
+		"pgm", "PGM",
+		"pbm", "PBM",
+		"ppm", "PPM",
+		"ras", "RAS",
 		"sr", "SR",
 		"webp", "WEBP"
 	};
+#else
+	std::vector<std::string> imgs;
+	imgs.push_back("jpg"); imgs.push_back("JPG");
+	imgs.push_back("jpeg"); imgs.push_back("JPEG");
+	imgs.push_back("jpe"); imgs.push_back("JPE");
+	imgs.push_back("jp2"); imgs.push_back("JP2");
+	imgs.push_back("png"); imgs.push_back("PNG");
+	imgs.push_back("bmp"); imgs.push_back("BMP");
+	imgs.push_back("dib"); imgs.push_back("DIB");
+	imgs.push_back("tif"); imgs.push_back("TIF");
+	imgs.push_back("tiff"); imgs.push_back("TIFF");
+	imgs.push_back("pgm"); imgs.push_back("PGM");
+	imgs.push_back("pbm"); imgs.push_back("PBM");
+	imgs.push_back("ppm"); imgs.push_back("PPM");
+	imgs.push_back("ras"); imgs.push_back("RAS");
+	imgs.push_back("sr"); imgs.push_back("SR");
+	imgs.push_back("webp"); imgs.push_back("WEBP");
+#endif
 
 	// this method returns only OpenCV supported file paths.
 	std::vector<std::string> files;
-	for (const auto& i : imgs)
+	for (std::size_t i = 0; i < imgs.size(); i++)
 	{
-		auto f = getDirectoryFiles(_directory, i);
-		for (const auto& j : f)
-			files.push_back(j);
+		auto f = getDirectoryFiles(_directory, imgs[i]);
+		for (std::size_t j = 0; j < f.size(); j++)
+			files.push_back(f[j]);
 	}
 	return files;
 }
@@ -214,20 +235,19 @@ bool Fle_ImageUtil::batchResize(const std::string& _directory_path, int _w, int 
 	if (files.empty()) return false;
 
 	const std::string folder_name = "resized";
-	std::string separator;
-#if defined(_WIN32)
-	separator = "\\";
-#else 
-	separator = "/";
-#endif
-
 	auto t = Fle_Timer::getLocalTime("%Y-%m-%d %X");
 	auto folder = "Processed-" + t;
 	std::replace(folder.begin() + folder.size() - t.size(), folder.end(), ':', '-');
-	auto dir = _directory_path + separator + folder;
+	auto dir = _directory_path + Fle_StringUtil::separator() + folder;
 
+	bool r;
+#if (_MSC_VER >= 1900)
 	namespace fs = std::experimental::filesystem;
-	const auto r = fs::create_directories(dir);
+	r = fs::create_directories(dir);
+#else
+	r = Fle_WindowsUtil::create_directory(dir);
+#endif
+
 	if (r)
 	{
 		auto b = false;
@@ -241,9 +261,9 @@ bool Fle_ImageUtil::batchResize(const std::string& _directory_path, int _w, int 
 					s = Fle_ImageUtil::getNewSizeKeepAspectRatio(src.cols, src.rows, _w, _h);
 				cv::resize(src, src, s, 0, 0, _interpolation);
 				const auto name = Fle_StringUtil::extractFileNameWithExt(files[i]);
-				b = cv::imwrite(dir + separator + name, src);
+				b = cv::imwrite(dir + Fle_StringUtil::separator() + name, src);
 				#ifdef _DEBUG
-				if (b) std::cout << i << " - " << dir + separator + name << std::endl;
+				if (b) std::cout << i << " - " << dir + Fle_StringUtil::separator() + name << std::endl;
 				#endif // _DEBUG
 			}
 		}
@@ -256,12 +276,13 @@ bool Fle_ImageUtil::batchResize(const std::string& _directory_path, int _w, int 
 std::vector<cv::Mat> Fle_ImageUtil::splitChannels(const cv::Mat& _mat) const
 {
 	if (_mat.channels() < 1)
-		return std::vector<cv::Mat>{};
+		return std::vector<cv::Mat>();
 
 	auto chan = std::unique_ptr<cv::Mat[]>(new cv::Mat[_mat.channels()]);
 	cv::split(_mat, chan.get());
 
-	std::vector<cv::Mat> result{};
+	std::vector<cv::Mat> result;
+	result.reserve(_mat.channels());
 	for (auto i = 0; i < _mat.channels(); i++)
 		result.emplace_back(chan[i]);
 
@@ -270,11 +291,11 @@ std::vector<cv::Mat> Fle_ImageUtil::splitChannels(const cv::Mat& _mat) const
 cv::Mat Fle_ImageUtil::mergeChannels(std::vector<cv::Mat> _mats) const
 {
 	if (_mats.size() <= 0)
-		throw std::invalid_argument{ "no input mat" };
+		throw std::invalid_argument("no input mat");
 
 	// check
 	if (_mats.at(0).channels() != 1)
-		throw std::invalid_argument{ "mat 0 not 1 channel" };
+		throw std::invalid_argument("mat 0 not 1 channel");
 
 	const auto type = _mats.at(0).type();
 	const auto size = _mats.at(0).size();
@@ -282,10 +303,10 @@ cv::Mat Fle_ImageUtil::mergeChannels(std::vector<cv::Mat> _mats) const
 	for (std::size_t i = 1; i < _mats.size(); i++)
 	{
 		if ((type != _mats.at(i).type()) || (size != _mats.at(i).size()))
-			throw std::invalid_argument{ "mats have different sizes or depths. (or not 1 channel)" };
+			throw std::invalid_argument("mats have different sizes or depths. (or not 1 channel)");
 	}
 
-	cv::Mat result{ _mats.at(0).rows, _mats.at(0).cols, _mats.at(0).type() };
+	cv::Mat result(_mats.at(0).rows, _mats.at(0).cols, _mats.at(0).type());
 
 	std::unique_ptr<cv::Mat[]> mergeinput(new cv::Mat[_mats.size()]);
 	for (std::size_t i = 0; i < _mats.size(); i++)

@@ -30,7 +30,7 @@ using namespace R3D;
 
 int __update_system_colors(int _event) // WIN32 only, so far
 {
-#ifdef WIN32
+#ifdef _WIN32
 	DWORD color;
 	BYTE *pColor = (BYTE*)&color;
 
@@ -68,6 +68,7 @@ void Fle_Core::init()
 	Fl::visible_focus(0);						// disable dotted rectangle to focused widget.
 	Fl::set_font(0, "Segoe UI");				// default windows font
 	Fl::add_handler(__disable_escape_key);
+	Fl::menu_linespacing(10);					// vertical spacing between menu items.
 	Fl_File_Icon::load_system_icons();			// load default system icons (for file browser)
 	Fl_Tooltip::delay(0.5f);
 	FL_NORMAL_SIZE = 13;

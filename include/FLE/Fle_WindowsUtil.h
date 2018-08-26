@@ -42,7 +42,7 @@ public:
 
 	// Description:
 	// Options for window.
-	enum class Options
+	enum Options
 	{
 		Hide = 0,
 		ShowNormal,
@@ -87,7 +87,7 @@ public:
 
 	// Description:
 	// Options for getting system folders paths.
-	enum class SystemFolder
+	enum SystemFolder
 	{
 		Documents = 0,
 		Pictures,
@@ -128,6 +128,11 @@ public:
 	// Description:
 	// Function that returns true if the given mutex name already exists.
 	static bool mutexAlreadyExists(const char* _name);
+
+	// Description:
+	// This function checks the token of the calling thread to see if the caller
+	// belongs to the Administrators group.
+	static int isCurrentUserLocalAdministrator();
 };
 
 }

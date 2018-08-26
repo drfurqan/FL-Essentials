@@ -158,8 +158,14 @@ private:
 	Fl_Slider* p_slider;
 	Fl_Int_Input* p_input;
 	typedef void(*funcptr)(int _v, void* _p);
+
+#if (_MSC_VER > 1600)
 	funcptr p_func = nullptr;		// Note: never forget to initialize it with nullptr, otherwise there will be an exception in vs2017.
 	void* p_ptr = nullptr;
+#else
+	funcptr p_func;					// Note: never forget to initialize it with nullptr, otherwise there will be an exception in vs2017.
+	void* p_ptr;
+#endif
 
 	int m_init_value;
 	int m_step;
@@ -278,8 +284,14 @@ private:
 	Fl_Slider* p_slider;
 	Fl_Float_Input* p_input;
 	typedef void(*funcptr)(double _v, void* _p);
+
+#if (_MSC_VER > 1600)
 	funcptr p_func = nullptr;		// Note: never forget to initialize it with nullptr, otherwise there will be an exception in vs2017.
 	void* p_ptr = nullptr;
+#else
+	funcptr p_func;					// Note: never forget to initialize it with nullptr, otherwise there will be an exception in vs2017.
+	void* p_ptr;
+#endif
 };
 
 }

@@ -39,7 +39,7 @@ m_default_text("Ready")
 		{
 			p_textbox->setText(m_default_text);
 			p_textbox->redraw();
-			Fle_VHLayout::redraw();
+			redraw();
 		}
 	};
 	m_timer.setFunction(f);
@@ -62,4 +62,5 @@ void Fle_StatusBar::showMessage(const std::string& _text, int _time_in_sec)
 	m_timer.setTime(_time_in_sec);
 	m_timer.stop();
 	m_timer.start();
+	Fl::wait(0.001);		// just wait a little to show the statusbar message.
 }

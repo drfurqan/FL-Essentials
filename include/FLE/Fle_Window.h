@@ -71,13 +71,13 @@ public:
 	void setWidth(int _w) { size(_w, h()); }
 	// Description:
 	// Function to get the width of the window.
-	auto getWidth() const { return w(); }
+	int getWidth() const { return w(); }
 	// Description:
 	// Function to set the height of the window.
 	void setHeight(int _h) { size(w(), _h); }
 	// Description:
 	// Function to get the height of the window.
-	auto getHeight() const { return h(); }
+	int getHeight() const { return h(); }
 
 	// Description:
 	// Function to redraw/update the window.

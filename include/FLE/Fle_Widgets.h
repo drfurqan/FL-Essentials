@@ -131,7 +131,7 @@ public:
 	static Fl_Value_Output* createValueOutput(int _w, int _h, double _value, double _step = 1, double _minumum = 0, double _maximum = 99, Fl_Callback* _cb = 0, void* _data = 0);
 
 
-	enum class ButtonType
+	enum ButtonType
 	{
 		NORMAL = 0,
 		TOGGLE,
@@ -258,7 +258,7 @@ public:
 	// _cb is the callback with _data.
 	static Fl_Float_Input* createFloatInput(int _w, int _h, const char* _value, Fl_Callback* _cb = 0, void* _data = 0);
 
-	enum class DialType
+	enum DialType
 	{
 		STANDARD = 0,
 		LINE,

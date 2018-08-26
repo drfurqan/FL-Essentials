@@ -42,7 +42,8 @@ Fle_Box::Fle_Box(int _x, int _y, int _w, int _h, const char* _title) :
 	m_isfixedy(false),
 	m_fixedpos(cv::Point(_x, _y)),
 	m_isroi(false),
-	m_roi(cv::Rect(0, 0, _w, _h))
+	m_border_roi(cv::Rect(0, 0, 0, 0)),
+	m_border_color(fl_rgb_color(0, 255, 0))
 {
 	box(Fl_Boxtype::FL_NO_BOX);
 	align(FL_ALIGN_WRAP | FL_ALIGN_INSIDE | FL_ALIGN_CENTER | FL_ALIGN_TEXT_OVER_IMAGE | FL_ALIGN_CLIP);
@@ -87,15 +88,15 @@ void Fle_Box::draw()
 
 	Fle_ImageWidget::draw();
 
-	if (m_isroi)
+	if (m_isroi && m_border_roi.width > 0 && m_border_roi.height > 0)
 	{
 		draw_box(
 			Fl_Boxtype::FL_BORDER_FRAME,
-			m_roi.x,
-			m_roi.y,
-			m_roi.width,
-			m_roi.height,
-			fl_rgb_color(1, 0, 0));
+			m_border_roi.x,
+			m_border_roi.y,
+			m_border_roi.width,
+			m_border_roi.height,
+			m_border_color);
 	}
 
 	drawText(

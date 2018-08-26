@@ -30,6 +30,8 @@ Fle_FileDialog::Fle_FileDialog() : fl_nfc(nullptr)
 
 int Fle_FileDialog::execute(FILE_CHOOSER_TYPE type, const char *filter, const char *title, const char *fname)
 {
+	//Fl_Group::current(nullptr);
+
 	static char thefilter[1024] = "";
 	static int thefilterindex = 0;
 
@@ -40,7 +42,8 @@ int Fle_FileDialog::execute(FILE_CHOOSER_TYPE type, const char *filter, const ch
 		thefilterindex = 0;
 	}
 
-	if(!fl_nfc) fl_nfc = new Fl_Native_File_Chooser();
+	if(!fl_nfc) 
+		fl_nfc = new Fl_Native_File_Chooser(/*Fl_Native_File_Chooser::BROWSE_FILE*/);
 	switch(type)
 	{
 	case FILE_CHOOSER_MULTI:

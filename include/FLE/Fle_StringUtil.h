@@ -37,6 +37,10 @@ class FL_ESSENTIALS_EXPORT Fle_StringUtil
 
 public:
 	// Description:
+	// Function that returns a directory separator.
+	static char separator();
+
+	// Description:
 	// It returns true if a give char is white space.
 	static bool isWhiteSpace(const char _c);
 	// Description:
@@ -83,7 +87,7 @@ public:
 	// Description:
 	// Function to convert any number to string.
 	template <typename _T>
-	static std::string convertToString(_T _val, std::ios_base& (*_f)(std::ios_base&))
+	static std::string to_string(_T _val, std::ios_base& (*_f)(std::ios_base&))
 	{
 		std::stringstream stream;
 		stream << _f << _val;
@@ -92,7 +96,7 @@ public:
 	// Description:
 	// Function to convert any number to string.
 	template <typename _T>
-	static std::string convertToString(_T _val, int _precision = 3)
+	static std::string to_string(_T _val, int _precision = 3)
 	{
 		std::stringstream stream;
 		stream << std::fixed << std::setprecision(_precision) << _val;
@@ -139,12 +143,12 @@ public:
 	static std::vector<std::string> splitByWhiteSpaces(const std::string& _str);
 };
 
-template std::string Fle_StringUtil::convertToString(int _val, int _precision);
-template std::string Fle_StringUtil::convertToString(unsigned int _val, int _precision);
-template std::string Fle_StringUtil::convertToString(float _val, int _precision);
-template std::string Fle_StringUtil::convertToString(double _val, int _precision);
-template std::string Fle_StringUtil::convertToString(long _val, int _precision);
-template std::string Fle_StringUtil::convertToString(long long _val, int _precision);
+template std::string Fle_StringUtil::to_string(int _val, int _precision);
+template std::string Fle_StringUtil::to_string(unsigned int _val, int _precision);
+template std::string Fle_StringUtil::to_string(float _val, int _precision);
+template std::string Fle_StringUtil::to_string(double _val, int _precision);
+template std::string Fle_StringUtil::to_string(long _val, int _precision);
+template std::string Fle_StringUtil::to_string(long long _val, int _precision);
 
 }
 

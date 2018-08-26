@@ -161,7 +161,7 @@ public:
 	// Description
 	// Rendering type of this actor.
 	// What type of actor should be rendered.
-	enum class RenderType
+	enum RenderType
 	{
 		Fill = 0,		// solid mode
 		Line,			// wireframe mode

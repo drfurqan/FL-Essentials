@@ -46,7 +46,7 @@ public:
 	// Description:
 	// Function to get a pointer to clicked item.
 	// clicked item is actually set to the focused item in handle() event, so, this is actually retuning a clicked item.
-	auto getClickedItem() const { return get_item_focus(); }
+	Fl_Tree_Item * getClickedItem() const { return get_item_focus(); }
 
 	// Description:
 	// Function to remove the tree item by specifying its name.

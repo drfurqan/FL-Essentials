@@ -25,6 +25,15 @@ If not, please contact Dr. Furqan Ullah immediately:
 
 using namespace R3D;
 
+char Fle_StringUtil::separator()
+{
+	#if defined(WIN32) || defined(_WIN32) 
+	return '\\';
+	#else
+	return '/';
+	#endif
+}
+
 // Check if a character is a white space or not
 bool Fle_StringUtil::isWhiteSpace(const char c)
 {
@@ -62,7 +71,7 @@ std::string Fle_StringUtil::convertToLower(const std::string& str)
 std::string Fle_StringUtil::extractFileNameWithExt(const std::string &aString)
 {
 	std::string result = "";
-	size_t pathPos = aString.rfind("/");
+	std::size_t pathPos = aString.rfind("/");
 	if (pathPos == std::string::npos)
 		pathPos = aString.rfind("\\");
 	if (pathPos != std::string::npos)
@@ -72,14 +81,14 @@ std::string Fle_StringUtil::extractFileNameWithExt(const std::string &aString)
 std::string Fle_StringUtil::extractFileNameWithoutExt(const std::string &filepath)
 {
 	std::string aString = extractFileNameWithExt(filepath);
-	size_t position = aString.find(".");
+	std::size_t position = aString.find(".");
 	std::string result = (std::string::npos == position) ? aString : aString.substr(0, position);
 	return result;
 }
 std::string Fle_StringUtil::extractFilePath(const std::string &aString)
 {
 	std::string result = "";
-	size_t pathPos = aString.rfind("/");
+	std::size_t pathPos = aString.rfind("/");
 	if (pathPos == std::string::npos)
 		pathPos = aString.rfind("\\");
 	if (pathPos != std::string::npos)
@@ -89,7 +98,7 @@ std::string Fle_StringUtil::extractFilePath(const std::string &aString)
 std::string Fle_StringUtil::extractFileExtWithDot(const std::string &aString)
 {
 	std::string result = "";
-	size_t extPos = aString.rfind(".");
+	std::size_t extPos = aString.rfind(".");
 	if (extPos != std::string::npos)
 		result = aString.substr(extPos);
 	return result;
@@ -97,7 +106,7 @@ std::string Fle_StringUtil::extractFileExtWithDot(const std::string &aString)
 std::string Fle_StringUtil::extractFileExt(const std::string &aString)
 {
 	std::string result = "";
-	size_t extPos = aString.rfind(".");
+	std::size_t extPos = aString.rfind(".");
 	if (extPos != std::string::npos)
 		result = aString.substr(extPos);
 	result.erase(0, 1);	// remove the first dot.
@@ -110,19 +119,11 @@ std::string Fle_StringUtil::extractDirectory(const std::string& path)
 std::string Fle_StringUtil::changeExt(const std::string& path, const std::string& ext)
 {
 	std::string filename = extractFileNameWithExt(path);
-#if defined(_WIN32)
-	return extractDirectory(path) + "\\" + filename.substr(0, filename.find_last_of('.')) + ext;
-#else 
-	return extractDirectory(path) + "/" + filename.substr(0, filename.find_last_of('.')) + ext;
-#endif
+	return extractDirectory(path) + separator() + filename.substr(0, filename.find_last_of('.')) + ext;
 }
 std::string Fle_StringUtil::changeFileName(const std::string& path, const std::string& newFileName)
 {
-#if defined(_WIN32)
-	return extractDirectory(path) + "\\" + newFileName;
-#else 
-	return extractDirectory(path) + "/" + newFileName;
-#endif
+	return extractDirectory(path) + separator() + newFileName;
 }
 bool Fle_StringUtil::checkFileExt(std::string filename, std::string extension)
 {

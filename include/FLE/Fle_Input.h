@@ -23,6 +23,7 @@ If not, please contact Dr. Furqan Ullah immediately:
 **********************************************************************************/
 
 #include <FLE/Fle_Export.h>
+#include <FLE/Fle_Box.h>
 
 #include <FL/Fl.H>
 #include <FL/Fl_Box.H>
@@ -39,12 +40,28 @@ public:
 	// Default ctor to create an input widget with copy and paste support.
 	Fle_InputWidget(int _x, int _y, int _w, int _h, const char* _lable = 0);
 
+	// Description:
+	// Function to set a color to the right click popup window.
+	void setRightClickPopupColor(Fl_Color _color) { m_rclick_pop_clr = _color; }
+	// Description:
+	// Function to get a color of the right click popup window.
+	Fl_Color getRightClickPopupColor(Fl_Color _color) const { return m_rclick_pop_clr; }
+	// Description:
+	// Function to set a color to the right click popup window.
+	void setRightClickPopupTextColor(Fl_Color _color) { m_rclick_pop_tclr = _color; }
+	// Description:
+	// Function to get a color of the right click popup window.
+	Fl_Color getRightClickPopupTextColor(Fl_Color _color) const { return m_rclick_pop_tclr; }
+
 protected:
 	int handle(int _event) override;
 
 private:
 	static void copy_cb(Fl_Widget*, void*);
 	static void paste_cb(Fl_Widget*, void*);
+
+	Fl_Color m_rclick_pop_clr;
+	Fl_Color m_rclick_pop_tclr;
 };
 
 class FL_ESSENTIALS_EXPORT Fle_Input : public Fl_Group
@@ -101,12 +118,15 @@ public:
 	// Function to get a pointer to label box.
 	Fl_Box* getLabelBox() const { return p_label; }
 
+	// Description:
+	// Function to get a pointer to internal input widget.
+	Fle_InputWidget* getInputWidget() const { return p_input; }
+
 protected:
 	int handle(int _event) override;
 
 private:
 	Fle_InputWidget* p_input;
-	Fl_Box* p_box;
 	Fl_Box* p_label;
 };
 

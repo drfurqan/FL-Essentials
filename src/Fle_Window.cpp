@@ -44,7 +44,6 @@ m_maxsize(Fle_Size(Fl::w() + 100000, Fl::h() + 100000))
 	p_box = new Fle_Box(0, 0, _w, _h, _title);
 	p_box->box(FL_FLAT_BOX);
 	p_box->color(fl_rgb_color(238, 243, 250));
-	p_box->setImageDrawType(Fle_ImageDrawType::Fit);
 
 	align(FL_ALIGN_WRAP | FL_ALIGN_INSIDE | FL_ALIGN_CENTER | FL_ALIGN_TEXT_OVER_IMAGE | FL_ALIGN_CLIP);
 	color(fl_rgb_color(238, 243, 250));
@@ -82,7 +81,6 @@ m_maxsize(Fle_Size(Fl::w() + 100000, Fl::h() + 100000))
 	p_box = new Fle_Box(0, 0, _w, _h, _title);
 	p_box->box(FL_FLAT_BOX);
 	p_box->color(fl_rgb_color(238, 243, 250));
-	p_box->setImageDrawType(Fle_ImageDrawType::Fit);
 
 	align(FL_ALIGN_WRAP | FL_ALIGN_INSIDE | FL_ALIGN_CENTER | FL_ALIGN_TEXT_OVER_IMAGE | FL_ALIGN_CLIP);
 	color(fl_rgb_color(238, 243, 250));

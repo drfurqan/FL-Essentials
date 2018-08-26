@@ -59,10 +59,11 @@ int Fle_InputWidget::handle(int _event)
 			Fl_Menu_Button mb(Fl::event_x(), Fl::event_y(), 0, 0);
 			mb.box(FL_FLAT_BOX);
 			mb.down_box(FL_FLAT_BOX);
-			mb.color(fl_rgb_color(234, 239, 253));
+			mb.color(m_rclick_pop_clr);
+			mb.textcolor(m_rclick_pop_tclr);
 			mb.color2(fl_rgb_color(253, 244, 191));
-			mb.labelsize(14);
-			mb.textsize(14);
+			mb.labelsize(12);
+			mb.textsize(12);
 			mb.clear_visible_focus();
 			mb.menu(rclick_menu);
 			mb.popup();
@@ -84,7 +85,7 @@ int Fle_InputWidget::handle(int _event)
 
 	return Fl_Input::handle(_event);
 }
-#include <iostream>
+
 /************************************************************************/
 /*                                                                      */
 /************************************************************************/
@@ -93,7 +94,8 @@ Fl_Group(_x, _y, _w, _h)
 {
 	Fl_Group::end();
 	Fl_Group::align(_label_align);
-	Fl_Group::box(FL_NO_BOX);
+	Fl_Group::box(FL_FLAT_BOX);
+	Fl_Group::resizable(nullptr);
 
 	int gap = 0;
 	int W = 0, H = 0;
@@ -110,26 +112,21 @@ Fl_Group(_x, _y, _w, _h)
 	if (_label_align == FL_ALIGN_LEFT)
 	{
 		p_label = new Fl_Box(0, 0, W, H, _lable);
-		p_box = new Fl_Box(W + gap, 0, _w - W - gap, _h);
-		p_input = new Fle_InputWidget(W + gap, 0, _w - W - gap, _h);
+		p_input = new Fle_InputWidget(W + gap, 0, _w - W - gap - 40, _h);
 	}
 	else /*if (_label_align == FL_ALIGN_RIGHT)*/
 	{
-		p_box = new Fl_Box(0, 0, _w - W, _h);
 		p_input = new Fle_InputWidget(0, 0, _w - W, _h);
 		p_label = new Fl_Box(_w - W + gap, 0, W, H, _lable);
 	}
 
 	p_label->align(_label_align | FL_ALIGN_INSIDE);
-	p_label->box(FL_NO_BOX);
+	p_label->box(FL_FLAT_BOX);
 	p_label->labelcolor(FL_WHITE);
 	p_label->labelsize(12);
-	p_box->color(FL_WHITE);
-	p_box->box(FL_UP_BOX);
 	p_input->color(FL_WHITE);
-	p_input->box(FL_UP_BOX);
-	p_input->hide();
-	p_box->labelsize(11);
+	p_input->box(FL_FLAT_BOX);
+	p_input->show();
 	p_input->textsize(11);
 
 	Fl_Group::end();
@@ -137,26 +134,23 @@ Fl_Group(_x, _y, _w, _h)
 
 void Fle_Input::box(Fl_Boxtype _b)
 {
-	p_box->box(_b);
 	p_input->box(_b);
 }
 Fl_Boxtype Fle_Input::box() const
 {
-	return p_box->box();
+	return p_input->box();
 }
 void Fle_Input::color(Fl_Color _c)
 {
-	p_box->color(_c);
 	p_input->color(_c);
 }
 Fl_Color Fle_Input::color() const
 {
-	return p_box->color();
+	return p_input->color();
 }
 
 void Fle_Input::textcolor(Fl_Color _c)
 {
-	p_box->labelcolor(_c);
 	p_input->textcolor(_c);
 }
 Fl_Color Fle_Input::textcolor() const
@@ -165,7 +159,6 @@ Fl_Color Fle_Input::textcolor() const
 }
 void Fle_Input::textsize(int _size)
 {
-	p_box->labelsize(_size);
 	p_input->textsize(_size);
 }
 int Fle_Input::textsize() const
@@ -174,7 +167,6 @@ int Fle_Input::textsize() const
 }
 void Fle_Input::textfont(Fl_Font _f)
 {
-	p_box->labelfont(_f);
 	p_input->textfont(_f);
 }
 Fl_Font Fle_Input::textfont() const
@@ -184,12 +176,12 @@ Fl_Font Fle_Input::textfont() const
 
 Fl_Align Fle_Input::justify() const
 {
-	return p_box->align();
+	return p_input->align();
 }
 
 void Fle_Input::justify(Fl_Align _val)
 {
-	p_box->align(_val | FL_ALIGN_INSIDE);
+	p_input->align(_val | FL_ALIGN_INSIDE);
 }
 
 const char * Fle_Input::value() const
@@ -199,40 +191,40 @@ const char * Fle_Input::value() const
 
 void Fle_Input::value(const char *_val)
 {
-	p_box->copy_label(_val);
 	p_input->value(_val);
 }
 
 int Fle_Input::handle(int _event)
 {
-	switch (_event) 
-	{
-	case FL_PUSH:
-	case FL_FOCUS:
-		if (!p_input->visible()) 
-		{
-			// Make input widget 'appear' in place of the box
-			p_box->hide();
-			p_input->show();
-			p_input->value(p_box->label());
-			redraw();
-		}
-		break;
+	//switch (_event) 
+	//{
+	//case FL_PUSH:
+	//case FL_FOCUS:
+	//	if (!p_input->visible()) 
+	//	{
+	//		// Make input widget 'appear' in place of the box
+	//		//p_box->hide();
+	//		p_input->show();
+	//		p_input->value(p_box->label());
+	//		p_input->size(p_box->w(), p_box->h());
+	//		redraw();
+	//	}
+	//	break;
 
-	case FL_UNFOCUS:
-		if (p_input->visible()) 
-		{
-			// Replace input widget with justified box
-			p_box->show();
-			p_input->hide();
-			p_box->label(p_input->value());
-			redraw();
-		}
-		break;
+	//case FL_UNFOCUS:
+	//	if (p_input->visible()) 
+	//	{
+	//		// Replace input widget with justified box
+	//		//p_box->show();
+	//		p_input->show();
+	//		p_box->label(p_input->value());
+	//		redraw();
+	//	}
+	//	break;
 
-	default:
-		break;
-	}
+	//default:
+	//	break;
+	//}
 
 	return Fl_Group::handle(_event);
 }

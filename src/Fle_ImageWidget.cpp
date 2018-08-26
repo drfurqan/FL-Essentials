@@ -20,19 +20,20 @@ If not, please contact Dr. Furqan Ullah immediately:
 
 #include <FLE/Fle_ImageWidget.h>
 #include <FLE/Fle_ImageUtil.h>
-#include <FLE/Fle_MessageBox.h>
 
 #include <FL/Fl.H>
+#include <FL/Fl_Group.H>
 #include <FL/fl_draw.H>
 
 using namespace R3D;
 
 Fle_ImageWidget::Fle_ImageWidget(int _x, int _y, int _w, int _h, const char* _title) :
-Fl_Widget(_x, _y, _w, _h, _title),
-m_dtype(Fle_ImageDrawType::Fit),
-m_zoom(1),
-m_zoom_factors(cv::Vec2d(1.1, 0.9)),
-m_isize(cv::Size(_w, _h))
+	Fl_Widget(_x, _y, _w, _h, _title),
+	m_dtype(Fle_ImageDrawType::Fit),
+	m_zoom(1),
+	m_zoom_factors(cv::Vec2d(1.1, 0.9)),
+	m_isize(cv::Size(_w, _h)),
+	m_roi(cv::Rect(0, 0, 0, 0))
 {
 	align(FL_ALIGN_WRAP | FL_ALIGN_INSIDE | FL_ALIGN_CENTER | FL_ALIGN_TEXT_OVER_IMAGE | FL_ALIGN_CLIP);
 }
@@ -59,22 +60,40 @@ void Fle_ImageWidget::drawImage(const int _x, const int _y, const int _w, const 
 	if (m_image.cols <= 0 || m_image.rows <= 0) return;
 	if (m_isize.width <= 0 || m_isize.height <= 0) return;
 
+	cv::Mat fimage;
+	if (m_roi.width > 0 && m_roi.height > 0 && m_roi.width < m_image.cols && m_roi.height < m_image.rows)
+	{
+		fimage = cv::Mat(m_image, m_roi).clone();
+	}
+	else
+	{
+		fimage = m_image.clone();
+	}
+
 	if (m_dtype == Fle_ImageDrawType::Fit)
-		m_isize = Fle_ImageUtil::getNewSizeKeepAspectRatio(m_image.cols, m_image.rows, _w, _h);
+		m_isize = Fle_ImageUtil::getNewSizeKeepAspectRatio(fimage.cols, fimage.rows, _w, _h);
 	else if (m_dtype == Fle_ImageDrawType::Stretch)
 		m_isize = cv::Size(_w, _h);
 	else if (m_dtype == Fle_ImageDrawType::Center && m_zoom == 1)	// if there is no zooming
 	{
-		if (m_image.cols > w() || m_image.rows > h())	// if image is greater than the box size.
-			m_isize = Fle_ImageUtil::getNewSizeKeepAspectRatio(m_image.cols, m_image.rows, w(), h());
+		if (fimage.cols > w() || fimage.rows > h())	// if image is greater than the box size.
+			m_isize = Fle_ImageUtil::getNewSizeKeepAspectRatio(fimage.cols, fimage.rows, w(), h());
 		else // image with original size.
-			m_isize = cv::Size(m_image.cols, m_image.rows);
+			m_isize = cv::Size(fimage.cols, fimage.rows);
 	}
 
-	const auto channel = m_image.channels();
+	const auto channel = fimage.channels();
+	const auto d = fimage.depth();
 
-	cv::Mat fimage;
-	cv::resize(m_image, fimage, m_isize, 0, 0, cv::INTER_LINEAR);
+	if(d == CV_16U || d == CV_16S)		// 16 bit images
+	{
+		double min, max;
+		cv::minMaxLoc(fimage, &min, &max);
+		fimage.convertTo(fimage, CV_8UC1, 255.0 / (max - min));
+	}
+
+	cv::resize(fimage, fimage, m_isize, 0, 0, cv::INTER_LINEAR);
+
 	if (channel == 4) cv::cvtColor(fimage, fimage, CV_BGRA2RGBA);
 	else if (channel == 3) cv::cvtColor(fimage, fimage, CV_BGR2RGB);
 
@@ -87,7 +106,7 @@ void Fle_ImageWidget::drawImage(const int _x, const int _y, const int _w, const 
 	{
 		// fl_draw_image does not support (4-channels) transparent images like PNG. 
 		// It only support RGB (3-channels).
-		fl_draw_image(fimage.datastart, X, Y, m_isize.width, m_isize.height, fimage.channels(), static_cast<int>(fimage.step));
+		fl_draw_image(fimage.datastart, X, Y, m_isize.width, m_isize.height, fimage.channels(), static_cast<int>(fimage.step));	// faster
 	}
 	else
 	{
@@ -97,6 +116,28 @@ void Fle_ImageWidget::drawImage(const int _x, const int _y, const int _w, const 
 	
 	fl_pop_clip();
 }
+void Fle_ImageWidget::setRoi(const cv::Rect& _roi)
+{
+	Fl::lock();				// acquire the lock
+	m_roi = _roi;
+	Fl::unlock();			// release the lock; allow other threads to access FLTK again
+}
+// Description:
+// Function to get the region of interest for the border frame.
+cv::Rect Fle_ImageWidget::getRoi() const
+{
+	cv::Rect r;
+	Fl::lock();				// acquire the lock
+	r = m_roi;
+	Fl::unlock();			// release the lock; allow other threads to access FLTK again
+	return r;
+}
+void Fle_ImageWidget::resetRoi()
+{
+	Fl::lock();				// acquire the lock
+	m_roi = cv::Rect(0, 0, m_image.cols, m_image.rows);
+	Fl::unlock();			// release the lock; allow other threads to access FLTK again
+}
 
 bool Fle_ImageWidget::loadImage(const std::string& _filename)
 {
@@ -105,22 +146,31 @@ bool Fle_ImageWidget::loadImage(const std::string& _filename)
 
 	try
 	{
-		auto img = cv::imread(_filename, CV_LOAD_IMAGE_UNCHANGED);
+		auto img = cv::imread(_filename, cv::IMREAD_UNCHANGED);
 		if (!img.empty())
 		{
-			setImage(img);
+			auto fimage(img);
+			const auto d = img.depth();
+			if (d == CV_16U || d == CV_16S)	// 16 bit images
+			{
+				double min, max;
+				cv::minMaxLoc(fimage, &min, &max);
+				fimage.convertTo(fimage, CV_8UC1, 255.0 / (max - min));
+			}
+
+			setImage(fimage);
+			resetRoi();
 			setFileLocation(_filename);
 			return true;
 		}
 	}
 	catch (const cv::Exception& _ex)
 	{
-		Fle_MessageBox::Error("Something went wrong in loading image file!");
 		std::cout << "Exception reading image from disk: " << _ex.what() << "\n";
 	}
 	catch (...)
 	{
-		Fle_MessageBox::Error("Something went wrong in loading image file!");
+		std::cout << "Exception in reading image from disk!" << "\n";
 	}
 	return false;
 }
@@ -172,19 +222,17 @@ bool Fle_ImageWidget::saveImage(const std::string& _filename, const std::vector<
 			return false;
 		}
 
-		bool b;
-		b = cv::imwrite(_filename, m_image, _compression_params);
+		bool b = cv::imwrite(_filename, m_image, _compression_params);
 		Fl::unlock();			// release the lock
 		return b;
 	}
 	catch (const cv::Exception& _ex)
 	{
-		Fle_MessageBox::Error("Something went wrong in saving image file!");
-		std::cout << "Exception converting image to PNG format: " << _ex.what() << "\n";
+		std::cout << "Exception in saving image file: " << _ex.what() << "\n";
 	}
 	catch (...)
 	{
-		Fle_MessageBox::Error("Something went wrong in saving image file!");
+		std::cout << "Exception in saving image file!" << "\n";
 	}
 	return false;
 }

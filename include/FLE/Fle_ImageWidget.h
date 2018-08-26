@@ -82,14 +82,14 @@ public:
 	void setFileLocation(const std::string& _filename) { m_filename = _filename; }
 	// Description:
 	// Function to get the file path used for loadImage().
-	auto getFileLocation() const { return m_filename; }
+	std::string getFileLocation() const { return m_filename; }
 
 	// Description:
 	// Function to get the loaded image size.
 	cv::Size getImageSize() const;
 
 	// Description:
-	// Function to reset zooming.
+	// Function to reset zooming using the given image size.
 	void resetZoom(const cv::Size& _img_size);
 	// Description:
 	// Function to reset zooming.
@@ -113,6 +113,16 @@ public:
 	// Function to get zoom in and out factors.
 	cv::Vec2d getZoomInOutFactors() const { return m_zoom_factors; }
 
+	// Description:
+	// Function to set the region of interest for the image to be displayed.
+	void setRoi(const cv::Rect& _roi);
+	// Description:
+	// Function to get the region of interest.
+	cv::Rect getRoi() const;
+	// Description:
+	// Function to reset the region of interest to display the full image size.
+	void resetRoi();
+
 protected:
 	// Description:
 	// A virtual function that is expected to be overridden in the derived class for
@@ -128,6 +138,7 @@ protected:
 	Fle_ImageDrawType m_dtype;
 	std::string m_filename;
 	double m_zoom;
+	cv::Rect m_roi;
 };
 
 }

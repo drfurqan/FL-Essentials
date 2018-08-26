@@ -21,7 +21,6 @@ If not, please contact Dr. Furqan Ullah immediately:
 #include <FLE/Fle_Timer.h>
 
 #include <FL/Fl.H>
-#include <chrono>
 #include <iomanip>
 #include <sstream>
 
@@ -104,11 +103,11 @@ void Fle_Timer::singleShot(double _time_in_sec, const std::function<void()>& _fu
 
 std::string Fle_Timer::getLocalTime(const char* _format)
 {
-	auto now = std::chrono::system_clock::now();
-	auto in_time_t = std::chrono::system_clock::to_time_t(now);
+	std::time_t rawtime;
+	std::time(&rawtime);
 
 	std::stringstream ss;
-	ss << std::put_time(std::localtime(&in_time_t), _format);
+	ss << std::put_time(std::localtime(&rawtime), _format);
 	return ss.str();
 }
 

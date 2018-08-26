@@ -23,6 +23,7 @@ If not, please contact Dr. Furqan Ullah immediately:
 **********************************************************************************/
 
 #include <FLE/Fle_Export.h>
+#include <FL/fl_ask.H>
 
 namespace R3D
 {

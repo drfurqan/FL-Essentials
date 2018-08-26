@@ -200,8 +200,8 @@ public:
 	}
 	inline friend std::ostream& operator << (std::ostream& _s, const std::vector<Fle_Size2<_T>>& _a)
 	{
-		for (auto &it : _a)
-			_s << it << ' ';
+		for (std::size_t i = 0; i < _a.size(); i++)
+			_s << _a[i] << ' ';
 		_s << std::endl;
 		return _s;
 	}

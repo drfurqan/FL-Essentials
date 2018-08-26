@@ -522,7 +522,7 @@ public:
 
 	// Description:
 	// Position for Left-Right Horizontal layout to be added at Top or Bottom of this layout. 
-	enum class Position
+	enum Position
 	{
 		AT_TOP = 0,
 		AT_BOTTOM

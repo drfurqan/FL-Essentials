@@ -33,7 +33,7 @@ namespace R3D
 
 // Description:
 // Image draw types.
-enum class Fle_ImageDrawType
+enum Fle_ImageDrawType
 {
 	Fit = 0,	// image will be fit to windows size.
 	Stretch,	// image will be stretched to the window size.

@@ -661,8 +661,8 @@ int Fle_Dialog::getNumbers(int _w, int _h, const char* _title,
 		choice[i]->color2(fl_rgb_color(253, 244, 191));
 		choice[i]->textcolor(fl_rgb_color(255, 255, 255));
 		choice[i]->textsize(13);
-		for (auto const j : _menus[i])
-			choice[i]->add(j.c_str());
+		for (std::size_t j = 0; j < _menus[i].size(); j++)
+			choice[i]->add(_menus[i][j].c_str());
 		choice[i]->value(0);
 		choice[i]->clear_visible_focus();
 
@@ -772,8 +772,8 @@ int Fle_Dialog::getNumbers(int _w, int _h, const char* _title,
 		choice[i]->color2(fl_rgb_color(253, 244, 191));
 		choice[i]->textcolor(fl_rgb_color(255, 255, 255));
 		choice[i]->textsize(13);
-		for (auto const j : _menus[i])
-			choice[i]->add(j.c_str());
+		for (std::size_t j = 0; j < _menus[i].size(); j++)
+			choice[i]->add(_menus[i][j].c_str());
 		choice[i]->value(0);
 		choice[i]->clear_visible_focus();
 
@@ -897,13 +897,15 @@ int Fle_Dialog::getInput(int _w, int _h, const char* _title, const char* _label,
 
 	l->begin();
 
-	Fle_Input* s = new Fle_Input(0, 0, _w - 25, 25, _label);
-	s->box(FL_FLAT_BOX);
-	s->justify(FL_ALIGN_LEFT);
-	s->color(fl_rgb_color(255, 255, 255));
+	Fle_InputWidget* s = new Fle_InputWidget(0, 0, _w - 20, 25, _label);
+	s->box(FL_BORDER_BOX);
+	s->align(FL_ALIGN_LEFT);
+	s->setRightClickPopupColor(fl_rgb_color(74, 84, 89));
+	s->setRightClickPopupTextColor(fl_rgb_color(255, 255, 255));
+	s->color(fl_rgb_color(74, 84, 89));
+	s->textcolor(fl_rgb_color(255, 255, 255));
+	s->textsize(12);
 	s->value(std::string(_value).c_str());
-	s->textcolor(fl_rgb_color(0, 0, 0));
-	s->textsize(13);
 
 	l->end();
 
@@ -987,7 +989,7 @@ int Fle_Dialog::getInputs(int _w, int _h,
 			n = std::string(_labels[i]).length();
 
 	// create all the inputs.
-	std::vector<Fle_Input*> s(_labels.size());
+	std::vector<Fle_InputWidget*> s(_labels.size());
 	for (std::size_t i = 0; i < _labels.size(); i++)
 	{
 		// first, create a layout in which other widgets will be packed.
@@ -1006,13 +1008,15 @@ int Fle_Dialog::getInputs(int _w, int _h,
 		b->getFont()->setSize(_label_prop.getSize());
 
 		// create a input with the adjusted size.
-		s[i] = new Fle_Input(0, 0, _w - b->w() - 32, 25, 0);
-		s[i]->box(FL_FLAT_BOX);
-		s[i]->justify(FL_ALIGN_LEFT);
+		s[i] = new Fle_InputWidget(0, 0, _w - b->w() - 20, 25);
+		s[i]->box(FL_BORDER_BOX);
+		s[i]->align(FL_ALIGN_LEFT);
+		s[i]->setRightClickPopupColor(fl_rgb_color(74, 84, 89));
+		s[i]->setRightClickPopupTextColor(fl_rgb_color(255, 255, 255));
 		s[i]->color(_text_bkgrnd_color);
-		s[i]->value(std::string(_values[i]).c_str());
 		s[i]->textcolor(_text_color);
 		s[i]->textsize(12);
+		s[i]->value(std::string(_values[i]).c_str());
 
 		// end packing.
 		l->end();
@@ -1120,8 +1124,8 @@ int Fle_Dialog::getItem(int _w, int _h, const char* _title, const char* _label, 
 	s->color2(fl_rgb_color(253, 244, 191));
 	s->textcolor(fl_rgb_color(255, 255, 255));
 	s->textsize(13);
-	for (auto const i : _items)
-		s->add(std::string(i).c_str());
+	for (std::size_t i = 0; i < _items.size(); i++)
+		s->add(std::string(_items[i]).c_str());
 	s->value(_selected_index);
 	s->clear_visible_focus();
 	if (_title) s->tooltip(_title);
@@ -1517,6 +1521,7 @@ int Fle_Dialog::ask(int _w, int _h, 			// width and height of the dialog window.
 	int X, Y, W, H;
 	Fl::screen_work_area(X, Y, W, H);
 	d->position(X + W / 2 - _w / 2, Y + H / 2 - _h / 2);
+	fl_beep();
 
 	while (d->shown())
 	{
@@ -1617,14 +1622,16 @@ int Fle_Dialog::browse(int _w, int _h, const char* _title, const char* _label, c
 
 	l->begin();
 
-	Fle_Input* s = new Fle_Input(0, 0, _w - 25, 25, _label);
-	s->box(FL_FLAT_BOX);
-	s->justify(FL_ALIGN_LEFT);
-	s->color(fl_rgb_color(255, 255, 255));
+	Fle_InputWidget* s = new Fle_InputWidget(0, 0, _w - 20, 25, _label);
+	s->box(FL_BORDER_BOX);
+	s->align(FL_ALIGN_LEFT);
+	s->setRightClickPopupColor(fl_rgb_color(74, 84, 89));
+	s->setRightClickPopupTextColor(fl_rgb_color(255, 255, 255));
+	s->color(fl_rgb_color(74, 84, 89));
+	s->textcolor(fl_rgb_color(255, 255, 255));
+	s->textsize(12);
 	if(!_value.empty())
 		s->value(std::string(_value).c_str());
-	s->textcolor(fl_rgb_color(0, 0, 0));
-	s->textsize(13);
 
 	l->end();
 
