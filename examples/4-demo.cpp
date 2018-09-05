@@ -83,6 +83,11 @@ int main()
 {
 	// library initialization with default modes.
 	Fle_Core::init();
+	// to make widgets flat.
+	Fl::set_boxtype(Fl_Boxtype::FL_UP_BOX, Fl_Boxtype::FL_FLAT_BOX);			// change box type to flat only.
+	Fl::set_boxtype(Fl_Boxtype::FL_DOWN_BOX, Fl_Boxtype::FL_BORDER_BOX);		// change menu check box type to flat only.
+	Fl::set_boxtype(Fl_Boxtype::_FL_ROUND_DOWN_BOX, Fl_Boxtype::FL_BORDER_BOX);	// change menu radio box type to flat only.
+	Fl::set_boxtype(Fl_Boxtype::_FL_ROUND_UP_BOX, Fl_Boxtype::FL_BORDER_BOX);	// change box type to flat only.
 
 	// create a main window.
 	Fle_MainWindow* w = new Fle_MainWindow(1400, 800, "Hello World");
@@ -99,12 +104,12 @@ int main()
 	w->getStatusBar()->show();
 
 	// load image from disk and display in the central widget.
-	w->getCentralWindow()->getBox()->loadImage("D:\\aw.jpg");
-	w->getCentralWindow()->getBox()->setImageDrawType(Fle_ImageDrawType::Fit);
+	w->getCentralWidget()->getBox()->loadImage("D:\\aw.jpg");
+	w->getCentralWidget()->getBox()->setImageDrawType(Fle_ImageDrawType::Fit);
 
 	// add OpenGL window in the central widget.
 	//w->begin();
-	//Fle_OpenGLWindow* opengl = new Fle_OpenGLWindow(0, 0, w->getCentralWindow()->w(), w->getCentralWindow()->h(), "OpenGL Window");
+	//Fle_OpenGLWindow* opengl = new Fle_OpenGLWindow(0, 0, w->getCentralWidget()->w(), w->getCentralWidget()->h(), "OpenGL Window");
 	//w->end();
 
 	// set the menubar fixed height.

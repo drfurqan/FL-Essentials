@@ -83,7 +83,7 @@ Fle_Image_Viewer::Fle_Image_Viewer(int _x, int _y, int _w, int _h, const char* _
 Fle_MainWindow(_x, _y, _w, _h, _title, _icon_index),
 m_title(_title),
 m_dir_nfile(0),
-m_sstime(3)
+m_sstime(0.5)
 {
 	callback(exit_cb, this);
 	setMargins(0, 0, 1, 2);
@@ -93,11 +93,11 @@ m_sstime(3)
 	addStatusBar();
 
 	// remove the previous box that was embedded in the central widget.
-	getCentralWindow()->remove(getCentralWindow()->getBox());
+	getCentralWidget()->remove(getCentralWidget()->getBox());
 
 	// now add a new box in the central widget.
 	begin();
-	p_scroll = new Fle_DND_ScrollBox(this, 0, 0, getCentralWindow()->w(), getCentralWindow()->h());
+	p_scroll = new Fle_DND_ScrollBox(this, 0, 0, getCentralWidget()->w(), getCentralWidget()->h());
 	p_scroll->getBox()->setImageDrawType(Fle_ImageDrawType::Center);
 	end();
 }
@@ -119,11 +119,11 @@ m_sstime(3)
 	addStatusBar();
 
 	// remove the previous box that was embedded in the central widget.
-	getCentralWindow()->remove(getCentralWindow()->getBox());
+	getCentralWidget()->remove(getCentralWidget()->getBox());
 
 	// now add a new box in the central widget.
 	begin();
-	p_scroll = new Fle_DND_ScrollBox(this, 0, 0, getCentralWindow()->w(), getCentralWindow()->h());
+	p_scroll = new Fle_DND_ScrollBox(this, 0, 0, getCentralWidget()->w(), getCentralWidget()->h());
 	p_scroll->getBox()->setImageDrawType(Fle_ImageDrawType::Center);
 	end();
 }
@@ -343,7 +343,7 @@ void Fle_Image_Viewer::new_cb(Fl_Widget* _w, void* _p)
 	m.at<cv::Vec3b>(cv::Point(0, 0)) = cv::Vec3b(Fle_Widgets::toBGR(v->getScrollBox()->getBox()->color()));
 	// set the 1 pixel by 1 pixel mat as an background.
 	v->getScrollBox()->getBox()->setImage(m);
-	v->getScrollBox()->getBox()->setFilePath("");	// empty the file path if any.
+	v->getScrollBox()->getBox()->setFileLocation("");	// empty the file path if any.
 	v->getScrollBox()->getBox()->resetZoom(); // reset zoom, and fit to central widget size.
 	v->updateTitle("D:\\Untitled");	// update the title of this window to untitled.
 	v->redraw();
@@ -390,7 +390,7 @@ void Fle_Image_Viewer::print_cb(Fl_Widget* _w, void* _p)
 		int width, height;
 		printer->printable_rect(&width, &height);
 		printer->origin(width / 2, height / 2);
-		printer->print_widget(v->getCentralWindow(), -v->getScrollBox()->getBox()->w() / 2, -v->getScrollBox()->getBox()->h() / 2);
+		printer->print_widget(v->getCentralWidget(), -v->getScrollBox()->getBox()->w() / 2, -v->getScrollBox()->getBox()->h() / 2);
 		printer->end_page();
 		printer->end_job();
 	}
@@ -420,7 +420,7 @@ void Fle_Image_Viewer::copy_cb(Fl_Widget* _w, void* _p)
 
 	Fl_Copy_Surface *copy_surf = new Fl_Copy_Surface(v->getScrollBox()->getBox()->w(), v->getScrollBox()->getBox()->h());
 	copy_surf->set_current();				// direct graphics requests to the clipboard
-	copy_surf->draw(v->getCentralWindow()); // draw the g widget in the clipboard
+	copy_surf->draw(v->getCentralWidget()); // draw the g widget in the clipboard
 	delete copy_surf;						// after this, the clipboard is loaded
 	Fl_Display_Device::display_device()->set_current();  // direct graphics requests back to the display
 
@@ -438,9 +438,9 @@ void Fle_Image_Viewer::delete_cb(Fl_Widget* _w, void* _p)
 	Fle_Image_Viewer* v = static_cast<Fle_Image_Viewer*>(_p);
 	if (!v) return;
 
-	std::remove(v->getScrollBox()->getBox()->getFilePath().c_str()); // delete file
+	std::remove(v->getScrollBox()->getBox()->getFileLocation().c_str()); // delete file
 
-	bool ok = !std::ifstream(v->getScrollBox()->getBox()->getFilePath().c_str());
+	bool ok = !std::ifstream(v->getScrollBox()->getBox()->getFileLocation().c_str());
 	if (!ok)
 	{
 		Fle_MessageBox::Error("Couldn't delete the file!", "Error");
@@ -511,7 +511,7 @@ void Fle_Image_Viewer::rotate_90_cb(Fl_Widget* _w, void* _p)
 	if (v->m_dir_files.empty()) return;
 	
 	cv::Mat src = v->getScrollBox()->getBox()->getImage();
-	v->getScrollBox()->getBox()->setImage(Fle_ImageUtil::getRotatedImage(src, -90));
+	v->getScrollBox()->getBox()->setImage(Fle_ImageUtil::getRotatedImage(src, 270));
 	v->redraw();
 	v->getStatusBar()->showMessage("Rotated clockwise...", 5);
 }

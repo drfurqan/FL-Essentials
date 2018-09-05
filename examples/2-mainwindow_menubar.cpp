@@ -47,6 +47,11 @@ int main()
 {
 	// library initialization with default modes.
 	Fle_Core::init();
+	// to make widgets flat.
+	Fl::set_boxtype(Fl_Boxtype::FL_UP_BOX, Fl_Boxtype::FL_FLAT_BOX);			// change box type to flat only.
+	Fl::set_boxtype(Fl_Boxtype::FL_DOWN_BOX, Fl_Boxtype::FL_BORDER_BOX);		// change menu check box type to flat only.
+	Fl::set_boxtype(Fl_Boxtype::_FL_ROUND_DOWN_BOX, Fl_Boxtype::FL_BORDER_BOX);	// change menu radio box type to flat only.
+	Fl::set_boxtype(Fl_Boxtype::_FL_ROUND_UP_BOX, Fl_Boxtype::FL_BORDER_BOX);	// change box type to flat only.
 
 	// create a main window.
 	Fle_MainWindow* w = new Fle_MainWindow(1024, 500, "MainWindow with MenuBar");
@@ -54,8 +59,8 @@ int main()
 	w->setMaximumSize(Fle_Size(10000, 10000));
 
 	// load image from disk and display in the central widget.
-	w->getCentralWindow()->getBox()->loadImage("D:\\aw.jpg");
-	w->getCentralWindow()->getBox()->setImageDrawType(Fle_ImageDrawType::Fit);
+	w->getCentralWidget()->getBox()->loadImage("D:\\aw.jpg");
+	w->getCentralWidget()->getBox()->setImageDrawType(Fle_ImageDrawType::Fit);
 
 	// show the menubar and set it's fixed height.
 	w->getMenuBar()->show();

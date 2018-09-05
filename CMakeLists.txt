@@ -68,7 +68,6 @@ ${CMAKE_SOURCE_DIR}/src/Fle_Tree.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_Widgets.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_Window.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_WindowsUtil.cpp
-${CMAKE_SOURCE_DIR}/src/Fl_Menu.cxx
 ${CMAKE_SOURCE_DIR}/src/Math/Fle_Color4D.cpp
 ${CMAKE_SOURCE_DIR}/src/Math/Fle_FaceIndices3.cpp
 ${CMAKE_SOURCE_DIR}/src/Math/Fle_Matrix4x4.cpp

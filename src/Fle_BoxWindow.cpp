@@ -27,13 +27,13 @@ using namespace R3D;
 Fle_BoxWindow::Fle_BoxWindow(int _x, int _y, int _w, int _h, const char* _title) :
 	Fle_Window(_x, _y, _w, _h, _title)
 {
-	p_box->setImageDrawType(Fle_ImageDrawType::Center);
+	//p_box->setImageDrawType(Fle_ImageDrawType::Center);
 	Fle_Window::end();
 }
 Fle_BoxWindow::Fle_BoxWindow(int _w, int _h, const char* _title) :
 	Fle_Window(_w, _h, _title)
 {
-	p_box->setImageDrawType(Fle_ImageDrawType::Center);
+	//p_box->setImageDrawType(Fle_ImageDrawType::Center);
 	Fle_Window::end();
 }
 

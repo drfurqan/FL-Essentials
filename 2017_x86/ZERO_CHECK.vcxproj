@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|Win32">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|Win32">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{278128BA-3E34-3CFE-8DBF-2DAD019F54D3}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>Win32</Platform>
+    <ProjectName>ZERO_CHECK</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include;D:\Mylibs\FLTK\1_4_build\2017_x86\install\include;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86;D:\Mylibs\OpenCV\opencv-3.4.2\include;D:\Mylibs\OpenCV\opencv-3.4.2\include\opencv;D:\Mylibs\OpenCV\opencv-3.4.2\modules\core\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\flann\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\imgproc\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ml\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\objdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\phase_unwrapping\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\photo\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\plot\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\reg\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\surface_matching\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\video\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xphoto\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dnn\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\face\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\fuzzy\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\hfs\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\imgcodecs\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\shape\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\videoio\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xobjdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\highgui\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\superres\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\bioinspired\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dnn_objdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dpm\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\features2d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\line_descriptor\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\saliency\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\text\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\calib3d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ccalib\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\datasets\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\rgbd\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\stereo\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\structured_light\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\tracking\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\videostab\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xfeatures2d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ximgproc\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\aruco\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\bgsegm\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\optflow\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\stitching\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\world\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\img_hash\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ts\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include;D:\Mylibs\FLTK\1_4_build\2017_x86\install\include;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86;D:\Mylibs\OpenCV\opencv-3.4.2\include;D:\Mylibs\OpenCV\opencv-3.4.2\include\opencv;D:\Mylibs\OpenCV\opencv-3.4.2\modules\core\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\flann\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\imgproc\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ml\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\objdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\phase_unwrapping\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\photo\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\plot\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\reg\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\surface_matching\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\video\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xphoto\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dnn\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\face\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\fuzzy\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\hfs\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\imgcodecs\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\shape\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\videoio\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xobjdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\highgui\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\superres\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\bioinspired\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dnn_objdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dpm\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\features2d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\line_descriptor\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\saliency\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\text\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\calib3d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ccalib\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\datasets\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\rgbd\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\stereo\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\structured_light\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\tracking\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\videostab\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xfeatures2d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ximgproc\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\aruco\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\bgsegm\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\optflow\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\stitching\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\world\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\img_hash\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ts\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include;D:\Mylibs\FLTK\1_4_build\2017_x86\install\include;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86;D:\Mylibs\OpenCV\opencv-3.4.2\include;D:\Mylibs\OpenCV\opencv-3.4.2\include\opencv;D:\Mylibs\OpenCV\opencv-3.4.2\modules\core\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\flann\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\imgproc\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ml\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\objdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\phase_unwrapping\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\photo\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\plot\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\reg\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\surface_matching\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\video\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xphoto\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dnn\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\face\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\fuzzy\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\hfs\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\imgcodecs\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\shape\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\videoio\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xobjdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\highgui\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\superres\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\bioinspired\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dnn_objdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dpm\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\features2d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\line_descriptor\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\saliency\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\text\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\calib3d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ccalib\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\datasets\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\rgbd\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\stereo\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\structured_light\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\tracking\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\videostab\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xfeatures2d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ximgproc\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\aruco\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\bgsegm\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\optflow\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\stitching\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\world\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\img_hash\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ts\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include;D:\Mylibs\FLTK\1_4_build\2017_x86\install\include;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86;D:\Mylibs\OpenCV\opencv-3.4.2\include;D:\Mylibs\OpenCV\opencv-3.4.2\include\opencv;D:\Mylibs\OpenCV\opencv-3.4.2\modules\core\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\flann\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\imgproc\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ml\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\objdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\phase_unwrapping\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\photo\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\plot\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\reg\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\surface_matching\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\video\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xphoto\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dnn\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\face\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\fuzzy\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\hfs\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\imgcodecs\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\shape\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\videoio\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xobjdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\highgui\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\superres\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\bioinspired\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dnn_objdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dpm\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\features2d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\line_descriptor\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\saliency\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\text\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\calib3d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ccalib\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\datasets\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\rgbd\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\stereo\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\structured_light\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\tracking\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\videostab\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xfeatures2d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ximgproc\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\aruco\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\bgsegm\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\optflow\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\stitching\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\world\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\img_hash\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ts\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\2017_x86\CMakeFiles\5289de712028be3b25c9c0ec942ae269\generate.stamp.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Checking Build System</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -HD:/Clouds/OneDrive/Personal/Research/Softwares/softs/fle/new/fle -BD:/Clouds/OneDrive/Personal/Research/Softwares/softs/fle/new/fle/2017_x86 --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file D:/Clouds/OneDrive/Personal/Research/Softwares/softs/fle/new/fle/2017_x86/fle.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:/Clouds/OneDrive/Personal/Research/Softwares/softs/fle/new/fle/2017_x86/CMakeFiles/5289de712028be3b25c9c0ec942ae269/generate.stamp.rule;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindFLTK.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Platform\WindowsPaths.cmake;D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\2017_x86\CMakeFiles\3.10.0\CMakeCCompiler.cmake;D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\2017_x86\CMakeFiles\3.10.0\CMakeCXXCompiler.cmake;D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\2017_x86\CMakeFiles\3.10.0\CMakeRCCompiler.cmake;D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\2017_x86\CMakeFiles\3.10.0\CMakeSystem.cmake;D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\CMakeLists.txt;D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\examples\CMakeLists.txt;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\OpenCVConfig-version.cmake;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\OpenCVConfig.cmake;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\OpenCVModules.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\2017_x86\CMakeFiles\generate.stamp;D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\2017_x86\examples\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Checking Build System</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -HD:/Clouds/OneDrive/Personal/Research/Softwares/softs/fle/new/fle -BD:/Clouds/OneDrive/Personal/Research/Softwares/softs/fle/new/fle/2017_x86 --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file D:/Clouds/OneDrive/Personal/Research/Softwares/softs/fle/new/fle/2017_x86/fle.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:/Clouds/OneDrive/Personal/Research/Softwares/softs/fle/new/fle/2017_x86/CMakeFiles/5289de712028be3b25c9c0ec942ae269/generate.stamp.rule;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindFLTK.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Platform\WindowsPaths.cmake;D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\2017_x86\CMakeFiles\3.10.0\CMakeCCompiler.cmake;D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\2017_x86\CMakeFiles\3.10.0\CMakeCXXCompiler.cmake;D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\2017_x86\CMakeFiles\3.10.0\CMakeRCCompiler.cmake;D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\2017_x86\CMakeFiles\3.10.0\CMakeSystem.cmake;D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\CMakeLists.txt;D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\examples\CMakeLists.txt;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\OpenCVConfig-version.cmake;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\OpenCVConfig.cmake;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\OpenCVModules.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\2017_x86\CMakeFiles\generate.stamp;D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\2017_x86\examples\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Checking Build System</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -HD:/Clouds/OneDrive/Personal/Research/Softwares/softs/fle/new/fle -BD:/Clouds/OneDrive/Personal/Research/Softwares/softs/fle/new/fle/2017_x86 --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file D:/Clouds/OneDrive/Personal/Research/Softwares/softs/fle/new/fle/2017_x86/fle.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">D:/Clouds/OneDrive/Personal/Research/Softwares/softs/fle/new/fle/2017_x86/CMakeFiles/5289de712028be3b25c9c0ec942ae269/generate.stamp.rule;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindFLTK.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Platform\WindowsPaths.cmake;D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\2017_x86\CMakeFiles\3.10.0\CMakeCCompiler.cmake;D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\2017_x86\CMakeFiles\3.10.0\CMakeCXXCompiler.cmake;D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\2017_x86\CMakeFiles\3.10.0\CMakeRCCompiler.cmake;D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\2017_x86\CMakeFiles\3.10.0\CMakeSystem.cmake;D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\CMakeLists.txt;D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\examples\CMakeLists.txt;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\OpenCVConfig-version.cmake;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\OpenCVConfig.cmake;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\OpenCVModules.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\2017_x86\CMakeFiles\generate.stamp;D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\2017_x86\examples\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Checking Build System</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -HD:/Clouds/OneDrive/Personal/Research/Softwares/softs/fle/new/fle -BD:/Clouds/OneDrive/Personal/Research/Softwares/softs/fle/new/fle/2017_x86 --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file D:/Clouds/OneDrive/Personal/Research/Softwares/softs/fle/new/fle/2017_x86/fle.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">D:/Clouds/OneDrive/Personal/Research/Softwares/softs/fle/new/fle/2017_x86/CMakeFiles/5289de712028be3b25c9c0ec942ae269/generate.stamp.rule;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindFLTK.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Platform\WindowsPaths.cmake;D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\2017_x86\CMakeFiles\3.10.0\CMakeCCompiler.cmake;D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\2017_x86\CMakeFiles\3.10.0\CMakeCXXCompiler.cmake;D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\2017_x86\CMakeFiles\3.10.0\CMakeRCCompiler.cmake;D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\2017_x86\CMakeFiles\3.10.0\CMakeSystem.cmake;D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\CMakeLists.txt;D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\examples\CMakeLists.txt;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\OpenCVConfig-version.cmake;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\OpenCVConfig.cmake;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\OpenCVModules.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\2017_x86\CMakeFiles\generate.stamp;D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\2017_x86\examples\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

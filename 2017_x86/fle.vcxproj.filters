@@ -1,0 +1,267 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\src\Fle_AbstractOpenGLActor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\src\Fle_Box.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\src\Fle_BoxWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\src\Fle_Button.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\src\Fle_CheckGroup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\src\Fle_ColorChooser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\src\Fle_ColorChooserDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\src\Fle_Core.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\src\Fle_Dialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\src\Fle_FileDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\src\Fle_FileSys.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\src\Fle_Font.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\src\Fle_Group.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\src\Fle_ImageUtil.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\src\Fle_ImageWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\src\Fle_Input.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\src\Fle_InputSlider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\src\Fle_Layout.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\src\Fle_MainWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\src\Fle_MenuBar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\src\Fle_MessageBox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\src\Fle_MultiColorChooserDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\src\Fle_OpenGLWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\src\Fle_ProgressBar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\src\Fle_ScrollBox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\src\Fle_Spinner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\src\Fle_StatusBar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\src\Fle_StringUtil.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\src\Fle_Timer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\src\Fle_ToolBar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\src\Fle_Tree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\src\Fle_Widgets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\src\Fle_Window.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\src\Fle_WindowsUtil.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\src\Math\Fle_Color4D.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\src\Math\Fle_FaceIndices3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\src\Math\Fle_Matrix4x4.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\src\Math\Fle_Vector2D.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\src\Math\Fle_Vector3D.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\src\Math\Fle_Vector4D.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include\FLE\Fle_AbstractOpenGLActor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include\FLE\Fle_Box.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include\FLE\Fle_BoxWindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include\FLE\Fle_Button.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include\FLE\Fle_CheckGroup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include\FLE\Fle_Color.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include\FLE\Fle_ColorChooser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include\FLE\Fle_ColorChooserDialog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include\FLE\Fle_Core.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include\FLE\Fle_Dialog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include\FLE\Fle_Export.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include\FLE\Fle_FileDialog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include\FLE\Fle_FileSys.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include\FLE\Fle_Font.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include\FLE\Fle_Group.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include\FLE\Fle_ImageUtil.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include\FLE\Fle_ImageWidget.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include\FLE\Fle_Input.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include\FLE\Fle_InputSlider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include\FLE\Fle_Layout.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include\FLE\Fle_MainWindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include\FLE\Fle_MenuBar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include\FLE\Fle_MessageBox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include\FLE\Fle_MultiColorChooserDialog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include\FLE\Fle_OpenGLWindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include\FLE\Fle_ProgressBar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include\FLE\Fle_ScrollBox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include\FLE\Fle_Size.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include\FLE\Fle_Spinner.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include\FLE\Fle_StatusBar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include\FLE\Fle_StringUtil.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include\FLE\Fle_Timer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include\FLE\Fle_ToolBar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include\FLE\Fle_Tree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include\FLE\Fle_Widgets.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include\FLE\Fle_Window.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include\FLE\Fle_WindowsUtil.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include\FLE\Math\Fle_Color4D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include\FLE\Math\Fle_FaceIndices3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include\FLE\Math\Fle_Matrix4x4.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include\FLE\Math\Fle_Vector2D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include\FLE\Math\Fle_Vector3D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include\FLE\Math\Fle_Vector4D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{B667A5E4-0730-3E9E-9324-85EA74C065D0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{FB3DC50A-2F06-3859-9994-9C8A781AE773}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

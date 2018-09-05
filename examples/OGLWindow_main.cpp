@@ -26,6 +26,11 @@ int main(int argc, char* argv[])
 {
 	// library initialization with default modes.
 	Fle_Core::init();
+	// to make widgets flat.
+	Fl::set_boxtype(Fl_Boxtype::FL_UP_BOX, Fl_Boxtype::FL_BORDER_BOX);			// change box type to flat only.
+	Fl::set_boxtype(Fl_Boxtype::FL_DOWN_BOX, Fl_Boxtype::FL_BORDER_BOX);		// change menu check box type to flat only.
+	Fl::set_boxtype(Fl_Boxtype::_FL_ROUND_DOWN_BOX, Fl_Boxtype::FL_BORDER_BOX);	// change menu radio box type to flat only.
+	Fl::set_boxtype(Fl_Boxtype::_FL_ROUND_UP_BOX, Fl_Boxtype::FL_BORDER_BOX);	// change box type to flat only.
 
 	// create main window that can have menubar, toolbars, statusbar etc.
 	Fle_MainWindow win(1024, 500, "OpenGL Program with Animation, Events, Lights, and Material");

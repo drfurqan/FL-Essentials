@@ -28,27 +28,6 @@ If not, please contact Dr. Furqan Ullah immediately:
 
 using namespace R3D;
 
-int __update_system_colors(int _event) // WIN32 only, so far
-{
-#ifdef _WIN32
-	DWORD color;
-	BYTE *pColor = (BYTE*)&color;
-
-	color = GetSysColor(COLOR_WINDOW);
-	Fl::background2(pColor[0], pColor[1], pColor[2]);
-
-	color = GetSysColor(COLOR_WINDOWTEXT);
-	Fl::foreground(pColor[0], pColor[1], pColor[2]);
-
-	color = GetSysColor(COLOR_BTNFACE);
-	Fl::background(pColor[0], pColor[1], pColor[2]);
-
-	color = GetSysColor(COLOR_HIGHLIGHT);
-	Fl::set_color(FL_SELECTION_COLOR, pColor[0], pColor[1], pColor[2]);
-#endif
-	return 1;
-}
-
 static int __disable_escape_key(int _event)
 {
 	if (_event == FL_SHORTCUT && Fl::event_key(FL_Escape)) 
@@ -77,7 +56,6 @@ void Fle_Core::init()
 	Fl_Tooltip::textcolor(fl_rgb_color(87, 87, 87));
 	Fl_Tooltip::margin_width(6);
 	Fl_Tooltip::margin_height(6);
-	__update_system_colors(1);
 	fl_register_images();						// Initialize FLTK image lib (essential)
 
 	Fl_Image::scaling_algorithm(Fl_RGB_Scaling::FL_RGB_SCALING_BILINEAR);

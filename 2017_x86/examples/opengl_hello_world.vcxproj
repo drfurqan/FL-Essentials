@@ -1,0 +1,327 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|Win32">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|Win32">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{5998EC74-3B2C-3186-8A59-F2E14F1C826E}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>Win32</Platform>
+    <ProjectName>opengl_hello_world</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\bin\examples\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">opengl_hello_world.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">opengl_hello_world</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\bin\examples\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">opengl_hello_world.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">opengl_hello_world</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\bin\examples\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">opengl_hello_world.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">opengl_hello_world</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\bin\examples\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">opengl_hello_world.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">opengl_hello_world</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include;D:\Mylibs\FLTK\1_4_build\2017_x86\install\include;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86;D:\Mylibs\OpenCV\opencv-3.4.2\include;D:\Mylibs\OpenCV\opencv-3.4.2\include\opencv;D:\Mylibs\OpenCV\opencv-3.4.2\modules\core\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\flann\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\imgproc\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ml\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\objdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\phase_unwrapping\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\photo\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\plot\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\reg\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\surface_matching\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\video\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xphoto\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dnn\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\face\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\fuzzy\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\hfs\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\imgcodecs\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\shape\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\videoio\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xobjdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\highgui\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\superres\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\bioinspired\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dnn_objdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dpm\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\features2d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\line_descriptor\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\saliency\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\text\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\calib3d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ccalib\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\datasets\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\rgbd\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\stereo\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\structured_light\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\tracking\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\videostab\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xfeatures2d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ximgproc\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\aruco\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\bgsegm\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\optflow\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\stitching\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\world\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\img_hash\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ts\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Debug/</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include;D:\Mylibs\FLTK\1_4_build\2017_x86\install\include;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86;D:\Mylibs\OpenCV\opencv-3.4.2\include;D:\Mylibs\OpenCV\opencv-3.4.2\include\opencv;D:\Mylibs\OpenCV\opencv-3.4.2\modules\core\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\flann\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\imgproc\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ml\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\objdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\phase_unwrapping\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\photo\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\plot\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\reg\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\surface_matching\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\video\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xphoto\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dnn\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\face\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\fuzzy\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\hfs\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\imgcodecs\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\shape\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\videoio\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xobjdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\highgui\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\superres\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\bioinspired\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dnn_objdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dpm\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\features2d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\line_descriptor\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\saliency\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\text\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\calib3d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ccalib\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\datasets\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\rgbd\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\stereo\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\structured_light\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\tracking\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\videostab\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xfeatures2d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ximgproc\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\aruco\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\bgsegm\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\optflow\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\stitching\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\world\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\img_hash\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ts\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include;D:\Mylibs\FLTK\1_4_build\2017_x86\install\include;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86;D:\Mylibs\OpenCV\opencv-3.4.2\include;D:\Mylibs\OpenCV\opencv-3.4.2\include\opencv;D:\Mylibs\OpenCV\opencv-3.4.2\modules\core\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\flann\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\imgproc\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ml\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\objdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\phase_unwrapping\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\photo\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\plot\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\reg\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\surface_matching\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\video\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xphoto\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dnn\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\face\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\fuzzy\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\hfs\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\imgcodecs\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\shape\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\videoio\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xobjdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\highgui\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\superres\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\bioinspired\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dnn_objdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dpm\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\features2d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\line_descriptor\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\saliency\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\text\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\calib3d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ccalib\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\datasets\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\rgbd\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\stereo\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\structured_light\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\tracking\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\videostab\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xfeatures2d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ximgproc\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\aruco\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\bgsegm\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\optflow\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\stitching\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\world\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\img_hash\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ts\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>..\Debug\fle_136d.lib;opengl32.lib;glu32.lib;D:\Mylibs\FLTK\1_4_build\2017_x86\install\lib\fltk_images.lib;D:\Mylibs\FLTK\1_4_build\2017_x86\install\lib\fltk_forms.lib;D:\Mylibs\FLTK\1_4_build\2017_x86\install\lib\fltk_gl.lib;opengl32.lib;D:\Mylibs\FLTK\1_4_build\2017_x86\install\lib\fltk.lib;wsock32.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\lib\Debug\opencv_world342d.lib;vfw32.lib;comctl32.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\3rdparty\lib\Debug\ippiwd.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\3rdparty\ippicv\ippicv_win\lib\ia32\ippicvmt.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\3rdparty\lib\Debug\libprotobufd.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\3rdparty\lib\Debug\libjpeg-turbod.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\3rdparty\lib\Debug\libwebpd.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\3rdparty\lib\Debug\libpngd.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\3rdparty\lib\Debug\libtiffd.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\3rdparty\lib\Debug\libjasperd.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\3rdparty\lib\Debug\IlmImfd.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\3rdparty\lib\Debug\zlibd.lib;gdi32.lib;ole32.lib;setupapi.lib;ws2_32.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\3rdparty\lib\Debug\ittnotifyd.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/Clouds/OneDrive/Personal/Research/Softwares/softs/fle/new/fle/bin/examples/Debug/opengl_hello_world.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/Clouds/OneDrive/Personal/Research/Softwares/softs/fle/new/fle/bin/examples/Debug/opengl_hello_world.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include;D:\Mylibs\FLTK\1_4_build\2017_x86\install\include;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86;D:\Mylibs\OpenCV\opencv-3.4.2\include;D:\Mylibs\OpenCV\opencv-3.4.2\include\opencv;D:\Mylibs\OpenCV\opencv-3.4.2\modules\core\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\flann\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\imgproc\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ml\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\objdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\phase_unwrapping\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\photo\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\plot\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\reg\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\surface_matching\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\video\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xphoto\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dnn\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\face\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\fuzzy\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\hfs\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\imgcodecs\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\shape\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\videoio\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xobjdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\highgui\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\superres\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\bioinspired\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dnn_objdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dpm\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\features2d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\line_descriptor\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\saliency\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\text\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\calib3d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ccalib\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\datasets\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\rgbd\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\stereo\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\structured_light\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\tracking\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\videostab\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xfeatures2d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ximgproc\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\aruco\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\bgsegm\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\optflow\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\stitching\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\world\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\img_hash\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ts\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Release/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat></DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include;D:\Mylibs\FLTK\1_4_build\2017_x86\install\include;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86;D:\Mylibs\OpenCV\opencv-3.4.2\include;D:\Mylibs\OpenCV\opencv-3.4.2\include\opencv;D:\Mylibs\OpenCV\opencv-3.4.2\modules\core\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\flann\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\imgproc\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ml\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\objdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\phase_unwrapping\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\photo\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\plot\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\reg\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\surface_matching\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\video\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xphoto\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dnn\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\face\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\fuzzy\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\hfs\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\imgcodecs\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\shape\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\videoio\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xobjdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\highgui\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\superres\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\bioinspired\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dnn_objdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dpm\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\features2d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\line_descriptor\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\saliency\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\text\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\calib3d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ccalib\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\datasets\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\rgbd\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\stereo\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\structured_light\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\tracking\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\videostab\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xfeatures2d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ximgproc\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\aruco\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\bgsegm\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\optflow\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\stitching\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\world\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\img_hash\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ts\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include;D:\Mylibs\FLTK\1_4_build\2017_x86\install\include;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86;D:\Mylibs\OpenCV\opencv-3.4.2\include;D:\Mylibs\OpenCV\opencv-3.4.2\include\opencv;D:\Mylibs\OpenCV\opencv-3.4.2\modules\core\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\flann\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\imgproc\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ml\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\objdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\phase_unwrapping\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\photo\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\plot\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\reg\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\surface_matching\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\video\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xphoto\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dnn\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\face\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\fuzzy\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\hfs\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\imgcodecs\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\shape\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\videoio\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xobjdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\highgui\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\superres\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\bioinspired\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dnn_objdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dpm\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\features2d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\line_descriptor\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\saliency\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\text\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\calib3d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ccalib\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\datasets\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\rgbd\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\stereo\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\structured_light\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\tracking\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\videostab\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xfeatures2d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ximgproc\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\aruco\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\bgsegm\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\optflow\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\stitching\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\world\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\img_hash\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ts\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>..\Release\fle_136.lib;opengl32.lib;glu32.lib;D:\Mylibs\FLTK\1_4_build\2017_x86\install\lib\fltk_images.lib;D:\Mylibs\FLTK\1_4_build\2017_x86\install\lib\fltk_forms.lib;D:\Mylibs\FLTK\1_4_build\2017_x86\install\lib\fltk_gl.lib;opengl32.lib;D:\Mylibs\FLTK\1_4_build\2017_x86\install\lib\fltk.lib;wsock32.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\lib\Release\opencv_world342.lib;vfw32.lib;comctl32.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\3rdparty\lib\Release\ippiw.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\3rdparty\ippicv\ippicv_win\lib\ia32\ippicvmt.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\3rdparty\lib\Release\libprotobuf.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\3rdparty\lib\Release\libjpeg-turbo.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\3rdparty\lib\Release\libwebp.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\3rdparty\lib\Release\libpng.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\3rdparty\lib\Release\libtiff.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\3rdparty\lib\Release\libjasper.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\3rdparty\lib\Release\IlmImf.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\3rdparty\lib\Release\zlib.lib;gdi32.lib;ole32.lib;setupapi.lib;ws2_32.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\3rdparty\lib\Release\ittnotify.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/Clouds/OneDrive/Personal/Research/Softwares/softs/fle/new/fle/bin/examples/Release/opengl_hello_world.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/Clouds/OneDrive/Personal/Research/Softwares/softs/fle/new/fle/bin/examples/Release/opengl_hello_world.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include;D:\Mylibs\FLTK\1_4_build\2017_x86\install\include;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86;D:\Mylibs\OpenCV\opencv-3.4.2\include;D:\Mylibs\OpenCV\opencv-3.4.2\include\opencv;D:\Mylibs\OpenCV\opencv-3.4.2\modules\core\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\flann\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\imgproc\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ml\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\objdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\phase_unwrapping\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\photo\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\plot\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\reg\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\surface_matching\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\video\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xphoto\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dnn\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\face\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\fuzzy\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\hfs\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\imgcodecs\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\shape\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\videoio\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xobjdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\highgui\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\superres\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\bioinspired\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dnn_objdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dpm\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\features2d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\line_descriptor\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\saliency\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\text\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\calib3d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ccalib\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\datasets\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\rgbd\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\stereo\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\structured_light\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\tracking\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\videostab\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xfeatures2d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ximgproc\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\aruco\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\bgsegm\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\optflow\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\stitching\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\world\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\img_hash\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ts\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>MinSizeRel/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="MinSizeRel";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat></DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include;D:\Mylibs\FLTK\1_4_build\2017_x86\install\include;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86;D:\Mylibs\OpenCV\opencv-3.4.2\include;D:\Mylibs\OpenCV\opencv-3.4.2\include\opencv;D:\Mylibs\OpenCV\opencv-3.4.2\modules\core\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\flann\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\imgproc\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ml\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\objdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\phase_unwrapping\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\photo\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\plot\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\reg\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\surface_matching\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\video\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xphoto\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dnn\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\face\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\fuzzy\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\hfs\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\imgcodecs\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\shape\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\videoio\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xobjdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\highgui\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\superres\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\bioinspired\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dnn_objdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dpm\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\features2d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\line_descriptor\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\saliency\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\text\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\calib3d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ccalib\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\datasets\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\rgbd\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\stereo\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\structured_light\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\tracking\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\videostab\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xfeatures2d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ximgproc\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\aruco\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\bgsegm\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\optflow\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\stitching\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\world\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\img_hash\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ts\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include;D:\Mylibs\FLTK\1_4_build\2017_x86\install\include;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86;D:\Mylibs\OpenCV\opencv-3.4.2\include;D:\Mylibs\OpenCV\opencv-3.4.2\include\opencv;D:\Mylibs\OpenCV\opencv-3.4.2\modules\core\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\flann\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\imgproc\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ml\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\objdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\phase_unwrapping\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\photo\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\plot\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\reg\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\surface_matching\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\video\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xphoto\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dnn\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\face\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\fuzzy\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\hfs\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\imgcodecs\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\shape\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\videoio\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xobjdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\highgui\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\superres\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\bioinspired\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dnn_objdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dpm\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\features2d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\line_descriptor\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\saliency\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\text\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\calib3d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ccalib\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\datasets\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\rgbd\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\stereo\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\structured_light\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\tracking\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\videostab\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xfeatures2d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ximgproc\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\aruco\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\bgsegm\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\optflow\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\stitching\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\world\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\img_hash\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ts\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>..\MinSizeRel\fle_136.lib;opengl32.lib;glu32.lib;D:\Mylibs\FLTK\1_4_build\2017_x86\install\lib\fltk_images.lib;D:\Mylibs\FLTK\1_4_build\2017_x86\install\lib\fltk_forms.lib;D:\Mylibs\FLTK\1_4_build\2017_x86\install\lib\fltk_gl.lib;opengl32.lib;D:\Mylibs\FLTK\1_4_build\2017_x86\install\lib\fltk.lib;wsock32.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\lib\Release\opencv_world342.lib;vfw32.lib;comctl32.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\3rdparty\lib\Debug\ippiwd.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\3rdparty\ippicv\ippicv_win\lib\ia32\ippicvmt.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\3rdparty\lib\Debug\libprotobufd.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\3rdparty\lib\Debug\libjpeg-turbod.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\3rdparty\lib\Debug\libwebpd.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\3rdparty\lib\Debug\libpngd.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\3rdparty\lib\Debug\libtiffd.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\3rdparty\lib\Debug\libjasperd.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\3rdparty\lib\Debug\IlmImfd.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\3rdparty\lib\Debug\zlibd.lib;gdi32.lib;ole32.lib;setupapi.lib;ws2_32.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\3rdparty\lib\Debug\ittnotifyd.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/Clouds/OneDrive/Personal/Research/Softwares/softs/fle/new/fle/bin/examples/MinSizeRel/opengl_hello_world.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/Clouds/OneDrive/Personal/Research/Softwares/softs/fle/new/fle/bin/examples/MinSizeRel/opengl_hello_world.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include;D:\Mylibs\FLTK\1_4_build\2017_x86\install\include;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86;D:\Mylibs\OpenCV\opencv-3.4.2\include;D:\Mylibs\OpenCV\opencv-3.4.2\include\opencv;D:\Mylibs\OpenCV\opencv-3.4.2\modules\core\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\flann\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\imgproc\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ml\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\objdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\phase_unwrapping\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\photo\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\plot\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\reg\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\surface_matching\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\video\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xphoto\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dnn\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\face\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\fuzzy\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\hfs\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\imgcodecs\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\shape\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\videoio\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xobjdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\highgui\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\superres\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\bioinspired\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dnn_objdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dpm\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\features2d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\line_descriptor\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\saliency\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\text\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\calib3d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ccalib\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\datasets\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\rgbd\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\stereo\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\structured_light\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\tracking\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\videostab\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xfeatures2d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ximgproc\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\aruco\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\bgsegm\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\optflow\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\stitching\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\world\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\img_hash\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ts\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>RelWithDebInfo/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="RelWithDebInfo";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"RelWithDebInfo\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include;D:\Mylibs\FLTK\1_4_build\2017_x86\install\include;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86;D:\Mylibs\OpenCV\opencv-3.4.2\include;D:\Mylibs\OpenCV\opencv-3.4.2\include\opencv;D:\Mylibs\OpenCV\opencv-3.4.2\modules\core\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\flann\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\imgproc\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ml\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\objdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\phase_unwrapping\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\photo\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\plot\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\reg\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\surface_matching\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\video\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xphoto\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dnn\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\face\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\fuzzy\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\hfs\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\imgcodecs\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\shape\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\videoio\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xobjdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\highgui\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\superres\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\bioinspired\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dnn_objdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dpm\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\features2d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\line_descriptor\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\saliency\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\text\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\calib3d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ccalib\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\datasets\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\rgbd\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\stereo\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\structured_light\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\tracking\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\videostab\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xfeatures2d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ximgproc\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\aruco\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\bgsegm\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\optflow\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\stitching\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\world\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\img_hash\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ts\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\include;D:\Mylibs\FLTK\1_4_build\2017_x86\install\include;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86;D:\Mylibs\OpenCV\opencv-3.4.2\include;D:\Mylibs\OpenCV\opencv-3.4.2\include\opencv;D:\Mylibs\OpenCV\opencv-3.4.2\modules\core\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\flann\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\imgproc\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ml\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\objdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\phase_unwrapping\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\photo\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\plot\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\reg\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\surface_matching\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\video\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xphoto\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dnn\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\face\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\fuzzy\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\hfs\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\imgcodecs\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\shape\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\videoio\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xobjdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\highgui\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\superres\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\bioinspired\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dnn_objdetect\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\dpm\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\features2d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\line_descriptor\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\saliency\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\text\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\calib3d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ccalib\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\datasets\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\rgbd\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\stereo\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\structured_light\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\tracking\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\videostab\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\xfeatures2d\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ximgproc\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\aruco\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\bgsegm\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\optflow\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\stitching\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\world\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\img_hash\include;D:\Mylibs\OpenCV\opencv-3.4.2\modules\ts\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>..\RelWithDebInfo\fle_136.lib;opengl32.lib;glu32.lib;D:\Mylibs\FLTK\1_4_build\2017_x86\install\lib\fltk_images.lib;D:\Mylibs\FLTK\1_4_build\2017_x86\install\lib\fltk_forms.lib;D:\Mylibs\FLTK\1_4_build\2017_x86\install\lib\fltk_gl.lib;opengl32.lib;D:\Mylibs\FLTK\1_4_build\2017_x86\install\lib\fltk.lib;wsock32.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\lib\Release\opencv_world342.lib;vfw32.lib;comctl32.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\3rdparty\lib\Debug\ippiwd.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\3rdparty\ippicv\ippicv_win\lib\ia32\ippicvmt.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\3rdparty\lib\Debug\libprotobufd.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\3rdparty\lib\Debug\libjpeg-turbod.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\3rdparty\lib\Debug\libwebpd.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\3rdparty\lib\Debug\libpngd.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\3rdparty\lib\Debug\libtiffd.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\3rdparty\lib\Debug\libjasperd.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\3rdparty\lib\Debug\IlmImfd.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\3rdparty\lib\Debug\zlibd.lib;gdi32.lib;ole32.lib;setupapi.lib;ws2_32.lib;D:\Mylibs\OpenCV\opencv-3.4.2\2017_x86\3rdparty\lib\Debug\ittnotifyd.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/Clouds/OneDrive/Personal/Research/Softwares/softs/fle/new/fle/bin/examples/RelWithDebInfo/opengl_hello_world.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/Clouds/OneDrive/Personal/Research/Softwares/softs/fle/new/fle/bin/examples/RelWithDebInfo/opengl_hello_world.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\examples\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule D:/Clouds/OneDrive/Personal/Research/Softwares/softs/fle/new/fle/examples/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -HD:/Clouds/OneDrive/Personal/Research/Softwares/softs/fle/new/fle -BD:/Clouds/OneDrive/Personal/Research/Softwares/softs/fle/new/fle/2017_x86 --check-stamp-file D:/Clouds/OneDrive/Personal/Research/Softwares/softs/fle/new/fle/2017_x86/examples/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:/Clouds/OneDrive/Personal/Research/Softwares/softs/fle/new/fle/examples/CMakeLists.txt;D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\examples\CMakeLists.txt;D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\examples\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\2017_x86\examples\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule D:/Clouds/OneDrive/Personal/Research/Softwares/softs/fle/new/fle/examples/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -HD:/Clouds/OneDrive/Personal/Research/Softwares/softs/fle/new/fle -BD:/Clouds/OneDrive/Personal/Research/Softwares/softs/fle/new/fle/2017_x86 --check-stamp-file D:/Clouds/OneDrive/Personal/Research/Softwares/softs/fle/new/fle/2017_x86/examples/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:/Clouds/OneDrive/Personal/Research/Softwares/softs/fle/new/fle/examples/CMakeLists.txt;D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\examples\CMakeLists.txt;D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\examples\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\2017_x86\examples\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Building Custom Rule D:/Clouds/OneDrive/Personal/Research/Softwares/softs/fle/new/fle/examples/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -HD:/Clouds/OneDrive/Personal/Research/Softwares/softs/fle/new/fle -BD:/Clouds/OneDrive/Personal/Research/Softwares/softs/fle/new/fle/2017_x86 --check-stamp-file D:/Clouds/OneDrive/Personal/Research/Softwares/softs/fle/new/fle/2017_x86/examples/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">D:/Clouds/OneDrive/Personal/Research/Softwares/softs/fle/new/fle/examples/CMakeLists.txt;D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\examples\CMakeLists.txt;D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\examples\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\2017_x86\examples\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Building Custom Rule D:/Clouds/OneDrive/Personal/Research/Softwares/softs/fle/new/fle/examples/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -HD:/Clouds/OneDrive/Personal/Research/Softwares/softs/fle/new/fle -BD:/Clouds/OneDrive/Personal/Research/Softwares/softs/fle/new/fle/2017_x86 --check-stamp-file D:/Clouds/OneDrive/Personal/Research/Softwares/softs/fle/new/fle/2017_x86/examples/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">D:/Clouds/OneDrive/Personal/Research/Softwares/softs/fle/new/fle/examples/CMakeLists.txt;D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\examples\CMakeLists.txt;D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\examples\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\2017_x86\examples\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\examples\opengl_hello_world_main.cpp"  />
+    <ClCompile Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\examples\opengl_hello_world.cpp"  />
+    <ClInclude Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\examples\opengl_hello_world.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\2017_x86\ZERO_CHECK.vcxproj">
+      <Project>{278128BA-3E34-3CFE-8DBF-2DAD019F54D3}</Project>
+      <Name>ZERO_CHECK</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\Clouds\OneDrive\Personal\Research\Softwares\softs\fle\new\fle\2017_x86\fle.vcxproj">
+      <Project>{C0F1932B-8717-38C5-A7CB-2BF1E9B2F44D}</Project>
+      <Name>fle</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

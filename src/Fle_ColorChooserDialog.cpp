@@ -25,9 +25,9 @@ using namespace R3D;
 
 Fle_ColorChooserDialog::Fle_ColorChooserDialog(int _w, int _h, double _r, double _g, double _b, const char* _title)
 {
-	m_default_color[0] = _r;
-	m_default_color[1] = _g;
-	m_default_color[2] = _b;
+	m_default_color[0] = 1;
+	m_default_color[1] = 1;
+	m_default_color[2] = 1;
 
 	p_dialog = new Fle_Dialog(_w, _h, _title, 58, 0, 0);
 	p_dialog->setBackgroundColor(74, 84, 89);
@@ -116,7 +116,6 @@ void Fle_ColorChooserDialog::setDefaultColor(double _r, double _g, double _b)
 	m_default_color[0] = _r;
 	m_default_color[1] = _g;
 	m_default_color[2] = _b;
-	default_color_cb(0, this);
 }
 
 int Fle_ColorChooserDialog::exec()
