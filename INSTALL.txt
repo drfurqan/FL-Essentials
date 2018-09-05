@@ -21,7 +21,7 @@ Afterwards, use the generated build files to perform the actual
 build. 
 
 Required Libraries:
-1. FLTK greater than or equal 1.3.xx
+1. FLTK greater than or equal 1.4.xx
    (prebuild libraries that can be found in lib folder was built with fltk-1.4.x-r12914)
 
 2. OpenCV greater than or equal 2.4
