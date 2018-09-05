@@ -147,6 +147,15 @@ public:
 	void setTransparency(float _alpha) const;
 
 	// Description:
+	// Function to set the drag and drop event enabled.
+	// If enabled, then dragDropEvent() function will recieve the event text of
+	// the drooped/released file.
+	void setDragDropEventEnabled(bool _b) { m_dnd = _b; }
+	// Description:
+	// Function that returns true if the drag and drop event is enabled.
+	bool isDragDropEventEnabled() const { return m_dnd; }
+
+	// Description:
 	// Function to set a pointer to embedded box.
 	// It first deletes the previous one and then assign a pointer to new one.
 	void setBox(Fle_Box* _b);
@@ -183,6 +192,7 @@ protected:
 	// Description:
 	// Virtual functions that are expected to be overridden in the derived class for
 	// handling the mouse and keyboard events.
+	// Following function will be called...
 	virtual void mouseLeftButtonPressEvent(int _x, int _y);		// when left mouse button is pressed.
 	virtual void mouseRightButtonPressEvent(int _x, int _y);	// when right mouse button is pressed.
 	virtual void mouseMiddleButtonPressEvent(int _x, int _y);	// when middle mouse button is pressed.
@@ -195,6 +205,7 @@ protected:
 	virtual void mouseRightButtonDragEvent(int _x, int _y);		// when right mouse button is dragged.
 	virtual void mouseMiddleButtonDragEvent(int _x, int _y);	// when middle mouse button is dragged.
 	virtual void mouseMoveEvent(int _x, int _y);				// when mouse moves.
+	virtual void dragDropEvent(const std::string& _text);		// when a file is dropped/released on this widget. _text is the path of the dropped file.
 
 	// Description:
 	// Virtual function that is expected to be overridden in the derived class for
@@ -223,6 +234,7 @@ protected:
 	// Description:
 	// Overridden function that handles all kind of events.
 	// Event handler (for internal use).
+	// It just calls processEvents(_event) function.
 	virtual int handle(int _event) override;
 
 	// Description:
@@ -250,6 +262,8 @@ protected:
 	// Description:
 	// Embedded box inside the Double_Window.
 	Fle_Box* p_box;
+
+	bool m_dnd;
 
 private:
 	// Description:

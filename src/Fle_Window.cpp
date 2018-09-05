@@ -30,7 +30,8 @@ using namespace R3D;
 Fle_Window::Fle_Window(int _x, int _y, int _w, int _h, const char* _title, int _icon_index) :
 Fl_Double_Window(_x, _y, _w, _h, _title),
 m_minsize(Fle_Size(10, 10)),
-m_maxsize(Fle_Size(Fl::w() + 100000, Fl::h() + 100000))
+m_maxsize(Fle_Size(Fl::w() + 100000, Fl::h() + 100000)),
+m_dnd(false)
 {
 	//Fl_Pixmap ico(flviewer);
 	//Fl_RGB_Image app(&ico);
@@ -72,7 +73,8 @@ m_maxsize(Fle_Size(Fl::w() + 100000, Fl::h() + 100000))
 Fle_Window::Fle_Window(int _w, int _h, const char* _title, int _icon_index) :
 Fl_Double_Window(0, 0, _w, _h, _title),
 m_minsize(Fle_Size(10, 10)),
-m_maxsize(Fle_Size(Fl::w() + 100000, Fl::h() + 100000))
+m_maxsize(Fle_Size(Fl::w() + 100000, Fl::h() + 100000)),
+m_dnd(false)
 {
 #ifdef WIN32
 	icon(LoadIcon(fl_display, MAKEINTRESOURCE(_icon_index)));
@@ -275,6 +277,11 @@ int Fle_Window::keyPressEvent(int _key)
 {
 	return 0;
 }
+void Fle_Window::dragDropEvent(const std::string& _text)
+{
+	Fle_Window* p = dynamic_cast<Fle_Window*>(parent());
+	if (p) p->dragDropEvent(_text);
+}
 
 int Fle_Window::processEvents(int _event)
 {
@@ -282,6 +289,16 @@ int Fle_Window::processEvents(int _event)
 
 	switch (_event)
 	{
+	case FL_DND_LEAVE:
+	case FL_DND_DRAG:
+	case FL_DND_RELEASE:
+		return m_dnd ? 1 : 0;
+
+		// event when a user releases a file on this widget.
+	case FL_PASTE:
+		dragDropEvent(Fl::event_text());
+		return 1;
+
 	case FL_PUSH:
 		x = Fl::event_x();
 		y = Fl::event_y();
@@ -428,8 +445,10 @@ void Fle_Window::setBox(Fle_Box* _b)
 	if (p_box)
 	{
 		remove(p_box);
-		delete p_box;
+		Fl::delete_widget(p_box);
 	}
+
+	add(_b);
 	p_box = _b;
 }
 
