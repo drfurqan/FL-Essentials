@@ -170,7 +170,7 @@ std::string Fle_WindowsUtil::getSystemFolderPath(Fle_WindowsUtil::SystemFolder _
 		return getSystemFolderPath(CSIDL_COMMON_APPDATA);
 	else if (_folder == Fle_WindowsUtil::SystemFolder::StartMenu)
 		return getSystemFolderPath(CSIDL_STARTMENU);
-	#endif
+#endif
 
 	return "";
 }
@@ -178,20 +178,20 @@ std::string Fle_WindowsUtil::getSystemFolderPath(Fle_WindowsUtil::SystemFolder _
 std::string Fle_WindowsUtil::getCurrentDirectory()
 {
 	const unsigned long n = 1024;
-	#if defined(_WIN32)
+#if defined(_WIN32)
 		char cd[n];
-		#ifdef _UNICODE
+#ifdef _UNICODE
 			GetCurrentDirectoryA(n, cd);
-		#else
+#else
 			GetCurrentDirectory(n, cd);
-		#endif
+#endif
 			return std::string(cd);
-	#else
-	return "";
+#else
+return "";
 	//char result[n];
 	//ssize_t count = readlink("/proc/self/exe", result, n);
 	//return std::string(result, (count > 0) ? count : 0);
-	#endif
+#endif
 }
 
 std::string Fle_WindowsUtil::getMsvcVersionString(int _msc_ver)
@@ -274,20 +274,20 @@ void Fle_WindowsUtil::makeWindowAlwaysOnTop(unsigned long _process_id, bool _iso
 
 void Fle_WindowsUtil::makeWindowAlwaysOnTop(bool _isontop)
 {
-	#if defined(_WIN32)
+#if defined(_WIN32)
 	makeWindowAlwaysOnTop(_getpid(), _isontop);
-	#endif // _WIN32
+#endif // _WIN32
 }
 
 void* Fle_WindowsUtil::createMutex(const char* _name)
 {
 	void* h = nullptr;
-	#if defined(_WIN32)
-	#ifdef _UNICODE
+#if defined(_WIN32)
+#ifdef _UNICODE
 	h = CreateMutex(nullptr, TRUE, string_to_wstring(_name).c_str());
-	#else
+#else
 	h = CreateMutex(nullptr, TRUE, _name);
-	#endif // _UNICODE
+#endif // _UNICODE
 	const unsigned long e = GetLastError();
 	if (e == ERROR_ALREADY_EXISTS)
 	{
@@ -299,26 +299,27 @@ void* Fle_WindowsUtil::createMutex(const char* _name)
 		CloseHandle(h);
 		return nullptr;
 	}
-	#endif // _WIN32
+#endif // _WIN32
 	return h;
 }
 
 bool Fle_WindowsUtil::mutexAlreadyExists(const char* _name)
 {
 	void* h = nullptr;
-	#if defined(_WIN32)
-	#ifdef _UNICODE
+#if defined(_WIN32)
+#ifdef _UNICODE
 	h = CreateMutex(nullptr, TRUE, string_to_wstring(_name).c_str());
-	#else
+#else
 	h = CreateMutex(nullptr, TRUE, _name);
-	#endif // _UNICODE
+#endif // _UNICODE
 	if (GetLastError() == ERROR_ALREADY_EXISTS)
 	{
 		CloseHandle(h);
 		return true;
 	}
-	#endif // _WIN32
 	CloseHandle(h);
+	return false;
+#endif // _WIN32
 	return false;
 }
 
@@ -333,10 +334,9 @@ Otherwise, FALSE.
 --------------------------------------------------------------------------*/
 int Fle_WindowsUtil::isCurrentUserLocalAdministrator()
 {
+#if defined(_WIN32)
+
 	BOOL   fReturn = FALSE;
-
-	#if defined(_WIN32)
-
 	DWORD  dwStatus;
 	DWORD  dwAccessMask;
 	DWORD  dwAccessDesired;
@@ -443,6 +443,8 @@ int Fle_WindowsUtil::isCurrentUserLocalAdministrator()
 		if (hToken) CloseHandle(hToken);
 	}
 
-	#endif // _WIN32
 	return int(fReturn);
+#endif // _WIN32
+
+	return 0;
 }

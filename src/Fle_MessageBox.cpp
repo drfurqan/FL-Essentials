@@ -1,14 +1,14 @@
 /********************************************************************
 created:	2013/12/25
 created:	25:12:2013   22:32
-filename: 	Fle_MessageBox.h
+filename: 	Fle_MessageBox.cpp
 file base:	Fle_MessageBox
-file ext:	h
+file ext:	cpp
 author:		Furqan Ullah (Post-doc, Ph.D.)
 website:    http://real3d.pk
 CopyRight:	All Rights Reserved
 
-purpose:	Class to display message box (inspired from windows).
+purpose:	class to display message box (inspired from windows).
 
 /**********************************************************************************
 FL-ESSENTIALS (FLE) - FLTK Utility Widgets
@@ -1506,7 +1506,7 @@ void Fle_MessageBox::closeEvent(Fl_Widget* _w, void* _p)
 {
 	Fl_Double_Window* w = static_cast<Fl_Double_Window*>(_p);
 	w->hide();
-	delete w;
+	Fl::delete_widget(w);
 }
 
 void Fle_MessageBox::Information(const char* message, const char* title, bool _center_pos, int IDI_ICON)

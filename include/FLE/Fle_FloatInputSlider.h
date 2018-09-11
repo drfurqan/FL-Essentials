@@ -1,17 +1,17 @@
 #pragma once
-#ifndef Fle_InputSlider_h__
-#define Fle_InputSlider_h__
+#ifndef Fle_FloatInputSlider_h__
+#define Fle_FloatInputSlider_h__
 
 /*********************************************************************************
 created:	2017/01/29   02:58AM
-filename: 	Fle_InputSlider.h
-file base:	Fle_InputSlider
+filename: 	Fle_FloatInputSlider.h
+file base:	Fle_FloatInputSlider
 file ext:	h
 author:		Furqan Ullah (Post-doc, Ph.D.)
 website:    http://real3d.pk
 CopyRight:	All Rights Reserved
 
-purpose:	customized FLTK input slider with an input widget.
+purpose:	customized FLTK float slider with an input widget.
 
 /**********************************************************************************
 FL-ESSENTIALS (FLE) - FLTK Utility Widgets
@@ -24,13 +24,13 @@ If not, please contact Dr. Furqan Ullah immediately:
 /*********************************************************************************
 Usage example:
 
-Fle_InputSlider* s = new Fle_InputSlider(10, 10, 300, 25, "Slider");
+Fle_FloatInputSlider* s = new Fle_FloatInputSlider(10, 10, 300, 25, "Slider");
 s->box(FL_UP_BOX);
 s->type(FL_HOR_SLIDER);
 s->value(1);
-s->step(1);
-s->bounds(0, 99);
-s->tooltip("This slider gives you integer values.");
+s->step(0.1);
+s->bounds(0, 1);
+s->tooltip("This slider gives you float values.");
 s->set_callback(slider_cb);
 **********************************************************************************/
 
@@ -38,23 +38,23 @@ s->set_callback(slider_cb);
 
 #include <FL/Fl.H>
 #include <FL/Fl_Group.H>
-#include <FL/Fl_Int_Input.H>
+#include <FL/Fl_Float_Input.H>
 #include <FL/Fl_Slider.H>
 
 namespace R3D
 {
 
 /************************************************************************/
-/* Class to create a slider with an input widget for handling int type  */
+/* Class to create a slider with an input widget for handling float type*/
 /************************************************************************/
-class FL_ESSENTIALS_EXPORT Fle_InputSlider : public Fl_Group
+class FL_ESSENTIALS_EXPORT Fle_FloatInputSlider : public Fl_Group
 {
 
 public:
 	// Description:
 	// Constructor to create a slider with an input widget by specifying it's position, size, title.
 	// _textbox_width is the width of the input widget.
-	Fle_InputSlider(int _x, int _y, int _w, int _h, const char* _l = 0, int _textbox_width = 40);
+	Fle_FloatInputSlider(int _x, int _y, int _w, int _h, const char* _l = 0, int _textbox_width = 50);
 
 	// Description:
 	// Function to set the box type.
@@ -75,33 +75,33 @@ public:
 	// Description:
 	// Function to set the value.
 	// Default value is 0.
-	void value(int _val);
+	void value(double _val);
 	// Description:
 	// Function to get the value.
 	// Default value is 0.
-	int value() const;
+	double value() const;
 	// Description:
 	// Function to set the incremental step value.
-	void step(int _step);
+	void step(double _step);
 	// Description:
 	// Function to set the minimum value.
 	// Default value is 0.
-	void minimum(int _val);
+	void minimum(double _val);
 	// Description:
 	// Function to get the minimum value.
 	// Default value is 0.
-	int  minimum() const;
+	double  minimum() const;
 	// Description:
 	// Function to set the maximum value.
 	// Default value is 0.
-	void maximum(int _val);
+	void maximum(double _val);
 	// Description:
 	// Function to get the maximum value.
 	// Default value is 0.
-	int  maximum() const;
+	double  maximum() const;
 	// Description:
 	// Function to set the bounds of the slider.
-	void bounds(int _min, int _max);
+	void bounds(double _min, double _max);
 
 	// Description:
 	// Function to set the slider's color.
@@ -131,14 +131,14 @@ public:
 	// Description:
 	// Function to set callback function that should be called 
 	// whenever the slider's or input value is changed.
-	void set_callback(void(*_f)(int, void*), void*);
+	void set_callback(void(*_f)(double, void*), void*);
 
 	// Description:
 	// Function to get a pointer to slider.
 	Fl_Slider* getSlider() const;
 	// Description:
 	// Function to get a pointer to input widget.
-	Fl_Int_Input* getInput() const;
+	Fl_Float_Input* getInput() const;
 
 private:
 	// Description:
@@ -155,8 +155,8 @@ private:
 	static void input_cb_(Fl_Widget* _w, void* _p);
 
 	Fl_Slider* p_slider;
-	Fl_Int_Input* p_input;
-	typedef void(*funcptr)(int _v, void* _p);
+	Fl_Float_Input* p_input;
+	typedef void(*funcptr)(double _v, void* _p);
 
 #if (_MSC_VER > 1600)
 	funcptr p_func = nullptr;		// Note: never forget to initialize it with nullptr, otherwise there will be an exception in vs2017.
@@ -165,11 +165,8 @@ private:
 	funcptr p_func;
 	void* p_ptr;
 #endif
-
-	int m_init_value;
-	int m_step;
 };
 
 }
 
-#endif // Fle_InputSlider_h__
+#endif // Fle_FloatInputSlider_h__

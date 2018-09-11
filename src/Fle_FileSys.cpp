@@ -22,6 +22,7 @@ If not, please contact Dr. Furqan Ullah immediately:
 
 #include <iostream>  
 #include <chrono>
+#include <algorithm>
 
 using namespace R3D;
 namespace fs = std::experimental::filesystem;

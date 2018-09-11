@@ -54,14 +54,13 @@ If not, please contact Dr. Furqan Ullah immediately:
 
 #include <FLE/Fle_Button.h>
 #include <FLE/Fle_InputSlider.h>
+#include <FLE/Fle_FloatInputSlider.h>
 #include <FLE/Fle_Input.h>
 #include <FLE/Fle_Layout.h>
 #include <FLE/Fle_Group.h>
 #include <FLE/Fle_CheckGroup.h>
 #include <FLE/Fle_Spinner.h>
 
-#include <FL/Fl_Pack.H>
-#include <FL/Fl_Box.H>
 #include <FL/Fl_Menu_Button.H>
 #include <FL/Fl_Input_Choice.H>
 #include <FL/Fl_Choice.H>

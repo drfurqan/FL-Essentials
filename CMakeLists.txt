@@ -45,6 +45,7 @@ ${CMAKE_SOURCE_DIR}/src/Fle_Core.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_Dialog.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_FileDialog.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_FileSys.cpp
+${CMAKE_SOURCE_DIR}/src/Fle_FloatInputSlider.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_Font.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_Group.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_ImageUtil.cpp
@@ -94,6 +95,7 @@ ${CMAKE_SOURCE_DIR}/include/FLE/Fle_Dialog.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_Export.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_FileDialog.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_FileSys.h
+${CMAKE_SOURCE_DIR}/include/FLE/Fle_FloatInputSlider.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_Font.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_Group.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_ImageUtil.h
@@ -145,7 +147,7 @@ set (STATIC_FILES ${SHARED_FILES})
 if (WIN32)
 	add_library (${PROJECT_NAME} STATIC ${STATIC_FILES} ${HEADERFILES})
 else()
-	add_library (${PROJECT_NAME} SHARED ${STATIC_FILES} ${HEADERFILES})
+	add_library (${PROJECT_NAME} STATIC ${STATIC_FILES} ${HEADERFILES}) #no SHARED 
 endif()
 
 # ------------------------------------------------------------------------------
@@ -174,6 +176,7 @@ if (WIN32)
     list(APPEND OPTIONAL_LIBS opengl32)
 endif (WIN32)
 
+# set CMAKE_CXX_FLAGS to -Wl,--no-as-needed in cmake-gui. 
 target_link_libraries(
 ${PROJECT_NAME}
 ${OPTIONAL_LIBS} 

@@ -23,7 +23,7 @@ If not, please contact Dr. Furqan Ullah immediately:
 #include <FLE/Fle_Dialog.h>
 #include <FLE/Fle_Input.h>
 #include <FLE/Fle_Spinner.h>
-#include <FLE/Fle_InputSlider.h>
+#include <FLE/Fle_FloatInputSlider.h>
 #include <FLE/Fle_FileDialog.h>
 
 #include <FL/Fl_Button.H>
