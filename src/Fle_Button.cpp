@@ -63,7 +63,7 @@ m_isfixedx(false),
 m_isfixedy(false),
 m_fixedpos(cv::Point(_x, _y))
 {
-	box(Fl_Boxtype::FL_NO_BOX);
+	box(Fl_Boxtype::FL_FLAT_BOX);
 	align(FL_ALIGN_WRAP | FL_ALIGN_CENTER | FL_ALIGN_TEXT_OVER_IMAGE | FL_ALIGN_CLIP);
 	if(loadIcons(_icon_file_on, _icon_file_off, _size))
 		align(FL_ALIGN_WRAP | FL_ALIGN_CENTER | FL_ALIGN_BOTTOM | FL_ALIGN_TEXT_OVER_IMAGE | FL_ALIGN_CLIP);
@@ -84,7 +84,7 @@ Fle_Button::Fle_Button(int _x, int _y, int _w, int _h, Fl_RGB_Image* _icon_file_
 	m_isfixedy(false),
 	m_fixedpos(cv::Point(_x, _y))
 {
-	box(Fl_Boxtype::FL_NO_BOX);
+	box(Fl_Boxtype::FL_FLAT_BOX);
 	align(FL_ALIGN_WRAP | FL_ALIGN_CENTER | FL_ALIGN_TEXT_OVER_IMAGE | FL_ALIGN_CLIP);
 	if (loadIcons(_icon_file_on, _icon_file_off, _size))
 		align(FL_ALIGN_WRAP | FL_ALIGN_CENTER | FL_ALIGN_BOTTOM | FL_ALIGN_TEXT_OVER_IMAGE | FL_ALIGN_CLIP);
@@ -243,11 +243,11 @@ void Fle_Button::draw()
 	Fl_Color col = value() ? selection_color() : color();
 
 	draw_box(
-		value() ? (down_box() ? down_box() : fl_down(box())) : box(), 
-		Fl_Button::x() + m_leftmargin, 
-		Fl_Button::y() + m_topmargin, 
-		Fl_Button::w() - m_rightmargin, 
-		Fl_Button::h() - m_bottommargin, 
+		value() ? (down_box() ? down_box() : fl_down(box())) : box(),
+		Fl_Button::x() + m_leftmargin,
+		Fl_Button::y() + m_topmargin,
+		Fl_Button::w() - m_rightmargin,
+		Fl_Button::h() - m_bottommargin,
 		col);
 
 	draw_backdrop();
