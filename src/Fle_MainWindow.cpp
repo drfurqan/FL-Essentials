@@ -62,7 +62,7 @@ m_bottommargin(0)
 		p_toptoolbar = new Fle_ToolBar(0, mb_size, _w, tb_size);
 		p_toptoolbar->getBox()->box(FL_BORDER_FRAME);
 		p_toptoolbar->color(p_menubar->getMenuBarColor());
-		p_toptoolbar->color2(p_menubar->getSelectionColor());
+		p_toptoolbar->selection_color(p_menubar->getSelectionColor());
 		p_toptoolbar->end();
 
 
@@ -232,56 +232,65 @@ void Fle_MainWindow::toggleMenuBar()
 	else p_menubar->show();
 	updateContents();
 	size(w(), h());
+	redraw();
 }
 void Fle_MainWindow::toggleTopToolBar()
 {
 	if (p_toptoolbar->visible()) p_toptoolbar->hide();
 	else p_toptoolbar->show();
 	updateContents();
+	size(w(), h());
+	redraw();
 }
 void Fle_MainWindow::toggleStatusBar()
 {
 	if (p_statusbar->visible()) p_statusbar->hide();
 	else p_statusbar->show();
 	updateContents();
+	size(w(), h());
+	redraw();
 }
 void Fle_MainWindow::toggleLeftToolBar()
 {
 	if (p_lefttoolbar->visible()) p_lefttoolbar->hide();
 	else p_lefttoolbar->show();
 	updateContents();
+	size(w(), h());
+	redraw();
 }
 void Fle_MainWindow::toggleRightToolBar()
 {
 	if (p_righttoolbar->visible()) p_righttoolbar->hide();
 	else p_righttoolbar->show();
 	updateContents();
+	size(w(), h());
+	redraw();
 }
 
 void Fle_MainWindow::toggleMenuBar_cb(Fl_Widget* _w, void* _p)
 {
 	Fle_MainWindow* win = static_cast<Fle_MainWindow*>(_p);
-	win->toggleMenuBar();
+	if(win) win->toggleMenuBar();
 }
 void Fle_MainWindow::toggleTopToolBar_cb(Fl_Widget* _w, void* _p)
 {
 	Fle_MainWindow* win = static_cast<Fle_MainWindow*>(_p);
-	win->toggleTopToolBar();
+	if (win) win->toggleTopToolBar();
 }
 void Fle_MainWindow::toggleStatus_cb(Fl_Widget* _w, void* _p)
 {
 	Fle_MainWindow* win = static_cast<Fle_MainWindow*>(_p);
-	win->toggleStatusBar();
+	if (win) win->toggleStatusBar();
 }
 void Fle_MainWindow::toggleLeftToolBar_cb(Fl_Widget* _w, void* _p)
 {
 	Fle_MainWindow* win = static_cast<Fle_MainWindow*>(_p);
-	win->toggleLeftToolBar();
+	if (win) win->toggleLeftToolBar();
 }
 void Fle_MainWindow::toggleRightToolBar_cb(Fl_Widget* _w, void* _p)
 {
 	Fle_MainWindow* win = static_cast<Fle_MainWindow*>(_p);
-	win->toggleRightToolBar();
+	if (win) win->toggleRightToolBar();
 }
 
 void Fle_MainWindow::setMenuBarFixedHeight(int _h)

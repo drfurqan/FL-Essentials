@@ -25,7 +25,7 @@ using namespace R3D;
 Fle_ToolBar::Fle_ToolBar(int _x, int _y, int _w, int _h, const char* _label) :
 Fle_VHLayout(_x, _y, _w, _h, _label)
 {
-	Fle_Window::setBackgroundColor(214, 219, 233);
-	getCentralLayout()->setBackgroundColor(214, 219, 233);
 	Fle_VHLayout::end();
+	Fle_VHLayout::setBackgroundColor(214, 219, 233);
+	getCentralLayout()->setBackgroundColor(214, 219, 233);
 }

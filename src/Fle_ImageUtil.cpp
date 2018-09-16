@@ -152,7 +152,7 @@ bool Fle_ImageUtil::isOpenCVSupportedImage(const std::string& _filename)
 		return false;
 
 	const auto ext = Fle_StringUtil::convertToLower(Fle_StringUtil::extractFileExt(_filename));
-	if (ext == "jpg" || ext == "jpeg" || ext == "jpe" || ext == "jp2" || ext == "png" || ext == "bmp" || ext == "dib" || ext == "tif" || ext == "tiff" || ext == "pgm" || ext == "pbm" || ext == "ppm" || ext == "ras" || ext == "sr" || ext == "webp")
+	if (ext == "jpg" || ext == "jpeg" || ext == "jpe" || ext == "jp2" || ext == "png" || ext == "bmp" || ext == "dib" || ext == "tif" || ext == "tiff" || ext == "pgm" || ext == "pbm" || ext == "ppm" || ext == "ras" || ext == "sr" || ext == "webp" || ext == "dcm")
 		return true;
 	return false;
 }
@@ -195,6 +195,7 @@ std::vector<std::string> Fle_ImageUtil::getDirectoryImageFiles(const std::string
 		"ras", "RAS",
 		"sr", "SR",
 		"webp", "WEBP"
+		"dcm", "DCM"
 	};
 #else
 	std::vector<std::string> imgs;
@@ -213,7 +214,8 @@ std::vector<std::string> Fle_ImageUtil::getDirectoryImageFiles(const std::string
 	imgs.push_back("ras"); imgs.push_back("RAS");
 	imgs.push_back("sr"); imgs.push_back("SR");
 	imgs.push_back("webp"); imgs.push_back("WEBP");
-#endif
+	imgs.push_back("dcm"); imgs.push_back("DCM");
+	#endif
 
 	// this method returns only OpenCV supported file paths.
 	std::vector<std::string> files;
