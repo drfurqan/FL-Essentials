@@ -33,6 +33,7 @@ m_isauto(false)
 	if (_type == Fle_Layout::Type::HORIZONTAL) Fl_Pack::spacing(8);	// spacing between widgets
 	else Fl_Pack::spacing(4);
 	Fl_Pack::end();
+	Fl_Pack::box(FL_NO_BOX);
 }
 
 Fle_Layout::~Fle_Layout()
@@ -79,24 +80,31 @@ Fle_HLayout::~Fle_HLayout()
 }
 
 Fle_HLayoutL::Fle_HLayoutL(int _x, int _y, int _w, int _h, const char* _label) :
-Fle_Window(_x, _y, _w, _h, _label)
+	Fl_Group(_x, _y, _w, _h, _label)
 {
-	Fle_Window::begin();
+	Fl_Group::begin();
 	p_layout = new Fle_HLayout(0, 0, _w, _h);
 	p_layout->end();
-	Fle_Window::end();
+
+	align(FL_ALIGN_WRAP | FL_ALIGN_INSIDE | FL_ALIGN_CENTER | FL_ALIGN_TEXT_OVER_IMAGE | FL_ALIGN_CLIP);
+	box(FL_FLAT_BOX);
+	resizable(this);
+	user_data(static_cast<void*>(this));
+	Fl_Group::end();
 }
 Fle_HLayoutL::~Fle_HLayoutL()
 {
 }
 void Fle_HLayoutL::begin()
 {
+	Fl_Group::end();
+	Fl_Group::current(nullptr);
 	p_layout->begin();
 }
 void Fle_HLayoutL::end()
 {
 	p_layout->end();
-	Fle_Window::end();
+	Fl_Group::end();
 }
 int Fle_HLayoutL::getGeometryWidth() const
 {
@@ -105,15 +113,29 @@ int Fle_HLayoutL::getGeometryWidth() const
 		width += p_layout->child(i)->w();
 	return (width + (p_layout->spacing() * p_layout->children()));
 }
+void Fle_HLayoutL::setBackgroundColor(uchar _red, uchar _green, uchar _blue)
+{
+	p_layout->color(fl_rgb_color(_red, _green, _blue));
+	Fl_Group::color(fl_rgb_color(_red, _green, _blue));
+}
+void Fle_HLayoutL::setBackgroundColor(Fl_Color _color)
+{
+	p_layout->color(_color);
+	Fl_Group::color(_color);
+}
+Fl_Color Fle_HLayoutL::getBackgroundColor() const
+{
+	return Fl_Group::color();
+}
 
 Fle_HLayoutLR::Fle_HLayoutLR(int _x, int _y, int _w, int _h, const char* _label) :
-Fle_Window(_x, _y, _w, _h, _label),
+	Fl_Group(_x, _y, _w, _h, _label),
 m_leftmargin(0),
 m_rightmargin(0),
 m_topmargin(0),
 m_bottommargin(0)
 {
-	Fle_Window::begin();
+	Fl_Group::begin();
 
 	p_main = new Fle_HLayout(0, 0, _w, _h);
 	p_main->color(fl_rgb_color(0, 122, 204));
@@ -132,7 +154,11 @@ m_bottommargin(0)
 
 	p_main->resizable(p_left);
 
-	Fle_Window::end();
+	align(FL_ALIGN_WRAP | FL_ALIGN_INSIDE | FL_ALIGN_CENTER | FL_ALIGN_TEXT_OVER_IMAGE | FL_ALIGN_CLIP);
+	box(FL_FLAT_BOX);
+	resizable(this);
+	user_data(static_cast<void*>(this));
+	Fl_Group::end();
 }
 
 Fle_HLayoutLR::~Fle_HLayoutLR()
@@ -141,38 +167,29 @@ Fle_HLayoutLR::~Fle_HLayoutLR()
 
 void Fle_HLayoutLR::begin()
 {
-	endRight();
+	end();
 	p_left->begin();
 }
 void Fle_HLayoutLR::end()
 {
 	p_left->end();
-	Fle_Window::end();
+	p_right->end();
+	Fl_Group::end();
 }
 void Fle_HLayoutLR::beginLeft()
 {
-	endRight();
+	end();
 	p_left->begin();
-}
-void Fle_HLayoutLR::endLeft()
-{
-	p_left->end();
-	Fle_Window::end();
 }
 void Fle_HLayoutLR::beginRight()
 {
-	endLeft();
+	end();
 	p_right->begin();
-}
-void Fle_HLayoutLR::endRight()
-{
-	p_right->end();
-	Fle_Window::end();
 }
 
 void Fle_HLayoutLR::resize(int _x, int _y, int _w, int _h)
 {
-	Fle_Window::resize(_x, _y, _w, _h);
+	Fl_Group::resize(_x, _y, _w, _h);
 	p_left->size(_w - p_right->getGeometryWidth(), _h - m_topmargin - m_bottommargin);
 	p_right->size(p_right->getGeometryWidth(), _h - m_topmargin - m_bottommargin);
 }
@@ -181,14 +198,14 @@ void Fle_HLayoutLR::setBackgroundColor(uchar _red, uchar _green, uchar _blue)
 	p_main->color(fl_rgb_color(_red, _green, _blue));
 	p_left->setBackgroundColor(_red, _green, _blue);
 	p_right->setBackgroundColor(_red, _green, _blue);
-	Fle_Window::setBackgroundColor(_red, _green, _blue);
+	Fl_Group::color(fl_rgb_color(_red, _green, _blue));
 }
 void Fle_HLayoutLR::setBackgroundColor(Fl_Color _color)
 {
 	p_main->color(_color);
 	p_left->setBackgroundColor(_color);
 	p_right->setBackgroundColor(_color);
-	Fle_Window::setBackgroundColor(_color);
+	Fl_Group::color(_color);
 }
 Fl_Color Fle_HLayoutLR::getBackgroundColor() const 
 { 
@@ -198,22 +215,22 @@ Fl_Color Fle_HLayoutLR::getBackgroundColor() const
 void Fle_HLayoutLR::setLeftMargin(int _value)
 {
 	m_leftmargin = _value;
-	p_main->resize(m_leftmargin, m_topmargin, Fle_Window::w() - m_leftmargin - m_rightmargin, Fle_Window::h() - m_topmargin - m_bottommargin);
+	p_main->resize(m_leftmargin, m_topmargin, w() - m_leftmargin - m_rightmargin, h() - m_topmargin - m_bottommargin);
 }
 void Fle_HLayoutLR::setRightMargin(int _value)
 {
 	m_rightmargin = _value;
-	p_main->resize(m_leftmargin, m_topmargin, Fle_Window::w() - m_leftmargin - m_rightmargin, Fle_Window::h() - m_topmargin - m_bottommargin);
+	p_main->resize(m_leftmargin, m_topmargin, w() - m_leftmargin - m_rightmargin, h() - m_topmargin - m_bottommargin);
 }
 void Fle_HLayoutLR::setTopMargin(int _value)
 {
 	m_topmargin = _value;
-	p_main->resize(m_leftmargin, m_topmargin, Fle_Window::w() - m_leftmargin - m_rightmargin, Fle_Window::h() - m_topmargin - m_bottommargin);
+	p_main->resize(m_leftmargin, m_topmargin, w() - m_leftmargin - m_rightmargin, h() - m_topmargin - m_bottommargin);
 }
 void Fle_HLayoutLR::setBottomMargin(int _value)
 {
 	m_bottommargin = _value;
-	p_main->resize(m_leftmargin, m_topmargin, Fle_Window::w() - m_leftmargin - m_rightmargin, Fle_Window::h() - m_topmargin - m_bottommargin);
+	p_main->resize(m_leftmargin, m_topmargin, w() - m_leftmargin - m_rightmargin, h() - m_topmargin - m_bottommargin);
 }
 void Fle_HLayoutLR::setMargins(int _left, int _right, int _top, int _bottom)
 {
@@ -221,7 +238,7 @@ void Fle_HLayoutLR::setMargins(int _left, int _right, int _top, int _bottom)
 	m_rightmargin = _right;
 	m_topmargin = _top;
 	m_bottommargin = _bottom;
-	p_main->resize(m_leftmargin, m_topmargin, Fle_Window::w() - m_leftmargin - m_rightmargin, Fle_Window::h() - m_topmargin - m_bottommargin);
+	p_main->resize(m_leftmargin, m_topmargin, w() - m_leftmargin - m_rightmargin, h() - m_topmargin - m_bottommargin);
 }
 
 
@@ -241,24 +258,30 @@ Fle_VLayout::~Fle_VLayout()
 /* Vertical layout (Top) that starts packing widgets from the top.		  */
 /**************************************************************************/
 Fle_VLayoutT::Fle_VLayoutT(int _x, int _y, int _w, int _h, const char* _label) :
-Fle_Window(_x, _y, _w, _h, _label)
+	Fl_Group(_x, _y, _w, _h, _label)
 {
-	Fle_Window::begin();
+	Fl_Group::begin();
 	p_layout = new Fle_VLayout(0, 0, _w, _h);
 	p_layout->end();
-	Fle_Window::end();
+
+	align(FL_ALIGN_WRAP | FL_ALIGN_INSIDE | FL_ALIGN_CENTER | FL_ALIGN_TEXT_OVER_IMAGE | FL_ALIGN_CLIP);
+	box(FL_FLAT_BOX);
+	resizable(this);
+	user_data(static_cast<void*>(this));
+	Fl_Group::end();
 }
 Fle_VLayoutT::~Fle_VLayoutT()
 {
 }
 void Fle_VLayoutT::begin()
 {
+	Fl_Group::end();
 	p_layout->begin();
 }
 void Fle_VLayoutT::end()
 {
 	p_layout->end();
-	Fle_Window::end();
+	Fl_Group::end();
 }
 int Fle_VLayoutT::getGeometryHeight() const
 {
@@ -267,16 +290,29 @@ int Fle_VLayoutT::getGeometryHeight() const
 		height += p_layout->child(i)->h();
 	return (height + (p_layout->spacing() * p_layout->children()));
 }
-
+void Fle_VLayoutT::setBackgroundColor(uchar _red, uchar _green, uchar _blue)
+{
+	p_layout->color(fl_rgb_color(_red, _green, _blue));
+	Fl_Group::color(fl_rgb_color(_red, _green, _blue));
+}
+void Fle_VLayoutT::setBackgroundColor(Fl_Color _color)
+{
+	p_layout->color(_color);
+	Fl_Group::color(_color);
+}
+Fl_Color Fle_VLayoutT::getBackgroundColor() const
+{
+	return Fl_Group::color();
+}
 
 Fle_VLayoutTB::Fle_VLayoutTB(int _x, int _y, int _w, int _h, const char* _label) :
-Fle_Window(_x, _y, _w, _h, _label),
-m_leftmargin(0),
-m_rightmargin(0),
-m_topmargin(0),
-m_bottommargin(0)
+	Fl_Group(_x, _y, _w, _h, _label),
+	m_leftmargin(0),
+	m_rightmargin(0),
+	m_topmargin(0),
+	m_bottommargin(0)
 {
-	Fle_Window::begin();
+	Fl_Group::begin();
 
 	p_main = new Fle_VLayout(0, 0, _w, _h);
 	p_main->color(fl_rgb_color(0, 122, 204));
@@ -295,7 +331,11 @@ m_bottommargin(0)
 
 	p_main->resizable(p_top);
 
-	Fle_Window::end();
+	align(FL_ALIGN_WRAP | FL_ALIGN_INSIDE | FL_ALIGN_CENTER | FL_ALIGN_TEXT_OVER_IMAGE | FL_ALIGN_CLIP);
+	box(FL_FLAT_BOX);
+	resizable(this);
+	user_data(static_cast<void*>(this));
+	Fl_Group::end();
 }
 
 Fle_VLayoutTB::~Fle_VLayoutTB()
@@ -304,38 +344,29 @@ Fle_VLayoutTB::~Fle_VLayoutTB()
 
 void Fle_VLayoutTB::begin()
 {
-	endBottom();
+	end();
 	p_top->begin();
 }
 void Fle_VLayoutTB::end()
 {
 	p_top->end();
-	Fle_Window::end();
+	p_bottom->end();
+	Fl_Group::end();
 }
 void Fle_VLayoutTB::beginTop()
 {
-	endBottom();
+	end();
 	p_top->begin();
-}
-void Fle_VLayoutTB::endTop()
-{
-	p_top->end();
-	Fle_Window::end();
 }
 void Fle_VLayoutTB::beginBottom()
 {
-	endTop();
+	end();
 	p_bottom->begin();
-}
-void Fle_VLayoutTB::endBottom()
-{
-	p_bottom->end();
-	Fle_Window::end();
 }
 
 void Fle_VLayoutTB::resize(int _x, int _y, int _w, int _h)
 {
-	Fle_Window::resize(_x, _y, _w, _h);
+	Fl_Group::resize(_x, _y, _w, _h);
 	p_top->size(_w, _h - p_bottom->getGeometryHeight());
 	p_bottom->size(_w, p_bottom->getGeometryHeight());
 }
@@ -344,14 +375,14 @@ void Fle_VLayoutTB::setBackgroundColor(uchar _red, uchar _green, uchar _blue)
 	p_main->color(fl_rgb_color(_red, _green, _blue));
 	p_top->setBackgroundColor(_red, _green, _blue);
 	p_bottom->setBackgroundColor(_red, _green, _blue);
-	Fle_Window::setBackgroundColor(_red, _green, _blue);
+	Fl_Group::color(fl_rgb_color(_red, _green, _blue));
 }
 void Fle_VLayoutTB::setBackgroundColor(Fl_Color _color)
 {
 	p_main->color(_color);
 	p_top->setBackgroundColor(_color);
 	p_bottom->setBackgroundColor(_color);
-	Fle_Window::setBackgroundColor(_color);
+	Fl_Group::color(_color);
 }
 Fl_Color Fle_VLayoutTB::getBackgroundColor() const
 {
@@ -361,22 +392,22 @@ Fl_Color Fle_VLayoutTB::getBackgroundColor() const
 void Fle_VLayoutTB::setLeftMargin(int _value)
 {
 	m_leftmargin = _value;
-	p_main->resize(m_leftmargin, m_topmargin, Fle_Window::w() - m_leftmargin - m_rightmargin, Fle_Window::h() - m_topmargin - m_bottommargin);
+	p_main->resize(m_leftmargin, m_topmargin, w() - m_leftmargin - m_rightmargin, h() - m_topmargin - m_bottommargin);
 }
 void Fle_VLayoutTB::setRightMargin(int _value)
 {
 	m_rightmargin = _value;
-	p_main->resize(m_leftmargin, m_topmargin, Fle_Window::w() - m_leftmargin - m_rightmargin, Fle_Window::h() - m_topmargin - m_bottommargin);
+	p_main->resize(m_leftmargin, m_topmargin, w() - m_leftmargin - m_rightmargin, h() - m_topmargin - m_bottommargin);
 }
 void Fle_VLayoutTB::setTopMargin(int _value)
 {
 	m_topmargin = _value;
-	p_main->resize(m_leftmargin, m_topmargin, Fle_Window::w() - m_leftmargin - m_rightmargin, Fle_Window::h() - m_topmargin - m_bottommargin);
+	p_main->resize(m_leftmargin, m_topmargin, w() - m_leftmargin - m_rightmargin, h() - m_topmargin - m_bottommargin);
 }
 void Fle_VLayoutTB::setBottomMargin(int _value)
 {
 	m_bottommargin = _value;
-	p_main->resize(m_leftmargin, m_topmargin, Fle_Window::w() - m_leftmargin - m_rightmargin, Fle_Window::h() - m_topmargin - m_bottommargin);
+	p_main->resize(m_leftmargin, m_topmargin, w() - m_leftmargin - m_rightmargin, h() - m_topmargin - m_bottommargin);
 }
 void Fle_VLayoutTB::setMargins(int _left, int _right, int _top, int _bottom)
 {
@@ -384,23 +415,28 @@ void Fle_VLayoutTB::setMargins(int _left, int _right, int _top, int _bottom)
 	m_rightmargin = _right;
 	m_topmargin = _top;
 	m_bottommargin = _bottom;
-	p_main->resize(m_leftmargin, m_topmargin, Fle_Window::w() - m_leftmargin - m_rightmargin, Fle_Window::h() - m_topmargin - m_bottommargin);
+	p_main->resize(m_leftmargin, m_topmargin, w() - m_leftmargin - m_rightmargin, h() - m_topmargin - m_bottommargin);
 }
 
 /************************************************************************/
 /*                                                                      */
 /************************************************************************/
 Fle_VHLayout::Fle_VHLayout(int _x, int _y, int _w, int _h, const char* _label) :
-Fle_Window(_x, _y, _w, _h, _label),
-m_leftmargin(0),
-m_rightmargin(0),
-m_topmargin(0),
-m_bottommargin(0)
+	Fl_Group(_x, _y, _w, _h, _label),
+	m_leftmargin(0),
+	m_rightmargin(0),
+	m_topmargin(0),
+	m_bottommargin(0)
 {
-	Fle_Window::begin();
+	Fl_Group::begin();
 	p_tblayout = new Fle_VLayoutTB(0, 0, _w, _h);
 	p_tblayout->end();
-	Fle_Window::end();
+
+	align(FL_ALIGN_WRAP | FL_ALIGN_INSIDE | FL_ALIGN_CENTER | FL_ALIGN_TEXT_OVER_IMAGE | FL_ALIGN_CLIP);
+	box(FL_FLAT_BOX);
+	resizable(this);
+	user_data(static_cast<void*>(this));
+	Fl_Group::end();
 }
 
 Fle_VHLayout::~Fle_VHLayout()
@@ -409,57 +445,63 @@ Fle_VHLayout::~Fle_VHLayout()
 
 void Fle_VHLayout::begin()
 {
+	end();
 	p_tblayout->beginTop();
 }
 void Fle_VHLayout::end()
 {
-	p_tblayout->endTop();
-	Fle_Window::end();
+	p_tblayout->end();
+	Fl_Group::end();
 }
 void Fle_VHLayout::beginTop()
 {
+	end();
 	p_tblayout->beginTop();
-}
-void Fle_VHLayout::endTop()
-{
-	p_tblayout->endTop();
-	Fle_Window::end();
 }
 void Fle_VHLayout::beginBottom()
 {
+	end();
 	p_tblayout->beginBottom();
-}
-void Fle_VHLayout::endBottom()
-{
-	p_tblayout->endBottom();
-	Fle_Window::end();
 }
 void Fle_VHLayout::resize(int _x, int _y, int _w, int _h)
 {
-	Fle_Window::resize(_x, _y, _w, _h);
-	p_tblayout->resize(m_leftmargin, m_topmargin, Fle_Window::w() - m_leftmargin - m_rightmargin, Fle_Window::h() - m_topmargin - m_bottommargin);
+	Fl_Group::resize(_x, _y, _w, _h);
+	p_tblayout->resize(m_leftmargin + _x, m_topmargin + _y, w() - m_leftmargin - m_rightmargin, h() - m_topmargin - m_bottommargin);
+}
+
+void Fle_VHLayout::setBackgroundColor(uchar _red, uchar _green, uchar _blue)
+{
+	p_tblayout->setBackgroundColor(_red, _green, _blue);
+	Fl_Group::color(fl_rgb_color(_red, _green, _blue));
+}
+void Fle_VHLayout::setBackgroundColor(Fl_Color _color)
+{
+	p_tblayout->setBackgroundColor(_color);
+	Fl_Group::color(_color);
+}
+Fl_Color Fle_VHLayout::getBackgroundColor() const
+{
+	return Fl_Group::color();
 }
 
 Fle_HLayoutLR* Fle_VHLayout::addLayoutLR(int _height, Position _pos)
 {
 	if (_pos == Fle_VHLayout::Position::AT_TOP)
 	{
-		p_tblayout->endBottom();
 		p_tblayout->beginTop();
 		Fle_HLayoutLR* ho = new Fle_HLayoutLR(0, 0, p_tblayout->w(), _height);
 		ho->setBackgroundColor(p_tblayout->getBackgroundColor());
 		ho->end();
-		p_tblayout->endTop();
+		p_tblayout->end();
 		return ho;
 	}
 	else if (_pos == Fle_VHLayout::Position::AT_BOTTOM)
 	{
-		p_tblayout->endTop();
 		p_tblayout->beginBottom();
 		Fle_HLayoutLR* ho = new Fle_HLayoutLR(0, 0, p_tblayout->w(), _height);
 		ho->setBackgroundColor(p_tblayout->getBackgroundColor());
 		ho->end();
-		p_tblayout->endBottom();
+		p_tblayout->end();
 		return ho;
 	}
 	return nullptr;
@@ -468,22 +510,20 @@ Fle_HLayoutL* Fle_VHLayout::addLayoutL(int _height, Position _pos)
 {
 	if (_pos == Fle_VHLayout::Position::AT_TOP)
 	{
-		p_tblayout->endBottom();
 		p_tblayout->beginTop();
 		Fle_HLayoutL* ho = new Fle_HLayoutL(0, 0, p_tblayout->w(), _height);
 		ho->setBackgroundColor(p_tblayout->getBackgroundColor());
 		ho->end();
-		p_tblayout->endTop();
+		p_tblayout->end();
 		return ho;
 	}
 	else if (_pos == Fle_VHLayout::Position::AT_BOTTOM)
 	{
-		p_tblayout->endTop();
 		p_tblayout->beginBottom();
 		Fle_HLayoutL* ho = new Fle_HLayoutL(0, 0, p_tblayout->w(), _height);
 		ho->setBackgroundColor(p_tblayout->getBackgroundColor());
 		ho->end();
-		p_tblayout->endBottom();
+		p_tblayout->end();
 		return ho;
 	}
 	return nullptr;
@@ -492,22 +532,20 @@ Fle_HLayout* Fle_VHLayout::addHLayout(int _height, Position _pos)
 {
 	if (_pos == Fle_VHLayout::Position::AT_TOP)
 	{
-		p_tblayout->endBottom();
 		p_tblayout->beginTop();
 		Fle_HLayout* ho = new Fle_HLayout(0, 0, p_tblayout->w(), _height);
 		ho->color(p_tblayout->getBackgroundColor());
 		ho->end();
-		p_tblayout->endTop();
+		p_tblayout->end();
 		return ho;
 	}
 	else if (_pos == Fle_VHLayout::Position::AT_BOTTOM)
 	{
-		p_tblayout->endTop();
 		p_tblayout->beginBottom();
 		Fle_HLayout* ho = new Fle_HLayout(0, 0, p_tblayout->w(), _height);
 		ho->color(p_tblayout->getBackgroundColor());
 		ho->end();
-		p_tblayout->endBottom();
+		p_tblayout->end();
 		return ho;
 	}
 	return nullptr;
@@ -518,22 +556,20 @@ Fle_VLayoutTB* Fle_VHLayout::addLayoutTB(int _height, Position _pos)
 {
 	if (_pos == Fle_VHLayout::Position::AT_TOP)
 	{
-		p_tblayout->endBottom();
 		p_tblayout->beginTop();
 		Fle_VLayoutTB* ho = new Fle_VLayoutTB(0, 0, p_tblayout->w(), _height);
 		ho->color(p_tblayout->getBackgroundColor());
 		ho->end();
-		p_tblayout->endTop();
+		p_tblayout->end();
 		return ho;
 	}
 	else if (_pos == Fle_VHLayout::Position::AT_BOTTOM)
 	{
-		p_tblayout->endTop();
 		p_tblayout->beginBottom();
 		Fle_VLayoutTB* ho = new Fle_VLayoutTB(0, 0, p_tblayout->w(), _height);
 		ho->color(p_tblayout->getBackgroundColor());
 		ho->end();
-		p_tblayout->endBottom();
+		p_tblayout->end();
 		return ho;
 	}
 	return nullptr;
@@ -543,22 +579,20 @@ Fle_VLayoutT* Fle_VHLayout::addLayoutT(int _height, Position _pos)
 {
 	if (_pos == Fle_VHLayout::Position::AT_TOP)
 	{
-		p_tblayout->endBottom();
 		p_tblayout->beginTop();
 		Fle_VLayoutT* ho = new Fle_VLayoutT(0, 0, p_tblayout->w(), _height);
 		ho->color(p_tblayout->getBackgroundColor());
 		ho->end();
-		p_tblayout->endTop();
+		p_tblayout->end();
 		return ho;
 	}
 	else if (_pos == Fle_VHLayout::Position::AT_BOTTOM)
 	{
-		p_tblayout->endTop();
 		p_tblayout->beginBottom();
 		Fle_VLayoutT* ho = new Fle_VLayoutT(0, 0, p_tblayout->w(), _height);
 		ho->color(p_tblayout->getBackgroundColor());
 		ho->end();
-		p_tblayout->endBottom();
+		p_tblayout->end();
 		return ho;
 	}
 	return nullptr;
@@ -567,22 +601,20 @@ Fle_VLayout* Fle_VHLayout::addVLayout(int _height, Position _pos)
 {
 	if (_pos == Fle_VHLayout::Position::AT_TOP)
 	{
-		p_tblayout->endBottom();
 		p_tblayout->beginTop();
 		Fle_VLayout* ho = new Fle_VLayout(0, 0, p_tblayout->w(), _height);
 		ho->color(p_tblayout->getBackgroundColor());
 		ho->end();
-		p_tblayout->endTop();
+		p_tblayout->end();
 		return ho;
 	}
 	else if (_pos == Fle_VHLayout::Position::AT_BOTTOM)
 	{
-		p_tblayout->endTop();
 		p_tblayout->beginBottom();
 		Fle_VLayout* ho = new Fle_VLayout(0, 0, p_tblayout->w(), _height);
 		ho->color(p_tblayout->getBackgroundColor());
 		ho->end();
-		p_tblayout->endBottom();
+		p_tblayout->end();
 		return ho;
 	}
 	return nullptr;

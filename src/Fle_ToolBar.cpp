@@ -27,5 +27,4 @@ Fle_VHLayout(_x, _y, _w, _h, _label)
 {
 	Fle_VHLayout::end();
 	Fle_VHLayout::setBackgroundColor(214, 219, 233);
-	getCentralLayout()->setBackgroundColor(214, 219, 233);
 }

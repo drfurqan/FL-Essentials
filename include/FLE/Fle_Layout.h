@@ -90,7 +90,7 @@ public:
 /**************************************************************************/
 /* Horizontal layout that start packing widgets from the most left side.  */
 /**************************************************************************/
-class FL_ESSENTIALS_EXPORT Fle_HLayoutL : public Fle_Window
+class FL_ESSENTIALS_EXPORT Fle_HLayoutL : public Fl_Group
 {
 public:
 	// Description:
@@ -104,23 +104,33 @@ public:
 	virtual ~Fle_HLayoutL();
 
 	// Description:
-	// Function that should be called to add widgets inside this layout.
-	virtual void begin() override;
+	// Function that starts adding/packing layouts/widgets to this layout.
+	void begin();
 	// Description:
-	// Function that stop packing widgets inside this layout.
+	// Function that stop adding/packing layouts/widgets.
 	// If you call begin(), then must call end().
-	virtual void end() override;
+	void end();
 
 	// Description:
 	// Overridden function to set the spacing between widgets.
-	virtual void setSpacing(int _pixels) { p_layout->spacing(_pixels); }
+	void setSpacing(int _pixels) { p_layout->spacing(_pixels); }
 	// Description:
 	// Overridden function to set the spacing between widgets.
-	virtual int getSpacing() const { return p_layout->spacing(); }
+	int getSpacing() const { return p_layout->spacing(); }
 
 	// Description:
 	// Function that returns the total width of the widgets that this layout contains.
 	int getGeometryWidth() const;
+
+	// Description:
+	// Function to set the background color of the widget.
+	void setBackgroundColor(uchar _red, uchar _green, uchar _blue);
+	// Description:
+	// Function to set the background color of the widget.
+	void setBackgroundColor(Fl_Color _color);
+	// Description:
+	// Function to get the background color of the widget.
+	Fl_Color getBackgroundColor() const;
 
 	// Description:
 	// Function to set a pointer to main layout.
@@ -137,7 +147,7 @@ protected:
 /* Left-Right Horizontal layout that can add/pack widgets at the most left*/
 /* as well as the most right side.										  */
 /**************************************************************************/
-class FL_ESSENTIALS_EXPORT Fle_HLayoutLR : public Fle_Window
+class FL_ESSENTIALS_EXPORT Fle_HLayoutLR : public Fl_Group
 {
 public:
 	// Description:
@@ -149,27 +159,19 @@ public:
 	virtual ~Fle_HLayoutLR();
 
 	// Description:
-	// Function that should be called to add/pack layouts/widgets at top.
-	virtual void begin() override;
+	// Function that starts adding/packing layouts/widgets from the left side.
+	void begin();
 	// Description:
-	// Function that stop adding/packing layouts/widgets at top.
+	// Function that stop adding/packing layouts/widgets.
 	// If you call begin(), then must call end().
-	virtual void end() override;
+	void end();
 
 	// Description:
-	// Function that should be called to add/pack layouts/widgets at top.
-	virtual void beginLeft();
+	// Function that starts adding/packing layouts/widgets from the left side.
+	void beginLeft();
 	// Description:
-	// Function that stop adding/packing layouts/widgets at top.
-	// If you call beginTop(), then must call endTop().
-	virtual void endLeft();
-	// Description:
-	// Function that should be called to add/pack layouts/widgets at bottom.
-	virtual void beginRight();
-	// Description:
-	// Function that stop adding/packing layouts/widgets at bottom.
-	// If you call beginBottom(), then must call endBottom().
-	virtual void endRight();
+	// Function that starts adding/packing layouts/widgets from the right side.
+	void beginRight();
 
 	// Description:
 	// Overridden function that called while resizing this layout.
@@ -272,7 +274,7 @@ public:
 /**************************************************************************/
 /* Vertical layout (Top) that starts packing widgets from the top.		  */
 /**************************************************************************/
-class FL_ESSENTIALS_EXPORT Fle_VLayoutT : public Fle_Window
+class FL_ESSENTIALS_EXPORT Fle_VLayoutT : public Fl_Group
 {
 public:
 	// Description:
@@ -284,23 +286,33 @@ public:
 	virtual ~Fle_VLayoutT();
 
 	// Description:
-	// Function that should be called to add widgets inside this layout.
-	virtual void begin() override;
+	// Function that starts adding/packing layouts/widgets to this layout.
+	void begin();
 	// Description:
-	// Function that stop packing widgets inside this layout.
+	// Function that stop adding/packing layouts/widgets.
 	// If you call begin(), then must call end().
-	virtual void end() override;
+	void end();
 
 	// Description:
 	// Overridden function to set the spacing between widgets.
-	virtual void setSpacing(int _pixels) { p_layout->spacing(_pixels); }
+	void setSpacing(int _pixels) { p_layout->spacing(_pixels); }
 	// Description:
 	// Overridden function to set the spacing between widgets.
-	virtual int getSpacing() const { return p_layout->spacing(); }
+	int getSpacing() const { return p_layout->spacing(); }
 
 	// Description:
 	// Function that returns the total height of the widgets that this layout contains.
 	int getGeometryHeight() const;
+
+	// Description:
+	// Function to set the background color of the widget.
+	void setBackgroundColor(uchar _red, uchar _green, uchar _blue);
+	// Description:
+	// Function to set the background color of the widget.
+	void setBackgroundColor(Fl_Color _color);
+	// Description:
+	// Function to get the background color of the widget.
+	Fl_Color getBackgroundColor() const;
 
 	// Description:
 	// Function to set a pointer to main layout.
@@ -317,7 +329,7 @@ protected:
 /* Top-Bottom Vertical layout that can add/pack widgets at top as well as */
 /* at bottom of this layout.											  */
 /**************************************************************************/
-class FL_ESSENTIALS_EXPORT Fle_VLayoutTB : public Fle_Window
+class FL_ESSENTIALS_EXPORT Fle_VLayoutTB : public Fl_Group
 {
 public:
 	// Description:
@@ -329,27 +341,19 @@ public:
 	virtual ~Fle_VLayoutTB();
 
 	// Description:
-	// Function that should be called to add/pack layouts/widgets at top.
-	virtual void begin() override;
+	// Function that starts adding/packing layouts/widgets from the top side.
+	void begin();
 	// Description:
-	// Function that stop adding/packing layouts/widgets at top.
+	// Function that stop adding/packing layouts/widgets.
 	// If you call begin(), then must call end().
-	virtual void end() override;
+	void end();
 
 	// Description:
-	// Function that should be called to add/pack layouts/widgets at top.
-	virtual void beginTop();
+	// Function that starts adding/packing layouts/widgets from the top side.
+	void beginTop();
 	// Description:
-	// Function that stop adding/packing layouts/widgets at top.
-	// If you call beginTop(), then must call endTop().
-	virtual void endTop();
-	// Description:
-	// Function that should be called to add/pack layouts/widgets at bottom.
-	virtual void beginBottom();
-	// Description:
-	// Function that stop adding/packing layouts/widgets at bottom.
-	// If you call beginBottom(), then must call endBottom().
-	virtual void endBottom();
+	// Function that starts adding/packing layouts/widgets from the bottom side.
+	void beginBottom();
 
 	// Description:
 	// Overridden function that called while resizing this layout.
@@ -438,7 +442,7 @@ protected:
 /* Vertical-Horizontal layout that can add/pack layouts/widgets in        */
 /* horizontal as well as in vertical directions.						  */
 /**************************************************************************/
-class FL_ESSENTIALS_EXPORT Fle_VHLayout : public Fle_Window
+class FL_ESSENTIALS_EXPORT Fle_VHLayout : public Fl_Group
 {
 public:
 	// Description:
@@ -450,27 +454,19 @@ public:
 	virtual ~Fle_VHLayout();
 
 	// Description:
-	// Function that should be called to add/pack layouts/widgets at top.
-	virtual void begin() override;
+	// Function that starts adding/packing layouts/widgets from the top side.
+	void begin();
 	// Description:
-	// Function that stop adding/packing layouts/widgets at top.
+	// Function that stop adding/packing layouts/widgets.
 	// If you call begin(), then must call end().
-	virtual void end() override;
+	void end();
 
 	// Description:
-	// Function that should be called to add/pack layouts/widgets at top.
-	virtual void beginTop();
+	// Function that starts adding/packing layouts/widgets from the top side.
+	void beginTop();
 	// Description:
-	// Function that stop adding/packing layouts/widgets at top.
-	// If you call beginTop(), then must call endTop().
-	virtual void endTop();
-	// Description:
-	// Function that should be called to add/pack layouts/widgets at bottom.
-	virtual void beginBottom();
-	// Description:
-	// Function that stop adding/packing layouts/widgets at bottom.
-	// If you call beginBottom(), then must call endBottom().
-	virtual void endBottom();
+	// Function that starts adding/packing layouts/widgets from the bottom side.
+	void beginBottom();
 
 	// Description:
 	// Overridden function that called while resizing this layout.
@@ -519,6 +515,16 @@ public:
 		m_topmargin = _top;
 		m_bottommargin = _bottom;
 	}
+
+	// Description:
+// Function to set the background color of the widget.
+	void setBackgroundColor(uchar _red, uchar _green, uchar _blue);
+	// Description:
+	// Function to set the background color of the widget.
+	void setBackgroundColor(Fl_Color _color);
+	// Description:
+	// Function to get the background color of the widget.
+	Fl_Color getBackgroundColor() const;
 
 	// Description:
 	// Position for Left-Right Horizontal layout to be added at Top or Bottom of this layout. 

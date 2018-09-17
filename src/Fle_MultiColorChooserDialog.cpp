@@ -95,7 +95,7 @@ Fle_MultiColorChooserDialog::Fle_MultiColorChooserDialog(int _w, int _h,
 		p_reset->labelsize(12);
 		p_reset->callback(default_colors_cb, this);
 	}
-	hl1->endRight();
+	hl1->end();
 
 	p_dialog->getCentralLayout()->getCentralLayout()->setMargins(10, 10, 15, 0);	// set dialog's margins.
 	p_dialog->getStatusBar()->getCentralLayout()->setMargins(10, 10, 10, 0);	// set statusbar's margins and height.

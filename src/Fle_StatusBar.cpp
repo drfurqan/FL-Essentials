@@ -28,8 +28,7 @@ Fle_VHLayout(_x, _y, _w, _h, _label),
 p_textbox(nullptr),
 m_default_text("Ready")
 {
-	Fle_Window::setBackgroundColor(0, 122, 204);
-	getCentralLayout()->setBackgroundColor(0, 122, 204);
+	setBackgroundColor(0, 122, 204);
 	Fle_VHLayout::end();
 
 	// function that will be called after the specified time interval is passed.

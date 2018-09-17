@@ -54,22 +54,23 @@ m_bottommargin(0)
 
 	Fle_Window::begin();
 	{
-		p_menubar = new Fle_MenuBar(-1, 0, _w + 2, mb_size, label());	// little expanded to hide the left and right borders.
-		p_menubar->setRightClickPopupCallback(rightClickMenuItems, rightClickMenuItem_cb, (void*)this);
-
-		p_statusbar = new Fle_StatusBar(0, _h - sb_size, _w, sb_size);
+		p_centralarea = new Fle_Window(left_tb_size + gap, mb_size + tb_size + gap, _w - left_tb_size - right_tb_size - gap - gap, _h - mb_size - tb_size - sb_size - gap - gap, _title, _icon_index);
+		p_centralarea->end();
 
 		p_toptoolbar = new Fle_ToolBar(0, mb_size, _w, tb_size);
-		p_toptoolbar->getBox()->box(FL_BORDER_FRAME);
-		p_toptoolbar->color(p_menubar->getMenuBarColor());
-		p_toptoolbar->selection_color(p_menubar->getSelectionColor());
+		p_toptoolbar->box(FL_BORDER_FRAME);
 		p_toptoolbar->end();
 
-
 		p_lefttoolbar = new Fle_ToolBar(0, mb_size + tb_size, left_tb_size, _h - mb_size - tb_size - sb_size);
+		p_lefttoolbar->end();
 		p_righttoolbar = new Fle_ToolBar(_w - right_tb_size, mb_size + tb_size, right_tb_size, _h - mb_size - tb_size - sb_size);
+		p_righttoolbar->end();
 
-		p_centralarea = new Fle_Window(left_tb_size + gap, mb_size + tb_size + gap, _w - left_tb_size - right_tb_size - gap - gap, _h - mb_size - tb_size - sb_size - gap - gap, _title, _icon_index);
+		p_statusbar = new Fle_StatusBar(0, _h - sb_size, _w, sb_size);
+		p_statusbar->end();
+
+		p_menubar = new Fle_MenuBar(-1, 0, _w + 2, mb_size, label());	// little expanded to hide the left and right borders.
+		p_menubar->setRightClickPopupCallback(rightClickMenuItems, rightClickMenuItem_cb, (void*)this);
 
 		p_menubar->hide();
 		p_statusbar->hide();
@@ -103,22 +104,23 @@ m_bottommargin(0)
 
 	Fle_Window::begin();
 	{
-		p_menubar = new Fle_MenuBar(-1, 0, _w + 2, mb_size, label());	// little expanded to hide the left and right borders.
-		p_menubar->setRightClickPopupCallback(rightClickMenuItems, rightClickMenuItem_cb, (void*)this);
-
-		p_statusbar = new Fle_StatusBar(0, _h - sb_size, _w, sb_size);
+		p_centralarea = new Fle_Window(left_tb_size + gap, mb_size + tb_size + gap, _w - left_tb_size - right_tb_size - gap - gap, _h - mb_size - tb_size - sb_size - gap - gap, _title, _icon_index);
+		p_centralarea->end();
 
 		p_toptoolbar = new Fle_ToolBar(0, mb_size, _w, tb_size);
-		p_toptoolbar->getBox()->box(FL_BORDER_FRAME);
-		p_toptoolbar->color(p_menubar->getMenuBarColor());
-		p_toptoolbar->color2(p_menubar->getSelectionColor());
+		p_toptoolbar->box(FL_BORDER_FRAME);
 		p_toptoolbar->end();
 
-
 		p_lefttoolbar = new Fle_ToolBar(0, mb_size + tb_size, left_tb_size, _h - mb_size - tb_size - sb_size);
+		p_lefttoolbar->end();
 		p_righttoolbar = new Fle_ToolBar(_w - right_tb_size, mb_size + tb_size, right_tb_size, _h - mb_size - tb_size - sb_size);
+		p_righttoolbar->end();
 
-		p_centralarea = new Fle_Window(left_tb_size + gap, mb_size + tb_size + gap, _w - left_tb_size - right_tb_size - gap - gap, _h - mb_size - tb_size - sb_size - gap - gap, _title, _icon_index);
+		p_statusbar = new Fle_StatusBar(0, _h - sb_size, _w, sb_size);
+		p_statusbar->end();
+
+		p_menubar = new Fle_MenuBar(-1, 0, _w + 2, mb_size, label());	// little expanded to hide the left and right borders.
+		p_menubar->setRightClickPopupCallback(rightClickMenuItems, rightClickMenuItem_cb, (void*)this);
 
 		p_menubar->hide();
 		p_statusbar->hide();
@@ -171,8 +173,7 @@ void Fle_MainWindow::resize(int _x, int _y, int _w, int _h)
 
 void Fle_MainWindow::size(int _w, int _h)
 {
-	Fle_Window::size(_w, _h);
-	updateContents();
+	resize(x(), y(), _w, _h);
 }
 
 void Fle_MainWindow::redraw()
@@ -222,15 +223,12 @@ void Fle_MainWindow::rightClickMenuItem_cb(Fl_Widget* _w, void* _p)
 		win->toggleRightToolBar();
 	else if (l == std::string("\tStatusBar\t"))
 		win->toggleStatusBar();
-	win->size(win->w(), win->h());
-	win->redraw();
 }
 
 void Fle_MainWindow::toggleMenuBar()
 {
 	if (p_menubar->visible()) p_menubar->hide();
 	else p_menubar->show();
-	updateContents();
 	size(w(), h());
 	redraw();
 }
@@ -238,7 +236,6 @@ void Fle_MainWindow::toggleTopToolBar()
 {
 	if (p_toptoolbar->visible()) p_toptoolbar->hide();
 	else p_toptoolbar->show();
-	updateContents();
 	size(w(), h());
 	redraw();
 }
@@ -246,7 +243,6 @@ void Fle_MainWindow::toggleStatusBar()
 {
 	if (p_statusbar->visible()) p_statusbar->hide();
 	else p_statusbar->show();
-	updateContents();
 	size(w(), h());
 	redraw();
 }
@@ -254,7 +250,6 @@ void Fle_MainWindow::toggleLeftToolBar()
 {
 	if (p_lefttoolbar->visible()) p_lefttoolbar->hide();
 	else p_lefttoolbar->show();
-	updateContents();
 	size(w(), h());
 	redraw();
 }
@@ -262,7 +257,6 @@ void Fle_MainWindow::toggleRightToolBar()
 {
 	if (p_righttoolbar->visible()) p_righttoolbar->hide();
 	else p_righttoolbar->show();
-	updateContents();
 	size(w(), h());
 	redraw();
 }
@@ -297,31 +291,26 @@ void Fle_MainWindow::setMenuBarFixedHeight(int _h)
 {
 	if (p_menubar)
 			p_menubar->size(Fle_Window::w() + 2, _h);
-	updateContents();
 }
 void Fle_MainWindow::setTopToolBarFixedHeight(int _h)
 {
 	if (p_toptoolbar)
 			p_toptoolbar->size(Fle_Window::w() + 2, _h);
-	updateContents();
 }
 void Fle_MainWindow::setLeftToolBarFixedWidth(int _w)
 {
 	if (p_lefttoolbar)
 			p_lefttoolbar->size(_w, p_lefttoolbar->h());
-	updateContents();
 }
 void Fle_MainWindow::setRightToolBarFixedWidth(int _w)
 {
 	if (p_righttoolbar)
 			p_righttoolbar->size(_w, p_righttoolbar->h());
-	updateContents();
 }
 void Fle_MainWindow::setStatusBarFixedHeight(int _h)
 {
 	if (p_statusbar)
 			p_statusbar->size(Fle_Window::w() + 2, _h);
-	updateContents();
 }
 
 void Fle_MainWindow::updateGeometry()
@@ -688,8 +677,8 @@ void Fle_MainWindow::updateContents()
 		p_centralarea->resize(
 			0 + m_leftmargin + lw + gap,
 			m_topmargin + mh + th + gap,
-			Fle_Window::w() - m_rightmargin - m_leftmargin - lw - gap - gap,
-			Fle_Window::h() - m_bottommargin - m_topmargin - mh - th - gap - gap
+			w() - m_rightmargin - m_leftmargin - lw - gap - gap,
+			h() - m_bottommargin - m_topmargin - mh - th - gap - gap
 			);
 	}
 
@@ -699,7 +688,7 @@ void Fle_MainWindow::updateContents()
 		p_toptoolbar->position(0, 0);
 
 	if (p_statusbar->visible()) 
-		p_statusbar->position(0, Fle_Window::h() - p_statusbar->h());
+		p_statusbar->position(0, h() - p_statusbar->h());
 
 	p_lefttoolbar->resize(0, p_centralarea->y(), p_lefttoolbar->w(), p_centralarea->h());
 	p_righttoolbar->resize(p_centralarea->x() + p_centralarea->w() + gap + m_rightmargin, p_centralarea->y(), p_righttoolbar->w(), p_centralarea->h());

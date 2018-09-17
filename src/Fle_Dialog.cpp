@@ -246,7 +246,7 @@ int Fle_Dialog::getFloatInputSlider(int _w, int _h,
 	cancel->labelsize(12);
 	d->setCancelButton(cancel);
 
-	hl1->endRight();
+	hl1->end();
 
 	// set dialog's margins.
 	d->getCentralLayout()->getCentralLayout()->setMargins(10, 10, 15, 0);
@@ -389,7 +389,7 @@ int Fle_Dialog::getNumber(int _w, int _h,
 	cancel->labelsize(12);
 	d->setCancelButton(cancel);
 
-	hl1->endRight();
+	hl1->end();
 
 	// set dialog's margins.
 	d->getCentralLayout()->getCentralLayout()->setMargins(10, 10, 15, 0);
@@ -533,7 +533,7 @@ int Fle_Dialog::getNumbers(int _w, int _h, const char* _title,
 	cancel->labelsize(12);
 	d->setCancelButton(cancel);
 
-	hl1->endRight();
+	hl1->end();
 
 	// set dialog's margins.
 	d->getCentralLayout()->getCentralLayout()->setMargins(10, 10, 15, 0);
@@ -688,7 +688,7 @@ int Fle_Dialog::getNumbers(int _w, int _h, const char* _title,
 	cancel->labelsize(12);
 	d->setCancelButton(cancel);
 
-	hl1->endRight();
+	hl1->end();
 
 	// set dialog's margins.
 	d->getCentralLayout()->getCentralLayout()->setMargins(10, 10, 15, 0);
@@ -836,7 +836,7 @@ int Fle_Dialog::getNumbers(int _w, int _h, const char* _title,
 	cancel->labelsize(12);
 	d->setCancelButton(cancel);
 
-	hl1->endRight();
+	hl1->end();
 
 	// set dialog's margins.
 	d->getCentralLayout()->getCentralLayout()->setMargins(10, 10, 15, 0);
@@ -928,7 +928,7 @@ int Fle_Dialog::getInput(int _w, int _h, const char* _title, const char* _label,
 	cancel->labelsize(12);
 	d->setCancelButton(cancel);
 
-	hl1->endRight();
+	hl1->end();
 
 	// set dialog's margins.
 	d->getCentralLayout()->getCentralLayout()->setMargins(10, 10, 15, 0);
@@ -1048,7 +1048,7 @@ int Fle_Dialog::getInputs(int _w, int _h,
 	d->setCancelButton(cancel);
 
 	// end packing.
-	hl1->endRight();
+	hl1->end();
 
 	// set dialog's margins.
 	d->getCentralLayout()->getCentralLayout()->setMargins(10, 10, 15, 0);
@@ -1151,7 +1151,7 @@ int Fle_Dialog::getItem(int _w, int _h, const char* _title, const char* _label, 
 	cancel->labelsize(12);
 	d->setCancelButton(cancel);
 
-	hl1->endRight();
+	hl1->end();
 
 	// set dialog's margins.
 	d->getCentralLayout()->getCentralLayout()->setMargins(10, 10, 15, 0);
@@ -1293,7 +1293,7 @@ int Fle_Dialog::getText(int _w, int _h,
 	cancel->labelsize(12);
 	d->setCancelButton(cancel);
 
-	hl1->endRight();
+	hl1->end();
 
 	// set dialog's margins.
 	d->getCentralLayout()->getCentralLayout()->setMargins(10, 10, 10, 0);
@@ -1400,7 +1400,7 @@ int Fle_Dialog::openHelpDialog(
 	ok->labelsize(12);
 	d->setOkButton(ok);
 
-	hl1->endRight();
+	hl1->end();
 
 	// set dialog's margins.
 	d->getCentralLayout()->getCentralLayout()->setMargins(10, 10, 10, 0);
@@ -1506,7 +1506,7 @@ int Fle_Dialog::ask(int _w, int _h, 			// width and height of the dialog window.
 		d->setCancelButton(no);
 	}
 
-	hl1->endRight();
+	hl1->end();
 
 	// set dialog's margins.
 	d->getCentralLayout()->getCentralLayout()->setMargins(10, 10, 10, 0);
@@ -1654,7 +1654,7 @@ int Fle_Dialog::browse(int _w, int _h, const char* _title, const char* _label, c
 	cancel->labelsize(12);
 	d->setCancelButton(cancel);
 
-	hl1->endRight();
+	hl1->end();
 
 	// set dialog's margins.
 	d->getCentralLayout()->getCentralLayout()->setMargins(10, 10, 15, 0);
