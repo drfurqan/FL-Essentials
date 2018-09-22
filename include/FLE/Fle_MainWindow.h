@@ -48,11 +48,11 @@ public:
 
 	// Description:
 	// Function that pack widgets inside the window.
-	virtual void begin() override;
+	virtual void begin();
 	// Description:
 	// Function that stop packing widgets inside the window.
 	// If you call begin(), then must call end().
-	virtual void end() override;
+	virtual void end();
 
 	// Description:
 	// Function that must be called whenever there is a need to add widget on top of other widgets,

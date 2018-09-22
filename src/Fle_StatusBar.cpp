@@ -32,7 +32,7 @@ m_default_text("Ready")
 	Fle_VHLayout::end();
 
 	// function that will be called after the specified time interval is passed.
-	std::function<void()> f = [&]()
+	std::function<void()> f = [this]()
 	{
 		if (p_textbox)
 		{

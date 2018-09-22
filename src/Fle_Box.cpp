@@ -47,6 +47,7 @@ Fle_Box::Fle_Box(int _x, int _y, int _w, int _h, const char* _title) :
 {
 	box(Fl_Boxtype::FL_NO_BOX);
 	align(FL_ALIGN_WRAP | FL_ALIGN_INSIDE | FL_ALIGN_CENTER | FL_ALIGN_TEXT_OVER_IMAGE | FL_ALIGN_CLIP);
+	m_font.setSize(12);
 }
 
 Fle_Box::~Fle_Box()

@@ -28,12 +28,12 @@ If not, please contact Dr. Furqan Ullah immediately:
 using namespace R3D;
 
 Fle_Window::Fle_Window(int _x, int _y, int _w, int _h, const char* _title, int _icon_index) :
-Fl_Double_Window(_x, _y, _w, _h, _title),
-m_minsize(Fle_Size(10, 10)),
-m_maxsize(Fle_Size(Fl::w() + 100000, Fl::h() + 100000)),
-m_dnd(false)
+	Fl_Double_Window(_x, _y, _w, _h, _title),
+	m_minsize(Fle_Size(10, 10)),
+	m_maxsize(Fle_Size(Fl::w() + 100000, Fl::h() + 100000)),
+	m_dnd(false)
 {
-	//Fl_Pixmap ico(flviewer);
+	//Fl_Pixmap ico(img);
 	//Fl_RGB_Image app(&ico);
 	//icon(&app);
 	//default_icon(&app);
@@ -45,6 +45,7 @@ m_dnd(false)
 	p_box = new Fle_Box(0, 0, _w, _h, _title);
 	p_box->box(FL_FLAT_BOX);
 	p_box->color(fl_rgb_color(238, 243, 250));
+	Fl_Double_Window::end(); // This call is necessary to prevent any additional UI widgets from becoming subcomponents of this window.
 
 	align(FL_ALIGN_WRAP | FL_ALIGN_INSIDE | FL_ALIGN_CENTER | FL_ALIGN_TEXT_OVER_IMAGE | FL_ALIGN_CLIP);
 	color(fl_rgb_color(238, 243, 250));
@@ -53,28 +54,16 @@ m_dnd(false)
 	size_range(10, 10);
 	user_data(static_cast<void*>(this));
 	callback(closeCallback, static_cast<void*>(this));
-	Fl_Double_Window::end(); // This call is necessary to prevent any additional UI widgets from becoming subcomponents of this window.
 
-	// setting up timer event.
-	std::function<void()> tf = [&]()
-	{
-		timerEvent();
-	};
-	m_timer.setFunction(tf);
-
-	// setting up idle event.
-	std::function<void()> idf = [&]()
-	{
-		idleEvent();
-	};
-	m_idle.setFunction(idf);
+	m_timer.setFunction([&]() { timerEvent(); });	// setting up timer event.
+	m_idle.setFunction([&]() { idleEvent(); });		// setting up idle event.
 }
 
 Fle_Window::Fle_Window(int _w, int _h, const char* _title, int _icon_index) :
-Fl_Double_Window(0, 0, _w, _h, _title),
-m_minsize(Fle_Size(10, 10)),
-m_maxsize(Fle_Size(Fl::w() + 100000, Fl::h() + 100000)),
-m_dnd(false)
+	Fl_Double_Window(0, 0, _w, _h, _title),
+	m_minsize(Fle_Size(10, 10)),
+	m_maxsize(Fle_Size(Fl::w() + 100000, Fl::h() + 100000)),
+	m_dnd(false)
 {
 #ifdef WIN32
 	icon(LoadIcon(fl_display, MAKEINTRESOURCE(_icon_index)));
@@ -83,6 +72,7 @@ m_dnd(false)
 	p_box = new Fle_Box(0, 0, _w, _h, _title);
 	p_box->box(FL_FLAT_BOX);
 	p_box->color(fl_rgb_color(238, 243, 250));
+	Fl_Double_Window::end(); // this call is necessary to prevent any additional UI widgets from becoming subcomponents of this window.
 
 	align(FL_ALIGN_WRAP | FL_ALIGN_INSIDE | FL_ALIGN_CENTER | FL_ALIGN_TEXT_OVER_IMAGE | FL_ALIGN_CLIP);
 	color(fl_rgb_color(238, 243, 250));
@@ -97,34 +87,12 @@ m_dnd(false)
 	Fl::screen_work_area(X, Y, W, H);
 	position(X + W / 2 - _w / 2, Y + H / 2 - _h / 2);
 
-	Fl_Double_Window::end(); // this call is necessary to prevent any additional UI widgets from becoming subcomponents of this window.
-
-	// setting up timer event.
-	std::function<void()> tf = [&]()
-	{
-		timerEvent();
-	};
-	m_timer.setFunction(tf);
-
-	// setting up idle event.
-	std::function<void()> idf = [&]()
-	{
-		idleEvent();
-	};
-	m_idle.setFunction(idf);
+	m_timer.setFunction([&]() { timerEvent(); });	// setting up timer event.
+	m_idle.setFunction([&]() { idleEvent(); });		// setting up idle event.
 }
 
 Fle_Window::~Fle_Window()
 {
-}
-
-void Fle_Window::begin()
-{
-	Fl_Double_Window::begin();
-}
-void Fle_Window::end()
-{
-	Fl_Double_Window::end();
 }
 
 void Fle_Window::timerEvent()
@@ -151,6 +119,7 @@ void Fle_Window::draw()
 {
 	if (!visible()) return;
 
+	make_current();
 	Fl_Double_Window::draw();
 	paintEvent();
 }
@@ -187,7 +156,7 @@ void Fle_Window::resize(int _x, int _y, int _w, int _h)
 }
 void Fle_Window::size(int _w, int _h)
 {
-	resize(Fl_Double_Window::x(), Fl_Double_Window::y(), _w, _h);
+	resize(x(), y(), _w, _h);
 }
 void Fle_Window::setMinimumSize(const Fle_Size& _size)
 {

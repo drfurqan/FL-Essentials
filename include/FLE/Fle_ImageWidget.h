@@ -63,10 +63,14 @@ public:
 	// Description:
 	// Function to load an image from the given file path.
 	// _filename should a file name plus extension.
-	bool loadImage(const std::string& _filename);
+	// Region of Interest (ROI) will be reset to the loaded image size if
+	// the second argument is true, otherwise previous ROI will be used to
+	// draw the image.
+	// Default ROI is Rect(0, 0, 0, 0) means the full image size.
+	bool loadImage(const std::string& _filename, bool _reset_roi = true);
 	// Description:
 	// Function to load an image from the path specified by setFilePath();
-	bool loadImage();
+	bool loadImage(bool _reset_roi = true);
 	// Description:
 	// Function to save the current image to disk.
 	// example:
@@ -74,7 +78,15 @@ public:
 	// compression_params.push_back(IMWRITE_PNG_COMPRESSION);
 	// compression_params.push_back(9);
 	// saveImage("D:\\a.png", compression_params);
-	bool saveImage(const std::string& _filename, const std::vector<int>& _compression_params = std::vector<int>()) const;
+	bool saveImage(const std::string& _filename, const std::vector<int>& _compression_params = std::vector<int>());
+	// Description:
+	// Function to save the current loaded image to disk.
+	// example:
+	// vector<int> compression_params;
+	// compression_params.push_back(IMWRITE_PNG_COMPRESSION);
+	// compression_params.push_back(9);
+	// saveImage(compression_params);
+	bool saveImage(const std::vector<int>& _compression_params = std::vector<int>());
 
 	// Description:
 	// Function to set the file path used for loadImage().

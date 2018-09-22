@@ -22,3 +22,10 @@ If not, please contact Dr. Furqan Ullah immediately:
 
 using namespace R3D;
 
+Fle_Font::Fle_Font(Fl_Fontsize _size, Fl_Color _color, Fl_Align _align, Fl_Font _font):
+	m_size(_size),
+	m_color(_color),
+	m_align(_align),
+	m_font(_font)
+{
+}

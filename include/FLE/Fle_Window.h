@@ -50,14 +50,6 @@ public:
 	virtual ~Fle_Window();
 
 	// Description:
-	// Function that must be called whenever there is a need to add/pack widget inside the window.
-	virtual void begin();
-	// Description:
-	// Function that must be called to stop adding widgets inside the window.
-	// If you call begin(), then must call end().
-	virtual void end();
-
-	// Description:
 	// Function to resize the window by specifying the position, width and height.
 	// Overridden function that will be called while resizing the window.
 	virtual void resize(int _x, int _y, int _w, int _h) override;

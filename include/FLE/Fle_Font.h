@@ -32,17 +32,9 @@ namespace R3D
 class FL_ESSENTIALS_EXPORT Fle_Font
 {
 public:
-	Fle_Font(
-		Fl_Fontsize _size = 14, 
-		Fl_Color _color = FL_FOREGROUND_COLOR,
+	Fle_Font(Fl_Fontsize _size = 14, Fl_Color _color = FL_FOREGROUND_COLOR,
 		Fl_Align _align = FL_ALIGN_WRAP | FL_ALIGN_INSIDE | FL_ALIGN_CENTER | FL_ALIGN_TEXT_OVER_IMAGE | FL_ALIGN_CLIP,
-		Fl_Font _font = FL_HELVETICA) :
-		m_size(_size), 
-		m_color(_color), 
-		m_align(_align),
-		m_font(_font)
-	{
-	}
+		Fl_Font _font = FL_HELVETICA);
 
 	// Description:
 	// Function to set the size of a font in pixels.

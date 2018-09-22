@@ -20,10 +20,12 @@ If not, please contact Dr. Furqan Ullah immediately:
 
 #include <FLE/Fle_ImageWidget.h>
 #include <FLE/Fle_ImageUtil.h>
+#include <FLE/Fle_StringUtil.h>
 
 #include <FL/Fl.H>
 #include <FL/Fl_Group.H>
 #include <FL/fl_draw.H>
+#include <FL/Fl_GIF_Image.H>
 
 using namespace R3D;
 
@@ -52,7 +54,7 @@ void Fle_ImageWidget::clear(const cv::Vec3b& _color)
 
 void Fle_ImageWidget::draw()
 {
-	drawImage(Fl_Widget::x(), Fl_Widget::y(), Fl_Widget::w(), Fl_Widget::h());
+	drawImage(x(), y(), w(), h());
 }
 void Fle_ImageWidget::drawImage(const int _x, const int _y, const int _w, const int _h)
 {	
@@ -61,13 +63,17 @@ void Fle_ImageWidget::drawImage(const int _x, const int _y, const int _w, const 
 	if (m_isize.width <= 0 || m_isize.height <= 0) return;
 
 	cv::Mat fimage;
-	if (m_roi.width > 0 && m_roi.height > 0 && m_roi.width < m_image.cols && m_roi.height < m_image.rows)
+	if ((m_roi.x < 0) || (m_roi.y < 0) ||
+		((m_roi.x + m_roi.width) > m_image.cols) ||
+		((m_roi.y + m_roi.height) > m_image.rows) ||
+		(m_roi.width < 2) ||
+		(m_roi.height < 2))
 	{
-		fimage = cv::Mat(m_image, m_roi).clone();
+		fimage = m_image.clone();
 	}
 	else
 	{
-		fimage = m_image.clone();
+		fimage = cv::Mat(m_image, m_roi).clone();
 	}
 
 	if (m_dtype == Fle_ImageDrawType::Fit)
@@ -76,8 +82,8 @@ void Fle_ImageWidget::drawImage(const int _x, const int _y, const int _w, const 
 		m_isize = cv::Size(_w, _h);
 	else if (m_dtype == Fle_ImageDrawType::Center && m_zoom == 1)	// if there is no zooming
 	{
-		if (fimage.cols > w() || fimage.rows > h())	// if image is greater than the box size.
-			m_isize = Fle_ImageUtil::getNewSizeKeepAspectRatio(fimage.cols, fimage.rows, w(), h());
+		if (fimage.cols > _w || fimage.rows > _h)	// if image is greater than the box size.
+			m_isize = Fle_ImageUtil::getNewSizeKeepAspectRatio(fimage.cols, fimage.rows, _w, _h);
 		else // image with original size.
 			m_isize = cv::Size(fimage.cols, fimage.rows);
 	}
@@ -118,19 +124,11 @@ void Fle_ImageWidget::drawImage(const int _x, const int _y, const int _w, const 
 }
 void Fle_ImageWidget::setRoi(const cv::Rect& _roi)
 {
-	Fl::lock();				// acquire the lock
 	m_roi = _roi;
-	Fl::unlock();			// release the lock; allow other threads to access FLTK again
 }
-// Description:
-// Function to get the region of interest for the border frame.
 cv::Rect Fle_ImageWidget::getRoi() const
 {
-	cv::Rect r;
-	Fl::lock();				// acquire the lock
-	r = m_roi;
-	Fl::unlock();			// release the lock; allow other threads to access FLTK again
-	return r;
+	return m_roi;
 }
 void Fle_ImageWidget::resetRoi()
 {
@@ -139,29 +137,57 @@ void Fle_ImageWidget::resetRoi()
 	Fl::unlock();			// release the lock; allow other threads to access FLTK again
 }
 
-bool Fle_ImageWidget::loadImage(const std::string& _filename)
+bool Fle_ImageWidget::loadImage(const std::string& _filename, bool _reset_roi)
 {
 	if (_filename.empty())
 		return false;
 
+	std::string ext = Fle_StringUtil::convertToLower(Fle_StringUtil::extractFileExt(_filename));
+
 	try
 	{
-		auto img = cv::imread(_filename, cv::IMREAD_UNCHANGED);
-		if (!img.empty())
+		if (ext == "gif")
 		{
-			auto fimage(img);
-			const auto d = img.depth();
-			if (d == CV_16U || d == CV_16S)	// 16 bit images
-			{
-				double min, max;
-				cv::minMaxLoc(fimage, &min, &max);
-				fimage.convertTo(fimage, CV_8UC1, 255.0 / (max - min));
-			}
+			// loads the first image of the gif file.
+			Fl_GIF_Image gif(_filename.c_str());
+			if (gif.fail() < 0)
+				return false;
 
-			setImage(fimage);
-			resetRoi();
+			Fl_RGB_Image o(&gif);
+			int type = CV_8UC3;
+			if (o.d() == 1)	type = CV_8UC1;
+			else if (o.d() == 2)	type = CV_8UC2;
+			else if (o.d() == 3)	type = CV_8UC3;
+			else if (o.d() == 4)	type = CV_8UC4;
+			cv::Mat m(cv::Size(o.w(), o.h()), type);
+			Fle_ImageUtil::convertToMat(&o, m, false);
+
 			setFileLocation(_filename);
+			setImage(m);
+			if (_reset_roi)
+				resetRoi();
 			return true;
+		}
+		else
+		{
+			auto img = cv::imread(_filename, cv::IMREAD_UNCHANGED);
+			if (!img.empty())
+			{
+				auto fimage(img);
+				const auto d = img.depth();
+				if (d == CV_16U || d == CV_16S)	// 16 bit images
+				{
+					double min, max;
+					cv::minMaxLoc(fimage, &min, &max);
+					fimage.convertTo(fimage, CV_8UC1, 255.0 / (max - min));
+				}
+
+				setFileLocation(_filename);
+				setImage(fimage);
+				if (_reset_roi) 
+					resetRoi();
+				return true;
+			}
 		}
 	}
 	catch (const cv::Exception& _ex)
@@ -174,9 +200,9 @@ bool Fle_ImageWidget::loadImage(const std::string& _filename)
 	}
 	return false;
 }
-bool Fle_ImageWidget::loadImage()
+bool Fle_ImageWidget::loadImage(bool _reset_roi)
 {
-	return loadImage(m_filename);
+	return loadImage(m_filename, _reset_roi);
 }
 
 void Fle_ImageWidget::setImage(const cv::Mat& _image)
@@ -210,8 +236,11 @@ cv::Size Fle_ImageWidget::getImageSize() const
 	return s;
 }
 
-bool Fle_ImageWidget::saveImage(const std::string& _filename, const std::vector<int>& _compression_params) const
+bool Fle_ImageWidget::saveImage(const std::string& _filename, const std::vector<int>& _compression_params)
 {
+	if (_filename.empty())
+		return false;
+
 	try 
 	{
 		Fl::lock();				// acquire the lock
@@ -235,6 +264,10 @@ bool Fle_ImageWidget::saveImage(const std::string& _filename, const std::vector<
 		std::cout << "Exception in saving image file!" << "\n";
 	}
 	return false;
+}
+bool Fle_ImageWidget::saveImage(const std::vector<int>& _compression_params)
+{
+	return saveImage(m_filename, _compression_params);
 }
 
 void Fle_ImageWidget::resetZoom(const cv::Size& _img_size)
@@ -261,7 +294,7 @@ void Fle_ImageWidget::resetZoom(const cv::Size& _img_size)
 				s = cv::Size(_img_size.width, _img_size.height);
 		}
 		size(s.width, s.height);
-		position(static_cast<int>((g->w() - Fl_Widget::w()) / 2), static_cast<int>((g->h() - Fl_Widget::h()) / 2));
+		position(static_cast<int>((g->w() - w()) / 2), static_cast<int>((g->h() - h()) / 2));
 		m_isize = s;
 	}
 }

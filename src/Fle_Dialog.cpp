@@ -343,6 +343,8 @@ int Fle_Dialog::getNumber(int _w, int _h,
 	s->type(FL_FLOAT_INPUT);
 	s->box(FL_FLAT_BOX);
 	s->color(fl_rgb_color(74 + 20, 84 + 20, 89 + 20));
+	s->getUpButton().color(s->color());
+	s->getDownButton().color(s->color());
 	s->selection_color(fl_rgb_color(255, 255, 255));
 	s->textcolor(fl_rgb_color(255, 255, 255));
 	s->value(_value);
@@ -477,6 +479,8 @@ int Fle_Dialog::getNumbers(int _w, int _h, const char* _title,
 		s[i]->type(FL_FLOAT_INPUT);
 		s[i]->box(FL_UP_BOX);
 		s[i]->color(fl_rgb_color(74 + 20, 84 + 20, 89 + 20));
+		s[i]->getUpButton().color(s[i]->color());
+		s[i]->getDownButton().color(s[i]->color());
 		s[i]->selection_color(fl_rgb_color(255, 255, 255));
 		s[i]->textcolor(fl_rgb_color(255, 255, 255));
 		s[i]->value(_values[i]);
@@ -621,6 +625,8 @@ int Fle_Dialog::getNumbers(int _w, int _h, const char* _title,
 		s[i]->type(FL_FLOAT_INPUT);
 		s[i]->box(FL_UP_BOX);
 		s[i]->color(fl_rgb_color(74 + 20, 84 + 20, 89 + 20));
+		s[i]->getUpButton().color(s[i]->color());
+		s[i]->getDownButton().color(s[i]->color());
 		s[i]->selection_color(fl_rgb_color(255, 255, 255));
 		s[i]->textcolor(fl_rgb_color(255, 255, 255));
 		s[i]->value(_values[i]);
@@ -797,6 +803,8 @@ int Fle_Dialog::getNumbers(int _w, int _h, const char* _title,
 		s[i]->type(FL_FLOAT_INPUT);
 		s[i]->box(FL_UP_BOX);
 		s[i]->color(fl_rgb_color(74 + 20, 84 + 20, 89 + 20));
+		s[i]->getUpButton().color(s[i]->color());
+		s[i]->getDownButton().color(s[i]->color());
 		s[i]->selection_color(fl_rgb_color(255, 255, 255));
 		s[i]->textcolor(fl_rgb_color(255, 255, 255));
 		s[i]->value(_values[i]);
