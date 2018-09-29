@@ -149,7 +149,7 @@ Fle_Button* Fle_Widgets::createButton(int _w, int _h, const char* _name, int _va
 Fle_Button* Fle_Widgets::createButton(int _w, int _h, Fl_RGB_Image* _icon_file_on, Fl_RGB_Image* _icon_file_off, Fl_Callback* _cb, void* _data)
 {
 	Fle_Button* o = new Fle_Button(0, 0, _w, _h, _icon_file_on, _icon_file_off);
-	o->box(FL_NO_BOX);
+	o->box(FL_FLAT_BOX);
 	o->clear_visible_focus();
 	o->color(fl_rgb_color(214, 219, 233));
 	o->color2(fl_rgb_color(253, 244, 191));

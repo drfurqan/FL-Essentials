@@ -313,24 +313,6 @@ void Fle_MainWindow::setStatusBarFixedHeight(int _h)
 			p_statusbar->size(Fle_Window::w() + 2, _h);
 }
 
-void Fle_MainWindow::updateGeometry()
-{
-	// This is the only solution that I found to update the geometry contents after show().
-	// The problem is, before calling the show() whatever you do nothing changes the geometry, such as
-	// tool bar buttons and left bar layouts etc. So, the solution is, just after
-	// show(), call this function that call size() function after the specified
-	// time which is 0.01 here.
-	// updated: 
-	// with hide and show that do not change the size of the window.
-
-	const std::function<void()> f = [this]()
-	{
-		int W = w();
-		int H = h();
-		size(W, H - 1);
-	};
-	Fle_Timer::singleShot(0.1, f);
-}
 void Fle_MainWindow::updateContents()
 {
 	// adjust the central area while resizing the window.

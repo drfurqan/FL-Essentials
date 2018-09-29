@@ -111,7 +111,8 @@ void Fle_ColorChooser::rgb_cb(Fl_Widget* o, void*)
 		G = G / 255.0;
 		B = B / 255.0;
 	}
-	if (c->rgb(R, G, B)) c->do_callback();
+	if (c->rgb(R, G, B)) 
+		c->do_callback();
 }
 
 void Fle_ColorChooser::mode_cb(Fl_Widget* o, void*)

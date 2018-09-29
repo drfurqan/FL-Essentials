@@ -53,11 +53,25 @@ public:
 	void setDefaultColor(double _r, double _g, double _b);
 
 	// Description:
+	// Returns the current red value.
+	// 0 <= r <= 1.
+	double r() const { return p_cc->r(); }
+	// Description:
+	// Returns the current green value.
+	// 0 <= g <= 1.
+	double g() const { return p_cc->g(); }
+	// Description:
+	// Returns the current blue value.
+	// 0 <= b <= 1.
+	double b() const { return p_cc->b(); }
+
+	// Description:
 	// Function to execute the color chooser.
 	// It returns 0 on Cancel button press and 1 on Ok button.
 	// Note: exec will delete the widget so always create 
 	// a new object in order to use it many times.
 	int exec();
+
 
 	// Description:
 	// Function to return a pointer to first chooser.
@@ -73,9 +87,10 @@ protected:
 	Fle_Button* p_cancel;
 	double m_default_color[3];
 
-private:
 	Fle_ColorChooser * p_cc;
 	Fle_Dialog* p_dialog;
+
+private:
 	static void close_cb(Fl_Widget* _w, void* _p);
 	static void default_color_cb(Fl_Widget* _w, void* _p);
 };

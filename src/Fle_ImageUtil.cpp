@@ -21,6 +21,7 @@ If not, please contact Dr. Furqan Ullah immediately:
 #include <FLE/Fle_ImageUtil.h>
 #include <FLE/Fle_StringUtil.h>
 #include <FLE/Fle_Timer.h>
+#include <FLE/Fle_StatusBar.h>
 #include <FLE/Fle_WindowsUtil.h>
 
 #if (_MSC_VER >= 1900)
@@ -230,17 +231,18 @@ std::vector<std::string> Fle_ImageUtil::getDirectoryImageFiles(const std::string
 	return files;
 }
 
-bool Fle_ImageUtil::batchResize(const std::string& _directory_path, int _w, int _h, bool _with_aspect_ratio, int _interpolation)
+int Fle_ImageUtil::batchResize(const std::string& _directory_path, int _w, int _h, bool _with_aspect_ratio, int _interpolation, Fle_StatusBar* _sb)
 {
-	if (_directory_path.empty()) return false;
-	if (_w < 1 || _h < 1) return false;
+	if (_directory_path.empty()) return 0;
+	if (_w < 2 || _h < 2) return 0;
 
-	auto files = Fle_ImageUtil::getDirectoryImageFiles(Fle_StringUtil::extractDirectory(_directory_path));
-	if (files.empty()) return false;
+	auto files = Fle_ImageUtil::getDirectoryImageFiles(_directory_path);
+	if (files.empty()) return 0;
 
-	const std::string folder_name = "resized";
+	if (_sb) _sb->showMessage("Resizing! please wait...", 100000);
+
 	auto t = Fle_Timer::getLocalTime("%Y-%m-%d %X");
-	auto folder = "Processed-" + t;
+	auto folder = "Resized-" + t;
 	std::replace(folder.begin() + folder.size() - t.size(), folder.end(), ':', '-');
 	auto dir = _directory_path + Fle_StringUtil::separator() + folder;
 
@@ -254,27 +256,43 @@ bool Fle_ImageUtil::batchResize(const std::string& _directory_path, int _w, int 
 
 	if (r)
 	{
-		auto b = false;
+		if (_sb) _sb->showMessage("Resizing and saving! please wait...", 100000);
+
+		auto n = 0;
 		for (std::size_t i = 0; i < files.size(); i++)
 		{
-			auto src = cv::imread(files[i], cv::IMREAD_UNCHANGED);
-			if (!src.empty())
+			const auto name = Fle_StringUtil::extractFileNameWithExt(files[i]);
+			auto img = cv::imread(files[i], cv::IMREAD_UNCHANGED);
+			if (img.empty())
 			{
-				cv::Size s(_w, _h);
-				if (_with_aspect_ratio)
-					s = Fle_ImageUtil::getNewSizeKeepAspectRatio(src.cols, src.rows, _w, _h);
-				cv::resize(src, src, s, 0, 0, _interpolation);
-				const auto name = Fle_StringUtil::extractFileNameWithExt(files[i]);
-				b = cv::imwrite(dir + Fle_StringUtil::separator() + name, src);
-				#ifdef _DEBUG
-				if (b) std::cout << i << " - " << dir + Fle_StringUtil::separator() + name << std::endl;
-				#endif // _DEBUG
+				if (_sb) _sb->showMessage("Couldn't read the image (" + name + ")!", 10);
+				continue;
+			}
+
+			// check the depth of the imported image and convert to 8 bit image.
+			auto src(img);
+			if (src.depth() == CV_16U || src.depth() == CV_16S)
+			{
+				double min, max;
+				cv::minMaxLoc(src, &min, &max);
+				src.convertTo(src, CV_8UC1, 255.0 / (max - min));
+			}
+
+			cv::Size s(_w, _h);
+			if (_with_aspect_ratio)
+				s = Fle_ImageUtil::getNewSizeKeepAspectRatio(src.cols, src.rows, _w, _h);
+			cv::resize(src, src, s, 0, 0, _interpolation);
+			if(cv::imwrite(dir + Fle_StringUtil::separator() + name, src))
+			{
+				if (_sb) _sb->showMessage(Fle_StringUtil::to_string(n) + " resized and saved!", 8);
+				n++;
 			}
 		}
-		return b;
+
+		return n;
 	}
 
-	return false;
+	return 0;
 }
 
 std::vector<cv::Mat> Fle_ImageUtil::splitChannels(const cv::Mat& _mat) const

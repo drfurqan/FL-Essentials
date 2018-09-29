@@ -666,7 +666,7 @@ int Fle_Dialog::getNumbers(int _w, int _h, const char* _title,
 		choice[i]->color(fl_rgb_color(74 + 20, 84 + 20, 89 + 20));
 		choice[i]->color2(fl_rgb_color(253, 244, 191));
 		choice[i]->textcolor(fl_rgb_color(255, 255, 255));
-		choice[i]->textsize(13);
+		choice[i]->textsize(12);
 		for (std::size_t j = 0; j < _menus[i].size(); j++)
 			choice[i]->add(_menus[i][j].c_str());
 		choice[i]->value(0);
@@ -777,7 +777,7 @@ int Fle_Dialog::getNumbers(int _w, int _h, const char* _title,
 		choice[i]->color(fl_rgb_color(74 + 20, 84 + 20, 89 + 20));
 		choice[i]->color2(fl_rgb_color(253, 244, 191));
 		choice[i]->textcolor(fl_rgb_color(255, 255, 255));
-		choice[i]->textsize(13);
+		choice[i]->textsize(12);
 		for (std::size_t j = 0; j < _menus[i].size(); j++)
 			choice[i]->add(_menus[i][j].c_str());
 		choice[i]->value(0);
@@ -1131,7 +1131,7 @@ int Fle_Dialog::getItem(int _w, int _h, const char* _title, const char* _label, 
 	s->color(fl_rgb_color(74 + 20, 84 + 20, 89 + 20));
 	s->color2(fl_rgb_color(253, 244, 191));
 	s->textcolor(fl_rgb_color(255, 255, 255));
-	s->textsize(13);
+	s->textsize(12);
 	for (std::size_t i = 0; i < _items.size(); i++)
 		s->add(std::string(_items[i]).c_str());
 	s->value(_selected_index);
@@ -1560,6 +1560,14 @@ int Fle_Dialog::ask(int _w, int _h, 			// width and height of the dialog window.
 		}
 	}
 	return 0;
+}
+int Fle_Dialog::ask(int _w, int _h, 			// width and height of the dialog window.
+	const char* _title,  						// title of the dialog window.
+	const std::string& _text,					// initial value and the returned value of the multi-line text box.
+	const char* _1st_btn_text,
+	const char* _2nd_btn_text)
+{
+	return ask(_w, _h, _title, _text, _1st_btn_text, _2nd_btn_text, nullptr);
 }
 int Fle_Dialog::ask(
 	const char* _title,  						// title of the dialog window.

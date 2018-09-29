@@ -52,8 +52,8 @@ class FL_ESSENTIALS_EXPORT Fle_InputSlider : public Fl_Group
 
 public:
 	// Description:
-	// Constructor to create a slider with an input widget by specifying it's position, size, title.
-	// _textbox_width is the width of the input widget.
+	// Constructor to create a new slider widget using the position, size, and label string.
+	// _textbox_width is the width of the input/text widget.
 	Fle_InputSlider(int _x, int _y, int _w, int _h, const char* _l = 0, int _textbox_width = 40);
 
 	// Description:

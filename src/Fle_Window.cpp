@@ -104,7 +104,7 @@ void Fle_Window::idleEvent()
 
 void Fle_Window::redraw()
 {
-	if(p_box) p_box->redraw();
+	//if(p_box) p_box->redraw();
 	Fl_Double_Window::redraw();
 }
 void Fle_Window::update()
@@ -119,7 +119,6 @@ void Fle_Window::draw()
 {
 	if (!visible()) return;
 
-	make_current();
 	Fl_Double_Window::draw();
 	paintEvent();
 }
@@ -152,7 +151,7 @@ void Fle_Window::showNormal()
 void Fle_Window::resize(int _x, int _y, int _w, int _h)
 {
 	Fl_Double_Window::resize(_x, _y, _w, _h);
-	if(p_box) p_box->position((_w - p_box->w()) / 2, (_h - p_box->h()) / 2);	// position the image box at center.
+	if (p_box) p_box->adjustSize();
 }
 void Fle_Window::size(int _w, int _h)
 {

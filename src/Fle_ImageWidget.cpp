@@ -34,7 +34,6 @@ Fle_ImageWidget::Fle_ImageWidget(int _x, int _y, int _w, int _h, const char* _ti
 	m_dtype(Fle_ImageDrawType::Fit),
 	m_zoom(1),
 	m_zoom_factors(cv::Vec2d(1.1, 0.9)),
-	m_isize(cv::Size(_w, _h)),
 	m_roi(cv::Rect(0, 0, 0, 0))
 {
 	align(FL_ALIGN_WRAP | FL_ALIGN_INSIDE | FL_ALIGN_CENTER | FL_ALIGN_TEXT_OVER_IMAGE | FL_ALIGN_CLIP);
@@ -45,7 +44,7 @@ Fle_ImageWidget::~Fle_ImageWidget()
 }
 void Fle_ImageWidget::clear(const cv::Vec3b& _color)
 {
-	cv::Mat m(m_isize, CV_8UC3);
+	cv::Mat m(cv::Size(w(), h()), CV_8UC1);
 	for (auto y = 0; y < m.rows; y++)
 		for (auto x = 0; x < m.cols; x++)
 			Fle_ImageUtil::setPixel(m, x, y, _color);
@@ -60,7 +59,6 @@ void Fle_ImageWidget::drawImage(const int _x, const int _y, const int _w, const 
 {	
 	if (m_image.empty()) return;
 	if (m_image.cols <= 0 || m_image.rows <= 0) return;
-	if (m_isize.width <= 0 || m_isize.height <= 0) return;
 
 	cv::Mat fimage;
 	if ((m_roi.x < 0) || (m_roi.y < 0) ||
@@ -76,20 +74,10 @@ void Fle_ImageWidget::drawImage(const int _x, const int _y, const int _w, const 
 		fimage = cv::Mat(m_image, m_roi).clone();
 	}
 
-	if (m_dtype == Fle_ImageDrawType::Fit)
-		m_isize = Fle_ImageUtil::getNewSizeKeepAspectRatio(fimage.cols, fimage.rows, _w, _h);
-	else if (m_dtype == Fle_ImageDrawType::Stretch)
-		m_isize = cv::Size(_w, _h);
-	else if (m_dtype == Fle_ImageDrawType::Center && m_zoom == 1)	// if there is no zooming
-	{
-		if (fimage.cols > _w || fimage.rows > _h)	// if image is greater than the box size.
-			m_isize = Fle_ImageUtil::getNewSizeKeepAspectRatio(fimage.cols, fimage.rows, _w, _h);
-		else // image with original size.
-			m_isize = cv::Size(fimage.cols, fimage.rows);
-	}
+	cv::Size isize = getNewSize(fimage.size(), cv::Size(_w, _h));
 
-	const auto channel = fimage.channels();
-	const auto d = fimage.depth();
+	const int channel = fimage.channels();
+	const int d = fimage.depth();
 
 	if(d == CV_16U || d == CV_16S)		// 16 bit images
 	{
@@ -98,25 +86,25 @@ void Fle_ImageWidget::drawImage(const int _x, const int _y, const int _w, const 
 		fimage.convertTo(fimage, CV_8UC1, 255.0 / (max - min));
 	}
 
-	cv::resize(fimage, fimage, m_isize, 0, 0, cv::INTER_LINEAR);
+	cv::resize(fimage, fimage, isize, 0, 0, cv::INTER_LINEAR);
 
 	if (channel == 4) cv::cvtColor(fimage, fimage, CV_BGRA2RGBA);
 	else if (channel == 3) cv::cvtColor(fimage, fimage, CV_BGR2RGB);
 
-	const auto X = _x + (_w - m_isize.width) / 2;
-	const auto Y = _y + (_h - m_isize.height) / 2;
+	const int X = _x + (_w - isize.width) / 2;
+	const int Y = _y + (_h - isize.height) / 2;
 
-	fl_push_clip(X, Y, m_isize.width, m_isize.height);
+	fl_push_clip(X, Y, isize.width, isize.height);
 
 	if (channel <= 3)
 	{
 		// fl_draw_image does not support (4-channels) transparent images like PNG. 
 		// It only support RGB (3-channels).
-		fl_draw_image(fimage.datastart, X, Y, m_isize.width, m_isize.height, fimage.channels(), static_cast<int>(fimage.step));	// faster
+		fl_draw_image(fimage.datastart, X, Y, isize.width, isize.height, fimage.channels(), static_cast<int>(fimage.step));	// faster
 	}
 	else
 	{
-		Fl_RGB_Image o(fimage.datastart, m_isize.width, m_isize.height, fimage.channels(), static_cast<int>(fimage.step));
+		Fl_RGB_Image o(fimage.datastart, isize.width, isize.height, fimage.channels(), static_cast<int>(fimage.step));
 		o.draw(X, Y);	// Fl_RGB_Image works fine with the transparent PNG images.
 	}
 	
@@ -270,38 +258,54 @@ bool Fle_ImageWidget::saveImage(const std::vector<int>& _compression_params)
 	return saveImage(m_filename, _compression_params);
 }
 
-void Fle_ImageWidget::resetZoom(const cv::Size& _img_size)
+cv::Size Fle_ImageWidget::getNewSize(const cv::Size& _img_size, const cv::Size& _box_size)
+{
+	cv::Size size(_img_size);
+	if (m_dtype == Fle_ImageDrawType::Fit)
+	{
+		size = Fle_ImageUtil::getNewSizeKeepAspectRatio(_img_size.width, _img_size.height, _box_size.width, _box_size.height);
+	}
+	else if (m_dtype == Fle_ImageDrawType::Stretch)
+	{
+		size = cv::Size(_box_size.width, _box_size.height);
+	}
+	else if (m_dtype == Fle_ImageDrawType::Center && m_zoom == 1)	// if there is no zooming
+	{
+		if (_img_size.width > _box_size.width || _img_size.height > _box_size.height)	// if image is greater than the box size.
+			size = Fle_ImageUtil::getNewSizeKeepAspectRatio(_img_size.width, _img_size.height, _box_size.width, _box_size.height);
+		else // image with original size.
+			size = cv::Size(_img_size.width, _img_size.height);
+	}
+
+	return size;
+}
+
+void Fle_ImageWidget::adjustSize(const cv::Size& _img_size)
 {
 	if (_img_size.width == 0 || _img_size.height == 0)
 		return;
-
-	m_zoom = 1.0;
 
 	// interesting hack to adjust this widget's position and size in the parent widget.
 	auto g = static_cast<Fl_Group*>(parent());
 	if (g)
 	{
-		cv::Size s;
-		if (m_dtype == Fle_ImageDrawType::Fit)
-			s = Fle_ImageUtil::getNewSizeKeepAspectRatio(_img_size.width, _img_size.height, g->w(), g->h());
-		else if (m_dtype == Fle_ImageDrawType::Stretch)
-			s = cv::Size(g->w(), g->h());
-		else if (m_dtype == Fle_ImageDrawType::Center)
-		{
-			if(_img_size.width > g->w() || _img_size.height > g->h())
-				s = Fle_ImageUtil::getNewSizeKeepAspectRatio(_img_size.width, _img_size.height, g->w(), g->h());
-			else
-				s = cv::Size(_img_size.width, _img_size.height);
-		}
+		cv::Size s = getNewSize(_img_size, cv::Size(g->w(), g->h()));
 		size(s.width, s.height);
 		position(static_cast<int>((g->w() - w()) / 2), static_cast<int>((g->h() - h()) / 2));
-		m_isize = s;
 	}
 }
-
+void Fle_ImageWidget::adjustSize()
+{
+	adjustSize(getRoi().size());
+}
+void Fle_ImageWidget::resetZoom(const cv::Size& _img_size)
+{
+	adjustSize(_img_size);
+	m_zoom = 1.0;
+}
 void Fle_ImageWidget::resetZoom()
 {
-	resetZoom(getImageSize());
+	resetZoom(getRoi().size());
 }
 
 void Fle_ImageWidget::zoomIn()
@@ -322,7 +326,7 @@ void Fle_ImageWidget::zoomOut()
 }
 void Fle_ImageWidget::scaleImage(const double _factor)
 {
-	const auto imgsize = getImageSize();
+	const auto imgsize = getRoi().size();
 	if (imgsize.width == 0 || imgsize.height == 0)
 		return;
 
@@ -335,23 +339,24 @@ void Fle_ImageWidget::scaleImage(const double _factor)
 	// limit the zoom factor by 8.
 	if (m_zoom > 10.0)	m_zoom = 10.0;
 
+	cv::Size s(w(), h());
 	auto g = static_cast<Fl_Group*>(parent());
 	if (g)
 	{
 		// restrict the outward zooming.
 		if (m_zoom < 1)
 		{
-			m_isize = Fle_ImageUtil::getNewSizeKeepAspectRatio(m_isize.width, m_isize.height, g->w(), g->h());
+			s = Fle_ImageUtil::getNewSizeKeepAspectRatio(w(), h(), g->w(), g->h());
 			m_zoom = 1;
 		}
 		else
 		{
 			if (imgsize.width >= g->w() || imgsize.height >= g->h())
-				m_isize = Fle_ImageUtil::getNewSizeKeepAspectRatio(imgsize.width, imgsize.height, static_cast<int>(g->w() * m_zoom), static_cast<int>(g->h() * m_zoom));
+				s = Fle_ImageUtil::getNewSizeKeepAspectRatio(imgsize.width, imgsize.height, static_cast<int>(g->w() * m_zoom), static_cast<int>(g->h() * m_zoom));
 			else
-				m_isize = Fle_ImageUtil::getNewSizeKeepAspectRatio(imgsize.width, imgsize.height, static_cast<int>(imgsize.width * m_zoom), static_cast<int>(imgsize.height * m_zoom));
+				s = Fle_ImageUtil::getNewSizeKeepAspectRatio(imgsize.width, imgsize.height, static_cast<int>(imgsize.width * m_zoom), static_cast<int>(imgsize.height * m_zoom));
 		}
 	}
 	
-	size(m_isize.width, m_isize.height);
+	size(s.width, s.height);
 }

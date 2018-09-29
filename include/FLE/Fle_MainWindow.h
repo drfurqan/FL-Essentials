@@ -104,9 +104,6 @@ public:
 	void toggleRightToolBar();
 
 	// Description:
-	// Function to update the contents of the window, such as toolbars, etc.
-	virtual void updateGeometry();
-	// Description:
 	// Function to update the contents (position, width, height, etc.,) of the central area.
 	// Whenever there is a change in menu bar, status bar, or central area, then call this function
 	// to adjust the central area.

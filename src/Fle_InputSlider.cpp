@@ -86,17 +86,18 @@ void Fle_InputSlider::slider_cb_(Fl_Widget* _w, void* _p)
 	// for example if the initial value is 1 and the step value is 2, then
 	// then the output should be 1, 3, 5, 7, 9, so on...
 	// https://groups.google.com/forum/#!topic/fltkgeneral/01mpgj8p__4
-	if (inp->m_step > 1)
-	{
-		Fl_Slider* s = static_cast<Fl_Slider*>(_w);
-		if (!s) return;
+	//if (inp->m_step > 1)
+	//{
+	//	Fl_Slider* s = static_cast<Fl_Slider*>(_w);
+	//	if (!s) return;
 
-		int v = static_cast<int>(s->value());
-		if (v < inp->m_init_value) v = inp->m_init_value - inp->m_step;
-		else if (v > inp->m_init_value) v = inp->m_init_value + inp->m_step;
-		s->value(static_cast<int>(v));
-		inp->m_init_value = v;
-	}
+	//	s->value(s->value() + inp->m_step);
+	//	int v = static_cast<int>(s->value());
+	//	if (v < inp->m_init_value) v = inp->m_init_value - inp->m_step;
+	//	else if (v > inp->m_init_value) v = inp->m_init_value + inp->m_step;
+	//	s->value(static_cast<int>(v));
+	//	inp->m_init_value = v;
+	//}
 
 	inp->slider_cb();
 }

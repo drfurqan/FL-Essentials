@@ -31,7 +31,9 @@ If not, please contact Dr. Furqan Ullah immediately:
 namespace R3D
 {
 
-// Description:
+class Fle_StatusBar;
+
+	// Description:
 // Image draw types.
 enum Fle_ImageDrawType
 {
@@ -125,15 +127,15 @@ public:
 	// Description:
 	// Function to get all OpenCV supported image files in a directory.
 	// Example:
-	// getDirectoryFiles(Fle_StringUtil::extractDirectory(file), "*");
+	// getDirectoryImageFiles(Fle_StringUtil::extractDirectory(file));
 	static std::vector<std::string> getDirectoryImageFiles(const std::string& _directory);
 
 	// Description:
 	// Function to resize all image files of the specified directory.
 	// _w and _h is the new size of the images.
 	// set _with_aspect_ratio to true if images need to be resized with aspect ratio.
-	// Note: _directory_path should end with "\\".
-	static bool batchResize(const std::string& _directory_path, int _w, int _h, bool _with_aspect_ratio = true, int _interpolation = cv::InterpolationFlags::INTER_LINEAR);
+	// It returns totally number of resized images.
+	static int batchResize(const std::string& _directory_path, int _w, int _h, bool _with_aspect_ratio = true, int _interpolation = cv::InterpolationFlags::INTER_LINEAR, Fle_StatusBar* _sb = nullptr);
 	
 	// Description:
 	// Function to split channels from the given mat.

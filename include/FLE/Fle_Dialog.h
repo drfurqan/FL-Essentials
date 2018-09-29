@@ -459,13 +459,26 @@ public:
 	static int ask(int _w, int _h, 			// width and height of the dialog window.
 		const char* _title,  				// title of the dialog window.
 		const std::string& _text,			// initial value and the returned value of the multi-line text box.
-		const char* _1st_btn_text = "Yes",					// first button text.
-		const char* _2nd_btn_text = "No",					// 2nd button text.
-		const char* _3rd_btn_text = "Cancel",				// 3rd button text.
+		const char* _1st_btn_text,			// first button text.
+		const char* _2nd_btn_text,			// 2nd button text.
+		const char* _3rd_btn_text,			// 3rd button text.
 		Fle_Font _text_prop = Fle_Font(13, FL_WHITE),				// _text properties
 		Fl_Color _text_bkgrnd_color = fl_rgb_color(74, 84, 89),		// background color of the text box.
 		Fl_Color _text_selection_color = fl_rgb_color(230, 230, 255)// text selection color
 		);
+	// Description:
+	// Function to execute a dialog window that has Yes and No buttons, and a text box.
+	// It returns 0 if No button is pressed.
+	// It returns 1 if Yes button is pressed.
+	// Example: 
+	// if (!Fle_Dialog::ask(400, 110, "Warning", "Are you sure you want to delete?"))
+	//	 return;
+	static int ask(int _w, int _h, 			// width and height of the dialog window.
+		const char* _title,  				// title of the dialog window.
+		const std::string& _text,			// initial value and the returned value of the multi-line text box.
+		const char* _1st_btn_text = "Yes",	// first button text.
+		const char* _2nd_btn_text = "No"	// 2nd button text.
+	);
 	// Description:
 	// Function to execute a dialog window that has 3 buttons, and a text box.
 	// It returns 0 if 1st button is pressed.

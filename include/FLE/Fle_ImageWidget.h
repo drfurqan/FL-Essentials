@@ -49,10 +49,14 @@ public:
 	// Description:
 	// Function to set image draw type, meaning that how the image should be drawn inside the window.
 	// Note: zooming only wors with ImageDrawType::Center.
-	void setImageDrawType(const Fle_ImageDrawType _type) { m_dtype = _type; resetZoom(); }
+	void setImageDrawType(const Fle_ImageDrawType _type) { m_dtype = _type; }
 	// Description:
 	// Function to get the image draw type.
 	Fle_ImageDrawType getImageDrawType() const { return m_dtype; }
+
+	// Description:
+	// Function that computes the new size of the image according to Fle_ImageDrawType.
+	cv::Size getNewSize(const cv::Size& _img_size, const cv::Size& _box_size);
 
 	// Description:
 	// Function to set an image as background.
@@ -102,6 +106,12 @@ public:
 
 	// Description:
 	// Function to reset zooming using the given image size.
+	void adjustSize(const cv::Size& _img_size);
+	// Description:
+	// Function to reset zooming using the given image size.
+	void adjustSize();
+	// Description:
+	// Function to reset zooming using the given image size.
 	void resetZoom(const cv::Size& _img_size);
 	// Description:
 	// Function to reset zooming.
@@ -145,7 +155,6 @@ protected:
 	void drawImage(const int _x, const int _y, const int _w, const int _h);
 
 	cv::Mat m_image;
-	cv::Size m_isize;
 	cv::Vec2d m_zoom_factors;
 	Fle_ImageDrawType m_dtype;
 	std::string m_filename;

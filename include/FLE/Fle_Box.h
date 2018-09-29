@@ -190,6 +190,12 @@ public:
 	// Description:
 	// Function that returns true if the rubber band is enabled.
 	bool isRubberBandEnabled() const { return m_isroi; }
+	// Description:
+	// Function to set the rubber band color.
+	void setRubberBandColor(Fl_Color _c) { m_border_color = _c; }
+	// Description:
+	// Function to get the rubber band color.
+	Fl_Color getRubberBandColor() const { return m_border_color; }
 
 protected:
 	// Description:
