@@ -52,6 +52,8 @@ m_bottommargin(0)
 	int right_tb_size = 25;
 	int gap = 5;
 
+	setBox(nullptr);	// remove the box from the window.
+
 	Fle_Window::begin();
 	{
 		p_centralarea = new Fle_Window(left_tb_size + gap, mb_size + tb_size + gap, _w - left_tb_size - right_tb_size - gap - gap, _h - mb_size - tb_size - sb_size - gap - gap, _title, _icon_index);
@@ -81,7 +83,6 @@ m_bottommargin(0)
 	Fle_Window::end();
 
 	Fle_Window::setBackgroundColor(41, 57, 85);
-	getBox()->color(fl_rgb_color(41, 57, 85));
 	color(fl_rgb_color(41, 57, 85));
 	user_data(static_cast<void*>(this));
 	resizable(p_centralarea);
@@ -102,6 +103,8 @@ m_bottommargin(0)
 	int right_tb_size = 25;
 	int gap = 5;
 
+	setBox(nullptr);	// remove the box from the window.
+
 	Fle_Window::begin();
 	{
 		p_centralarea = new Fle_Window(left_tb_size + gap, mb_size + tb_size + gap, _w - left_tb_size - right_tb_size - gap - gap, _h - mb_size - tb_size - sb_size - gap - gap, _title, _icon_index);
@@ -131,7 +134,6 @@ m_bottommargin(0)
 	Fle_Window::end();
 
 	Fle_Window::setBackgroundColor(41, 57, 85);
-	getBox()->color(fl_rgb_color(41, 57, 85));
 	color(fl_rgb_color(41, 57, 85));
 	user_data(static_cast<void*>(this));
 	resizable(p_centralarea);

@@ -407,14 +407,15 @@ Fl_Color Fle_Window::getBackgroundColor() const
 }
 void Fle_Window::setBox(Fle_Box* _b) 
 {
-	if (_b == nullptr) 
-		return;
-
 	if (p_box)
 	{
 		remove(p_box);
 		Fl::delete_widget(p_box);
+		p_box = nullptr;
 	}
+
+	if (!_b)
+		return;
 
 	add(_b);
 	p_box = _b;

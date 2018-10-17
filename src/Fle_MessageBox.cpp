@@ -1479,7 +1479,9 @@ Fl_Double_Window(Fl::x() + Fl::w()/2 - 458 / 2, Fl::y() + Fl::h()/2 - 132 / 2, 4
 	} // Fl_Text_Display* o
 	{ 
 		Fl_Button* o = new Fl_Button(360, 96, 88, 24, "OK");
+		o->box(FL_THIN_UP_BOX);
 		o->color(fl_rgb_color(240, 240, 240));
+		o->selection_color(fl_rgb_color(240, 240, 240));
 		o->labelsize(12);
 		o->callback(closeEvent, (void*)this);
 	} // Fl_Button* o

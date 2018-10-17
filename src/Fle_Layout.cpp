@@ -86,7 +86,7 @@ Fle_HLayoutL::Fle_HLayoutL(int _x, int _y, int _w, int _h, const char* _label) :
 	p_layout = new Fle_HLayout(0, 0, _w, _h);
 	p_layout->end();
 
-	align(FL_ALIGN_WRAP | FL_ALIGN_INSIDE | FL_ALIGN_CENTER | FL_ALIGN_TEXT_OVER_IMAGE | FL_ALIGN_CLIP);
+	//align(FL_ALIGN_WRAP | FL_ALIGN_INSIDE | FL_ALIGN_CENTER | FL_ALIGN_TEXT_OVER_IMAGE | FL_ALIGN_CLIP);
 	box(FL_FLAT_BOX);
 	resizable(this);
 	user_data(static_cast<void*>(this));
@@ -98,7 +98,6 @@ Fle_HLayoutL::~Fle_HLayoutL()
 void Fle_HLayoutL::begin()
 {
 	Fl_Group::end();
-	Fl_Group::current(nullptr);
 	p_layout->begin();
 }
 void Fle_HLayoutL::end()
@@ -193,6 +192,19 @@ void Fle_HLayoutLR::resize(int _x, int _y, int _w, int _h)
 	p_left->size(_w - p_right->getGeometryWidth(), _h - m_topmargin - m_bottommargin);
 	p_right->size(p_right->getGeometryWidth(), _h - m_topmargin - m_bottommargin);
 }
+
+void Fle_HLayoutLR::spacing(int _pixels)
+{
+	p_left->spacing(_pixels);
+	p_right->spacing(_pixels);
+}
+// Description:
+// Overridden function to set the spacing between widgets.
+int Fle_HLayoutLR::spacing() const
+{
+	return p_left->spacing();
+}
+
 void Fle_HLayoutLR::setBackgroundColor(uchar _red, uchar _green, uchar _blue) 
 { 
 	p_main->color(fl_rgb_color(_red, _green, _blue));

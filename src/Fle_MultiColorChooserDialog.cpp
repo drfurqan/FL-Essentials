@@ -28,12 +28,12 @@ Fle_MultiColorChooserDialog::Fle_MultiColorChooserDialog(int _w, int _h,
 	double _r2, double _g2, double _b2, 
 	const char* _title)
 {
-	m_default_color1[0] = _r1;
-	m_default_color1[1] = _g1;
-	m_default_color1[2] = _b1;
-	m_default_color2[0] = _r2;
-	m_default_color2[1] = _g2;
-	m_default_color2[2] = _b2;
+	m_default_color1[0] = 1;
+	m_default_color1[1] = 1;
+	m_default_color1[2] = 1;
+	m_default_color2[0] = 1;
+	m_default_color2[1] = 1;
+	m_default_color2[2] = 1;
 
 	p_dialog = new Fle_Dialog(_w, _h, _title, 58, 0, 0);
 	p_dialog->setBackgroundColor(74, 84, 89);
@@ -138,7 +138,6 @@ void Fle_MultiColorChooserDialog::setDefaultColors(double _r1, double _g1, doubl
 	m_default_color2[0] = _r2;
 	m_default_color2[1] = _g2;
 	m_default_color2[2] = _b2;
-	default_colors_cb(0, this);
 }
 
 int Fle_MultiColorChooserDialog::exec()

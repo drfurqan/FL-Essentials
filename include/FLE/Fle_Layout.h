@@ -113,10 +113,10 @@ public:
 
 	// Description:
 	// Overridden function to set the spacing between widgets.
-	void setSpacing(int _pixels) { p_layout->spacing(_pixels); }
+	void spacing(int _pixels) { p_layout->spacing(_pixels); }
 	// Description:
 	// Overridden function to set the spacing between widgets.
-	int getSpacing() const { return p_layout->spacing(); }
+	int spacing() const { return p_layout->spacing(); }
 
 	// Description:
 	// Function that returns the total width of the widgets that this layout contains.
@@ -176,6 +176,13 @@ public:
 	// Description:
 	// Overridden function that called while resizing this layout.
 	virtual void resize(int _x, int _y, int _w, int _h) override;
+
+	// Description:
+	// Overridden function to set the spacing between widgets.
+	void spacing(int _pixels);
+	// Description:
+	// Overridden function to set the spacing between widgets.
+	int spacing() const;
 
 	// Description:
 	// Function to set the background color of the widget.

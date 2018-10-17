@@ -112,17 +112,23 @@ void Fle_ImageWidget::drawImage(const int _x, const int _y, const int _w, const 
 }
 void Fle_ImageWidget::setRoi(const cv::Rect& _roi)
 {
+	Fl::lock();				// acquire the lock
 	m_roi = _roi;
+	Fl::unlock();			// release the lock; allow other threads to access FLTK again
 }
 cv::Rect Fle_ImageWidget::getRoi() const
 {
-	return m_roi;
+	cv::Rect r;
+	Fl::lock();				// acquire the lock
+	r = m_roi;
+	Fl::unlock();			// release the lock; allow other threads to access FLTK again
+	return r;
 }
 void Fle_ImageWidget::resetRoi()
 {
 	Fl::lock();				// acquire the lock
 	m_roi = cv::Rect(0, 0, m_image.cols, m_image.rows);
-	Fl::unlock();			// release the lock; allow other threads to access FLTK again
+	Fl::unlock();			// release the lock
 }
 
 bool Fle_ImageWidget::loadImage(const std::string& _filename, bool _reset_roi)
@@ -331,7 +337,7 @@ void Fle_ImageWidget::scaleImage(const double _factor)
 		return;
 
 	if (m_dtype != Fle_ImageDrawType::Center) 
-		return;	// zooming only works with ImageDrawType::Original.
+		return;	// zooming only works with ImageDrawType::Center.
 
 	// set box size by multiplying with the zoom factor.
 	m_zoom *= _factor;
