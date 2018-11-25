@@ -219,6 +219,7 @@ int Fle_Dialog::getFloatInputSlider(int _w, int _h,
 		check->box(FL_FLAT_BOX);
 		check->down_box(FL_FRAME_BOX);		
 		check->color(fl_rgb_color(74, 84, 89));
+		check->selection_color(fl_rgb_color(78, 196, 203));
 		if (_checkbox) check->value(1);
 		else check->value(0);
 		check->labelsize(12);
@@ -364,6 +365,7 @@ int Fle_Dialog::getNumber(int _w, int _h,
 		check->box(FL_FLAT_BOX);
 		check->down_box(FL_FRAME_BOX);
 		check->color(fl_rgb_color(74, 84, 89));
+		check->selection_color(fl_rgb_color(78, 196, 203));
 		if (_checkbox) check->value(1);
 		else check->value(0);
 		check->labelsize(12);
@@ -510,6 +512,7 @@ int Fle_Dialog::getNumbers(int _w, int _h, const char* _title,
 		check->box(FL_FLAT_BOX);
 		check->down_box(FL_FRAME_BOX);
 		check->color(fl_rgb_color(74, 84, 89));
+		check->selection_color(fl_rgb_color(78, 196, 203));
 		if (_checkbox) check->value(1);
 		else check->value(0);
 		check->labelsize(12);
