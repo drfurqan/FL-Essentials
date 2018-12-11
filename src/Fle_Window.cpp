@@ -247,7 +247,7 @@ int Fle_Window::keyPressEvent(int _key)
 }
 void Fle_Window::dragDropEvent(const std::string& _text)
 {
-	Fle_Window* p = dynamic_cast<Fle_Window*>(parent());
+	Fle_Window* p = static_cast<Fle_Window*>(parent());
 	if (p) p->dragDropEvent(_text);
 }
 

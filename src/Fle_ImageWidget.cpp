@@ -31,9 +31,9 @@ using namespace R3D;
 
 Fle_ImageWidget::Fle_ImageWidget(int _x, int _y, int _w, int _h, const char* _title) :
 	Fl_Widget(_x, _y, _w, _h, _title),
+	m_zoom_factors(cv::Vec2d(1.1, 0.9)),
 	m_dtype(Fle_ImageDrawType::Fit),
 	m_zoom(1),
-	m_zoom_factors(cv::Vec2d(1.1, 0.9)),
 	m_roi(cv::Rect(0, 0, 0, 0))
 {
 	align(FL_ALIGN_WRAP | FL_ALIGN_INSIDE | FL_ALIGN_CENTER | FL_ALIGN_TEXT_OVER_IMAGE | FL_ALIGN_CLIP);
@@ -45,8 +45,8 @@ Fle_ImageWidget::~Fle_ImageWidget()
 void Fle_ImageWidget::clear(const cv::Vec3b& _color)
 {
 	cv::Mat m(cv::Size(w(), h()), CV_8UC1);
-	for (auto y = 0; y < m.rows; y++)
-		for (auto x = 0; x < m.cols; x++)
+	for (int y = 0; y < m.rows; y++)
+		for (int x = 0; x < m.cols; x++)
 			Fle_ImageUtil::setPixel(m, x, y, _color);
 	setImage(m);
 }
@@ -112,23 +112,35 @@ void Fle_ImageWidget::drawImage(const int _x, const int _y, const int _w, const 
 }
 void Fle_ImageWidget::setRoi(const cv::Rect& _roi)
 {
+#if (_MSC_VER > 1600)
 	Fl::lock();				// acquire the lock
 	m_roi = _roi;
 	Fl::unlock();			// release the lock; allow other threads to access FLTK again
+#else
+	m_roi = _roi;
+#endif
 }
 cv::Rect Fle_ImageWidget::getRoi() const
 {
 	cv::Rect r;
+#if (_MSC_VER > 1600)
 	Fl::lock();				// acquire the lock
 	r = m_roi;
 	Fl::unlock();			// release the lock; allow other threads to access FLTK again
+#else
+	r = m_roi;
+#endif
 	return r;
 }
 void Fle_ImageWidget::resetRoi()
 {
+#if (_MSC_VER > 1600)
 	Fl::lock();				// acquire the lock
 	m_roi = cv::Rect(0, 0, m_image.cols, m_image.rows);
 	Fl::unlock();			// release the lock
+#else
+	m_roi = cv::Rect(0, 0, m_image.cols, m_image.rows);
+#endif
 }
 
 bool Fle_ImageWidget::loadImage(const std::string& _filename, bool _reset_roi)
@@ -164,11 +176,11 @@ bool Fle_ImageWidget::loadImage(const std::string& _filename, bool _reset_roi)
 		}
 		else
 		{
-			auto img = cv::imread(_filename, cv::IMREAD_UNCHANGED);
+			cv::Mat img = cv::imread(_filename, cv::IMREAD_UNCHANGED);
 			if (!img.empty())
 			{
-				auto fimage(img);
-				const auto d = img.depth();
+				cv::Mat fimage(img);
+				const int d = img.depth();
 				if (d == CV_16U || d == CV_16S)	// 16 bit images
 				{
 					double min, max;
@@ -208,25 +220,37 @@ void Fle_ImageWidget::setImage(const cv::Mat& _image)
 	if (_image.empty()) 
 		return;
 
+#if (_MSC_VER > 1600)
 	Fl::lock();				// acquire the lock
 	m_image = _image;
 	Fl::unlock();			// release the lock; allow other threads to access FLTK again
+#else
+	m_image = _image;
+#endif
 }
 cv::Mat Fle_ImageWidget::getImage() const
 {
 	cv::Mat m;
+#if (_MSC_VER > 1600)
 	Fl::lock();				// acquire the lock
 	m = m_image.clone();
 	Fl::unlock();			// release the lock
+#else
+	m = m_image.clone();
+#endif
 	return m;
 }
 
 cv::Size Fle_ImageWidget::getImageSize() const
 {
 	cv::Size s;
+#if (_MSC_VER > 1600)
 	Fl::lock();				// acquire the lock
 	s = cv::Size(m_image.cols, m_image.rows);
 	Fl::unlock();			// release the lock
+#else
+	s = cv::Size(m_image.cols, m_image.rows);
+#endif
 	return s;
 }
 
@@ -237,8 +261,8 @@ bool Fle_ImageWidget::saveImage(const std::string& _filename, const std::vector<
 
 	try 
 	{
+#if (_MSC_VER > 1600)
 		Fl::lock();				// acquire the lock
-
 		if (m_image.empty())
 		{
 			Fl::unlock();			// release the lock
@@ -247,6 +271,11 @@ bool Fle_ImageWidget::saveImage(const std::string& _filename, const std::vector<
 
 		bool b = cv::imwrite(_filename, m_image, _compression_params);
 		Fl::unlock();			// release the lock
+#else
+		if (m_image.empty())
+			return false;
+		bool b = cv::imwrite(_filename, m_image, _compression_params);
+#endif
 		return b;
 	}
 	catch (const cv::Exception& _ex)
