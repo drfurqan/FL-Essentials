@@ -11,7 +11,7 @@ purpose:	Class to create an actor in OpenGL scene.
 
 /**********************************************************************************
 FL-ESSENTIALS (FLE) - FLTK Utility Widgets
-Copyright (C) 2017 REAL3D
+Copyright (C) 2014-2019 REAL3D
 
 This file and its content is protected by a software license.
 You should have received a copy of this license with this file.
@@ -25,14 +25,16 @@ If not, please contact Dr. Furqan Ullah immediately:
 using namespace R3D;
 
 Fle_AbstractOpenGLActor::Fle_AbstractOpenGLActor() : 
-	m_angle(0.f),
 	m_rendertype(RenderType::Fill),
 	m_shininess(60.f),
+	m_angle(0.f),
+	m_pointsize(1.2f),
+	m_linewidth(1.f),
 	m_lighting(false),
 	m_depthtest(true),
 	m_cullface(true),
-	m_linewidth(1.f),
-	m_pointsize(1.2f)
+	m_enabled(true),
+	m_selected(false)
 {
 	m_axis.set(0.f, 0.f, 0.f);
 	m_trans.set(0.f, 0.f, 0.f);
@@ -44,13 +46,16 @@ Fle_AbstractOpenGLActor::Fle_AbstractOpenGLActor() :
 	m_emis.set(0.0f, 0.0f, 0.0f, 1.f);
 }
 
-Fle_AbstractOpenGLActor::~Fle_AbstractOpenGLActor() 
+Fle_AbstractOpenGLActor::~Fle_AbstractOpenGLActor()
 {
 }
 
 void Fle_AbstractOpenGLActor::render() 
 {
-	glPushAttrib(GL_CURRENT_BIT | GL_COLOR_BUFFER_BIT | GL_POLYGON_BIT | GL_LIGHTING_BIT | GL_POINT_BIT | GL_LINE_BIT);
+	if (!m_enabled)
+		return;
+
+	glPushAttrib(GL_ENABLE_BIT | GL_CURRENT_BIT | GL_COLOR_BUFFER_BIT | GL_POLYGON_BIT | GL_LIGHTING_BIT | GL_POINT_BIT | GL_LINE_BIT);
 	{
 		if (m_depthtest)
 			glEnable(GL_DEPTH_TEST);
@@ -82,13 +87,20 @@ void Fle_AbstractOpenGLActor::render()
 
 		// apply material properties when lighting is enabled.
 		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, &m_ambi[0]);	
-		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, &m_diff[0]);
+		if (m_selected)
+			glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, &Color4D(1.f, 0.f, 0.f, m_diff.a)[0]);
+		else
+			glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, &m_diff[0]);
 		glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, &m_spec[0]);
 		glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, &m_emis[0]);
 		glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, m_shininess);
 
 		// if lighting is disabled only then glColorf will work, otherwise it is ignored.
-		glColor4fv(&m_diff[0]);		
+		if (m_selected)
+			glColor4fv(&Color4D(1.f, 0.f, 0.f, m_diff.a)[0]);
+		else
+			glColor4fv(&m_diff[0]);
+
 		if (m_diff.a < 1.f)	// check the alpha channel for transparency.
 		{
 			glEnable(GL_BLEND);	// enable blending for transparency.

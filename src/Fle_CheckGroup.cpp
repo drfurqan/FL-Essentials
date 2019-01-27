@@ -11,7 +11,7 @@ purpose:	A group that can be toggled active or inactive.
 
 /**********************************************************************************
 FL-ESSENTIALS (FLE) - FLTK Utility Widgets
-Copyright (C) 2017 REAL3D
+Copyright (C) 2014-2019 REAL3D
 
 This file and its content is protected by a software license.
 You should have received a copy of this license with this file.

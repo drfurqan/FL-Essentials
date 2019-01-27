@@ -15,7 +15,7 @@ purpose:	Abstract class to create an actor in OpenGL scene.
 
 /**********************************************************************************
 FL-ESSENTIALS (FLE) - FLTK Utility Widgets
-Copyright (C) 2017 REAL3D
+Copyright (C) 2014-2019 REAL3D
 
 This file and its content is protected by a software license.
 You should have received a copy of this license with this file.
@@ -39,6 +39,20 @@ public:
 	// Description:
 	// Default destructor.
 	virtual ~Fle_AbstractOpenGLActor();
+
+	// Description
+	// Function to enable the rendering of this actor.
+	void setEnabled(bool _b) { m_enabled = _b; }
+	// Description
+	// Function that returns true if the rendering of this actor is enabled.
+	bool isEnabled() const { return m_enabled; }
+
+	// Description
+	// Function to enable the rendering of this actor.
+	void setSelected(bool _b) { m_selected = _b; }
+	// Description
+	// Function that returns true if the rendering of this actor is enabled.
+	bool isSelected() const { return m_selected; }
 
 	/************************************************************************/
 	/* Apply OpenGL states to this actor                                    */
@@ -96,10 +110,10 @@ public:
 	Vector3D getRotAxis() const { return m_axis; }
 	// Description
 	// Function to set translation to this actor.
-	void setTranslate(const Vector3D& _trans) { m_trans = _trans; }
+	void setPosition(const Vector3D& _trans) { m_trans = _trans; }
 	// Description
 	// Function to get translation of this actor.
-	Vector3D getTranslate() const { return m_trans; }
+	Vector3D getPosition() const { return m_trans; }
 	// Description
 	// Function to set scaling to this actor.
 	void setScale(const Vector3D& _scale) { m_scale = _scale; }
@@ -200,6 +214,8 @@ protected:
 	bool m_lighting;
 	bool m_depthtest;
 	bool m_cullface;
+	bool m_enabled;
+	bool m_selected;
 };
 
 }

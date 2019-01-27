@@ -57,6 +57,7 @@ ${CMAKE_SOURCE_DIR}/src/Fle_MainWindow.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_MenuBar.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_MessageBox.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_MultiColorChooserDialog.cpp
+${CMAKE_SOURCE_DIR}/src/Fle_OpenGLTextActor.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_OpenGLWindow.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_ProgressBar.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_ScrollBox.cpp
@@ -107,6 +108,7 @@ ${CMAKE_SOURCE_DIR}/include/FLE/Fle_MainWindow.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_MenuBar.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_MessageBox.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_MultiColorChooserDialog.h
+${CMAKE_SOURCE_DIR}/include/FLE/Fle_OpenGLTextActor.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_OpenGLWindow.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_ProgressBar.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_ScrollBox.h

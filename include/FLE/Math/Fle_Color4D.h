@@ -14,7 +14,7 @@ CopyRight:	All Rights Reserved
 purpose:	Class for RGBA color.
 
 /**********************************************************************************
-Copyright (C) 2017 REAL3D
+Copyright (C) 2014-2019 REAL3D
 
 This file and its content is protected by a software license.
 You should have received a copy of this license with this file.
@@ -126,6 +126,17 @@ public:
 	}
 
 	Color4D& Clamp0To1();
+
+	// Description:
+	// Static function to get random color ranges in between small and big numbers.
+	static float getRandom(float _smallNum, float _bigNum)
+	{
+		return (static_cast<float>(rand()) / 0x7fff/*RAND_MAX*/ * (_bigNum - _smallNum)) + _smallNum;
+	}
+	static Color4D getRandomColor()
+	{
+		return Color4D(getRandom(0.5f, 1.0f), getRandom(0.5f, 1.0f), getRandom(0.5f, 1.0f), 1.0f);
+	}
 
 	friend std::ostream& operator << (std::ostream& out, const Color4D& v)
 	{
