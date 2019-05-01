@@ -88,8 +88,8 @@ void Fle_ImageWidget::drawImage(const int _x, const int _y, const int _w, const 
 
 	cv::resize(fimage, fimage, isize, 0, 0, cv::INTER_LINEAR);
 
-	if (channel == 4) cv::cvtColor(fimage, fimage, CV_BGRA2RGBA);
-	else if (channel == 3) cv::cvtColor(fimage, fimage, CV_BGR2RGB);
+	if (channel == 4) cv::cvtColor(fimage, fimage, cv::COLOR_BGRA2RGBA);
+	else if (channel == 3) cv::cvtColor(fimage, fimage, cv::COLOR_BGR2RGB);
 
 	const int X = _x + (_w - isize.width) / 2;
 	const int Y = _y + (_h - isize.height) / 2;
@@ -346,7 +346,7 @@ void Fle_ImageWidget::resetZoom()
 void Fle_ImageWidget::zoomIn()
 {
 	if (m_dtype != Fle_ImageDrawType::Center)
-		return;	// zooming only works with ImageDrawType::Original.
+		return;	// zooming only works with ImageDrawType::Center.
 
 	scaleImage(m_zoom_factors[0]);
 	redraw();
@@ -354,19 +354,19 @@ void Fle_ImageWidget::zoomIn()
 void Fle_ImageWidget::zoomOut()
 {
 	if (m_dtype != Fle_ImageDrawType::Center) 
-		return;	// zooming only works with ImageDrawType::Original.
+		return;	// zooming only works with ImageDrawType::Center.
 
 	scaleImage(m_zoom_factors[1]);
 	redraw();
 }
 void Fle_ImageWidget::scaleImage(const double _factor)
 {
+	if (m_dtype != Fle_ImageDrawType::Center) 
+		return;	// zooming only works with ImageDrawType::Center.
+
 	const auto imgsize = getRoi().size();
 	if (imgsize.width == 0 || imgsize.height == 0)
 		return;
-
-	if (m_dtype != Fle_ImageDrawType::Center) 
-		return;	// zooming only works with ImageDrawType::Center.
 
 	// set box size by multiplying with the zoom factor.
 	m_zoom *= _factor;

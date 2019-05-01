@@ -36,6 +36,8 @@ public:
 	Fle_Slider(int _x, int _y, int _w, int _h, const char* _lable = 0);
 
 protected:
+	void draw_bg(int X, int Y, int W, int H);
+	void draw(int X, int Y, int W, int H);
 	void draw() override;
 };
 

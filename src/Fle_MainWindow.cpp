@@ -64,8 +64,12 @@ m_bottommargin(0)
 		p_toptoolbar->end();
 
 		p_lefttoolbar = new Fle_ToolBar(0, mb_size + tb_size, left_tb_size, _h - mb_size - tb_size - sb_size);
+		p_lefttoolbar->setMargins(4, 4, 4, 4);
+		p_lefttoolbar->getCentralLayout()->getTopLayout()->setSpacing(10);
 		p_lefttoolbar->end();
 		p_righttoolbar = new Fle_ToolBar(_w - right_tb_size, mb_size + tb_size, right_tb_size, _h - mb_size - tb_size - sb_size);
+		p_righttoolbar->setMargins(4, 4, 4, 4);
+		p_righttoolbar->getCentralLayout()->getTopLayout()->setSpacing(10);
 		p_righttoolbar->end();
 
 		p_statusbar = new Fle_StatusBar(0, _h - sb_size, _w, sb_size);
@@ -115,8 +119,12 @@ m_bottommargin(0)
 		p_toptoolbar->end();
 
 		p_lefttoolbar = new Fle_ToolBar(0, mb_size + tb_size, left_tb_size, _h - mb_size - tb_size - sb_size);
+		p_lefttoolbar->setMargins(4, 4, 4, 4);
+		p_lefttoolbar->getCentralLayout()->getTopLayout()->setSpacing(10);
 		p_lefttoolbar->end();
 		p_righttoolbar = new Fle_ToolBar(_w - right_tb_size, mb_size + tb_size, right_tb_size, _h - mb_size - tb_size - sb_size);
+		p_righttoolbar->setMargins(4, 4, 4, 4);
+		p_righttoolbar->getCentralLayout()->getTopLayout()->setSpacing(10);
 		p_righttoolbar->end();
 
 		p_statusbar = new Fle_StatusBar(0, _h - sb_size, _w, sb_size);
@@ -287,32 +295,6 @@ void Fle_MainWindow::toggleRightToolBar_cb(Fl_Widget* _w, void* _p)
 {
 	Fle_MainWindow* win = static_cast<Fle_MainWindow*>(_p);
 	if (win) win->toggleRightToolBar();
-}
-
-void Fle_MainWindow::setMenuBarFixedHeight(int _h)
-{
-	if (p_menubar)
-			p_menubar->size(Fle_Window::w() + 2, _h);
-}
-void Fle_MainWindow::setTopToolBarFixedHeight(int _h)
-{
-	if (p_toptoolbar)
-			p_toptoolbar->size(Fle_Window::w() + 2, _h);
-}
-void Fle_MainWindow::setLeftToolBarFixedWidth(int _w)
-{
-	if (p_lefttoolbar)
-			p_lefttoolbar->size(_w, p_lefttoolbar->h());
-}
-void Fle_MainWindow::setRightToolBarFixedWidth(int _w)
-{
-	if (p_righttoolbar)
-			p_righttoolbar->size(_w, p_righttoolbar->h());
-}
-void Fle_MainWindow::setStatusBarFixedHeight(int _h)
-{
-	if (p_statusbar)
-			p_statusbar->size(Fle_Window::w() + 2, _h);
 }
 
 void Fle_MainWindow::updateContents()
@@ -518,7 +500,7 @@ void Fle_MainWindow::updateContents()
 			);
 	}
 
-	// if all widgets and invisible.
+	// if all widgets are invisible.
 	else if (!m && !t && !s && !l && !r)
 		p_centralarea->resize(
 		0 + m_leftmargin + gap,
@@ -661,8 +643,8 @@ void Fle_MainWindow::updateContents()
 		p_centralarea->resize(
 			0 + m_leftmargin + lw + gap,
 			m_topmargin + mh + th + gap,
-			w() - m_rightmargin - m_leftmargin - lw - gap - gap,
-			h() - m_bottommargin - m_topmargin - mh - th - gap - gap
+			Fle_Window::w() - m_rightmargin - m_leftmargin - lw - gap - gap,
+			Fle_Window::h() - m_bottommargin - m_topmargin - mh - th - gap - gap
 			);
 	}
 
@@ -674,8 +656,8 @@ void Fle_MainWindow::updateContents()
 	if (p_statusbar->visible()) 
 		p_statusbar->position(0, h() - p_statusbar->h());
 
-	p_lefttoolbar->resize(0, p_centralarea->y(), p_lefttoolbar->w(), p_centralarea->h());
-	p_righttoolbar->resize(p_centralarea->x() + p_centralarea->w() + gap + m_rightmargin, p_centralarea->y(), p_righttoolbar->w(), p_centralarea->h());
+	p_lefttoolbar->resize(0, p_centralarea->y(), lw, p_centralarea->h());
+	p_righttoolbar->resize(p_centralarea->x() + p_centralarea->w() + gap + m_rightmargin, p_centralarea->y(), rw, p_centralarea->h());
 }
 
 void Fle_MainWindow::setBackgroundColor(uchar _red, uchar _green, uchar _blue)

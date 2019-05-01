@@ -55,8 +55,8 @@ Fle_Window::Fle_Window(int _x, int _y, int _w, int _h, const char* _title, int _
 	user_data(static_cast<void*>(this));
 	callback(closeCallback, static_cast<void*>(this));
 
-	m_timer.setFunction([&]() { timerEvent(); });	// setting up timer event.
-	m_idle.setFunction([&]() { idleEvent(); });		// setting up idle event.
+	m_timer.setFunction([this]() { timerEvent(); });	// setting up timer event.
+	m_idle.setFunction([this]() { idleEvent(); });		// setting up idle event.
 }
 
 Fle_Window::Fle_Window(int _w, int _h, const char* _title, int _icon_index) :
@@ -87,8 +87,8 @@ Fle_Window::Fle_Window(int _w, int _h, const char* _title, int _icon_index) :
 	Fl::screen_work_area(X, Y, W, H);
 	position(X + W / 2 - _w / 2, Y + H / 2 - _h / 2);
 
-	m_timer.setFunction([&]() { timerEvent(); });	// setting up timer event.
-	m_idle.setFunction([&]() { idleEvent(); });		// setting up idle event.
+	m_timer.setFunction([this]() { timerEvent(); });	// setting up timer event.
+	m_idle.setFunction([this]() { idleEvent(); });		// setting up idle event.
 }
 
 Fle_Window::~Fle_Window()
@@ -315,12 +315,18 @@ int Fle_Window::processEvents(int _event)
 		switch (Fl::event_dy())
 		{
 		case 1:
-			mouseWheelBackwardEvent();
-			break;
+		{
+			Fle_Window* p = static_cast<Fle_Window*>(parent());
+			if (p) p->mouseWheelBackwardEvent();
+			return 1;
+		}
 
 		case -1:
-			mouseWheelForwardEvent();
-			break;
+		{
+			Fle_Window* p = static_cast<Fle_Window*>(parent());
+			if (p) p->mouseWheelForwardEvent();
+			return 1;
+		}
 
 		default:
 			break;

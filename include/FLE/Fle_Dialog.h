@@ -319,7 +319,7 @@ public:
 		const std::vector<const char*>& _labels,		// labels of input boxes.
 		std::vector<std::string>& _values,
 		Fle_Font _label_prop = Fle_Font(14, fl_rgb_color(78, 196, 203), FL_ALIGN_LEFT, FL_HELVETICA_BOLD),				// _label properties
-		Fl_Color _text_bkgrnd_color = fl_rgb_color(78, 196, 203),		// background color of the text box.
+		Fl_Color _text_bkgrnd_color = fl_rgb_color(74, 84, 89),		// background color of the text box.
 		Fl_Color _text_color = fl_rgb_color(78, 196, 203)		// text selection color
 		);				// default or initial values (results will be stored in _values).
 

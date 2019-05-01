@@ -1,5 +1,5 @@
 FL-ESSENTIALS (FLE) - FLTK Utility Widgets
-Copyright (C) 2017 REAL3D
+Copyright (C) 2017-2019 REAL3D
 http://real3d.pk | furqan@real3d.pk | furqan797@gmail.com
 
 FL-Essentials is a FLTK and OpenCV based software system which 
@@ -13,4 +13,4 @@ This file and its content is protected by a software license.
 You should have received a copy of this license with this file.
 If not, please contact Dr. Furqan Ullah immediately.
 
-author:	Furqan Ullah (Post-doc, Ph.D.)
+author:	Furqan Ullah (Post-docs, Ph.D.)

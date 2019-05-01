@@ -274,6 +274,7 @@ Fle_VLayoutT::Fle_VLayoutT(int _x, int _y, int _w, int _h, const char* _label) :
 {
 	Fl_Group::begin();
 	p_layout = new Fle_VLayout(0, 0, _w, _h);
+	p_layout->resizable(p_layout);
 	p_layout->end();
 
 	align(FL_ALIGN_WRAP | FL_ALIGN_INSIDE | FL_ALIGN_CENTER | FL_ALIGN_TEXT_OVER_IMAGE | FL_ALIGN_CLIP);
@@ -438,7 +439,9 @@ Fle_VHLayout::Fle_VHLayout(int _x, int _y, int _w, int _h, const char* _label) :
 	m_leftmargin(0),
 	m_rightmargin(0),
 	m_topmargin(0),
-	m_bottommargin(0)
+	m_bottommargin(0),
+	m_fixed_w(-1),
+	m_fixed_h(-1)
 {
 	Fl_Group::begin();
 	p_tblayout = new Fle_VLayoutTB(0, 0, _w, _h);
@@ -477,8 +480,25 @@ void Fle_VHLayout::beginBottom()
 }
 void Fle_VHLayout::resize(int _x, int _y, int _w, int _h)
 {
-	Fl_Group::resize(_x, _y, _w, _h);
-	p_tblayout->resize(m_leftmargin + _x, m_topmargin + _y, w() - m_leftmargin - m_rightmargin, h() - m_topmargin - m_bottommargin);
+	int W = _w;
+	int H = _h;
+	if (m_fixed_w > 0)
+		W = m_fixed_w;
+	if (m_fixed_h > 0)
+		H = m_fixed_h;
+
+	Fl_Group::resize(_x, _y, W, H);
+	p_tblayout->resize(m_leftmargin + _x, m_topmargin + _y, W - m_leftmargin - m_rightmargin, H - m_topmargin - m_bottommargin);
+}
+void Fle_VHLayout::setFixedWidth(int _w)
+{
+	m_fixed_w = _w;
+	size(_w, h());
+}
+void Fle_VHLayout::setFixedHeight(int _h)
+{
+	m_fixed_h = _h;
+	size(w(), _h);
 }
 
 void Fle_VHLayout::setBackgroundColor(uchar _red, uchar _green, uchar _blue)

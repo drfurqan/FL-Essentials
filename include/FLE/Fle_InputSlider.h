@@ -35,11 +35,11 @@ s->set_callback(slider_cb);
 **********************************************************************************/
 
 #include <FLE/Fle_Export.h>
+#include <FLE/Fle_Slider.h>
 
 #include <FL/Fl.H>
 #include <FL/Fl_Group.H>
 #include <FL/Fl_Int_Input.H>
-#include <FL/Fl_Slider.H>
 
 namespace R3D
 {
@@ -135,7 +135,7 @@ public:
 
 	// Description:
 	// Function to get a pointer to slider.
-	Fl_Slider* getSlider() const;
+	Fle_Slider* getSlider() const;
 	// Description:
 	// Function to get a pointer to input widget.
 	Fl_Int_Input* getInput() const;
@@ -154,7 +154,7 @@ private:
 	// Static function to process input's callback.
 	static void input_cb_(Fl_Widget* _w, void* _p);
 
-	Fl_Slider* p_slider;
+	Fle_Slider* p_slider;
 	Fl_Int_Input* p_input;
 	typedef void(*funcptr)(int _v, void* _p);
 

@@ -478,6 +478,13 @@ public:
 	// Description:
 	// Overridden function that called while resizing this layout.
 	virtual void resize(int _x, int _y, int _w, int _h) override;
+	
+	// Description:
+	// Function to set the fixed width of the widget.
+	void setFixedWidth(int _w);
+	// Description:
+	// Function to set the fixed height of the widget.
+	void setFixedHeight(int _h);
 
 	// Description:
 	// Function to set the left margin in pixels, 
@@ -585,6 +592,8 @@ protected:
 	int m_rightmargin;
 	int m_topmargin;
 	int m_bottommargin;
+	int m_fixed_w;
+	int m_fixed_h;
 };
 
 }

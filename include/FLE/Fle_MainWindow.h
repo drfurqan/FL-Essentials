@@ -154,9 +154,6 @@ public:
 	}
 
 	// Description:
-	// Function to set fixed menubar height in pixels.
-	void setMenuBarFixedHeight(int _h);
-	// Description:
 	// Function to get a pointer to menu bar.
 	// You can hide() or show() the menu bar by calling both functions,
 	// once you do it, don't forget to call updateContents() function to adjust the
@@ -174,9 +171,6 @@ public:
 	Fle_MenuBar* getMenuBar() const { return p_menubar; }
 
 	// Description:
-	// Function to set fixed menubar height in pixels.
-	void setTopToolBarFixedHeight(int _h);
-	// Description:
 	// Function to get a pointer to menu bar.
 	// You can hide() or show() the menu bar by calling both functions,
 	// once you do it, don't forget to call updateContents() function to adjust the
@@ -184,17 +178,8 @@ public:
 	Fle_ToolBar* getTopToolBar() const { return p_toptoolbar; }
 
 	// Description:
-	// Function to set fixed width of the left bar in pixels.
-	void setLeftToolBarFixedWidth(int _w);
-	// Description:
-	// Function to set a pointer to left toolbar.
-	void setLeftToolBar(Fle_ToolBar* _p) { p_lefttoolbar = _p; }
-	// Description:
 	// Function to get a pointer to left toolbar.
 	Fle_ToolBar* getLeftToolBar() const { return p_lefttoolbar; }
-	// Description:
-	// Function to set fixed width of the right bar in pixels.
-	void setRightToolBarFixedWidth(int _w);
 	// Description:
 	// Function to get a pointer to right toolbar.
 	// You can hide() or show() the menu bar by calling both functions,
@@ -203,18 +188,12 @@ public:
 	Fle_ToolBar* getRightToolBar() const { return p_righttoolbar; }
 
 	// Description:
-	// Function to set statusbar height in pixels.
-	void setStatusBarFixedHeight(int _h);
-	// Description:
 	// Function to get a pointer to status bar.
 	// You can hide() or show() the status bar by calling both functions,
 	// once you do it, don't forget to call updateContents() function to adjust the
 	// central area.
 	Fle_StatusBar* getStatusBar() const { return p_statusbar; }
 
-	// Description:
-	// Function to set a pointer to central widget of this main window.
-	void setCentralWidget(Fle_Window* _w) { p_centralarea = _w; }
 	// Description:
 	// Function to get a pointer to central widget of this main window.
 	Fle_Window* getCentralWidget() const { return p_centralarea; }

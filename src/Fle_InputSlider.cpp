@@ -19,6 +19,7 @@ If not, please contact Dr. Furqan Ullah immediately:
 **********************************************************************************/
 
 #include <FLE/Fle_InputSlider.h>
+#include <FLE/Fle_Slider.h>
 #include <FLE/Fle_StringUtil.h>
 
 using namespace R3D;
@@ -31,11 +32,11 @@ Fl_Group(_x, _y, _w, _h, _l)
 	m_init_value = 0;
 	m_step = 1;
 
-	p_slider = new Fl_Slider(_x, _y, _w - _textbox_width, _h);
+	p_slider = new Fle_Slider(_x, _y, _w - _textbox_width, _h);
 	p_slider->step(1);
 	p_slider->callback(slider_cb_, static_cast<void*>(this));
 
-	p_input = new Fl_Int_Input(_x + _w - _textbox_width, _y, _textbox_width, _h);
+	p_input = new Fl_Int_Input(_x + _w - _textbox_width + 1, _y, _textbox_width, _h);
 	p_input->callback(input_cb_, static_cast<void*>(this));
 	p_input->when(FL_WHEN_ENTER_KEY | FL_WHEN_NOT_CHANGED);
 
@@ -100,6 +101,7 @@ void Fle_InputSlider::slider_cb_(Fl_Widget* _w, void* _p)
 	//}
 
 	inp->slider_cb();
+	Fl::redraw();	// if i don't redraw all here, while moving slider creates some weired lines.
 }
 
 void Fle_InputSlider::input_cb()
@@ -125,7 +127,9 @@ void Fle_InputSlider::input_cb_(Fl_Widget* _w, void* _p)
 {
 	Fle_InputSlider* inp = static_cast<Fle_InputSlider*>(_p);
 	if (!inp) return;
+
 	inp->input_cb();
+	Fl::redraw();	// if i don't redraw all here, while moving slider creates some weired lines.
 }
 
 void Fle_InputSlider::box(Fl_Boxtype _type)
@@ -216,7 +220,7 @@ Fl_Color Fle_InputSlider::textcolor() const
 	return p_input->textcolor();
 }
 
-Fl_Slider* Fle_InputSlider::getSlider() const
+Fle_Slider* Fle_InputSlider::getSlider() const
 {
 	return p_slider;
 }

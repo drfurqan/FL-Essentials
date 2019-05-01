@@ -66,6 +66,7 @@ int Fle_BoxWindow::handle(int _event)
 		return 1;
 
 	case FL_PUSH:
+		take_focus();						// this allows key events to work.
 		switch (Fl::event_button())
 		{
 		case FL_LEFT_MOUSE:

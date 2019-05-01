@@ -1,6 +1,11 @@
 ==========================================
-FL-Essentials Library (FLE) INSTALL v1.3.6
+FL-Essentials Library (FLE) INSTALL v1.3.7
 ==========================================
+
+New features and changes in version 1.3.7:            (Release Date: 2019.05.01)
+--------------------------------------------------------------------------------
+
+1. Fixes in Fle_Layouts, Fle_Input, Fle_SliderInput, Fle_Dialog.
 
 New features and changes in version 1.3.6:            (Release Date: 2018.05.17)
 --------------------------------------------------------------------------------

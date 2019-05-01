@@ -136,13 +136,17 @@ public:
 	// set _with_aspect_ratio to true if images need to be resized with aspect ratio.
 	// It returns totally number of resized images.
 	static int batchResize(const std::string& _directory_path, int _w, int _h, bool _with_aspect_ratio = true, int _interpolation = cv::InterpolationFlags::INTER_LINEAR, Fle_StatusBar* _sb = nullptr);
-	
+	// Description:
+	// Function to invert all image files of the specified directory.
+	// It returns totally number of resized images.
+	static int batchInvert(const std::string& _directory_path, Fle_StatusBar* _sb = nullptr);
+
 	// Description:
 	// Function to split channels from the given mat.
 	std::vector<cv::Mat> splitChannels(const cv::Mat& _mat) const;
 	// Description:
 	// Function to merge the given channels.
-	cv::Mat mergeChannels(std::vector<cv::Mat> _mats) const;
+	cv::Mat mergeChannels(const std::vector<cv::Mat>& _mats) const;
 };
 
 template void Fle_ImageUtil::setPixel<unsigned char>(cv::Mat& _image, int _x, int _y, const unsigned char& _p);

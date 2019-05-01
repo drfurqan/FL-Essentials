@@ -95,6 +95,10 @@ public:
 	static Fl_Color fromRGB(uchar _r, uchar _g, uchar _b);
 
 	// Description:
+	// Function that returns the width of the given text.
+	static int getTextWidth(const char* _text);
+
+	// Description:
 	// Function to create a group with a title.
 	static Fle_Group* createGroup(int _w, int _h, const char* _title);
 	// Description:
@@ -280,6 +284,47 @@ public:
 	// Description:
 	// Function to add a separator between widgets.
 	static void createSeparator(int _w = 1, int _h = 25, Fl_Color _color = FL_GRAY);
+
+	/**********************************************************************************
+	* Horizontal layout widgets with left sided name of the widget.
+	**********************************************************************************/
+
+	// Description:
+	// Function to create an input slider (with integer numbers) by specifying it's width, height, label/name, and default/initial index.
+	// _label is the name of the slider that will display on the left side of the slider.
+	// assign _label to 0 or nullptr if no _label is required for this widget.
+	// _width is the total width of the slider.
+	// _value is the initial value.
+	// _step is the increment/decrement step.
+	// _minimum and _maximum are the bounds of the slider.
+	static Fle_InputSlider* createInputSlider(int _width, int _height, const char* _label, int _label_width, int _value, int _step, int _minimum, int _maximum, int _value_box_width = 40, Fl_Color _bg_color = FL_BLACK, Fl_Color _text_color = FL_WHITE);
+	// Description:
+	// Function to create an input slider (with double numbers) by specifying it's width, height, label/name, 
+	// and default/initial index.
+	// _label is the name of the slider that will display on the left side of the slider.
+	// assign _label to 0 or nullptr if no _label is required for this widget.
+	// _width is the total width of the slider.
+	// _value is the initial value.
+	// _step is the increment/decrement step.
+	// _minimum and _maximum are the bounds of the slider.
+	static Fle_FloatInputSlider* createFloatInputSlider(int _width, int _height, const char* _label, int _label_width, double _value, double _step, double _minimum, double _maximum, int _value_box_width = 40, Fl_Color _bg_color = FL_BLACK, Fl_Color _text_color = FL_WHITE);
+	// Description:
+	// Function to create a check button by specifying it's width, height, label/name, and default/initial value.
+	// _name is the button text that will be displayed on the button.
+	static Fl_Check_Button* createCheckButton(int _width, int _height, const char* _label, int _label_width, int _value, Fl_Color _text_color);
+	// Description:
+	// Function to create an input widget that gives various justifications with copy and paste feature.
+	// _name is the name of the slider that will display on the left side of the slider.
+	// assign _name to 0 or nullptr if no name/label is required for this widget.
+	// _width is the total width of the slider.
+	// _value is the initial value.
+	// _name_align is the input text alignment which could be LEFT or RIGHT.
+	// _cb is the callback with _data.
+	static Fle_InputWidget* createTextInput(int _width, int _height, const char* _label, int _label_width, const char* _value, Fl_Color _text_color, Fl_Callback* _cb, void* _data = 0);
+	// Description:
+	// Function to create a button by specifying it's width, height, label, label widget, text, and color.
+	// _btn_text is the button text that will be displayed on the button.
+	static Fle_Button* createButton(int _width, int _height, const char* _label, int _label_width, const char* _btn_text, Fl_Color _text_color);
 };
 
 }

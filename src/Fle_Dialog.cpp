@@ -43,6 +43,7 @@ m_bottommargin(0),
 p_ok(nullptr),
 p_cancel(nullptr)
 {
+	setBox(nullptr);
 	Fle_Window::setBackgroundColor(74, 84, 89);
 	Fle_Window::begin();
 	p_main_vlayout = new Fle_VLayout(_x_margin, _y_margin, _w - _x_margin - _x_margin, _h - _y_margin - _y_margin);
@@ -83,6 +84,7 @@ m_bottommargin(0),
 p_ok(nullptr),
 p_cancel(nullptr)
 {
+	setBox(nullptr);
 	Fle_Window::setBackgroundColor(74, 84, 89);
 	Fle_Window::begin();
 	p_main_vlayout = new Fle_VLayout(_x_margin, _y_margin, _w - _x_margin - _x_margin, _h - _y_margin - _y_margin);
@@ -1022,7 +1024,7 @@ int Fle_Dialog::getInputs(int _w, int _h,
 		s[i] = new Fle_InputWidget(0, 0, _w - b->w() - 20, 25);
 		s[i]->box(FL_BORDER_BOX);
 		s[i]->align(FL_ALIGN_LEFT);
-		s[i]->setRightClickPopupColor(fl_rgb_color(74, 84, 89));
+		s[i]->setRightClickPopupColor(fl_rgb_color(64, 74, 79));
 		s[i]->setRightClickPopupTextColor(fl_rgb_color(255, 255, 255));
 		s[i]->color(_text_bkgrnd_color);
 		s[i]->textcolor(_text_color);

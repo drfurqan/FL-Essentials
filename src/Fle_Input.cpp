@@ -47,6 +47,7 @@ int Fle_InputWidget::handle(int _event)
 	switch (_event)
 	{
 	case FL_PUSH:
+		take_focus();						// this allows key events to work.
 		if (Fl::event_button() == FL_RIGHT_MOUSE)
 		{
 			Fl_Menu_Item rclick_menu[] =
@@ -196,35 +197,5 @@ void Fle_Input::value(const char *_val)
 
 int Fle_Input::handle(int _event)
 {
-	//switch (_event) 
-	//{
-	//case FL_PUSH:
-	//case FL_FOCUS:
-	//	if (!p_input->visible()) 
-	//	{
-	//		// Make input widget 'appear' in place of the box
-	//		//p_box->hide();
-	//		p_input->show();
-	//		p_input->value(p_box->label());
-	//		p_input->size(p_box->w(), p_box->h());
-	//		redraw();
-	//	}
-	//	break;
-
-	//case FL_UNFOCUS:
-	//	if (p_input->visible()) 
-	//	{
-	//		// Replace input widget with justified box
-	//		//p_box->show();
-	//		p_input->show();
-	//		p_box->label(p_input->value());
-	//		redraw();
-	//	}
-	//	break;
-
-	//default:
-	//	break;
-	//}
-
 	return Fl_Group::handle(_event);
 }

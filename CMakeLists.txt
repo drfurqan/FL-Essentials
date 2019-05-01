@@ -14,7 +14,7 @@ project (fle)
 
 set(VERSION_MAJOR 1)
 set(VERSION_MINOR_0 3)
-set(VERSION_MINOR_1 6)
+set(VERSION_MINOR_1 7)
 set(VERSION_PLAIN ${VERSION_MAJOR}.${VERSION_MINOR_0}.${VERSION_MINOR_1})
 
 # ------------------------------------------------------------------------------

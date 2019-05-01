@@ -78,7 +78,7 @@ cv::Mat Fle_ImageUtil::getRotatedImage(const cv::Mat& _img, const double _angle,
 		// get rotation matrix for rotating the image around its center.
 		const cv::Point2f center(_img.cols / 2.f, _img.rows / 2.f);
 		auto rot = cv::getRotationMatrix2D(center, _angle, 1.0);
-		auto bbox = cv::RotatedRect(center, _img.size(), _angle).boundingRect();		// determine bounding rectangle.
+		auto bbox = cv::RotatedRect(center, _img.size(), float(_angle)).boundingRect();		// determine bounding rectangle.
 		rot.at<double>(0, 2) += bbox.width / 2.0 - center.x;							// adjust transformation matrix.
 		rot.at<double>(1, 2) += bbox.height / 2.0 - center.y;
 		cv::warpAffine(_img, dst, rot, bbox.size(), _interpolation);
@@ -294,6 +294,66 @@ int Fle_ImageUtil::batchResize(const std::string& _directory_path, int _w, int _
 
 	return 0;
 }
+int Fle_ImageUtil::batchInvert(const std::string& _directory_path, Fle_StatusBar* _sb)
+{
+	if (_directory_path.empty()) return 0;
+
+	auto files = Fle_ImageUtil::getDirectoryImageFiles(_directory_path);
+	if (files.empty()) return 0;
+
+	if (_sb) _sb->showMessage("Inverting! please wait...", 100000);
+
+	auto t = Fle_Timer::getLocalTime("%Y-%m-%d %X");
+	auto folder = "Inverted-" + t;
+	std::replace(folder.begin() + folder.size() - t.size(), folder.end(), ':', '-');
+	auto dir = _directory_path + Fle_StringUtil::separator() + folder;
+
+	bool r;
+	#if (_MSC_VER >= 1900)
+	namespace fs = std::experimental::filesystem;
+	r = fs::create_directories(dir);
+	#else
+	r = Fle_WindowsUtil::create_directory(dir);
+	#endif
+
+	if (r)
+	{
+		if (_sb) _sb->showMessage("Inverting and saving! please wait...", 100000);
+
+		auto n = 0;
+		for (std::size_t i = 0; i < files.size(); i++)
+		{
+			const auto name = Fle_StringUtil::extractFileNameWithExt(files[i]);
+			auto img = cv::imread(files[i], cv::IMREAD_UNCHANGED);
+			if (img.empty())
+			{
+				if (_sb) _sb->showMessage("Couldn't read the image (" + name + ")!", 10);
+				continue;
+			}
+
+			// check the depth of the imported image and convert to 8 bit image.
+			auto src(img);
+			if (src.depth() == CV_16U || src.depth() == CV_16S)
+			{
+				double min, max;
+				cv::minMaxLoc(src, &min, &max);
+				src.convertTo(src, CV_8UC1, 255.0 / (max - min));
+			}
+
+			cv::Mat m;
+			cv::bitwise_not(src, m);
+			if (cv::imwrite(dir + Fle_StringUtil::separator() + name, m))
+			{
+				if (_sb) _sb->showMessage(Fle_StringUtil::to_string(n) + " inverted and saved!", 8);
+				n++;
+			}
+		}
+
+		return n;
+	}
+
+	return 0;
+}
 
 std::vector<cv::Mat> Fle_ImageUtil::splitChannels(const cv::Mat& _mat) const
 {
@@ -310,14 +370,13 @@ std::vector<cv::Mat> Fle_ImageUtil::splitChannels(const cv::Mat& _mat) const
 
 	return result;
 }
-cv::Mat Fle_ImageUtil::mergeChannels(std::vector<cv::Mat> _mats) const
+cv::Mat Fle_ImageUtil::mergeChannels(const std::vector<cv::Mat>& _mats) const
 {
 	if (_mats.size() <= 0)
-		throw std::invalid_argument("no input mat");
+		throw std::invalid_argument("invalid input mat.");
 
-	// check
 	if (_mats.at(0).channels() != 1)
-		throw std::invalid_argument("mat 0 not 1 channel");
+		throw std::invalid_argument("input 0 is not a 1 channel mat.");
 
 	const auto type = _mats.at(0).type();
 	const auto size = _mats.at(0).size();
