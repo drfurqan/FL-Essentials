@@ -33,7 +33,7 @@ Fle_CheckGroup::Fle_CheckGroup(int _x, int _y, int _w, int _h, const char* _titl
 	p_chkbtn->color(FL_WHITE);
 	p_chkbtn->callback(toggle_cb, (void*)this);
  	color(FL_WHITE);
-	box(FL_FRAME);
+	box(FL_BORDER_FRAME);
     align(FL_ALIGN_LEFT | FL_ALIGN_INSIDE);
     m_spacesize = 10;
 	end();

@@ -95,8 +95,11 @@ public:
 	static Fl_Color fromRGB(uchar _r, uchar _g, uchar _b);
 
 	// Description:
-	// Function that returns the width of the given text.
+	// Function that returns the width of the given text in pixels.
 	static int getTextWidth(const char* _text);
+	// Description:
+	// Function that returns the width of the longest text in pixels.
+	static int getLongestTextWidth(const std::vector<const char*>& _texts);
 
 	// Description:
 	// Function to create a group with a title.
@@ -175,7 +178,7 @@ public:
 	// Description:
 	// Function to create a check button by specifying it's width, height, label/name, and default/initial value.
 	// _name is the button text that will be displayed on the button.
-	static Fl_Check_Button* createCheckButton(int _w, int _h, const char* _name, int _value = 0, Fl_Callback* _cb = 0, void* _data = 0);
+	static Fl_Check_Button* createCheckButton(int _w, int _h, const char* _name, int _value);
 	// Description:
 	// Function to create a drop down menu by specifying it's width, height, label/name, and default/initial index.
 	static Fl_Menu_Button* createDropDownMenu(int _w, int _h, const char* _label = 0, int _current_index = 0, Fl_Callback* _cb = 0, void* _data = 0);
@@ -311,7 +314,7 @@ public:
 	// Description:
 	// Function to create a check button by specifying it's width, height, label/name, and default/initial value.
 	// _name is the button text that will be displayed on the button.
-	static Fl_Check_Button* createCheckButton(int _width, int _height, const char* _label, int _label_width, int _value, Fl_Color _text_color);
+	static Fl_Check_Button* createCheckButton(int _width, int _height, const char* _label, int _label_width, int _value, Fl_Color _bg_color, Fl_Color _text_color);
 	// Description:
 	// Function to create an input widget that gives various justifications with copy and paste feature.
 	// _name is the name of the slider that will display on the left side of the slider.
@@ -320,11 +323,11 @@ public:
 	// _value is the initial value.
 	// _name_align is the input text alignment which could be LEFT or RIGHT.
 	// _cb is the callback with _data.
-	static Fle_InputWidget* createTextInput(int _width, int _height, const char* _label, int _label_width, const char* _value, Fl_Color _text_color, Fl_Callback* _cb, void* _data = 0);
+	static Fle_InputWidget* createTextInput(int _width, int _height, const char* _label, int _label_width, const char* _value, Fl_Color _bg_color, Fl_Color _text_color, Fl_Callback* _cb, void* _data = 0);
 	// Description:
 	// Function to create a button by specifying it's width, height, label, label widget, text, and color.
 	// _btn_text is the button text that will be displayed on the button.
-	static Fle_Button* createButton(int _width, int _height, const char* _label, int _label_width, const char* _btn_text, Fl_Color _text_color);
+	static Fle_Button* createButton(int _width, int _height, const char* _label, int _label_width, const char* _btn_text, Fl_Color _bg_color, Fl_Color _text_color);
 };
 
 }

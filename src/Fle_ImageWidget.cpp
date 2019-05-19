@@ -31,9 +31,6 @@ using namespace R3D;
 
 Fle_ImageWidget::Fle_ImageWidget(int _x, int _y, int _w, int _h, const char* _title) :
 	Fl_Widget(_x, _y, _w, _h, _title),
-	m_zoom_factors(cv::Vec2d(1.1, 0.9)),
-	m_dtype(Fle_ImageDrawType::Fit),
-	m_zoom(1),
 	m_roi(cv::Rect(0, 0, 0, 0))
 {
 	align(FL_ALIGN_WRAP | FL_ALIGN_INSIDE | FL_ALIGN_CENTER | FL_ALIGN_TEXT_OVER_IMAGE | FL_ALIGN_CLIP);
@@ -42,13 +39,20 @@ Fle_ImageWidget::Fle_ImageWidget(int _x, int _y, int _w, int _h, const char* _ti
 Fle_ImageWidget::~Fle_ImageWidget()
 {
 }
-void Fle_ImageWidget::clear(const cv::Vec3b& _color)
+void Fle_ImageWidget::clear(Fl_Color _color)
 {
-	cv::Mat m(cv::Size(w(), h()), CV_8UC1);
+	int r = (_color & 0xFF000000) >> 24;
+	int g = (_color & 0x00FF0000) >> 16;
+	int b = (_color & 0x0000FF00) >> 8;
+
+	cv::Mat m(cv::Size(640, 480), CV_8UC3);
 	for (int y = 0; y < m.rows; y++)
 		for (int x = 0; x < m.cols; x++)
-			Fle_ImageUtil::setPixel(m, x, y, _color);
+			m.at<cv::Vec3b>(cv::Point(x, y)) = cv::Vec3b(b, g, r);
+
 	setImage(m);
+	resetRoi();
+	redraw();
 }
 
 void Fle_ImageWidget::draw()
@@ -57,8 +61,8 @@ void Fle_ImageWidget::draw()
 }
 void Fle_ImageWidget::drawImage(const int _x, const int _y, const int _w, const int _h)
 {	
-	if (m_image.empty()) return;
-	if (m_image.cols <= 0 || m_image.rows <= 0) return;
+	if (m_image.empty()) 
+		return;
 
 	cv::Mat fimage;
 	if ((m_roi.x < 0) || (m_roi.y < 0) ||
@@ -74,8 +78,6 @@ void Fle_ImageWidget::drawImage(const int _x, const int _y, const int _w, const 
 		fimage = cv::Mat(m_image, m_roi).clone();
 	}
 
-	cv::Size isize = getNewSize(fimage.size(), cv::Size(_w, _h));
-
 	const int channel = fimage.channels();
 	const int d = fimage.depth();
 
@@ -86,61 +88,26 @@ void Fle_ImageWidget::drawImage(const int _x, const int _y, const int _w, const 
 		fimage.convertTo(fimage, CV_8UC1, 255.0 / (max - min));
 	}
 
-	cv::resize(fimage, fimage, isize, 0, 0, cv::INTER_LINEAR);
+	cv::resize(fimage, fimage, cv::Size(_w, _h), 0, 0, cv::INTER_LINEAR);
 
 	if (channel == 4) cv::cvtColor(fimage, fimage, cv::COLOR_BGRA2RGBA);
 	else if (channel == 3) cv::cvtColor(fimage, fimage, cv::COLOR_BGR2RGB);
 
-	const int X = _x + (_w - isize.width) / 2;
-	const int Y = _y + (_h - isize.height) / 2;
-
-	fl_push_clip(X, Y, isize.width, isize.height);
+	fl_push_clip(_x, _y, fimage.cols, fimage.rows);
 
 	if (channel <= 3)
 	{
 		// fl_draw_image does not support (4-channels) transparent images like PNG. 
 		// It only support RGB (3-channels).
-		fl_draw_image(fimage.datastart, X, Y, isize.width, isize.height, fimage.channels(), static_cast<int>(fimage.step));	// faster
+		fl_draw_image(fimage.datastart, _x, _y, fimage.cols, fimage.rows, fimage.channels(), static_cast<int>(fimage.step));	// faster
 	}
 	else
 	{
-		Fl_RGB_Image o(fimage.datastart, isize.width, isize.height, fimage.channels(), static_cast<int>(fimage.step));
-		o.draw(X, Y);	// Fl_RGB_Image works fine with the transparent PNG images.
+		Fl_RGB_Image o(fimage.datastart, fimage.cols, fimage.rows, fimage.channels(), static_cast<int>(fimage.step));
+		o.draw(_x, _y);	// Fl_RGB_Image works fine with the transparent PNG images.
 	}
 	
 	fl_pop_clip();
-}
-void Fle_ImageWidget::setRoi(const cv::Rect& _roi)
-{
-#if (_MSC_VER > 1600)
-	Fl::lock();				// acquire the lock
-	m_roi = _roi;
-	Fl::unlock();			// release the lock; allow other threads to access FLTK again
-#else
-	m_roi = _roi;
-#endif
-}
-cv::Rect Fle_ImageWidget::getRoi() const
-{
-	cv::Rect r;
-#if (_MSC_VER > 1600)
-	Fl::lock();				// acquire the lock
-	r = m_roi;
-	Fl::unlock();			// release the lock; allow other threads to access FLTK again
-#else
-	r = m_roi;
-#endif
-	return r;
-}
-void Fle_ImageWidget::resetRoi()
-{
-#if (_MSC_VER > 1600)
-	Fl::lock();				// acquire the lock
-	m_roi = cv::Rect(0, 0, m_image.cols, m_image.rows);
-	Fl::unlock();			// release the lock
-#else
-	m_roi = cv::Rect(0, 0, m_image.cols, m_image.rows);
-#endif
 }
 
 bool Fle_ImageWidget::loadImage(const std::string& _filename, bool _reset_roi)
@@ -210,50 +177,6 @@ bool Fle_ImageWidget::loadImage(bool _reset_roi)
 {
 	return loadImage(m_filename, _reset_roi);
 }
-
-void Fle_ImageWidget::setImage(const cv::Mat& _image)
-{
-	// Details of multi-threaded programming in FLTK:
-	// http://www.fltk.org/doc-1.3/advanced.html#advanced_multithreading
-	// I'm drawing from a different (not main) thread, therefore, FLTK needs to be locked up.
-
-	if (_image.empty()) 
-		return;
-
-#if (_MSC_VER > 1600)
-	Fl::lock();				// acquire the lock
-	m_image = _image;
-	Fl::unlock();			// release the lock; allow other threads to access FLTK again
-#else
-	m_image = _image;
-#endif
-}
-cv::Mat Fle_ImageWidget::getImage() const
-{
-	cv::Mat m;
-#if (_MSC_VER > 1600)
-	Fl::lock();				// acquire the lock
-	m = m_image.clone();
-	Fl::unlock();			// release the lock
-#else
-	m = m_image.clone();
-#endif
-	return m;
-}
-
-cv::Size Fle_ImageWidget::getImageSize() const
-{
-	cv::Size s;
-#if (_MSC_VER > 1600)
-	Fl::lock();				// acquire the lock
-	s = cv::Size(m_image.cols, m_image.rows);
-	Fl::unlock();			// release the lock
-#else
-	s = cv::Size(m_image.cols, m_image.rows);
-#endif
-	return s;
-}
-
 bool Fle_ImageWidget::saveImage(const std::string& _filename, const std::vector<int>& _compression_params)
 {
 	if (_filename.empty())
@@ -293,105 +216,77 @@ bool Fle_ImageWidget::saveImage(const std::vector<int>& _compression_params)
 	return saveImage(m_filename, _compression_params);
 }
 
-cv::Size Fle_ImageWidget::getNewSize(const cv::Size& _img_size, const cv::Size& _box_size)
+void Fle_ImageWidget::setImage(const cv::Mat& _image)
 {
-	cv::Size size(_img_size);
-	if (m_dtype == Fle_ImageDrawType::Fit)
-	{
-		size = Fle_ImageUtil::getNewSizeKeepAspectRatio(_img_size.width, _img_size.height, _box_size.width, _box_size.height);
-	}
-	else if (m_dtype == Fle_ImageDrawType::Stretch)
-	{
-		size = cv::Size(_box_size.width, _box_size.height);
-	}
-	else if (m_dtype == Fle_ImageDrawType::Center && m_zoom == 1)	// if there is no zooming
-	{
-		if (_img_size.width > _box_size.width || _img_size.height > _box_size.height)	// if image is greater than the box size.
-			size = Fle_ImageUtil::getNewSizeKeepAspectRatio(_img_size.width, _img_size.height, _box_size.width, _box_size.height);
-		else // image with original size.
-			size = cv::Size(_img_size.width, _img_size.height);
-	}
+	// Details of multi-threaded programming in FLTK:
+	// http://www.fltk.org/doc-1.3/advanced.html#advanced_multithreading
+	// I'm drawing from a different (not main) thread, therefore, FLTK needs to be locked up.
 
-	return size;
-}
-
-void Fle_ImageWidget::adjustSize(const cv::Size& _img_size)
-{
-	if (_img_size.width == 0 || _img_size.height == 0)
+	if (_image.empty()) 
 		return;
 
-	// interesting hack to adjust this widget's position and size in the parent widget.
-	auto g = static_cast<Fl_Group*>(parent());
-	if (g)
-	{
-		cv::Size s = getNewSize(_img_size, cv::Size(g->w(), g->h()));
-		size(s.width, s.height);
-		position(static_cast<int>((g->w() - w()) / 2), static_cast<int>((g->h() - h()) / 2));
-	}
+#if (_MSC_VER > 1600)
+	Fl::lock();				// acquire the lock
+	m_image = _image;
+	Fl::unlock();			// release the lock; allow other threads to access FLTK again
+#else
+	m_image = _image;
+#endif
 }
-void Fle_ImageWidget::adjustSize()
+cv::Mat Fle_ImageWidget::getImage() const
 {
-	adjustSize(getRoi().size());
+	cv::Mat m;
+#if (_MSC_VER > 1600)
+	Fl::lock();				// acquire the lock
+	m = m_image.clone();
+	Fl::unlock();			// release the lock
+#else
+	m = m_image.clone();
+#endif
+	return m;
 }
-void Fle_ImageWidget::resetZoom(const cv::Size& _img_size)
+cv::Size Fle_ImageWidget::getImageSize() const
 {
-	adjustSize(_img_size);
-	m_zoom = 1.0;
+	cv::Size s;
+#if (_MSC_VER > 1600)
+	Fl::lock();				// acquire the lock
+	s = cv::Size(m_image.cols, m_image.rows);
+	Fl::unlock();			// release the lock
+#else
+	s = cv::Size(m_image.cols, m_image.rows);
+#endif
+	return s;
 }
-void Fle_ImageWidget::resetZoom()
+
+void Fle_ImageWidget::setRoi(const cv::Rect& _roi)
 {
-	resetZoom(getRoi().size());
+#if (_MSC_VER > 1600)
+	Fl::lock();				// acquire the lock
+	m_roi = _roi;
+	Fl::unlock();			// release the lock; allow other threads to access FLTK again
+#else
+	m_roi = _roi;
+#endif
 }
-
-void Fle_ImageWidget::zoomIn()
+cv::Rect Fle_ImageWidget::getRoi() const
 {
-	if (m_dtype != Fle_ImageDrawType::Center)
-		return;	// zooming only works with ImageDrawType::Center.
-
-	scaleImage(m_zoom_factors[0]);
-	redraw();
+	cv::Rect r;
+#if (_MSC_VER > 1600)
+	Fl::lock();				// acquire the lock
+	r = m_roi;
+	Fl::unlock();			// release the lock; allow other threads to access FLTK again
+#else
+	r = m_roi;
+#endif
+	return r;
 }
-void Fle_ImageWidget::zoomOut()
+void Fle_ImageWidget::resetRoi()
 {
-	if (m_dtype != Fle_ImageDrawType::Center) 
-		return;	// zooming only works with ImageDrawType::Center.
-
-	scaleImage(m_zoom_factors[1]);
-	redraw();
-}
-void Fle_ImageWidget::scaleImage(const double _factor)
-{
-	if (m_dtype != Fle_ImageDrawType::Center) 
-		return;	// zooming only works with ImageDrawType::Center.
-
-	const auto imgsize = getRoi().size();
-	if (imgsize.width == 0 || imgsize.height == 0)
-		return;
-
-	// set box size by multiplying with the zoom factor.
-	m_zoom *= _factor;
-
-	// limit the zoom factor by 8.
-	if (m_zoom > 10.0)	m_zoom = 10.0;
-
-	cv::Size s(w(), h());
-	auto g = static_cast<Fl_Group*>(parent());
-	if (g)
-	{
-		// restrict the outward zooming.
-		if (m_zoom < 1)
-		{
-			s = Fle_ImageUtil::getNewSizeKeepAspectRatio(w(), h(), g->w(), g->h());
-			m_zoom = 1;
-		}
-		else
-		{
-			if (imgsize.width >= g->w() || imgsize.height >= g->h())
-				s = Fle_ImageUtil::getNewSizeKeepAspectRatio(imgsize.width, imgsize.height, static_cast<int>(g->w() * m_zoom), static_cast<int>(g->h() * m_zoom));
-			else
-				s = Fle_ImageUtil::getNewSizeKeepAspectRatio(imgsize.width, imgsize.height, static_cast<int>(imgsize.width * m_zoom), static_cast<int>(imgsize.height * m_zoom));
-		}
-	}
-	
-	size(s.width, s.height);
+#if (_MSC_VER > 1600)
+	Fl::lock();				// acquire the lock
+	m_roi = cv::Rect(0, 0, m_image.cols, m_image.rows);
+	Fl::unlock();			// release the lock
+#else
+	m_roi = cv::Rect(0, 0, m_image.cols, m_image.rows);
+#endif
 }

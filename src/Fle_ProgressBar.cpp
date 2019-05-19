@@ -27,7 +27,7 @@ If not, please contact Dr. Furqan Ullah immediately:
 using namespace R3D;
 
 Fle_ProgressBar::Fle_ProgressBar(int _x, int _y, int _w, int _h, const char* _lable) : 
-Fl_Valuator(_x, _y, _w, _h, _lable)
+	Fl_Valuator(_x, _y, _w, _h, _lable)
 {
     box(FL_THIN_DOWN_BOX);
     align(FL_ALIGN_LEFT);

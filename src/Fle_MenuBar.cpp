@@ -38,11 +38,11 @@ m_is_popup(true)
 	//setMenuBarItemsColor(240, 240, 240);
 	//setSelectionColor(144, 200, 246);
 	// MS VS2013 colors
-	setMenuBarColor(214, 219, 233);
-	setMenuBarItemsColor(234, 240, 255);
+	setMenuBarColor(204, 209, 223);
+	setMenuBarItemsColor(fl_rgb_color(224, 230, 245));
 	setSelectionColor(253, 244, 191);
 	setRightClickPopupColor(fl_rgb_color(234, 240, 255));
-	setRightClickPopupTextColor(fl_rgb_color(0, 0, 0));
+	setRightClickPopupTextColor(fl_rgb_color(1, 1, 1));
 	box(Fl_Boxtype::FL_FLAT_BOX);
 	down_box(Fl_Boxtype::FL_FLAT_BOX);
 	textsize(12);
@@ -114,13 +114,11 @@ int Fle_MenuBar::handle(int _e)
 
 	case FL_RELEASE:
 		if (Fl::event_button() == FL_RIGHT_MOUSE) 
-		{
 			return 1;          // tells caller we handled this event
-		}
 		break;
 
 	default:
-		return Fl_Menu_Bar::handle(_e);
+		break;
 	}
 	return Fl_Menu_Bar::handle(_e);
 }

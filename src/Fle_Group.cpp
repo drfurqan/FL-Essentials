@@ -27,7 +27,7 @@ using namespace R3D;
 
 Fle_Group::Fle_Group(int _x, int _y, int _w, int _h, const char* _title) : Fl_Group(_x, _y, _w, _h, _title)
 {
-	box(FL_THIN_UP_FRAME);
+	box(FL_BORDER_FRAME);
 	color(FL_WHITE);
 	align(FL_ALIGN_LEFT | FL_ALIGN_INSIDE);
 	end();

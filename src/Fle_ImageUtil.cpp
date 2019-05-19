@@ -282,7 +282,11 @@ int Fle_ImageUtil::batchResize(const std::string& _directory_path, int _w, int _
 			if (_with_aspect_ratio)
 				s = Fle_ImageUtil::getNewSizeKeepAspectRatio(src.cols, src.rows, _w, _h);
 			cv::resize(src, src, s, 0, 0, _interpolation);
-			if(cv::imwrite(dir + Fle_StringUtil::separator() + name, src))
+
+			std::vector<int> compression_params;
+			compression_params.push_back(cv::IMWRITE_PNG_COMPRESSION);
+			compression_params.push_back(5);
+			if(cv::imwrite(dir + Fle_StringUtil::separator() + name, src, compression_params))
 			{
 				if (_sb) _sb->showMessage(Fle_StringUtil::to_string(n) + " resized and saved!", 8);
 				n++;
@@ -355,7 +359,7 @@ int Fle_ImageUtil::batchInvert(const std::string& _directory_path, Fle_StatusBar
 	return 0;
 }
 
-std::vector<cv::Mat> Fle_ImageUtil::splitChannels(const cv::Mat& _mat) const
+std::vector<cv::Mat> Fle_ImageUtil::splitChannels(const cv::Mat& _mat)
 {
 	if (_mat.channels() < 1)
 		return std::vector<cv::Mat>();
@@ -370,7 +374,7 @@ std::vector<cv::Mat> Fle_ImageUtil::splitChannels(const cv::Mat& _mat) const
 
 	return result;
 }
-cv::Mat Fle_ImageUtil::mergeChannels(const std::vector<cv::Mat>& _mats) const
+cv::Mat Fle_ImageUtil::mergeChannels(const std::vector<cv::Mat>& _mats)
 {
 	if (_mats.size() <= 0)
 		throw std::invalid_argument("invalid input mat.");

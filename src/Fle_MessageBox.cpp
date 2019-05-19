@@ -1452,7 +1452,7 @@ static Fl_JPEG_Image image_ErroIcon("erroicon.jpg", idata_ErroIcon);
 using namespace R3D;
 
 Fle_MessageBox::Fle_MessageBox(const char* message, const char* title, int ImageId, bool pos, int IDI_ICON) :
-Fl_Double_Window(Fl::x() + Fl::w()/2 - 458 / 2, Fl::y() + Fl::h()/2 - 132 / 2, 458, 132, title)
+	Fl_Double_Window(Fl::x() + Fl::w()/2 - 458 / 2, Fl::y() + Fl::h()/2 - 132 / 2, 458, 132, title)
 {
 	#ifdef WIN32
 	icon(LoadIcon(fl_display, MAKEINTRESOURCE(IDI_ICON)));

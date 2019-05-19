@@ -26,7 +26,8 @@ If not, please contact Dr. Furqan Ullah immediately:
 #include <FL/glu.h>
 #include <FL/glut.H>
 
-GLRenderer::GLRenderer(int _x, int _y, int _w, int _h, const char* _title) : Fle_OpenGLWindow(_x, _y, _w, _h, _title)
+GLRenderer::GLRenderer(int _x, int _y, int _w, int _h, const char* _title) : 
+	Fle_OpenGLWindow(_x, _y, _w, _h, _title)
 {
 	angle = 0.f;
 
@@ -46,7 +47,8 @@ GLRenderer::GLRenderer(int _x, int _y, int _w, int _h, const char* _title) : Fle
 	getTimer().start();
 }
 
-GLRenderer::GLRenderer(int _w, int _h, const char* _title) : Fle_OpenGLWindow(_w, _h, _title)
+GLRenderer::GLRenderer(int _w, int _h, const char* _title) : 
+	Fle_OpenGLWindow(_w, _h, _title)
 {
 	angle = 0.f;
 
@@ -80,15 +82,15 @@ void GLRenderer::loadMesh(const std::string& _filepath)
 
 	mesh.material.diffuse_color.set(0.6, 0.7, 0.1, 0.3);
 
-	//cv::Mat img = cv::imread("fc.jpeg", CV_LOAD_IMAGE_UNCHANGED);
-	//cv::cvtColor(img, img, CV_BGR2RGB);
+	//cv::Mat img = cv::imread("fc.jpeg", cv::IMREAD_UNCHANGED);
+	//cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
 	//cv::flip(img, img, 0);
 	//mesh.texture.create(img);
 }
 void GLRenderer::loadTexture(const std::string& _filepath)
 {
-	cv::Mat img = cv::imread(_filepath, CV_LOAD_IMAGE_UNCHANGED);
-	cv::cvtColor(img, img, CV_BGR2RGB);
+	cv::Mat img = cv::imread(_filepath, cv::IMREAD_UNCHANGED);
+	cv::cvtColor(img, img, cv::COLOR_BGR2RGB);
 	cv::flip(img, img, 0);
 	mesh.texture.create(img);
 }
@@ -209,17 +211,21 @@ void GLRenderer::timerEvent()
 	update();
 }
 
-void GLRenderer::mouseLeftButtonPressEvent(int _x, int _y)
+int GLRenderer::mouseLeftButtonPressEvent(int _x, int _y)
 {
 	has_rotation_started = true;
 	start_x = _x;
 	start_y = _y;
+
+	return 1;
 }
-void GLRenderer::mouseLeftButtonReleaseEvent()
+int GLRenderer::mouseLeftButtonReleaseEvent()
 {
 	has_rotation_started = false;
+
+	return 1;
 }
-void GLRenderer::mouseLeftButtonDragEvent(int _x, int _y)
+int GLRenderer::mouseLeftButtonDragEvent(int _x, int _y)
 {
 	if (has_rotation_started)
 	{
@@ -229,30 +235,40 @@ void GLRenderer::mouseLeftButtonDragEvent(int _x, int _y)
 		start_y = _y;
 		update();
 	}
+
+	return 1;
 }
 
-void GLRenderer::mouseWheelForwardEvent()
+int GLRenderer::mouseWheelForwardEvent()
 {
 	zoom += 5.0f;
 	update();
+
+	return 1;
 }
-void GLRenderer::mouseWheelBackwardEvent()
+int GLRenderer::mouseWheelBackwardEvent()
 {
 	zoom -= 5.0f;
 	update();
+
+	return 1;
 }
 
-void GLRenderer::mouseMiddleButtonPressEvent(int _x, int _y)
+int GLRenderer::mouseMiddleButtonPressEvent(int _x, int _y)
 {
 	has_panning_started = true;
 	start_x = _x;
 	start_y = _y;
+
+	return 1;
 }
-void GLRenderer::mouseMiddleButtonReleaseEvent()
+int GLRenderer::mouseMiddleButtonReleaseEvent()
 {
 	has_panning_started = false;
+
+	return 1;
 }
-void GLRenderer::mouseMiddleButtonDragEvent(int _x, int _y)
+int GLRenderer::mouseMiddleButtonDragEvent(int _x, int _y)
 {
 	if (has_panning_started)
 	{
@@ -262,4 +278,6 @@ void GLRenderer::mouseMiddleButtonDragEvent(int _x, int _y)
 		start_y = _y;
 		update();
 	}
+
+	return 1;
 }

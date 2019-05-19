@@ -20,25 +20,33 @@ If not, please contact Dr. Furqan Ullah immediately:
 
 #include <FLE/Fle_Core.h>
 #include <FLE/Fle_MainWindow.h>
+#include <FLE/Fle_ImageBox.h>
 
 using namespace R3D;
 
 int main()
 {
 	// library initialization with default modes.
-	Fle_Core::init();
+	Fle_Core::init(Fle_Core::DARK_COLOR_THEME);
 
-	// create a main window.
-	Fle_MainWindow* w = new Fle_MainWindow(1024, 500, "Hello World");
-	w->setMinimumSize(Fle_Size(300, 300));
-	w->setMaximumSize(Fle_Size(10000, 10000));
+	// get the screen size.
+	int X, Y, W, H;
+	Fl::screen_work_area(X, Y, W, H);
 
-	// load image from disk and display in the central widget.
-	w->getCentralWidget()->getBox()->loadImage("D:\\aw.jpg");
-	w->getCentralWidget()->getBox()->setImageDrawType(Fle_ImageDrawType::Fit);
+	// create and show the window.
+	Fle_MainWindow win(X + W / 2 - 640 / 2, Y + H / 2 - 480 / 2, W / 2, H / 2, "Hello World");
+
+	//Fle_ImageScrollBox* imgBox = new Fle_ImageScrollBox(0, 0, win.w(), win.h());			// no zooming using mouse wheel, mouse wheel will be used for vertical and horizontal scrolling.
+	Fle_ImageBox* imgBox = new Fle_ImageBox(0, 0, win.w(), win.h());	// zooming using mouse wheel, vertical and horizontal scrolling is disabled.
+	imgBox->color(win.color());
+	imgBox->setImageDrawType(Fle_ImageDrawType::Fit);
+	imgBox->loadImage("C:\\image.png", true); // load image from the disk and reset the ROI.
+
+	// set as a central widget.
+	win.setCentralWidget(imgBox);
 
 	// show the main window.
-	w->show();				
+	win.show();
 
 	// execute the main loop.
 	return Fle_Core::exec();

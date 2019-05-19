@@ -1,6 +1,14 @@
 ==========================================
-FL-Essentials Library (FLE) INSTALL v1.3.7
+FL-Essentials Library (FLE) INSTALL v1.4.0
 ==========================================
+
+New features and changes in version 1.4.0:            (Release Date: 2019.05.19)
+--------------------------------------------------------------------------------
+
+1. Added Fle_Image, Fle_ScrollImageBox, Fle_DoubleWindow classes.
+2. Fixes in Fle_ImageWidget, Fle_Window, Fle_Dialog, Fle_Input, Fle_FloatInputSlider
+3. Major improvements
+4. Highly recommended to add extras/Application.manifest in your application to enable HDPI. 
 
 New features and changes in version 1.3.7:            (Release Date: 2019.05.01)
 --------------------------------------------------------------------------------

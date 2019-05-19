@@ -23,20 +23,19 @@ If not, please contact Dr. Furqan Ullah immediately:
 #include <FLE/Fle_Dialog.h>
 #include <FLE/Fle_FileDialog.h>
 
-MainWindow::MainWindow(int _w, int _h, const char* _title) : Fle_MainWindow(_w, _h, _title)
+MainWindow::MainWindow(int _w, int _h, const char* _title) : 
+	Fle_MainWindow(0, 0, _w, _h, _title)
 {
 	callback(exit_cb, this);
+
 	setMargins(0, 0, 1, 2);
+	setMinimumSize(Fle_Size(100, 100));
 	addMenuBar();
-	getMenuBar()->setRightClickMenuEnabled(false);
 	addStatusBar();
 
-	remove(0);	// remove the previous embedded widget in the central widget.
-
 	// add a new GLRenderer widget in the central widget.
-	begin();
-	p_renderer = new GLRenderer(0, 0, getCentralWidget()->w(), getCentralWidget()->h(), _title);
-	end();
+	p_renderer = new GLRenderer(0, 0, _w, _h, _title);
+	setCentralWidget(p_renderer);
 }
 
 void MainWindow::addMenuBar()
@@ -68,9 +67,8 @@ void MainWindow::exit_cb(Fl_Widget* _w, void* _p)
 void MainWindow::addStatusBar()
 {
 	// set fixed width and margins to statusbar.
-	getStatusBar()->show();
 	getStatusBar()->setMargins(5, 15, 0, 0);
-	setStatusBarFixedHeight(45);
+	getStatusBar()->setFixedHeight(45);
 	{
 		// add a Left-Right horizontal layout in the statusbar.
 		Fle_HLayoutLR* layout = getStatusBar()->addLayoutLR(41);
@@ -91,6 +89,8 @@ void MainWindow::addStatusBar()
 		// begin to add/pack widgets at the most right side of the statusbar.
 		layout->beginRight();
 	}
+
+	getStatusBar()->show();
 }
 
 void MainWindow::new_cb(Fl_Widget* _w, void* _p)

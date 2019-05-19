@@ -32,7 +32,7 @@ Fle_Slider::Fle_Slider(int _x, int _y, int _w, int _h, const char* _lable) :
 void Fle_Slider::draw_bg(int X, int Y, int W, int H)
 {
 	fl_push_clip(X, Y, W, H);
-	draw_box();
+	draw_box(FL_FLAT_BOX, color());
 	fl_pop_clip();
 
 	Fl_Color black = active_r() ? FL_FOREGROUND_COLOR : FL_INACTIVE_COLOR;

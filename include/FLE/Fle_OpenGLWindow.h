@@ -48,14 +48,6 @@ public:
 	virtual ~Fle_OpenGLWindow();
 	
 	// Description:
-	// Function that must be called whenever there is a need to add/pack widget inside the window.
-	virtual void begin();
-	// Description:
-	// Function that must be called to stop adding widgets inside the window.
-	// If you call begin(), then must be end().
-	virtual void end();
-
-	// Description:
 	// Function to make this window as current.
 	virtual void makeCurrent();
 	// Description:
@@ -66,6 +58,19 @@ public:
 	// Function to resize the window by specifying the width and height.
 	// This function will not be called while resizing, only above function resize() does call.
 	virtual void size(int _w, int _h);
+
+	// Description:
+	// Function to set the width of the window.
+	void setWidth(int _w) { size(_w, h()); }
+	// Description:
+	// Function to get the width of the window.
+	int getWidth() const { return w(); }
+	// Description:
+	// Function to set the height of the window.
+	void setHeight(int _h) { size(w(), _h); }
+	// Description:
+	// Function to get the height of the window.
+	int getHeight() const { return h(); }
 
 	// Description:
 	// Function to redraw/update the window.
@@ -127,8 +132,21 @@ public:
 	void drawImage(int _x, int _y, int _w, int _h, unsigned char* _data, int _channels, float _z_depth = 1.f);
 
 	// Description:
+	// Function to set the drag and drop event enabled.
+	// If enabled, then dragDropEvent() function will receive the event text of
+	// the drooped/released file.
+	void setDragDropEventEnabled(bool _b) { m_dnd = _b; }
+	// Description:
+	// Function that returns true if the drag and drop event is enabled.
+	bool isDragDropEventEnabled() const { return m_dnd; }
+
+	// Description:
 	// Function to get the timer of timerEvent().
 	Fle_Timer& getTimer() { return m_timer; }
+
+	// Description:
+	// Function to get a reference of the idle that connects with idleEvent().
+	Fle_Idle& getIdle() { return m_idle; }
 
 protected:
 	// Description:
@@ -150,28 +168,35 @@ protected:
 	// implementing the real-time updating/computing sort of stuff.
 	// Test it by overriding this function and write some output std::cout << "tick\n"; in it, you will notice,
 	// tick will be printed out repeatedly.
-	// On WIN32, this function scales up to about 62 FPS then will go no faster. 
+	// On WIN32, this function scales up to about 62 FPS then will go no faster.
+	// Manage this timerEvent by accessing a reference from getTimer() function.
 	virtual void timerEvent();
 	// Description:
 	// A virtual function that is basically an infinite loop to redraw/update the window.
+	// Manage this idleEvent by accessing a reference from getIdle() function.
 	virtual void idleEvent();
 
 	// Description:
 	// Virtual functions that are expected to be overridden in the derived class for
-	// handling the mouse events.
-	virtual void mouseLeftButtonPressEvent(int _x, int _y);		// when left mouse button is pressed.
-	virtual void mouseRightButtonPressEvent(int _x, int _y);	// when right mouse button is pressed.
-	virtual void mouseMiddleButtonPressEvent(int _x, int _y);	// when middle mouse button is pressed.
-	virtual void mouseLeftButtonReleaseEvent();					// when left mouse button is released.
-	virtual void mouseRightButtonReleaseEvent();				// when right mouse button is released.
-	virtual void mouseMiddleButtonReleaseEvent();				// when middle mouse button is released.
-	virtual void mouseWheelForwardEvent();						// when mouse wheel moved forward.
-	virtual void mouseWheelBackwardEvent();						// when mouse wheel moved backward.
-	virtual void mouseLeftButtonDragEvent(int _x, int _y);		// when left mouse button is dragged.
-	virtual void mouseRightButtonDragEvent(int _x, int _y);		// when right mouse button is dragged.
-	virtual void mouseMiddleButtonDragEvent(int _x, int _y);	// when middle mouse button is dragged.
-	virtual void mouseMoveEvent(int _x, int _y);				// when mouse moves.
-	
+	// handling the mouse and keyboard events.
+	// If you want to handle the event of this widget then always return 1. But if you want to pass the
+	// event to the childs of this widget then must return 0.
+	// Once you return 1 from the following events, child widgets won't react from the same event.
+	// Following function will be called...
+	virtual int mouseLeftButtonPressEvent(int _x, int _y);		// when left mouse button is pressed.
+	virtual int mouseRightButtonPressEvent(int _x, int _y);		// when right mouse button is pressed.
+	virtual int mouseMiddleButtonPressEvent(int _x, int _y);	// when middle mouse button is pressed.
+	virtual int mouseLeftButtonReleaseEvent();					// when left mouse button is released.
+	virtual int mouseRightButtonReleaseEvent();					// when right mouse button is released.
+	virtual int mouseMiddleButtonReleaseEvent();				// when middle mouse button is released.
+	virtual int mouseWheelForwardEvent();						// when mouse wheel moved forward.
+	virtual int mouseWheelBackwardEvent();						// when mouse wheel moved backward.
+	virtual int mouseLeftButtonDragEvent(int _x, int _y);		// when left mouse button is dragged.
+	virtual int mouseRightButtonDragEvent(int _x, int _y);		// when right mouse button is dragged.
+	virtual int mouseMiddleButtonDragEvent(int _x, int _y);		// when middle mouse button is dragged.
+	virtual int mouseMoveEvent(int _x, int _y);					// when mouse moves.
+	virtual int dragDropEvent(const std::string& _text);		// when a file is dropped/released on this widget. _text is the path of the dropped file.
+
 	// Description:
 	// Virtual function that is expected to be overridden in the derived class for
 	// handling the keyboard events.
@@ -192,13 +217,15 @@ protected:
 	//		 angle = angle + 0.1f;
 	//		 return 1;									// very important: always return 1 when you successfully handle the key. 
 	//	 }
-	//	 return 0;										// very important: always return 0 when the key is not handled. 
+	//	 return 0;										// very important: always return 0 when the key is not handled and must pass to the childs of this widget. 
 	// }
 	virtual int keyPressEvent(int _key);
 
 	// Description:
 	// A virtual function that is expected to be overridden in the derived class for
 	// handling events such as FL_SHOW, FL_FOCUS, etc.
+	// Always return 1 when you successfully handle the key event.
+	// Always return 0 when the key is not handled and must pass to the childs of this widget. 
 	virtual int processEvents(int _event);
 
 	// Description:
@@ -210,12 +237,13 @@ protected:
 
 	// Description:
 	// protected data members.
-
 	Fle_Timer m_timer;
 	Fle_Idle m_idle;
 
 	Fle_Size m_minsize;
 	Fle_Size m_maxsize;
+
+	bool m_dnd;
 
 private:
 	// Description:

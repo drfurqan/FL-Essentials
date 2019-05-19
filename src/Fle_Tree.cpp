@@ -34,7 +34,7 @@ m_is_popup(true)
 {
 	color(fl_rgb_color(255, 255, 255));
 	box(Fl_Boxtype::FL_THIN_UP_BOX);
-	labelcolor(fl_rgb_color(78, 196, 203));
+	labelcolor(fl_rgb_color(66, 192, 251));
 	item_labelfgcolor(fl_rgb_color(0, 0, 0));
 	item_labelsize(13);
 	setRightClickPopupColor(fl_rgb_color(234, 240, 255));

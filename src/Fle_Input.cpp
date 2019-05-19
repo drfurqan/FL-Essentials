@@ -27,6 +27,7 @@ using namespace R3D;
 Fle_InputWidget::Fle_InputWidget(int _x, int _y, int _w, int _h, const char* _lable) :
 Fl_Input(_x, _y, _w, _h, _lable)
 {
+	selection_color(fl_rgb_color(159, 207, 249));
 }
 
 void Fle_InputWidget::copy_cb(Fl_Widget*, void* _p)
@@ -47,7 +48,6 @@ int Fle_InputWidget::handle(int _event)
 	switch (_event)
 	{
 	case FL_PUSH:
-		take_focus();						// this allows key events to work.
 		if (Fl::event_button() == FL_RIGHT_MOUSE)
 		{
 			Fl_Menu_Item rclick_menu[] =

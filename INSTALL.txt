@@ -22,10 +22,10 @@ build.
 
 Required Libraries:
 1. FLTK greater than or equal 1.4.xx
-   (prebuild libraries that can be found in lib folder was built with fltk-1.4.x-r13018)
+   (prebuild libraries that can be found in lib folder was built with 1.4.x-20190419)
 
 2. OpenCV greater than or equal 2.4
-   (prebuild libraries that can be found in lib folder was built with OpenCV v3.4.2)
+   (prebuild libraries that can be found in lib folder was built with OpenCV v4.1.0)
 
 Before building FLE, you should have built the OpenCV and FLTK, then specify the FLTK and OpenCV build folders in CMake,
 and you are done.

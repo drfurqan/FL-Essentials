@@ -67,20 +67,20 @@ public:
 
 	// Description
 	// Overridden functions for left mouse button events.
-	void mouseLeftButtonPressEvent(int _x, int _y) override;
-	void mouseLeftButtonReleaseEvent() override;
-	void mouseLeftButtonDragEvent(int _x, int _y) override;
+	int mouseLeftButtonPressEvent(int _x, int _y) override;
+	int mouseLeftButtonReleaseEvent() override;
+	int mouseLeftButtonDragEvent(int _x, int _y) override;
 
 	// Description
 	// Overridden functions for mouse wheel events.
-	void mouseWheelForwardEvent() override;
-	void mouseWheelBackwardEvent() override;
+	int mouseWheelForwardEvent() override;
+	int mouseWheelBackwardEvent() override;
 
 	// Description
 	// Overridden functions for middle mouse button events.
-	void mouseMiddleButtonPressEvent(int _x, int _y) override;
-	void mouseMiddleButtonReleaseEvent() override;
-	void mouseMiddleButtonDragEvent(int _x, int _y) override;
+	int mouseMiddleButtonPressEvent(int _x, int _y) override;
+	int mouseMiddleButtonReleaseEvent() override;
+	int mouseMiddleButtonDragEvent(int _x, int _y) override;
 
 
 	void loadMesh(const std::string& _filepath);

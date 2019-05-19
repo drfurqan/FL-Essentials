@@ -27,7 +27,7 @@ using namespace R3D;
 
 void __drawGlutText(char* _string, int _size)
 {
-	for (auto p = _string; *p; p++)
+	for (char* p = _string; *p; p++)
 	{
 		if (_size <= 10) glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10, *p);
 		else if (_size == 12) glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, *p);

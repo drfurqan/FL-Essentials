@@ -28,86 +28,73 @@ If not, please contact Dr. Furqan Ullah immediately:
 using namespace R3D;
 
 Fle_OpenGLWindow::Fle_OpenGLWindow(int _x, int _y, int _w, int _h, const char* _title, int _icon_index) :
-Fl_Gl_Window(_x, _y, _w, _h, _title),
-m_minsize(Fle_Size(10, 10)),
-m_maxsize(Fle_Size(Fl::w() + 1000, Fl::h() + 1000))
+	Fl_Gl_Window(_x, _y, _w, _h, _title),
+	m_minsize(Fle_Size(10, 10)),
+	m_maxsize(Fle_Size(Fl::w() + 1000, Fl::h() + 1000)),
+	m_dnd(false)
 {
 	Fl_Gl_Window::mode(FL_RGB8 | FL_DOUBLE | FL_ALPHA | FL_DEPTH | FL_ACCUM | FL_STENCIL | FL_MULTISAMPLE);
-	#ifdef WIN32
+#ifdef WIN32
 	icon(LoadIcon(fl_display, MAKEINTRESOURCE(_icon_index)));
 #endif // WIN32
+
+	Fl_Gl_Window::end();
+
 	color(fl_rgb_color(214, 219, 233));
 	align(FL_ALIGN_WRAP | FL_ALIGN_INSIDE | FL_ALIGN_CENTER | FL_ALIGN_TEXT_OVER_IMAGE | FL_ALIGN_CLIP);
 	resizable(this);
 	size_range(10, 10);
 	callback(closeCallback, static_cast<void*>(this));
-	Fl_Gl_Window::end();
 
 	// setting up timer event.
-	std::function<void()> tf = [&]()
-	{
-		this->timerEvent();
-	};
+	std::function<void()> tf = [this]() { timerEvent(); };
 	m_timer.setFunction(tf);
 	m_timer.setTime(1.0 / 70.0);	// (1.0 / 70.0) gives us 60 ~ 63 FPS.
+
 	// setting up idle event that is basically an infinite loop
 	// that should update/redraw the window for real-time rendering.
-	std::function<void()> f = [&]()
-	{
-		this->idleEvent();
-	};
+	std::function<void()> f = [this]() { idleEvent(); };
 	m_idle.setFunction(f);
 }
 
 Fle_OpenGLWindow::Fle_OpenGLWindow(int _w, int _h, const char* _title, int _icon_index) :
-Fl_Gl_Window(0, 0, _w, _h, _title),
-m_minsize(Fle_Size(10, 10)),
-m_maxsize(Fle_Size(Fl::w() + 1000, Fl::h() + 1000))
+	Fl_Gl_Window(0, 0, _w, _h, _title),
+	m_minsize(Fle_Size(10, 10)),
+	m_maxsize(Fle_Size(Fl::w() + 1000, Fl::h() + 1000)),
+	m_dnd(false)
 {
 	Fl_Gl_Window::mode(FL_RGB8 | FL_DOUBLE | FL_ALPHA | FL_DEPTH | FL_ACCUM | FL_STENCIL | FL_MULTISAMPLE);
-	#ifdef WIN32
+#ifdef WIN32
 	icon(LoadIcon(fl_display, MAKEINTRESOURCE(_icon_index)));
 #endif // WIN32
+
+	Fl_Gl_Window::end();
+
 	color(fl_rgb_color(214, 219, 233));
 	align(FL_ALIGN_WRAP | FL_ALIGN_INSIDE | FL_ALIGN_CENTER | FL_ALIGN_TEXT_OVER_IMAGE | FL_ALIGN_CLIP);
 	resizable(this);
 	size_range(10, 10);
 	callback(closeCallback, static_cast<void*>(this));
-	
+
+	// setting up timer event.
+	std::function<void()> tf = [this]() { timerEvent(); };
+	m_timer.setFunction(tf);
+	m_timer.setTime(1.0 / 70.0);	// (1.0 / 70.0) gives us 60 ~ 63 FPS.
+
+	// setting up idle event that is basically an infinite loop
+	// that should update/redraw the window for real-time rendering.
+	std::function<void()> f = [this]() { idleEvent(); };
+	m_idle.setFunction(f);
+
 	// positioned at center of the screen.
 	int X, Y, W, H;
 	Fl::screen_work_area(X, Y, W, H);
 	position(X + W / 2 - _w / 2, Y + H / 2 - _h / 2);
-	Fl_Gl_Window::end(); // this call is necessary to prevent any additional UI widgets from becoming subcomponents of this window.
-	
-		   // setting up timer event.
-	std::function<void()> tf = [&]()
-	{
-		this->timerEvent();
-	};
-	m_timer.setFunction(tf);
-	m_timer.setTime(1.0 / 70.0);	// (1.0 / 70.0) gives us 60 ~ 63 FPS.
-	// setting up idle event that is basically an infinite loop
-	// that should update/redraw the window for real-time rendering.
-	std::function<void()> f = [&]()
-	{
-		this->idleEvent();
-	};
-	m_idle.setFunction(f);
 }
 
 Fle_OpenGLWindow::~Fle_OpenGLWindow()
 {
 	Fle_OpenGLWindow::closeEvent();
-}
-
-void Fle_OpenGLWindow::begin()
-{
-	Fl_Gl_Window::begin();
-}
-void Fle_OpenGLWindow::end()
-{
-	Fl_Gl_Window::end();
 }
 
 void Fle_OpenGLWindow::initializeGL()
@@ -125,7 +112,8 @@ void Fle_OpenGLWindow::paintGL()
 
 void Fle_OpenGLWindow::draw()
 {
-	if (!visible()) return;
+	if (!visible()) 
+		return;
 
 	// it will be called only one time. 
 	// but it will also be called whenever we resize the window.
@@ -178,21 +166,25 @@ void Fle_OpenGLWindow::showMinimized()
 {
 	show();
 	Fle_WindowsUtil::setWindowOption(label(), Fle_WindowsUtil::Options::ShowMinimized);
+	size(w(), h());
 }
 void Fle_OpenGLWindow::showMaximized()
 {
 	showMinimized();		// this does the trick for a little animation started from bottom.
 	Fle_WindowsUtil::setWindowOption(label(), Fle_WindowsUtil::Options::ShowMaximized);
+	size(w(), h());
 }
 void Fle_OpenGLWindow::showFullScreen()
 {
 	show();
 	fullscreen();
+	size(w(), h());
 }
 void Fle_OpenGLWindow::showNormal()
 {
 	show();
 	fullscreen_off();
+	size(w(), h());
 }
 void Fle_OpenGLWindow::setMinimumSize(const Fle_Size& _size)
 {
@@ -233,67 +225,84 @@ void Fle_OpenGLWindow::setFixedHeight(int _h)
 /************************************************************************/
 /* Mouse interaction with Window                                        */
 /************************************************************************/
-void Fle_OpenGLWindow::mouseLeftButtonPressEvent(int _x, int _y)
+int Fle_OpenGLWindow::mouseLeftButtonPressEvent(int _x, int _y)
 {
-	//std::cout << "left mouse button is pressed, and the coordinates are (" << _x << ", " << _y << ").\n";
+	return 0;
 }
-void Fle_OpenGLWindow::mouseRightButtonPressEvent(int _x, int _y)
+int Fle_OpenGLWindow::mouseRightButtonPressEvent(int _x, int _y)
 {
-	//std::cout << "right mouse button is pressed, and the coordinates are (" << _x << ", " << _y << ").\n";
+	return 0;
 }
-void Fle_OpenGLWindow::mouseMiddleButtonPressEvent(int _x, int _y)
+int Fle_OpenGLWindow::mouseMiddleButtonPressEvent(int _x, int _y)
 {
-	//std::cout << "middle mouse button is pressed, and the coordinates are (" << _x << ", " << _y << ").\n";
+	return 0;
 }
-void Fle_OpenGLWindow::mouseLeftButtonReleaseEvent()
+int Fle_OpenGLWindow::mouseLeftButtonReleaseEvent()
 {
-	//std::cout << "left mouse button is released.\n";
+	return 0;
 }
-void Fle_OpenGLWindow::mouseRightButtonReleaseEvent()
+int Fle_OpenGLWindow::mouseRightButtonReleaseEvent()
 {
-	//std::cout << "right mouse button is released.\n";
+	return 0;
 }
-void Fle_OpenGLWindow::mouseMiddleButtonReleaseEvent()
+int Fle_OpenGLWindow::mouseMiddleButtonReleaseEvent()
 {
-	//std::cout << "middle mouse button is released.\n";
+	return 0;
 }
-void Fle_OpenGLWindow::mouseWheelForwardEvent()
+int Fle_OpenGLWindow::mouseWheelForwardEvent()
 {
-	//std::cout << "mouse wheel is moving forward.\n";
+	return 0;
 }
-void Fle_OpenGLWindow::mouseWheelBackwardEvent()
-{
-	//std::cout << "mouse wheel is moving backward.\n";
-}
-
-void Fle_OpenGLWindow::mouseLeftButtonDragEvent(int _x, int _y)
-{
-}
-void Fle_OpenGLWindow::mouseRightButtonDragEvent(int _x, int _y)
-{
-}
-void Fle_OpenGLWindow::mouseMiddleButtonDragEvent(int _x, int _y)
-{
-}
-
-void Fle_OpenGLWindow::mouseMoveEvent(int _x, int _y)
-{
-	//std::cout << _x << "\t" << _y << "\n";
-}
-int Fle_OpenGLWindow::keyPressEvent(int _key)
+int Fle_OpenGLWindow::mouseWheelBackwardEvent()
 {
 	return 0;
 }
 
+int Fle_OpenGLWindow::mouseLeftButtonDragEvent(int _x, int _y)
+{
+	return 0;
+}
+int Fle_OpenGLWindow::mouseRightButtonDragEvent(int _x, int _y)
+{
+	return 0;
+}
+int Fle_OpenGLWindow::mouseMiddleButtonDragEvent(int _x, int _y)
+{
+	return 0;
+}
+
+int Fle_OpenGLWindow::mouseMoveEvent(int _x, int _y)
+{
+	return 0;
+}
+
+/************************************************************************/
+/* Keyboard interaction with Window                                     */
+/************************************************************************/
+int Fle_OpenGLWindow::keyPressEvent(int _key)
+{
+	return 0;
+}
 int Fle_OpenGLWindow::processEvents(int _event)
 {
 	static int x, y;
 
 	switch (_event)
 	{
-	case FL_FOCUS:
 	case FL_UNFOCUS:
-		return 1;							// enables receiving keyboard events
+	case FL_FOCUS:
+		return 1;
+
+	case FL_DND_LEAVE:
+	case FL_DND_DRAG:
+	case FL_DND_RELEASE:
+		return m_dnd ? 1 : 0;
+
+		// event when a user releases a file on this widget.
+	case FL_PASTE:
+		if (dragDropEvent(Fl::event_text()))
+			return 1;
+		break;
 
 	case FL_PUSH:
 		x = Fl::event_x();
@@ -301,58 +310,38 @@ int Fle_OpenGLWindow::processEvents(int _event)
 		makeCurrent();
 		take_focus();						// this allows key events to work.
 
-		switch (Fl::event_button())
+		if (Fl::event_button() == FL_LEFT_MOUSE)
 		{
-		case FL_LEFT_MOUSE:
-			mouseLeftButtonPressEvent(x, y);
-			return 1;
-
-		case FL_RIGHT_MOUSE:
-			mouseRightButtonPressEvent(x, y);
-			return 1;
-
-		case FL_MIDDLE_MOUSE:
-			mouseMiddleButtonPressEvent(x, y);
-			return 1;
-
-		default:
-			break;
+			if (mouseLeftButtonPressEvent(x, y))
+				return 1;
+		}
+		else if (Fl::event_button() == FL_MIDDLE_MOUSE)
+		{
+			if (mouseMiddleButtonPressEvent(x, y))
+				return 1;
+		}
+		else if (Fl::event_button() == FL_RIGHT_MOUSE)
+		{
+			if (mouseRightButtonPressEvent(x, y))
+				return 1;
 		}
 		break;
 
 	case FL_RELEASE:
-		switch (Fl::event_button())
+		if (Fl::event_button() == FL_LEFT_MOUSE)
 		{
-		case FL_LEFT_MOUSE:
-			mouseLeftButtonReleaseEvent();
-			return 1;
-
-		case FL_RIGHT_MOUSE:
-			mouseRightButtonReleaseEvent();
-			return 1;
-
-		case FL_MIDDLE_MOUSE:
-			mouseMiddleButtonReleaseEvent();
-			return 1;
-
-		default:
-			break;
+			if (mouseLeftButtonReleaseEvent())
+				return 1;
 		}
-		break;
-
-	case FL_MOUSEWHEEL:
-		switch (Fl::event_dy())
+		else if (Fl::event_button() == FL_MIDDLE_MOUSE)
 		{
-		case 1:
-			mouseWheelBackwardEvent();
-			return 1;
-
-		case -1:
-			mouseWheelForwardEvent();
-			return 1;
-
-		default:
-			break;
+			if (mouseMiddleButtonReleaseEvent())
+				return 1;
+		}
+		else if (Fl::event_button() == FL_RIGHT_MOUSE)
+		{
+			if (mouseRightButtonReleaseEvent())
+				return 1;
 		}
 		break;
 
@@ -360,43 +349,47 @@ int Fle_OpenGLWindow::processEvents(int _event)
 		x = Fl::event_x();
 		y = Fl::event_y();
 
-		switch (Fl::event_button())
+		if (Fl::event_button1())					// with FL_DRAG event "Fl::event_button() == FL_LEFT_MOUSE" doesn't work.
 		{
-		case FL_LEFT_MOUSE:
-			mouseLeftButtonDragEvent(x, y);
-			return 1;
-
-		case FL_RIGHT_MOUSE:
-			mouseRightButtonDragEvent(x, y);
-			return 1;
-
-		case FL_MIDDLE_MOUSE:
-			mouseMiddleButtonDragEvent(x, y);
-			return 1;
-	
-		default:
-			break;
+			if (mouseLeftButtonDragEvent(x, y))
+				return 1;
+		}
+		else if (Fl::event_button2())
+		{
+			if (mouseMiddleButtonDragEvent(x, y))
+				return 1;
+		}
+		else if (Fl::event_button3())
+		{
+			if (mouseRightButtonDragEvent(x, y))
+				return 1;
 		}
 		break;
 
 	case FL_MOVE:
 		x = Fl::event_x();
 		y = Fl::event_y();
-		mouseMoveEvent(x, y);
-		return 1;
+		if (mouseMoveEvent(x, y))
+			return 1;
+		break;
+
+	case FL_MOUSEWHEEL:
+		if (Fl::event_dy() == 1)
+		{
+			if (mouseWheelBackwardEvent())
+				return 1;
+		}
+		else if (Fl::event_dy() == -1)
+		{
+			if (mouseWheelForwardEvent())
+				return 1;
+		}
+		break;
 
 	case FL_KEYBOARD:
-		switch (Fl::event_key())
-		{
-			// disabling the Escape key. (by default, Escape key closes the window.)
-		case FL_Escape:
+		if (Fl::event_key() == FL_Escape)	// disabling the Escape key. (by default, Escape key closes the window.)
 			return 1;
-
-		default:
-			break;
-		}
-
-		if(keyPressEvent(Fl::event_key()))
+		else if (keyPressEvent(Fl::event_key()))
 			return 1;
 
 		break;
@@ -407,10 +400,14 @@ int Fle_OpenGLWindow::processEvents(int _event)
 
 	return Fl_Gl_Window::handle(_event);	// we handled the event if we didn't return earlier
 }
-
 int Fle_OpenGLWindow::handle(int _event)
 {
 	return processEvents(_event);
+}
+
+int Fle_OpenGLWindow::dragDropEvent(const std::string& _text)
+{
+	return 0;
 }
 
 void Fle_OpenGLWindow::closeEvent()

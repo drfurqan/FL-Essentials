@@ -13,8 +13,8 @@ project (fle)
 # file(READ VERSION FLE_VERSION)
 
 set(VERSION_MAJOR 1)
-set(VERSION_MINOR_0 3)
-set(VERSION_MINOR_1 7)
+set(VERSION_MINOR_0 4)
+set(VERSION_MINOR_1 0)
 set(VERSION_PLAIN ${VERSION_MAJOR}.${VERSION_MINOR_0}.${VERSION_MINOR_1})
 
 # ------------------------------------------------------------------------------
@@ -36,18 +36,20 @@ endif(OPTION_BUILD_EXAMPLES)
 set(CPPFILES
 ${CMAKE_SOURCE_DIR}/src/Fle_AbstractOpenGLActor.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_Box.cpp
-${CMAKE_SOURCE_DIR}/src/Fle_BoxWindow.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_Button.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_CheckGroup.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_ColorChooser.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_ColorChooserDialog.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_Core.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_Dialog.cpp
+${CMAKE_SOURCE_DIR}/src/Fle_DoubleWindow.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_FileDialog.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_FileSys.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_FloatInputSlider.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_Font.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_Group.cpp
+${CMAKE_SOURCE_DIR}/src/Fle_ImageBox.cpp
+${CMAKE_SOURCE_DIR}/src/Fle_ImageScrollBox.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_ImageUtil.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_ImageWidget.cpp
 ${CMAKE_SOURCE_DIR}/src/Fle_Input.cpp
@@ -85,7 +87,6 @@ ${CMAKE_SOURCE_DIR}/src/Math/Fle_Vector4D.cpp
 set(HEADERFILES
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_AbstractOpenGLActor.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_Box.h
-${CMAKE_SOURCE_DIR}/include/FLE/Fle_BoxWindow.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_Button.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_CheckGroup.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_Color.h
@@ -93,12 +94,15 @@ ${CMAKE_SOURCE_DIR}/include/FLE/Fle_ColorChooser.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_ColorChooserDialog.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_Core.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_Dialog.h
+${CMAKE_SOURCE_DIR}/include/FLE/Fle_DoubleWindow.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_Export.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_FileDialog.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_FileSys.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_FloatInputSlider.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_Font.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_Group.h
+${CMAKE_SOURCE_DIR}/include/FLE/Fle_ImageBox.h
+${CMAKE_SOURCE_DIR}/include/FLE/Fle_ImageScrollBox.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_ImageUtil.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_ImageWidget.h
 ${CMAKE_SOURCE_DIR}/include/FLE/Fle_Input.h
@@ -171,11 +175,17 @@ endif()
 set (OPTIONAL_LIBS)
 
 if (WIN32)
-    list(APPEND OPTIONAL_LIBS comctl32)
-    list(APPEND OPTIONAL_LIBS ws2_32)
-    list(APPEND OPTIONAL_LIBS vfw32)
-    list(APPEND OPTIONAL_LIBS glu32)
-    list(APPEND OPTIONAL_LIBS opengl32)
+	list(APPEND OPTIONAL_LIBS opengl32.lib)
+	list(APPEND OPTIONAL_LIBS glu32.lib)
+	list(APPEND OPTIONAL_LIBS comctl32.lib)
+	list(APPEND OPTIONAL_LIBS comdlg32.lib)
+	list(APPEND OPTIONAL_LIBS gdi32.lib)
+	list(APPEND OPTIONAL_LIBS ws2_32.lib)
+	list(APPEND OPTIONAL_LIBS vfw32.lib)
+	list(APPEND OPTIONAL_LIBS advapi32.lib)
+	list(APPEND OPTIONAL_LIBS user32.lib)
+	list(APPEND OPTIONAL_LIBS shell32.lib)
+	list(APPEND OPTIONAL_LIBS ole32.lib)
 endif (WIN32)
 
 # set CMAKE_CXX_FLAGS to -Wl,--no-as-needed in cmake-gui. 

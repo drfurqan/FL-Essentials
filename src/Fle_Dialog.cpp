@@ -31,20 +31,20 @@ If not, please contact Dr. Furqan Ullah immediately:
 #include <FL/Fl_Help_View.H>
 #include <FL/Fl_Choice.H>
 #include <FL/Fl_Check_Button.H>
+#include "FLE/Fle_Widgets.h"
 
 using namespace R3D;
 
 Fle_Dialog::Fle_Dialog(int _x, int _y, int _w, int _h, const char* _title, int _status_bar_height, int _x_margin, int _y_margin) :
-Fle_Window(_x, _y, _w, _h, _title),
-m_leftmargin(0),
-m_rightmargin(0),
-m_topmargin(0),
-m_bottommargin(0),
-p_ok(nullptr),
-p_cancel(nullptr)
+	Fle_Window(_x, _y, _w, _h, _title),
+	m_leftmargin(0),
+	m_rightmargin(0),
+	m_topmargin(0),
+	m_bottommargin(0),
+	p_ok(nullptr),
+	p_cancel(nullptr)
 {
-	setBox(nullptr);
-	Fle_Window::setBackgroundColor(74, 84, 89);
+	Fle_Window::color(fl_rgb_color(74, 84, 89));
 	Fle_Window::begin();
 	p_main_vlayout = new Fle_VLayout(_x_margin, _y_margin, _w - _x_margin - _x_margin, _h - _y_margin - _y_margin);
 	p_main_vlayout->color(fl_rgb_color(74, 84, 89));
@@ -76,16 +76,15 @@ p_cancel(nullptr)
 }
 
 Fle_Dialog::Fle_Dialog(int _w, int _h, const char* _title, int _status_bar_height, int _x_margin, int _y_margin) :
-Fle_Window(_w, _h, _title),
-m_leftmargin(0),
-m_rightmargin(0),
-m_topmargin(0),
-m_bottommargin(0),
-p_ok(nullptr),
-p_cancel(nullptr)
+	Fle_Window(0, 0, _w, _h, _title),
+	m_leftmargin(0),
+	m_rightmargin(0),
+	m_topmargin(0),
+	m_bottommargin(0),
+	p_ok(nullptr),
+	p_cancel(nullptr)
 {
-	setBox(nullptr);
-	Fle_Window::setBackgroundColor(74, 84, 89);
+	Fle_Window::color(fl_rgb_color(74, 84, 89));
 	Fle_Window::begin();
 	p_main_vlayout = new Fle_VLayout(_x_margin, _y_margin, _w - _x_margin - _x_margin, _h - _y_margin - _y_margin);
 	p_main_vlayout->color(fl_rgb_color(74, 84, 89));
@@ -100,6 +99,7 @@ p_cancel(nullptr)
 	p_main_vlayout->end();
 
 	p_main_vlayout->begin();
+
 	// a separator line.
 	Fle_Box* b = new Fle_Box(0, 0, _w, 1);
 	b->box(FL_FLAT_BOX);
@@ -113,6 +113,11 @@ p_cancel(nullptr)
 
 	p_main_vlayout->resizable(p_central_hlayout);
 	Fle_Window::end();
+
+	// positioned at center of the screen.
+	int X, Y, W, H;
+	Fl::screen_work_area(X, Y, W, H);
+	position(X + W / 2 - _w / 2, Y + H / 2 - _h / 2);
 }
 
 Fle_Dialog::~Fle_Dialog()
@@ -126,12 +131,12 @@ void Fle_Dialog::begin()
 void Fle_Dialog::end()
 {
 	p_central_hlayout->end();
-	Fle_Window::end();
+	Fl_Window::end();
 }
 
 void Fle_Dialog::setBackgroundColor(Fl_Color _color)
 {
-	Fle_Window::setBackgroundColor(_color);
+	Fle_Window::color(_color);
 	getMainLayout()->color(_color);
 	getCentralLayout()->setBackgroundColor(_color);
 	getCentralLayout()->getCentralLayout()->setBackgroundColor(_color);
@@ -140,7 +145,7 @@ void Fle_Dialog::setBackgroundColor(Fl_Color _color)
 }
 void Fle_Dialog::setBackgroundColor(uchar _red, uchar _green, uchar _blue)
 {
-	Fle_Window::setBackgroundColor(_red, _green, _blue);
+	Fle_Window::color(fl_rgb_color(_red, _green, _blue));
 	getMainLayout()->color(fl_rgb_color(_red, _green, _blue));
 	getCentralLayout()->setBackgroundColor(_red, _green, _blue);
 	getCentralLayout()->getCentralLayout()->setBackgroundColor(_red, _green, _blue);
@@ -183,13 +188,13 @@ int Fle_Dialog::getFloatInputSlider(int _w, int _h,
 	Fle_FloatInputSlider* s;
 	if (_label)
 	{
-		Fle_Box* b = new Fle_Box(0, 0, 132, 22);
+		Fle_Box* b = new Fle_Box(0, 0, Fle_Widgets::getTextWidth(_label), 22);
 		b->color(fl_rgb_color(74, 84, 89));
 		b->setText(_label);
 		b->getFont()->setColor(fl_rgb_color(255, 255, 255));
 		b->getFont()->setAlignment(FL_ALIGN_LEFT);
 
-		s = new Fle_FloatInputSlider(0, 0, _w - 160, 22, nullptr, 55);
+		s = new Fle_FloatInputSlider(0, 0, _w - b->w() - 23, 22, nullptr, 55);
 	}
 	else
 	{
@@ -199,7 +204,7 @@ int Fle_Dialog::getFloatInputSlider(int _w, int _h,
 	s->type(FL_HOR_SLIDER);
 	s->box(FL_BORDER_BOX);
 	s->color(fl_rgb_color(74 + 20, 84 + 20, 89 + 20));
-	s->selection_color(fl_rgb_color(255, 255, 255));
+	s->selection_color(fl_rgb_color(66, 192, 251));
 	s->textcolor(fl_rgb_color(255, 255, 255));
 	s->labelsize(12);
 	s->textsize(12);
@@ -257,7 +262,7 @@ int Fle_Dialog::getFloatInputSlider(int _w, int _h,
 	d->getStatusBar()->getCentralLayout()->setMargins(10, 10, 10, 0);
 	d->setStatusBarFixedHeight(58);
 
-	d->setResizeable(false);
+	d->resizable(0);
 	d->hotspot(ok);
 	d->set_modal();
 	d->show();
@@ -403,7 +408,7 @@ int Fle_Dialog::getNumber(int _w, int _h,
 	d->getStatusBar()->getCentralLayout()->setMargins(10, 10, 10, 0);
 	d->setStatusBarFixedHeight(58);
 
-	d->setResizeable(false);
+	d->resizable(0);
 	d->hotspot(ok);
 	d->set_modal();
 	d->show();
@@ -550,7 +555,7 @@ int Fle_Dialog::getNumbers(int _w, int _h, const char* _title,
 	d->getStatusBar()->getCentralLayout()->setMargins(10, 10, 10, 0);
 	d->setStatusBarFixedHeight(58);
 
-	d->setResizeable(false);
+	d->resizable(0);
 	d->hotspot(ok);
 	d->set_modal();
 	d->show();
@@ -707,7 +712,7 @@ int Fle_Dialog::getNumbers(int _w, int _h, const char* _title,
 	d->getStatusBar()->getCentralLayout()->setMargins(10, 10, 10, 0);
 	d->setStatusBarFixedHeight(58);
 
-	d->setResizeable(false);
+	d->resizable(0);
 	d->hotspot(ok);
 	d->set_modal();
 	d->show();
@@ -857,7 +862,7 @@ int Fle_Dialog::getNumbers(int _w, int _h, const char* _title,
 	d->getStatusBar()->getCentralLayout()->setMargins(10, 10, 10, 0);
 	d->setStatusBarFixedHeight(58);
 
-	d->setResizeable(false);
+	d->resizable(0);
 	d->hotspot(ok);
 	d->set_modal();
 	d->show();
@@ -949,7 +954,7 @@ int Fle_Dialog::getInput(int _w, int _h, const char* _title, const char* _label,
 	d->getStatusBar()->getCentralLayout()->setMargins(10, 10, 10, 0);
 	d->setStatusBarFixedHeight(58);
 
-	d->setResizeable(false);
+	d->resizable(0);
 	d->hotspot(ok);
 	d->set_modal();
 	d->show();
@@ -996,10 +1001,7 @@ int Fle_Dialog::getInputs(int _w, int _h,
 	d->setMargins(10, 10, 10, 10);
 
 	// find the longest label.
-	std::size_t n = std::string(_labels[0]).length();
-	for (std::size_t i = 0; i < _labels.size(); i++)
-		if (std::string(_labels[i]).length() > n)
-			n = std::string(_labels[i]).length();
+	int n = Fle_Widgets::getLongestTextWidth(_labels);
 
 	// create all the inputs.
 	std::vector<Fle_InputWidget*> s(_labels.size());
@@ -1012,7 +1014,7 @@ int Fle_Dialog::getInputs(int _w, int _h,
 		l->begin();
 
 		// create a label at the most left size.
-		Fle_Box* b = new Fle_Box(0, 0, static_cast<int>(n * 7), 25);
+		Fle_Box* b = new Fle_Box(0, 0, n, 25);
 		b->color(fl_rgb_color(74, 84, 89));
 		b->setText(_labels[i]);
 		b->getFont()->setColor(_label_prop.getColor());
@@ -1070,7 +1072,7 @@ int Fle_Dialog::getInputs(int _w, int _h,
 	d->setStatusBarFixedHeight(58);
 
 	// disable resizing the window. It will disable the close button also.
-	d->setResizeable(false);
+	d->resizable(0);
 	d->hotspot(ok);
 	d->set_modal();
 	d->show();
@@ -1172,7 +1174,7 @@ int Fle_Dialog::getItem(int _w, int _h, const char* _title, const char* _label, 
 	d->getStatusBar()->getCentralLayout()->setMargins(10, 10, 10, 0);
 	d->setStatusBarFixedHeight(58);
 
-	d->setResizeable(false);
+	d->resizable(0);
 	d->hotspot(ok);
 	d->set_modal();
 	d->show();
@@ -1314,7 +1316,7 @@ int Fle_Dialog::getText(int _w, int _h,
 	d->getStatusBar()->getCentralLayout()->setMargins(10, 16, 10, 0);
 	d->setStatusBarFixedHeight(58);
 
-	d->setResizeable(false);
+	d->resizable(0);
 	d->hotspot(ok);
 	d->set_modal();
 	d->show();
@@ -1421,7 +1423,7 @@ int Fle_Dialog::openHelpDialog(
 	d->getStatusBar()->getCentralLayout()->setMargins(10, 16, 10, 0);
 	d->setStatusBarFixedHeight(58);
 
-	d->setResizeable(false);
+	d->resizable(0);
 	d->hotspot(ok);
 	d->set_modal();
 	d->show();
@@ -1527,7 +1529,7 @@ int Fle_Dialog::ask(int _w, int _h, 			// width and height of the dialog window.
 	d->getStatusBar()->getCentralLayout()->setMargins(10, 16, 10, 0);
 	d->setStatusBarFixedHeight(58);
 
-	d->setResizeable(false);
+	d->resizable(0);
 	d->hotspot(yes);
 	d->set_modal();
 	d->show();
@@ -1683,7 +1685,7 @@ int Fle_Dialog::browse(int _w, int _h, const char* _title, const char* _label, c
 	d->getStatusBar()->getCentralLayout()->setMargins(10, 10, 10, 0);
 	d->setStatusBarFixedHeight(58);
 
-	d->setResizeable(false);
+	d->resizable(0);
 	d->hotspot(ok);
 	d->set_modal();
 	d->show();

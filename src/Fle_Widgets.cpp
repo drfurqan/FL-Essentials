@@ -47,9 +47,24 @@ Fl_Color Fle_Widgets::fromRGB(uchar _r, uchar _g, uchar _b)
 
 int Fle_Widgets::getTextWidth(const char* _text)
 {
-	auto W = 0, H = 0;
+	int W = 0, H = 0;
 	Fl_Box t(0, 0, 1, 1, _text);
 	t.measure_label(W, H);
+
+	return W;
+}
+int Fle_Widgets::getLongestTextWidth(const std::vector<const char*>& _texts)
+{
+	if (_texts.empty())
+		return 0;
+
+	int W = Fle_Widgets::getTextWidth(_texts[0]);
+	for (std::size_t i = 0; i < _texts.size(); i++)
+	{
+		int tw = Fle_Widgets::getTextWidth(_texts[i]);
+		if (tw > W)
+			W = tw;
+	}
 
 	return W;
 }
@@ -178,12 +193,11 @@ Fl_Light_Button* Fle_Widgets::createLightButton(int _w, int _h, const char* _nam
 	if (_cb) o->callback(_cb, _data);
 	return o;
 }
-Fl_Check_Button* Fle_Widgets::createCheckButton(int _w, int _h, const char* _name, int _value, Fl_Callback* _cb, void* _data)
+Fl_Check_Button* Fle_Widgets::createCheckButton(int _w, int _h, const char* _name, int _value)
 {
 	Fl_Check_Button* o = new Fl_Check_Button(0, 0, _w, _h, _name);
 	o->value(_value);
 	o->labelsize(11);
-	if (_cb) o->callback(_cb, _data);
 	return o;
 }
 
@@ -284,8 +298,8 @@ Fle_FloatInputSlider* Fle_Widgets::createFloatInputSlider(int _w, int _h, double
 	o->box(FL_UP_BOX);
 	o->labelsize(12);
 	o->textsize(12);
-	o->value(_value);
 	o->step(_step);
+	o->value(_value);
 	o->bounds(_minimum, _maximum);
 	return o;
 }
@@ -402,53 +416,45 @@ Fle_FloatInputSlider* Fle_Widgets::createFloatInputSlider(int _width, int _heigh
 
 	return slider;
 }
-Fl_Check_Button* Fle_Widgets::createCheckButton(int _width, int _height, const char* _label, int _label_width, int _value, Fl_Color _text_color)
+Fl_Check_Button* Fle_Widgets::createCheckButton(int _width, int _height, const char* _label, int _label_width, int _value, Fl_Color _bg_color, Fl_Color _text_color)
 {
-	auto g = new Fl_Group(0, 0, _width, _height);
-	g->color(Fl::get_color(FL_BACKGROUND_COLOR));
-	g->begin();
-
 	auto l = new Fle_HLayout(0, 0, _width, _height);
-	l->color(g->color());
+	l->color(_bg_color);
 	l->begin();
 
 	auto box = Fle_Widgets::createBox(_label_width, l->h(), _label, false);		// a text box at the most left corner.
-	box->color(g->color());
+	box->color(_bg_color);
 	box->getFont()->setColor(_text_color);
 	box->getFont()->setSize(12);
 
-	auto btn = Fle_Widgets::createCheckButton(_width, _height, "", 0, nullptr, nullptr);
+	auto btn = Fle_Widgets::createCheckButton(_width, _height, "", 0);
 	btn->box(FL_FLAT_BOX);
 	btn->down_box(FL_FRAME_BOX);
 	btn->align(FL_ALIGN_LEFT);
-	btn->color(g->color());
+	btn->color(_bg_color);
+	btn->selection_color(fl_rgb_color(66, 192, 251));
 	btn->labelsize(20);
 	btn->value(_value);
 
 	l->end();
-	g->end();
 
 	return btn;
 }
-Fle_InputWidget* Fle_Widgets::createTextInput(int _width, int _height, const char* _label, int _label_width, const char* _value, Fl_Color _text_color, Fl_Callback* _cb, void* _data)
+Fle_InputWidget* Fle_Widgets::createTextInput(int _width, int _height, const char* _label, int _label_width, const char* _value, Fl_Color _bg_color, Fl_Color _text_color, Fl_Callback* _cb, void* _data)
 {
-	auto g = new Fl_Group(0, 0, _width, _height);
-	g->color(Fl::get_color(FL_BACKGROUND_COLOR));
-	g->begin();
-
 	auto l = new Fle_HLayout(0, 0, _width, _height);
-	l->color(g->color());
+	l->color(_bg_color);
 	l->begin();
 
 	auto box = Fle_Widgets::createBox(_label_width, l->h(), _label, false);		// a text box at the most left corner.
-	box->color(g->color());
+	box->color(_bg_color);
 	box->getFont()->setColor(_text_color);
 	box->getFont()->setSize(12);
 
-	auto s = new Fle_InputWidget(0, 0, _width - 60, l->h(), "");
+	auto s = new Fle_InputWidget(0, 0, _width - box->w() - 5, l->h(), "");
 	s->box(FL_BORDER_BOX);
-	s->color(g->color());
-	auto c = toRGB(g->color());
+	s->color(_bg_color);
+	auto c = toRGB(_bg_color);
 	s->setRightClickPopupColor(fl_rgb_color(c[0] - 10, c[1] - 10, c[2] - 10));
 	s->setRightClickPopupTextColor(_text_color);
 	s->textcolor(_text_color);
@@ -456,8 +462,8 @@ Fle_InputWidget* Fle_Widgets::createTextInput(int _width, int _height, const cha
 
 	auto browse = new Fle_Button(0, 0, 30, l->h(), "...");
 	browse->box(FL_BORDER_BOX);
-	browse->color(g->color());
-	browse->selection_color(g->color());
+	browse->color(_bg_color);
+	browse->selection_color(_bg_color);
 	browse->labelcolor(_text_color);
 	browse->labelsize(12);
 	browse->setFixedWidth(30);
@@ -465,32 +471,27 @@ Fle_InputWidget* Fle_Widgets::createTextInput(int _width, int _height, const cha
 	browse->tooltip("Browse for a directory.");
 
 	l->end();
-	g->end();
 
 	return s;
 }
-Fle_Button* Fle_Widgets::createButton(int _width, int _height, const char* _label, int _label_width, const char* _btn_text, Fl_Color _text_color)
+Fle_Button* Fle_Widgets::createButton(int _width, int _height, const char* _label, int _label_width, const char* _btn_text, Fl_Color _bg_color, Fl_Color _text_color)
 {
-	auto g = new Fl_Group(0, 0, _width, _height);
-	g->color(Fl::get_color(FL_BACKGROUND_COLOR));
-	g->begin();
-
 	auto l = new Fle_HLayout(0, 0, _width, _height);
-	l->color(g->color());
+	l->color(_bg_color);
 	l->begin();
 
 	auto box = Fle_Widgets::createBox(_label_width, l->h(), _label, false);
-	box->color(g->color());
+	box->color(_bg_color);
 	box->getFont()->setColor(_text_color);
 	box->getFont()->setSize(12);
 
-	auto b = new Fle_Button(0, 0, _width - 60, l->h(), _btn_text);
-	b->color(g->color());
-	b->selection_color(g->color());
+	auto b = new Fle_Button(0, 0, _width - _label_width / 2, l->h(), _btn_text);
+	b->color(_bg_color);
+	b->selection_color(_bg_color);
+	b->labelcolor(_text_color);
 	b->labelsize(12);
 
 	l->end();
-	g->end();
 
 	return b;
 }

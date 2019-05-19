@@ -32,7 +32,6 @@ Fl_Scroll(_x, _y, _w, _h, _title)
 	p_box = new Fle_Box(0, 0, _w, _h);
 	p_box->color(fl_rgb_color(214, 219, 233));
 	p_box->box(FL_FLAT_BOX);
-	p_box->setImageDrawType(Fle_ImageDrawType::Fit);
 
 	scrollbar_size(15);
 
@@ -61,13 +60,11 @@ void Fle_ScrollBox::size(int _w, int _h)
 }
 void Fle_ScrollBox::zoomIn()
 {
-	p_box->zoomIn();
 	p_box->position((w() - p_box->w()) / 2, (h() - p_box->h()) / 2);	// position the image box at center.
 	redraw();
 }
 void Fle_ScrollBox::zoomOut()
 {
-	p_box->zoomOut();
 	p_box->position((w() - p_box->w()) / 2, (h() - p_box->h()) / 2);	// position the image box at center.
 	redraw();
 }

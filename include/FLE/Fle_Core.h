@@ -31,9 +31,11 @@ namespace R3D
 class FL_ESSENTIALS_EXPORT Fle_Core
 {
 public:
+
+	enum { LIGHT_COLOR_THEME, DARK_COLOR_THEME	};
 	// Description:
 	// Function to initialize the FLE and FLTK libraries.
-	static void init();
+	static void init(int _theme = LIGHT_COLOR_THEME);
 	// Description:
 	// Function to event loop for the library.
 	static int exec();

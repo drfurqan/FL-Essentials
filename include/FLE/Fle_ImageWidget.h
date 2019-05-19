@@ -43,20 +43,8 @@ public:
 	virtual ~Fle_ImageWidget();
 
 	// Description:
-	// Function to release the internal image data that clears the image widget.
-	void clear(const cv::Vec3b& _color = cv::Vec3b(0, 0, 0));
-
-	// Description:
-	// Function to set image draw type, meaning that how the image should be drawn inside the window.
-	// Note: zooming only wors with ImageDrawType::Center.
-	void setImageDrawType(const Fle_ImageDrawType _type) { m_dtype = _type; }
-	// Description:
-	// Function to get the image draw type.
-	Fle_ImageDrawType getImageDrawType() const { return m_dtype; }
-
-	// Description:
-	// Function that computes the new size of the image according to Fle_ImageDrawType.
-	cv::Size getNewSize(const cv::Size& _img_size, const cv::Size& _box_size);
+	// Function to set background as an image of the given color.
+	void clear(Fl_Color _color);
 
 	// Description:
 	// Function to set an image as background.
@@ -105,37 +93,6 @@ public:
 	cv::Size getImageSize() const;
 
 	// Description:
-	// Function to reset zooming using the given image size.
-	void adjustSize(const cv::Size& _img_size);
-	// Description:
-	// Function to reset zooming using the given image size.
-	void adjustSize();
-	// Description:
-	// Function to reset zooming using the given image size.
-	void resetZoom(const cv::Size& _img_size);
-	// Description:
-	// Function to reset zooming.
-	void resetZoom();
-	// Description:
-	// Function that resizes the size of this widget with a scale of 0.8.
-	void zoomOut();
-	// Description:
-	// Function that resizes the size of this widget with a scale of 1.2.
-	void zoomIn();
-	// Description:
-	// Function that resizes the size of this widget with a scale of _factor.
-	void scaleImage(const double _factor);
-
-	// Description:
-	// Function to set zoom in and out factors.
-	// Default factor for zoom-in is _f[0] = 1.2.
-	// Default factor for zoom-out is _f[0] = 0.8.
-	void setZoomInOutFactors(const cv::Vec2d& _f) { m_zoom_factors = _f; }
-	// Description:
-	// Function to get zoom in and out factors.
-	cv::Vec2d getZoomInOutFactors() const { return m_zoom_factors; }
-
-	// Description:
 	// Function to set the region of interest for the image to be displayed.
 	void setRoi(const cv::Rect& _roi);
 	// Description:
@@ -154,11 +111,8 @@ protected:
 	// Overloaded function that is being called inside the draw() function.
 	void drawImage(const int _x, const int _y, const int _w, const int _h);
 
-	cv::Mat m_image;
-	cv::Vec2d m_zoom_factors;
-	Fle_ImageDrawType m_dtype;
 	std::string m_filename;
-	double m_zoom;
+	cv::Mat m_image;
 	cv::Rect m_roi;
 };
 

@@ -26,21 +26,29 @@ If not, please contact Dr. Furqan Ullah immediately:
 #include <FL/Fl_File_Icon.H>
 #include <FL/Fl_Tooltip.H>
 
+#include <iostream>
+
 using namespace R3D;
 
 static int __disable_escape_key(int _event)
 {
-	if (_event == FL_SHORTCUT && Fl::event_key(FL_Escape)) 
+	// disable global escape key exit.
+	if (_event == FL_SHORTCUT && Fl::event_key(FL_Escape))
+		return 1;
+	// disable global main window resizing.
+	else if (Fl::event_state(FL_CTRL) && Fl::event_key('+'))
+		return 1;
+	else if (Fl::event_state(FL_CTRL) && Fl::event_key('-'))
 		return 1;
 
 	return 0;
 }
 
-void Fle_Core::init()
+void Fle_Core::init(int _theme)
 {
 	/************************************************************************/
 	// FLTK default initialization.
-	Fl::scheme("gleam");						// theme of FLTK widgets.
+	//Fl::scheme("gleam");						// theme of FLTK widgets.
 	Fl::visual(FL_RGB);
 	Fl::gl_visual(FL_RGB);
 	Fl::use_high_res_GL(1);
@@ -61,6 +69,50 @@ void Fle_Core::init()
 	Fl_Image::scaling_algorithm(Fl_RGB_Scaling::FL_RGB_SCALING_BILINEAR);
 	Fl_Image::RGB_scaling(Fl_RGB_Scaling::FL_RGB_SCALING_BILINEAR);
 	/************************************************************************/
+
+	uchar r = 74, g = 84, b = 89;
+
+	switch (_theme)
+	{
+	case DARK_COLOR_THEME:
+		r = 74, g = 84, b = 89;
+		Fl::set_color(FL_BACKGROUND_COLOR, r, g, b);			// it will change the radio button's background color.
+		Fl::set_color(FL_BACKGROUND2_COLOR, 255, 255, 255);		// it will change the radio button's background color.
+		Fl::set_color(FL_SELECTION_COLOR, 253, 244, 191);		// it will change the radio button's background color.
+		Fl::set_color(FL_DARK3, r, g, b);						// change the FL_MENU_DIVIDER line color
+		Fl::set_color(FL_DARK2, r - 20, g - 20, b - 20);		// tool bars
+		Fl::set_color(FL_LIGHT3, r - 5, g - 5, b - 5);			// change the FL_MENU_DIVIDER line color
+		Fl::set_color(FL_LIGHT2, r, g, b);						// menu bar color
+		Fl::set_color(FL_LIGHT1, r + 5, g + 5, b + 5);			// menu bar items color
+		Fl::set_color(FL_BLACK, r - 30, g - 30, b - 30);		// change the black color of FLTK widgets to dark gray.
+		break;
+
+	case LIGHT_COLOR_THEME:
+		r = 234, g = 240, b = 255;
+		Fl::set_color(FL_FOREGROUND_COLOR, 0, 0, 0);			// it will change the menu's text color.
+		Fl::set_color(FL_BACKGROUND_COLOR, r, g, b);			// it will change the radio button's background color.
+		Fl::set_color(FL_BACKGROUND2_COLOR, 255, 255, 255);		// it will change the radio button's background color.
+		Fl::set_color(FL_SELECTION_COLOR, 253, 244, 191);		// it will change the radio button's background color.
+		Fl::set_color(FL_DARK3, r, g, b);						// change the FL_MENU_DIVIDER line color
+		Fl::set_color(FL_DARK2, 184, 189, 203);					// tool bars
+		Fl::set_color(FL_LIGHT3, r - 20, g - 20, b - 20);		// change the FL_MENU_DIVIDER line color
+		Fl::set_color(FL_LIGHT2, 204, 209, 223);				// menu bar color
+		Fl::set_color(FL_LIGHT1, 224, 230, 245);				// menu bar items color
+		Fl::set_color(FL_BLACK, r - 10, g - 10, b - 10);		// change the black color of FLTK widgets to dark gray.
+		break;
+
+	default: 
+		break;
+	}
+
+	// to make widgets flat.
+	Fl::set_boxtype(Fl_Boxtype::FL_UP_BOX, Fl_Boxtype::FL_FLAT_BOX);			// change box type to flat only.
+	Fl::set_boxtype(Fl_Boxtype::FL_DOWN_BOX, Fl_Boxtype::FL_BORDER_BOX);		// change menu check box type to flat only.
+	Fl::set_boxtype(Fl_Boxtype::_FL_ROUND_DOWN_BOX, Fl_Boxtype::FL_BORDER_BOX);	// change menu radio box type to flat only.
+	Fl::set_boxtype(Fl_Boxtype::_FL_ROUND_UP_BOX, Fl_Boxtype::FL_BORDER_BOX);	// change box type to flat only.
+	Fl::box_color(FL_GRAY);
+	Fl::set_box_color(FL_GRAY);
+	fl_message_hotspot(0);
 }
 
 int Fle_Core::exec()

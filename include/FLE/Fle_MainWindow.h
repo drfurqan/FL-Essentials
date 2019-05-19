@@ -22,7 +22,7 @@ You should have received a copy of this license with this file.
 If not, please contact Dr. Furqan Ullah immediately:
 **********************************************************************************/
 
-#include <FLE/Fle_Window.h>
+#include <FLE/Fle_DoubleWindow.h>
 #include <FLE/Fle_MenuBar.h>
 #include <FLE/Fle_ToolBar.h>
 #include <FLE/Fle_StatusBar.h>
@@ -30,18 +30,13 @@ If not, please contact Dr. Furqan Ullah immediately:
 namespace R3D
 {
 
-class FL_ESSENTIALS_EXPORT Fle_MainWindow : public Fle_Window
+class FL_ESSENTIALS_EXPORT Fle_MainWindow : public Fle_DoubleWindow
 {
 public:
 	// Description:
 	// Constructor to create a window by specifying it's position, size, and title.
 	// _icon_index is the id of the icon that you want to display on the title bar.
 	Fle_MainWindow(int _x, int _y, int _w, int _h, const char* _title = 0, int _icon_index = 101);
-	// Description:
-	// Constructor to create a window by specifying it's size and title.
-	// This constructor sets the position at the center of the screen/monitor.
-	// _icon_index is the id of the icon that you want to display on the title bar.
-	Fle_MainWindow(int _w, int _h, const char* _title = 0, int _icon_index = 101);
 	// Description:
 	// Destructor that destroys timer (if any) and other data.
 	virtual ~Fle_MainWindow();
@@ -82,26 +77,35 @@ public:
 
 	// Description:
 	// Function to set the background color of the widget.
-	void setBackgroundColor(uchar _red, uchar _green, uchar _blue) override;
+	void setBackgroundColor(uchar _red, uchar _green, uchar _blue);
 	// Description:
 	// Function to set the background color of the widget.
-	void setBackgroundColor(Fl_Color _color) override;
+	void setBackgroundColor(Fl_Color _color);
+	// Description:
+	// Function to set the background color of the widget.
+	void color(uchar _red, uchar _green, uchar _blue);
+	// Description:
+	// Function to set the background color of the widget.
+	void color(Fl_Color _color);
+	// Description:
+	// Function to get the background color of the widget.
+	Fl_Color color() const;
 
 	// Description:
 	// Function to toggle (show/hide) the menu bar.
 	void toggleMenuBar();
 	// Description:
 	// Function to toggle (show/hide) the top tool bar.
-	void toggleTopToolBar();
+	void toggleTopBar();
 	// Description:
 	// Function to toggle (show/hide) the status bar.
 	void toggleStatusBar();
 	// Description:
 	// Function to toggle (show/hide) the left bar.
-	void toggleLeftToolBar();
+	void toggleLeftBar();
 	// Description:
 	// Function to toggle (show/hide) the right bar.
-	void toggleRightToolBar();
+	void toggleRightBar();
 
 	// Description:
 	// Function to update the contents (position, width, height, etc.,) of the central area.
@@ -175,17 +179,17 @@ public:
 	// You can hide() or show() the menu bar by calling both functions,
 	// once you do it, don't forget to call updateContents() function to adjust the
 	// central area.
-	Fle_ToolBar* getTopToolBar() const { return p_toptoolbar; }
+	Fle_ToolBar* getTopBar() const { return p_toptoolbar; }
 
 	// Description:
 	// Function to get a pointer to left toolbar.
-	Fle_ToolBar* getLeftToolBar() const { return p_lefttoolbar; }
+	Fle_ToolBar* getLeftBar() const { return p_lefttoolbar; }
 	// Description:
 	// Function to get a pointer to right toolbar.
 	// You can hide() or show() the menu bar by calling both functions,
 	// once you do it, don't forget to call updateContents() function to adjust the
 	// central area.
-	Fle_ToolBar* getRightToolBar() const { return p_righttoolbar; }
+	Fle_ToolBar* getRightBar() const { return p_righttoolbar; }
 
 	// Description:
 	// Function to get a pointer to status bar.
@@ -195,8 +199,11 @@ public:
 	Fle_StatusBar* getStatusBar() const { return p_statusbar; }
 
 	// Description:
+	// Function to set a pointer to central widget of this main window.
+	void setCentralWidget(Fl_Group* _w);
+	// Description:
 	// Function to get a pointer to central widget of this main window.
-	Fle_Window* getCentralWidget() const { return p_centralarea; }
+	Fl_Group* getCentralWidget() const { return p_centralarea; }
 
 protected:
 	// Description:
@@ -208,7 +215,7 @@ protected:
 
 	// Description:
 	// Embedded central area of the MainWindow.
-	Fle_Window* p_centralarea;
+	Fl_Group* p_centralarea;
 
 	// Description:
 	// Embedded main menubar at the top side of the window.

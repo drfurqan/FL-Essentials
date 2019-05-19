@@ -31,7 +31,7 @@ Fle_Box::Fle_Box(int _x, int _y, int _w, int _h, const char* _title) :
 	m_text(""),
 	m_istext(true),
 	m_autoSize(false),
-	m_type(Fl_Boxtype::FL_NO_BOX),
+	m_type(Fl_Boxtype::FL_FLAT_BOX),
 	m_leftmargin(0),
 	m_rightmargin(0),
 	m_topmargin(0),
@@ -45,7 +45,7 @@ Fle_Box::Fle_Box(int _x, int _y, int _w, int _h, const char* _title) :
 	m_border_roi(cv::Rect(0, 0, 0, 0)),
 	m_border_color(fl_rgb_color(0, 255, 0))
 {
-	box(Fl_Boxtype::FL_NO_BOX);
+	box(Fl_Boxtype::FL_FLAT_BOX);
 	align(FL_ALIGN_WRAP | FL_ALIGN_INSIDE | FL_ALIGN_CENTER | FL_ALIGN_TEXT_OVER_IMAGE | FL_ALIGN_CLIP);
 	m_font.setSize(12);
 }

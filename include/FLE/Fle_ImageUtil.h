@@ -143,10 +143,10 @@ public:
 
 	// Description:
 	// Function to split channels from the given mat.
-	std::vector<cv::Mat> splitChannels(const cv::Mat& _mat) const;
+	static std::vector<cv::Mat> splitChannels(const cv::Mat& _mat);
 	// Description:
 	// Function to merge the given channels.
-	cv::Mat mergeChannels(const std::vector<cv::Mat>& _mats) const;
+	static cv::Mat mergeChannels(const std::vector<cv::Mat>& _mats);
 };
 
 template void Fle_ImageUtil::setPixel<unsigned char>(cv::Mat& _image, int _x, int _y, const unsigned char& _p);

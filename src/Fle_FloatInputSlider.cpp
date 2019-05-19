@@ -30,14 +30,15 @@ Fl_Group(_x, _y, _w, _h, _l)
 	p_ptr = nullptr;
 
 	p_slider = new Fle_Slider(_x, _y, _w - _textbox_width, _h);
+	p_slider->box(FL_UP_BOX);
 	p_slider->callback(slider_cb_, static_cast<void*>(this));
 
 	p_input = new Fl_Float_Input(_x + _w - _textbox_width + 1, _y, _textbox_width, _h);
+	p_input->box(FL_UP_BOX);
 	p_input->callback(input_cb_, static_cast<void*>(this));
 	p_input->when(FL_WHEN_ENTER_KEY | FL_WHEN_NOT_CHANGED);
 
 	align(FL_ALIGN_LEFT);
-	box(FL_UP_BOX);
 	type(FL_HOR_SLIDER);
 	labelsize(13);
 	textsize(13);
@@ -89,7 +90,6 @@ void Fle_FloatInputSlider::slider_cb_(Fl_Widget* _w, void* _p)
 	Fle_FloatInputSlider* inp = static_cast<Fle_FloatInputSlider*>(_p);
 	if (!inp) return;
 	inp->slider_cb();
-	Fl::redraw();	// if i don't redraw all here, while moving slider creates some weired lines.
 }
 
 void Fle_FloatInputSlider::input_cb()
@@ -116,7 +116,6 @@ void Fle_FloatInputSlider::input_cb_(Fl_Widget* _w, void* _p)
 	Fle_FloatInputSlider* inp = static_cast<Fle_FloatInputSlider*>(_p);
 	if (!inp) return;
 	inp->input_cb();
-	Fl::redraw();	// if i don't redraw all here, while moving slider creates some weired lines.
 }
 
 void Fle_FloatInputSlider::box(Fl_Boxtype _type)

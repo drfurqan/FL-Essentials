@@ -39,8 +39,7 @@ Fle_MultiColorChooserDialog::Fle_MultiColorChooserDialog(int _w, int _h,
 	p_dialog->setBackgroundColor(74, 84, 89);
 	p_dialog->callback(close_cb, p_dialog);
 	p_dialog->setMargins(10, 10, 10, 10);
-	p_dialog->setFixedWidth(_w);
-	p_dialog->setFixedHeight(_h);
+	p_dialog->size_range(_w, _h, _w, _h);
 
 	p_layout = p_dialog->getCentralLayout()->addHLayout(150);
 
@@ -100,7 +99,7 @@ Fle_MultiColorChooserDialog::Fle_MultiColorChooserDialog(int _w, int _h,
 	p_dialog->getCentralLayout()->getCentralLayout()->setMargins(10, 10, 15, 0);	// set dialog's margins.
 	p_dialog->getStatusBar()->getCentralLayout()->setMargins(10, 10, 10, 0);	// set statusbar's margins and height.
 	p_dialog->setStatusBarFixedHeight(58);
-	p_dialog->setResizeable(true);
+	p_dialog->resizable(p_dialog);
 	p_dialog->hotspot(p_ok);
 	p_dialog->set_modal();
 	int X, Y, W, H;
