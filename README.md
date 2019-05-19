@@ -10,7 +10,8 @@ C++ish interface). The directory structure is: <br/>
 -  /include/FLE (Public header C and C++ header files) <br/>	
 -  /include/FLE/Math (Classes for 3D math and OpenGL programming)
 -  /lib (Prebuild static libraries for VS2017) <br/>	
--  /src	 (Source code) <br/>						
+-  /src	 (Source code) <br/>	
+-  /extras	 (useful material to create an application) <br/>						
 <br/>
 
 ## Building
