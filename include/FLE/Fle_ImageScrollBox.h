@@ -202,6 +202,10 @@ public:
 	cv::Rect convertMouseCoordToPixels(int _x, int _y);
 
 	// Description:
+	// Function to get the current box size.
+	cv::Size getSize();
+
+	// Description:
 	// Function to get a pointer to embedded box.
 	Fle_Box* getBox() const { return p_box; }
 

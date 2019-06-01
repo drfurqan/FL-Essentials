@@ -95,6 +95,10 @@ cv::Size Fle_ImageScrollBox::getNewSize(const cv::Size& _img_size, const cv::Siz
 
 	return size;
 }
+cv::Size Fle_ImageScrollBox::getSize()
+{
+	return getNewSize(p_box->getRoi().size(), cv::Size(w(), h()));
+}
 
 void Fle_ImageScrollBox::adjustSize(const cv::Size& _img_size)
 {

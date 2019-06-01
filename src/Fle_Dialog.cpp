@@ -355,7 +355,6 @@ int Fle_Dialog::getNumber(int _w, int _h,
 	s->getDownButton().color(s->color());
 	s->selection_color(fl_rgb_color(255, 255, 255));
 	s->textcolor(fl_rgb_color(255, 255, 255));
-	s->textsize(11);
 	s->value(_value);
 	s->minimum(_minimum);
 	s->maximum(_maximum);
@@ -493,7 +492,6 @@ int Fle_Dialog::getNumbers(int _w, int _h, const char* _title,
 		s[i]->getDownButton().color(s[i]->color());
 		s[i]->selection_color(fl_rgb_color(255, 255, 255));
 		s[i]->textcolor(fl_rgb_color(255, 255, 255));
-		s[i]->textsize(11);
 		s[i]->value(_values[i]);
 		s[i]->minimum(_minimums[i]);
 		s[i]->maximum(_maximums[i]);
@@ -641,7 +639,6 @@ int Fle_Dialog::getNumbers(int _w, int _h, const char* _title,
 		s[i]->getDownButton().color(s[i]->color());
 		s[i]->selection_color(fl_rgb_color(255, 255, 255));
 		s[i]->textcolor(fl_rgb_color(255, 255, 255));
-		s[i]->textsize(11);
 		s[i]->value(_values[i]);
 		s[i]->minimum(_minimums[i]);
 		s[i]->maximum(_maximums[i]);
@@ -679,7 +676,7 @@ int Fle_Dialog::getNumbers(int _w, int _h, const char* _title,
 		choice[i]->color(fl_rgb_color(74 + 20, 84 + 20, 89 + 20));
 		choice[i]->color2(fl_rgb_color(253, 244, 191));
 		choice[i]->textcolor(fl_rgb_color(255, 255, 255));
-		choice[i]->textsize(11);
+		choice[i]->textsize(12);
 		for (std::size_t j = 0; j < _menus[i].size(); j++)
 			choice[i]->add(_menus[i][j].c_str());
 		choice[i]->value(0);
@@ -1026,7 +1023,7 @@ int Fle_Dialog::getInputs(int _w, int _h,
 		b->getFont()->setSize(_label_prop.getSize());
 
 		// create a input with the adjusted size.
-		s[i] = new Fle_InputWidget(0, 0, _w - b->w() - 20, 25);
+		s[i] = new Fle_InputWidget(0, 0, _w - b->w() - 30, 25);
 		s[i]->box(FL_BORDER_BOX);
 		s[i]->align(FL_ALIGN_LEFT);
 		s[i]->setRightClickPopupColor(fl_rgb_color(64, 74, 79));

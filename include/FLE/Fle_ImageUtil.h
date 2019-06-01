@@ -94,6 +94,7 @@ public:
 	// Description:
 	// Function to get the new dimensions of the image with the same aspect ratio.
 	static cv::Size getNewSizeKeepAspectRatio(int _old_w, int _old_h, int _new_w, int _new_h);
+	static cv::Size getNewSizeKeepAspectRatio(const cv::Size& _old, const cv::Size& _new);
 
 	// Description:
 	// Function to get a rotated image.
@@ -122,24 +123,29 @@ public:
 	// Description:
 	// Function to get files in a directory.
 	// Example:
-	// getDirectoryFiles(Fle_StringUtil::extractDirectory(file), "*");
-	static std::vector<std::string> getDirectoryFiles(const std::string& _directory, const std::string& _ext);
+	// getDirectoryFilesFiltered("D:\\test\\", {});	 // returns all files in the given directory.
+	// getDirectoryFilesFiltered("D:\\test\\", {"jpg", "png"}); // returns only jpg and png files in the given directory.
+	static std::vector<std::string> getDirectoryFiles(const std::string& _directory, const std::vector<std::string>& _filters = std::vector<std::string>());
 	// Description:
 	// Function to get all OpenCV supported image files in a directory.
+	// 	"jpg" | "jpeg" | "jpe" | "jp2" |"png" | "bmp" | "dib" | "tif" | "tiff" | "pgm" | "pbm" | "ppm" | "ras" |"sr" | "webp" | "gif" | "dcm")
 	// Example:
-	// getDirectoryImageFiles(Fle_StringUtil::extractDirectory(file));
-	static std::vector<std::string> getDirectoryImageFiles(const std::string& _directory);
+	// getDirectoryImageFiles("D:\\test\\");
+	// set _hasDICOM to true if opencv is built with gdcm lib.
+	static std::vector<std::string> getDirectoryImageFiles(const std::string& _directory, bool _hasDICOM = false);
 
 	// Description:
 	// Function to resize all image files of the specified directory.
 	// _w and _h is the new size of the images.
 	// set _with_aspect_ratio to true if images need to be resized with aspect ratio.
+	// set _hasDICOM to true if opencv is built with gdcm lib.
 	// It returns totally number of resized images.
-	static int batchResize(const std::string& _directory_path, int _w, int _h, bool _with_aspect_ratio = true, int _interpolation = cv::InterpolationFlags::INTER_LINEAR, Fle_StatusBar* _sb = nullptr);
+	static int batchResize(const std::string& _directory_path, int _w, int _h, bool _with_aspect_ratio = true, int _interpolation = cv::InterpolationFlags::INTER_LINEAR, bool _hasDICOM = false, Fle_StatusBar* _sb = nullptr);
 	// Description:
 	// Function to invert all image files of the specified directory.
+	// set _hasDICOM to true if opencv is built with gdcm lib.
 	// It returns totally number of resized images.
-	static int batchInvert(const std::string& _directory_path, Fle_StatusBar* _sb = nullptr);
+	static int batchInvert(const std::string& _directory_path, bool _hasDICOM = false, Fle_StatusBar* _sb = nullptr);
 
 	// Description:
 	// Function to split channels from the given mat.

@@ -48,6 +48,10 @@ cv::Size Fle_ImageUtil::getNewSizeKeepAspectRatio(int _old_w, int _old_h, int _n
 	}
 	return cv::Size(_final_w, _final_h);
 }
+cv::Size Fle_ImageUtil::getNewSizeKeepAspectRatio(const cv::Size& _old, const cv::Size& _new)
+{
+	return getNewSizeKeepAspectRatio(_old.width, _old.height, _new.width, _new.height);
+}
 
 cv::Mat Fle_ImageUtil::getRotatedImage(const cv::Mat& _img, const double _angle, const int _interpolation)
 {
@@ -136,7 +140,6 @@ void Fle_ImageUtil::convertToMat(Fl_Image* _img, cv::Mat& _dst, bool _swap_rgb)
 		}
 	}
 }
-
 cv::Mat Fle_ImageUtil::getMat(Fl_Image* _img, bool _swap_rgb)
 {
 	cv::Mat m;
@@ -158,85 +161,84 @@ bool Fle_ImageUtil::isOpenCVSupportedImage(const std::string& _filename)
 	return false;
 }
 
-std::vector<std::string> Fle_ImageUtil::getDirectoryFiles(const std::string& _directory, const std::string& _ext)
+std::vector<std::string> Fle_ImageUtil::getDirectoryFiles(const std::string& _directory, const std::vector<std::string>& _filters)
 {
-	auto f = _directory + Fle_StringUtil::separator() + "*." + _ext;
-	const cv::String s(f.c_str());
+	std::vector<std::string> files;
+	if (_directory.empty())
+		return files;
+
+	std::string dir = _directory;
+	if (Fle_StringUtil::endsWith(dir, "\\") || Fle_StringUtil::endsWith(dir, "/"))
+		dir = _directory + "*.*";
+	else
+		dir = _directory + Fle_StringUtil::separator() + "*.*";
+
+	const cv::String s(dir.c_str());
 
 	std::vector<cv::String> fn;
 	cv::glob(s, fn, false);
+	
+	if (_filters.empty())
+	{
+		files.resize(fn.size());
+		std::copy(fn.begin(), fn.end(), files.begin());
+	}
+	else
+	{
+		files.reserve(fn.size());
+		for (std::size_t i = 0; i < fn.size(); i++)
+		{
+			bool ok = false;
+			const auto ext = Fle_StringUtil::convertToLower(Fle_StringUtil::extractFileExt(fn[i]));
+			for (std::size_t j = 0; j < _filters.size(); j++)
+			{
+				if (ext == _filters[j])
+				{
+					ok = true;
+					break;
+				}
+			}
 
-	std::vector<std::string> files;
-	files.reserve(fn.size());
-	for (std::size_t i = 0; i < fn.size(); i++)
-		files.push_back(fn[i]);
+			if (ok)
+				files.push_back(fn[i]);
+		}
+	}
 
 	return files;
 }
-std::vector<std::string> Fle_ImageUtil::getDirectoryImageFiles(const std::string& _directory)
+std::vector<std::string> Fle_ImageUtil::getDirectoryImageFiles(const std::string& _directory, bool _hasDICOM)
 {
 	if (_directory.empty())
 		return std::vector<std::string>();
 
-	// can't use initializer list in vs2010.
-#if (_MSC_VER > 1600)
-	std::vector<std::string> imgs = {
-		"jpg", "JPG",
-		"jpeg", "JPEG",
-		"jpe", "JPE",
-		"jp2", "JP2",
-		"png", "PNG",
-		"bmp", "BMP",
-		"dib", "DIB",
-		"tif", "TIF",
-		"tiff", "TIFF",
-		"pgm", "PGM",
-		"pbm", "PBM",
-		"ppm", "PPM",
-		"ras", "RAS",
-		"sr", "SR",
-		"webp", "WEBP",
-		"gif", "GIF",
-		"dcm", "DCM"
-	};
-#else
-	std::vector<std::string> imgs;
-	imgs.push_back("jpg"); imgs.push_back("JPG");
-	imgs.push_back("jpeg"); imgs.push_back("JPEG");
-	imgs.push_back("jpe"); imgs.push_back("JPE");
-	imgs.push_back("jp2"); imgs.push_back("JP2");
-	imgs.push_back("png"); imgs.push_back("PNG");
-	imgs.push_back("bmp"); imgs.push_back("BMP");
-	imgs.push_back("dib"); imgs.push_back("DIB");
-	imgs.push_back("tif"); imgs.push_back("TIF");
-	imgs.push_back("tiff"); imgs.push_back("TIFF");
-	imgs.push_back("pgm"); imgs.push_back("PGM");
-	imgs.push_back("pbm"); imgs.push_back("PBM");
-	imgs.push_back("ppm"); imgs.push_back("PPM");
-	imgs.push_back("ras"); imgs.push_back("RAS");
-	imgs.push_back("sr"); imgs.push_back("SR");
-	imgs.push_back("webp"); imgs.push_back("WEBP");
-	imgs.push_back("gif"); imgs.push_back("GIF");
-	imgs.push_back("dcm"); imgs.push_back("DCM");
-	#endif
-
-	// this method returns only OpenCV supported file paths.
-	std::vector<std::string> files;
-	for (std::size_t i = 0; i < imgs.size(); i++)
-	{
-		auto f = getDirectoryFiles(_directory, imgs[i]);
-		for (std::size_t j = 0; j < f.size(); j++)
-			files.push_back(f[j]);
-	}
-	return files;
+	int n = 0;
+	static std::vector<std::string> filters(16);
+	filters[n++] = "jpg"; 
+	filters[n++] = "jpeg";
+	filters[n++] = "jpe"; 
+	filters[n++] = "jp2"; 
+	filters[n++] = "png"; 
+	filters[n++] = "bmp"; 
+	filters[n++] = "dib"; 
+	filters[n++] = "tif"; 
+	filters[n++] = "tiff";
+	filters[n++] = "pgm"; 
+	filters[n++] = "pbm"; 
+	filters[n++] = "ppm"; 
+	filters[n++] = "ras"; 
+	filters[n++] = "sr";
+	filters[n++] = "webp";
+	filters[n++] = "gif"; 
+	if(_hasDICOM) filters.push_back("dcm");
+	return getDirectoryFiles(_directory, filters);
 }
 
-int Fle_ImageUtil::batchResize(const std::string& _directory_path, int _w, int _h, bool _with_aspect_ratio, int _interpolation, Fle_StatusBar* _sb)
+int Fle_ImageUtil::batchResize(const std::string& _directory_path, int _w, int _h, bool _with_aspect_ratio, int _interpolation, bool _hasDICOM, Fle_StatusBar* _sb)
 {
 	if (_directory_path.empty()) return 0;
 	if (_w < 2 || _h < 2) return 0;
 
-	auto files = Fle_ImageUtil::getDirectoryImageFiles(_directory_path);
+	auto files = Fle_ImageUtil::getDirectoryImageFiles(_directory_path, _hasDICOM);
 	if (files.empty()) return 0;
 
 	if (_sb) _sb->showMessage("Resizing! please wait...", 100000);
@@ -261,13 +263,18 @@ int Fle_ImageUtil::batchResize(const std::string& _directory_path, int _w, int _
 		auto n = 0;
 		for (std::size_t i = 0; i < files.size(); i++)
 		{
-			const auto name = Fle_StringUtil::extractFileNameWithExt(files[i]);
+			auto name = Fle_StringUtil::extractFileNameWithoutExt(files[i]);
 			auto img = cv::imread(files[i], cv::IMREAD_UNCHANGED);
 			if (img.empty())
 			{
 				if (_sb) _sb->showMessage("Couldn't read the image (" + name + ")!", 10);
 				continue;
 			}
+
+			// opencv doesn't support DCM writing, so just save into jpg.
+			auto ext = Fle_StringUtil::extractFileExt(files[i]);
+			if (ext == "dcm")
+				name += ".jpg";
 
 			// check the depth of the imported image and convert to 8 bit image.
 			auto src(img);
@@ -298,11 +305,11 @@ int Fle_ImageUtil::batchResize(const std::string& _directory_path, int _w, int _
 
 	return 0;
 }
-int Fle_ImageUtil::batchInvert(const std::string& _directory_path, Fle_StatusBar* _sb)
+int Fle_ImageUtil::batchInvert(const std::string& _directory_path, bool _hasDICOM, Fle_StatusBar* _sb)
 {
 	if (_directory_path.empty()) return 0;
 
-	auto files = Fle_ImageUtil::getDirectoryImageFiles(_directory_path);
+	auto files = Fle_ImageUtil::getDirectoryImageFiles(_directory_path, _hasDICOM);
 	if (files.empty()) return 0;
 
 	if (_sb) _sb->showMessage("Inverting! please wait...", 100000);
@@ -327,13 +334,18 @@ int Fle_ImageUtil::batchInvert(const std::string& _directory_path, Fle_StatusBar
 		auto n = 0;
 		for (std::size_t i = 0; i < files.size(); i++)
 		{
-			const auto name = Fle_StringUtil::extractFileNameWithExt(files[i]);
+			auto name = Fle_StringUtil::extractFileNameWithoutExt(files[i]);
 			auto img = cv::imread(files[i], cv::IMREAD_UNCHANGED);
 			if (img.empty())
 			{
 				if (_sb) _sb->showMessage("Couldn't read the image (" + name + ")!", 10);
 				continue;
 			}
+
+			// opencv doesn't support DCM writing, so just save into jpg.
+			auto ext = Fle_StringUtil::extractFileExt(files[i]);
+			if (ext == "dcm")
+				name += ".jpg";
 
 			// check the depth of the imported image and convert to 8 bit image.
 			auto src(img);
