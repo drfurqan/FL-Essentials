@@ -38,10 +38,10 @@ Copyright (c) 2017-2019 Dr. Furqan Ullah.
 Source code at: <https://github.com/drfurqan/FL-Essentials>.
 
 ## Screenshots
-![Alt text](https://github.com/drfurqan/FL-Essentials/blob/master/examples/photo_viewer.png?raw=true "Photo Viewer Written in FLE, Inspired by Windows Photo Viewer")
+![Alt text](https://github.com/drfurqan/FL-Essentials/tree/master/examples/photo_viewer.png?raw=true "Photo Viewer Written in FLE, Inspired by Windows Photo Viewer")
 
-![Alt text](https://github.com/drfurqan/FL-Essentials/blob/master/examples/3d_solar_system.PNG?raw=true "3D Solar System written in FLE/OpenGL")
+![Alt text](https://github.com/drfurqan/FL-Essentials/tree/master/examples/3d_solar_system.PNG?raw=true "3D Solar System written in FLE/OpenGL")
 
-![Alt text](https://github.com/drfurqan/FL-Essentials/blob/master/examples/opengl_events_lights.PNG?raw=true "OpenGL Demo written in FLE/OpenGL")
+![Alt text](https://github.com/drfurqan/FL-Essentials/tree/master/examples/opengl_events_lights.PNG?raw=true "OpenGL Demo written in FLE/OpenGL")
 
-![Alt text](https://github.com/drfurqan/FL-Essentials/blob/master/examples/demo.PNG?raw=true "FLE Demo that shows various widgets such as MenuBar, ToolBar, StatusBar, Left-Right Bars, Layouts, Buttons")
+![Alt text](https://github.com/drfurqan/FL-Essentials/tree/master/examples/demo.PNG?raw=true "FLE Demo that shows various widgets such as MenuBar, ToolBar, StatusBar, Left-Right Bars, Layouts, Buttons")
