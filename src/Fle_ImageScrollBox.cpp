@@ -155,10 +155,10 @@ void Fle_ImageScrollBox::scaleImage(const double _factor)
 
 cv::Rect Fle_ImageScrollBox::convertMouseCoordToPixels(int _x, int _y)
 {
-	cv::Rect roi = p_box->getRoi();
-
 	if (Fl::event_inside(p_box->x(), p_box->y(), p_box->w(), p_box->h()))	// mouse should be inside of the box widget.
 	{
+		cv::Rect roi = p_box->getRoi();
+
 		auto rx = _x - p_box->x();
 		auto ry = _y - p_box->y();
 

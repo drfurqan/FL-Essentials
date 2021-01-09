@@ -32,7 +32,7 @@ Written by  Dr. Furqan Ullah.
 Report bugs to drfurqan@users.noreply.github.com.
 
 ## Copyright
-Copyright (c) 2017-2019 Dr. Furqan Ullah.
+Copyright (c) 2017-2021 Dr. Furqan Ullah.
 
 ## See Also
 Source code at: <https://github.com/drfurqan/FL-Essentials>.
@@ -40,7 +40,7 @@ Source code at: <https://github.com/drfurqan/FL-Essentials>.
 ## Screenshots
 ![Alt text](https://github.com/drfurqan/FL-Essentials/blob/master/examples/photo_viewer.png?raw=true "Photo Viewer Written in FLE, Inspired by Windows Photo Viewer")
 
-![Alt text](https://github.com/drfurqan/FL-Essentials/blob/master/examples/3D_Solar_System/3d_solar_system.PNG?raw=true "3D Solar System written in FLE/OpenGL")
+![Alt text](https://github.com/drfurqan/FL-Essentials/blob/master/examples/3d_solar_system.PNG?raw=true "3D Solar System written in FLE/OpenGL")
 
 ![Alt text](https://github.com/drfurqan/FL-Essentials/blob/master/examples/opengl_events_lights.PNG?raw=true "OpenGL Demo written in FLE/OpenGL")
 

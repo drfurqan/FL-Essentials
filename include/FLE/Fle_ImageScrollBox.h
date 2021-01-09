@@ -69,6 +69,14 @@ public:
 	// Function to get a clone of the background image.
 	cv::Mat getImage() const { return p_box->getImage(); }
 	// Description:
+	// Function to get a reference of the background image.
+	cv::Mat& imageRef() { return p_box->imageRef(); }
+	// Description:
+	// Function that returns the cropped image if valid Roi is found.
+	// Use cloned of the returned image i.e., getCroppedImage().clone()
+	cv::Mat getCroppedImage() const { return p_box->getCroppedImage(); }
+
+	// Description:
 	// Function to load an image from the given file path.
 	// _filename should a file name plus extension.
 	// Region of Interest (ROI) will be reset to the loaded image size if

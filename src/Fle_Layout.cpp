@@ -143,6 +143,7 @@ m_bottommargin(0)
 
 	p_main->begin();
 	p_left = new Fle_HLayoutL(0, 0, p_main->w() - right_side, p_main->h());
+	p_left->resizable(0);
 	p_left->setBackgroundColor(0, 122, 204);
 	p_main->end();
 
@@ -341,8 +342,6 @@ Fle_VLayoutTB::Fle_VLayoutTB(int _x, int _y, int _w, int _h, const char* _label)
 	p_bottom = new Fle_VLayoutT(0, 0, p_main->w(), bottom_height);
 	p_bottom->setBackgroundColor(0, 122, 204);
 	p_main->end();
-
-	p_main->resizable(p_top);
 
 	align(FL_ALIGN_WRAP | FL_ALIGN_INSIDE | FL_ALIGN_CENTER | FL_ALIGN_TEXT_OVER_IMAGE | FL_ALIGN_CLIP);
 	box(FL_FLAT_BOX);

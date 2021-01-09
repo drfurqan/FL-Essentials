@@ -88,7 +88,10 @@ void Fle_ImageWidget::drawImage(const int _x, const int _y, const int _w, const 
 		fimage.convertTo(fimage, CV_8UC1, 255.0 / (max - min));
 	}
 
-	cv::resize(fimage, fimage, cv::Size(_w, _h), 0, 0, cv::INTER_LINEAR);
+	if (_w < fimage.cols || _h < fimage.rows)
+		cv::resize(fimage, fimage, cv::Size(_w, _h), 0, 0, cv::INTER_AREA);
+	else
+		cv::resize(fimage, fimage, cv::Size(_w, _h), 0, 0, cv::INTER_LINEAR);
 
 	if (channel == 4) cv::cvtColor(fimage, fimage, cv::COLOR_BGRA2RGBA);
 	else if (channel == 3) cv::cvtColor(fimage, fimage, cv::COLOR_BGR2RGB);
@@ -152,7 +155,7 @@ bool Fle_ImageWidget::loadImage(const std::string& _filename, bool _reset_roi)
 				{
 					double min, max;
 					cv::minMaxLoc(fimage, &min, &max);
-					fimage.convertTo(fimage, CV_8UC1, 255.0 / (max - min));
+					fimage.convertTo(fimage, CV_8UC1, 255.0 / (max - min), -min * 255.0 / (max - min));
 				}
 
 				setFileLocation(_filename);
@@ -245,6 +248,11 @@ cv::Mat Fle_ImageWidget::getImage() const
 #endif
 	return m;
 }
+cv::Mat& Fle_ImageWidget::imageRef()
+{
+	return m_image;
+}
+
 cv::Size Fle_ImageWidget::getImageSize() const
 {
 	cv::Size s;
@@ -288,5 +296,29 @@ void Fle_ImageWidget::resetRoi()
 	Fl::unlock();			// release the lock
 #else
 	m_roi = cv::Rect(0, 0, m_image.cols, m_image.rows);
+#endif
+}
+
+cv::Mat Fle_ImageWidget::getCroppedImage()
+{
+#if (_MSC_VER > 1600)
+	cv::Mat img;
+	Fl::lock();				// acquire the lock
+	if ((m_roi.x < 0) || (m_roi.y < 0) ||
+		((m_roi.x + m_roi.width) > m_image.cols) ||
+		((m_roi.y + m_roi.height) > m_image.rows) ||
+		(m_roi.width < 2) ||
+		(m_roi.height < 2))
+	{
+		img = m_image;
+	}
+	else
+	{
+		img = m_image(m_roi);
+	}
+	Fl::unlock();			// release the lock
+	return img;
+#else
+	return m_image;
 #endif
 }

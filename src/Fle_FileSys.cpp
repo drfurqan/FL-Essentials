@@ -25,7 +25,7 @@ If not, please contact Dr. Furqan Ullah immediately:
 #include <algorithm>
 
 using namespace R3D;
-namespace fs = std::experimental::filesystem;
+namespace fs = std::filesystem;
 
 auto Fle_FileSys::changeDirectoryName(const std::string& _directory_path, const std::string& _str) -> std::string
 {
@@ -48,12 +48,28 @@ auto Fle_FileSys::getFileSize(const fs::path& _filepath) -> std::uintmax_t
 	return static_cast<uintmax_t>(-1);
 }
 
-auto Fle_FileSys::getLastModifiedTime(const fs::v1::directory_entry& _filepath) -> std::string
+template <typename TP>
+static std::time_t to_time_t(TP tp)
 {
-	auto cftime = std::chrono::system_clock::to_time_t(fs::last_write_time(_filepath));
+	auto sctp = std::chrono::time_point_cast<std::chrono::system_clock::duration>(tp - TP::clock::now() + std::chrono::system_clock::now());
+	return std::chrono::system_clock::to_time_t(sctp);
+}
+
+auto Fle_FileSys::getLastModifiedTime(const fs::directory_entry& _filepath) -> std::string
+{
+	auto cftime = to_time_t(fs::last_write_time(_filepath));
 	return std::asctime(std::localtime(&cftime));
 }
 
+auto Fle_FileSys::getDirectoryName(std::string _filepath) -> std::string
+{
+	fs::path po(_filepath);
+
+	if (po.has_parent_path())
+		return po.parent_path().string();
+
+	return "";
+}
 auto Fle_FileSys::getFileName(std::string _filepath, bool _with_extension) -> std::string
 {
 	fs::path po(_filepath);
@@ -65,6 +81,15 @@ auto Fle_FileSys::getFileName(std::string _filepath, bool _with_extension) -> st
 		if (po.has_stem())
 			return po.stem().string();
 	}
+
+	return "";
+}
+auto Fle_FileSys::getFileExt(std::string _filepath) -> std::string
+{
+	fs::path po(_filepath);
+
+	if (po.has_extension())
+		return po.extension().string();
 
 	return "";
 }

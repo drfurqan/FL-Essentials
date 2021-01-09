@@ -133,6 +133,10 @@ public:
 	// This function checks the token of the calling thread to see if the caller
 	// belongs to the Administrators group.
 	static int isCurrentUserLocalAdministrator();
+
+	// Description:
+	// Function to set the given image as a desktop background.
+	static bool setImageAsDesktopWallpaper(const char* _fileName);
 };
 
 }

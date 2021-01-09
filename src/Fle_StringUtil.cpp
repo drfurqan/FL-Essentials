@@ -240,3 +240,14 @@ std::vector<std::string> Fle_StringUtil::splitByWhiteSpaces(const std::string& _
 		tokens.push_back(buf);
 	return tokens;
 }
+
+std::vector<std::string> Fle_StringUtil::split(const std::string& _str, char _delim)
+{
+	std::vector<std::string> cont;
+	std::stringstream ss(_str);
+	std::string token;
+	while (std::getline(ss, token, _delim))
+		cont.push_back(token);
+
+	return cont;
+}

@@ -1,6 +1,11 @@
 ==========================================
-FL-Essentials Library (FLE) INSTALL v1.4.0
+FL-Essentials Library (FLE) INSTALL v1.5.0
 ==========================================
+
+New features and changes in version 1.5.0:            (Release Date: 2020.12.26)
+--------------------------------------------------------------------------------
+
+1. Minor fixes, changes, and improvements
 
 New features and changes in version 1.4.0:            (Release Date: 2019.05.19)
 --------------------------------------------------------------------------------

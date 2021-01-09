@@ -448,3 +448,12 @@ int Fle_WindowsUtil::isCurrentUserLocalAdministrator()
 
 	return 0;
 }
+
+bool Fle_WindowsUtil::setImageAsDesktopWallpaper(const char* _fileName)
+{
+#if defined(_WIN32)
+	return SystemParametersInfoA(SPI_SETDESKWALLPAPER, 0, (PVOID)_fileName, SPIF_UPDATEINIFILE | SPIF_SENDCHANGE);
+#else
+	return false;
+#endif // _WIN32
+}

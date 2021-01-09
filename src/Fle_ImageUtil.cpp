@@ -156,7 +156,7 @@ bool Fle_ImageUtil::isOpenCVSupportedImage(const std::string& _filename)
 		return false;
 
 	const auto ext = Fle_StringUtil::convertToLower(Fle_StringUtil::extractFileExt(_filename));
-	if (ext == "jpg" || ext == "jpeg" || ext == "jpe" || ext == "jp2" || ext == "png" || ext == "bmp" || ext == "dib" || ext == "tif" || ext == "tiff" || ext == "pgm" || ext == "pbm" || ext == "ppm" || ext == "ras" || ext == "sr" || ext == "webp" || ext == "gif" || ext == "dcm")
+	if (ext == "jpg" || ext == "jpeg" || ext == "jpe" || ext == "jp2" || ext == "png" || ext == "bmp" || ext == "dib" || ext == "tif" || ext == "tiff" || ext == "pgm" || ext == "pbm" || ext == "ppm" || ext == "ras" || ext == "sr" || ext == "webp" || ext == "gif" || ext == "dcm" || ext == "dicom")
 		return true;
 	return false;
 }
@@ -200,19 +200,19 @@ std::vector<std::string> Fle_ImageUtil::getDirectoryFiles(const std::string& _di
 			}
 
 			if (ok)
-				files.push_back(fn[i]);
+				files.emplace_back(fn[i]);
 		}
 	}
 
 	return files;
 }
-std::vector<std::string> Fle_ImageUtil::getDirectoryImageFiles(const std::string& _directory, bool _hasDICOM)
+std::vector<std::string> Fle_ImageUtil::getDirectoryImageFiles(const std::string& _directory, const std::vector<std::string>& _additional_filters)
 {
 	if (_directory.empty())
 		return std::vector<std::string>();
 
 	int n = 0;
-	static std::vector<std::string> filters(16);
+	std::vector<std::string> filters(15);
 	filters[n++] = "jpg"; 
 	filters[n++] = "jpeg";
 	filters[n++] = "jpe"; 
@@ -228,17 +228,17 @@ std::vector<std::string> Fle_ImageUtil::getDirectoryImageFiles(const std::string
 	filters[n++] = "ras"; 
 	filters[n++] = "sr";
 	filters[n++] = "webp";
-	filters[n++] = "gif"; 
-	if(_hasDICOM) filters.push_back("dcm");
+	for (const auto& i : _additional_filters)
+		filters.emplace_back(i);
 	return getDirectoryFiles(_directory, filters);
 }
 
-int Fle_ImageUtil::batchResize(const std::string& _directory_path, int _w, int _h, bool _with_aspect_ratio, int _interpolation, bool _hasDICOM, Fle_StatusBar* _sb)
+int Fle_ImageUtil::batchResize(const std::string& _directory_path, int _w, int _h, bool _with_aspect_ratio, int _interpolation, const std::vector<std::string>& _additional_filters, Fle_StatusBar* _sb)
 {
 	if (_directory_path.empty()) return 0;
 	if (_w < 2 || _h < 2) return 0;
 
-	auto files = Fle_ImageUtil::getDirectoryImageFiles(_directory_path, _hasDICOM);
+	auto files = Fle_ImageUtil::getDirectoryImageFiles(_directory_path, _additional_filters);
 	if (files.empty()) return 0;
 
 	if (_sb) _sb->showMessage("Resizing! please wait...", 100000);
@@ -250,7 +250,7 @@ int Fle_ImageUtil::batchResize(const std::string& _directory_path, int _w, int _
 
 	bool r;
 #if (_MSC_VER >= 1900)
-	namespace fs = std::experimental::filesystem;
+	namespace fs = std::filesystem;
 	r = fs::create_directories(dir);
 #else
 	r = Fle_WindowsUtil::create_directory(dir);
@@ -263,7 +263,7 @@ int Fle_ImageUtil::batchResize(const std::string& _directory_path, int _w, int _
 		auto n = 0;
 		for (std::size_t i = 0; i < files.size(); i++)
 		{
-			auto name = Fle_StringUtil::extractFileNameWithoutExt(files[i]);
+			auto name = Fle_StringUtil::extractFileNameWithExt(files[i]);
 			auto img = cv::imread(files[i], cv::IMREAD_UNCHANGED);
 			if (img.empty())
 			{
@@ -282,13 +282,24 @@ int Fle_ImageUtil::batchResize(const std::string& _directory_path, int _w, int _
 			{
 				double min, max;
 				cv::minMaxLoc(src, &min, &max);
-				src.convertTo(src, CV_8UC1, 255.0 / (max - min));
+				src.convertTo(src, CV_8UC1, 255.0 / (max - min), - min * 255.0 / (max - min));
 			}
 
 			cv::Size s(_w, _h);
 			if (_with_aspect_ratio)
 				s = Fle_ImageUtil::getNewSizeKeepAspectRatio(src.cols, src.rows, _w, _h);
-			cv::resize(src, src, s, 0, 0, _interpolation);
+
+			if (_interpolation < 0)
+			{
+				if (s.width < src.cols || s.height < src.rows)
+					cv::resize(src, src, s, 0, 0, cv::InterpolationFlags::INTER_AREA);
+				else
+					cv::resize(src, src, s, 0, 0, cv::InterpolationFlags::INTER_CUBIC);
+			}
+			else
+			{
+				cv::resize(src, src, s, 0, 0, _interpolation);
+			}
 
 			std::vector<int> compression_params;
 			compression_params.push_back(cv::IMWRITE_PNG_COMPRESSION);
@@ -305,11 +316,11 @@ int Fle_ImageUtil::batchResize(const std::string& _directory_path, int _w, int _
 
 	return 0;
 }
-int Fle_ImageUtil::batchInvert(const std::string& _directory_path, bool _hasDICOM, Fle_StatusBar* _sb)
+int Fle_ImageUtil::batchInvert(const std::string& _directory_path, const std::vector<std::string>& _additional_filters, Fle_StatusBar* _sb)
 {
 	if (_directory_path.empty()) return 0;
 
-	auto files = Fle_ImageUtil::getDirectoryImageFiles(_directory_path, _hasDICOM);
+	auto files = Fle_ImageUtil::getDirectoryImageFiles(_directory_path, _additional_filters);
 	if (files.empty()) return 0;
 
 	if (_sb) _sb->showMessage("Inverting! please wait...", 100000);
@@ -321,7 +332,7 @@ int Fle_ImageUtil::batchInvert(const std::string& _directory_path, bool _hasDICO
 
 	bool r;
 	#if (_MSC_VER >= 1900)
-	namespace fs = std::experimental::filesystem;
+	namespace fs = std::filesystem;
 	r = fs::create_directories(dir);
 	#else
 	r = Fle_WindowsUtil::create_directory(dir);
@@ -334,7 +345,7 @@ int Fle_ImageUtil::batchInvert(const std::string& _directory_path, bool _hasDICO
 		auto n = 0;
 		for (std::size_t i = 0; i < files.size(); i++)
 		{
-			auto name = Fle_StringUtil::extractFileNameWithoutExt(files[i]);
+			auto name = Fle_StringUtil::extractFileNameWithExt(files[i]);
 			auto img = cv::imread(files[i], cv::IMREAD_UNCHANGED);
 			if (img.empty())
 			{
@@ -347,21 +358,42 @@ int Fle_ImageUtil::batchInvert(const std::string& _directory_path, bool _hasDICO
 			if (ext == "dcm")
 				name += ".jpg";
 
-			// check the depth of the imported image and convert to 8 bit image.
-			auto src(img);
-			if (src.depth() == CV_16U || src.depth() == CV_16S)
+			if (img.type() == CV_8UC4)
 			{
-				double min, max;
-				cv::minMaxLoc(src, &min, &max);
-				src.convertTo(src, CV_8UC1, 255.0 / (max - min));
-			}
+				cv::Mat dst;
+				cv::cvtColor(img, dst, cv::COLOR_BGRA2BGR);
 
-			cv::Mat m;
-			cv::bitwise_not(src, m);
-			if (cv::imwrite(dir + Fle_StringUtil::separator() + name, m))
+				cv::Mat bit;
+				cv::bitwise_not(dst, bit);
+
+				cv::cvtColor(bit, bit, cv::COLOR_BGR2BGRA);
+
+				int from_to[] = { 3, 3 };
+				cv::mixChannels({ {img} }, { {bit} }, from_to, 1);
+
+				if (cv::imwrite(dir + Fle_StringUtil::separator() + name, bit))
+				{
+					if (_sb) _sb->showMessage(Fle_StringUtil::to_string(n) + " inverted and saved!", 8);
+					n++;
+				}
+			}
+			else
 			{
-				if (_sb) _sb->showMessage(Fle_StringUtil::to_string(n) + " inverted and saved!", 8);
-				n++;
+				// check the depth of the imported image and convert to 8 bit image.
+				if (img.depth() == CV_16U || img.depth() == CV_16S)
+				{
+					double min, max;
+					cv::minMaxLoc(img, &min, &max);
+					img.convertTo(img, CV_8UC1, 255.0 / (max - min));
+				}
+
+				cv::Mat bit;
+				cv::bitwise_not(img, bit);
+				if (cv::imwrite(dir + Fle_StringUtil::separator() + name, bit))
+				{
+					if (_sb) _sb->showMessage(Fle_StringUtil::to_string(n) + " inverted and saved!", 8);
+					n++;
+				}
 			}
 		}
 
@@ -369,6 +401,71 @@ int Fle_ImageUtil::batchInvert(const std::string& _directory_path, bool _hasDICO
 	}
 
 	return 0;
+}
+
+void Fle_ImageUtil::autoAdjustBrightnessAndContrast(const cv::Mat& _src, cv::Mat& _dst, float _clipHistPercent)
+{
+	if (_clipHistPercent < 0)
+		return;
+
+	auto histSize = 256;
+	auto minGray = 0.0, maxGray = 0.0;
+
+	cv::Mat gray;
+	if (_src.type() == CV_8UC1) gray = _src;
+	else if (_src.type() == CV_8UC3) cv::cvtColor(_src, gray, cv::COLOR_BGR2GRAY);
+	else if (_src.type() == CV_8UC4) cv::cvtColor(_src, gray, cv::COLOR_BGRA2GRAY);
+	
+	if (_clipHistPercent == 0)		// keep full available range
+	{
+		cv::minMaxLoc(gray, &minGray, &maxGray);
+	}
+	else
+	{
+		// to calculate gray-scale histogram
+		cv::Mat hist;
+		float range[] = { 0, 256 };
+		const float* histRange = { range };
+		auto uniform = true;
+		auto accumulate = false;
+		cv::calcHist(&gray, 1, 0, cv::Mat(), hist, 1, &histSize, &histRange, uniform, accumulate);
+
+		// calculate cumulative distribution from the histogram
+		std::vector<float> accumulator(histSize);
+		accumulator[0] = hist.at<float>(0);
+		for (auto i = 1; i < histSize; i++)
+			accumulator[i] = accumulator[i - 1] + hist.at<float>(i);
+
+		// locate points that cuts at required value
+		auto max = accumulator.back();
+		_clipHistPercent *= (max / 100.0);	// make percent as absolute
+		_clipHistPercent /= 2.0;			// left and right wings
+		// locate left cut
+		minGray = 0.0;
+		while (accumulator[minGray] < _clipHistPercent)
+			minGray++;
+
+		// locate right cut
+		maxGray = histSize - 1;
+		while (accumulator[maxGray] >= (max - _clipHistPercent))
+			maxGray--;
+	}
+
+	// current range
+	auto inputRange = maxGray - minGray;
+	auto alpha = (histSize - 1) / inputRange;   // alpha expands current range to histsize range
+	auto beta = -minGray * alpha;				// beta shifts current range so that minGray will go to 0
+
+	// Apply brightness and contrast normalization
+	// convertTo operates with saurate_cast
+	_src.convertTo(_dst, -1, alpha, beta);
+
+	// restore alpha channel from source 
+	if (_dst.type() == CV_8UC4)
+	{
+		int from_to[] = { 3, 3 };
+		cv::mixChannels({ {_src} }, { {_dst} }, from_to, 1);
+	}
 }
 
 std::vector<cv::Mat> Fle_ImageUtil::splitChannels(const cv::Mat& _mat)

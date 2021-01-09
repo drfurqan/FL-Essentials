@@ -131,8 +131,8 @@ public:
 	// 	"jpg" | "jpeg" | "jpe" | "jp2" |"png" | "bmp" | "dib" | "tif" | "tiff" | "pgm" | "pbm" | "ppm" | "ras" |"sr" | "webp" | "gif" | "dcm")
 	// Example:
 	// getDirectoryImageFiles("D:\\test\\");
-	// set _hasDICOM to true if opencv is built with gdcm lib.
-	static std::vector<std::string> getDirectoryImageFiles(const std::string& _directory, bool _hasDICOM = false);
+	// _additional_filters = {"gif", "dcm"} to add more filters
+	static std::vector<std::string> getDirectoryImageFiles(const std::string& _directory, const std::vector<std::string>& _additional_filters = {});
 
 	// Description:
 	// Function to resize all image files of the specified directory.
@@ -140,12 +140,18 @@ public:
 	// set _with_aspect_ratio to true if images need to be resized with aspect ratio.
 	// set _hasDICOM to true if opencv is built with gdcm lib.
 	// It returns totally number of resized images.
-	static int batchResize(const std::string& _directory_path, int _w, int _h, bool _with_aspect_ratio = true, int _interpolation = cv::InterpolationFlags::INTER_LINEAR, bool _hasDICOM = false, Fle_StatusBar* _sb = nullptr);
+	// If _interpolation -1 => auto resizing interpolation is used, otherwise the specifed interpolation.
+	static int batchResize(const std::string& _directory_path, int _w, int _h, bool _with_aspect_ratio = true, int _interpolation = -1, const std::vector<std::string>& _additional_filters = {}, Fle_StatusBar* _sb = nullptr);
 	// Description:
 	// Function to invert all image files of the specified directory.
 	// set _hasDICOM to true if opencv is built with gdcm lib.
 	// It returns totally number of resized images.
-	static int batchInvert(const std::string& _directory_path, bool _hasDICOM = false, Fle_StatusBar* _sb = nullptr);
+	static int batchInvert(const std::string& _directory_path, const std::vector<std::string>& _additional_filters = {}, Fle_StatusBar* _sb = nullptr);
+
+	// Description:
+	// Function to perform auto brightness and contrast optimization with optional histogram clipping.
+	// _clipHistPercent cut wings of histogram at given percent.
+	static void autoAdjustBrightnessAndContrast(const cv::Mat& _src, cv::Mat& _dst, float _clipHistPercent = 0.f);
 
 	// Description:
 	// Function to split channels from the given mat.

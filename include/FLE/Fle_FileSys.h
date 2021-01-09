@@ -25,7 +25,7 @@ If not, please contact Dr. Furqan Ullah immediately:
 #include <FLE/Fle_Export.h>
 
 #include <string>  
-#include <experimental/filesystem>  
+#include <filesystem>  
 
 namespace R3D
 {
@@ -39,24 +39,30 @@ public:
 
 	// Description:
 	// Function that returns the file size of the given file path.
-	static auto getFileSize(const std::experimental::filesystem::path& _filepath) -> std::uintmax_t;
+	static auto getFileSize(const std::filesystem::path& _filepath) -> std::uintmax_t;
 
 	// Description:
 	// Function that returns the last modified time of the given file path.
-	static auto getLastModifiedTime(const std::experimental::filesystem::v1::directory_entry& _filepath) -> std::string;
+	static auto getLastModifiedTime(const std::filesystem::directory_entry& _filepath) -> std::string;
 
+	// Description:
+	// Function that extracts the absolute directory path without last slashes.
+	static auto getDirectoryName(std::string _filepath) -> std::string;
 	// Description:
 	// Function that extracts the file name of the given file path.
 	// _with_extension = true => file name with extension.
 	// _with_extension = false => file name without extension.
 	static auto getFileName(std::string _filepath, bool _with_extension) -> std::string;
+	// Description:
+	// Function that extracts the file extension of the given file path.
+	static auto getFileExt(std::string _filepath) -> std::string;
 
 	// Description:
 	// Function to check if given path object is of a File.
-	static auto filePathExist(std::experimental::filesystem::path _pathobject) -> bool;
+	static auto filePathExist(std::filesystem::path _pathobject) -> bool;
 	// Description:
 	// Function to check if given string path is of a Directory.
-	static auto directoryPathExist(std::experimental::filesystem::path _pathobject) -> bool;
+	static auto directoryPathExist(std::filesystem::path _pathobject) -> bool;
 	// Description:
 	// Function to check if given string path is of a File.
 	static auto fileExist(std::string _filepath) -> bool;

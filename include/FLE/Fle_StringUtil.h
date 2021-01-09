@@ -106,6 +106,16 @@ public:
 	}
 
 	// Description:
+	// Function to convert any number to string and add zeros as lead characters.
+	template <typename _T>
+	static std::string to_string_zero_lead(_T _val, const unsigned _precision = 5)
+	{
+		std::ostringstream oss;
+		oss << std::setw(_precision) << std::setfill('0') << _val;
+		return oss.str();
+	}
+
+	// Description:
 	// Function to find the given string in the given string and replace it with the new string.
 	// auto s = replaceinString(str, " ", "-"); // replacing space with a dash.
 	static std::string replace(const std::string& _str, const std::string& _tofind, const std::string& _toreplace);
@@ -141,6 +151,10 @@ public:
 	// Description:
 	// Function that returns a list of words separated by spaces.
 	static std::vector<std::string> splitByWhiteSpaces(const std::string& _str);
+
+	// Description:
+	// Function that returns a list of words separated by _delim.
+	static std::vector<std::string> split(const std::string& _str, char _delim);
 };
 
 template std::string Fle_StringUtil::to_string(int _val, int _precision);
